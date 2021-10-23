@@ -13,9 +13,9 @@ In order to build this project you first have to install:
 * [Java Spring Boot](https://spring.io/projects/spring-boot)
 
 
-To install React and other back-end dependencies
+To install React and other back-end dependencies:
 `npm install`
-To install Java Spring boot and other back-end dependencies
+To install Java Spring boot and other back-end dependencies:
 `mvn install`
 
 ## Setup
