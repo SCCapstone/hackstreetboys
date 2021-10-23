@@ -11,6 +11,8 @@ In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
 * [Java Spring Boot](https://spring.io/projects/spring-boot)
+
+
 To install React and other back-end dependencies
 `npm install`
 To install Java Spring boot and other back-end dependencies
