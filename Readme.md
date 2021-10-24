@@ -1,5 +1,8 @@
 # Fridger
 
+Adding this line to make a merge conflict to resolve.
+This is causing a conflict.
+
 This first paragraph should be a short description of the app. You can add links
 to your wiki pages that have more detailed descriptions.
 
