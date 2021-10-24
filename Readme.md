@@ -4,9 +4,6 @@ Fridger is a progressive web application for anyone who likes to cook. Users can
 
 ## External Requirements
 
-List all the stuff the reader will need to install in order to get you app to 
-run in their laptop. For example:
-
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
@@ -14,8 +11,10 @@ In order to build this project you first have to install:
 
 To install Java Spring boot and other back-end dependencies:
 `mvn install`
+IDE: IntelliJ IDEA or VS Code
 To install React and other front-end dependencies:
 `npm install`
+IDE: VS Code
 
 ## Setup
 
