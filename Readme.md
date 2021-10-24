@@ -12,18 +12,14 @@ In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
 * [Java Spring Boot](https://spring.io/projects/spring-boot)
 
-
-To install React and other back-end dependencies:
-`npm install`
 To install Java Spring boot and other back-end dependencies:
 `mvn install`
+To install React and other back-end dependencies:
+`npm install`
 
 ## Setup
 
-Here you list all the one-time things the developer needs to do after cloning
-your repo. Sometimes there is no need for this section, but some apps require
-some first-time configuration from the developer, for example: setting up a
-database for running your webapp locally.
+<><><><><>
 
 ## Running
 
