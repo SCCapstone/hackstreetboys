@@ -118,3 +118,4 @@ Caroline Boozer: ceboozer@email.sc.edu \
 Quinn Nisbet: qnisbet@email.sc.edu \
 Adam Frederiksen: apf1@email.sc.edu \
 Jadon Schuler: schulert@email.sc.edu \
+Andrew Bernhardt: aeb30@email.sc.edu \ 
