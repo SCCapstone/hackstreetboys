@@ -9,12 +9,12 @@ In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
 * [Java Spring Boot](https://spring.io/projects/spring-boot)
 
-To install Java Spring boot and other back-end dependencies:
-`mvn install`
-IDE: IntelliJ IDEA or VS Code
-To install React and other front-end dependencies:
-`npm install`
-IDE: VS Code
+To install Java Spring boot and other back-end dependencies: \
+`mvn install` \
+IDE: IntelliJ IDEA or VSCode \
+To install React and other front-end dependencies: \
+`npm install` \
+IDE: VSCode
 
 ## Setup
 
@@ -22,11 +22,18 @@ IDE: VS Code
 
 ## Running
 
-To run the Ionic application in a development environment use the command `ionic serve` and to run Spring Boot use `./mvnw spring-boot:run`
+To run the Ionic application in a development environment use the command \
+`ionic serve` \
+and to run Spring Boot use \
+`./mvnw spring-boot:run`
 
 # Deployment
 
-To make a production build of the React JS/Ionic frontend, we will use the command `ionic build` which will produce static HTML files. For the backend, we will use the command `mvn clean package appengine:deploy -P cloud-gcp` after configuring Google Cloud Platform in the application.properties file, updating relevant manifests, and following the setup commands outlined at https://www.baeldung.com/spring-boot-google-app-engine. The backend will be in a JAR or WAR file to be deployed after configuring Google App Engine to run Java.
+To make a production build of the React JS/Ionic frontend, we will use the command \
+`ionic build` \
+which will produce static HTML files. For the backend, we will use the command \
+`mvn clean package appengine:deploy -P cloud-gcp` \
+after configuring Google Cloud Platform in the application.properties file, updating relevant manifests, and following the setup commands outlined at https://www.baeldung.com/spring-boot-google-app-engine. The backend will be in a JAR or WAR file to be deployed after configuring Google App Engine to run Java.
 
 # Testing
 
