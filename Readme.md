@@ -16,6 +16,10 @@ To install React and other front-end dependencies: \
 `npm install` \
 IDE: VSCode
 
+## Style
+When we build this project, we will rely on this React/JSX style guide from Airbnb to keep our code consistent:\ 
+<https://github.com/airbnb/javascript/tree/master/react>
+
 ## Setup
 
 <><><><><>
