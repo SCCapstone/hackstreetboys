@@ -78,6 +78,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 In order to build this project you first have to install:
 
 * [Node.js](https://nodejs.org/en/)
+    On Ubuntu: sudo apt install nodejs
 
 
 ## Setup
