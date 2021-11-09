@@ -20,7 +20,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.name = name;
-        this.bio = null; // Set bio to null by default, users can add one later but likely not at account creation
+        this.bio = ""; // Set bio to empty string by default, users can add to it later but likely not at account creation
         this.dob = dob;
         this.height_in = height_in;
         this.weight_lb = weight_lb;
