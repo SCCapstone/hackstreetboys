@@ -11,7 +11,7 @@ public class Recipe {
     private final Integer prepTime;
     private final Integer cookTime;
     private final Integer yield;
-    private final List<String> ingredients;
+    private final List<Ingredient> ingredients;
     private final float estimatedCost;
     private final String type;
     private final boolean alcoholic;
