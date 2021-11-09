@@ -50,7 +50,7 @@ public class Ingredient {
     }
 
     // Alcohol
-    public boolean getAlcohol() {
+    public boolean isAlcoholic() {
         return alcohol;
     }
     public void setAlcohol(boolean new_alcohol) {
