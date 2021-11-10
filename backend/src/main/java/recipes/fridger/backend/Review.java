@@ -7,8 +7,8 @@ public class Review {
     private final int rating;
     private final String feedback;
 
-    public Review(long id, long author_id, long recipe_id, int rating, String feedback) {
-        this.id = id;
+    public Review(long review_id, long author_id, long recipe_id, int rating, String feedback) {
+        this.review_id = review_id;
         this.author_id = author_id;
         this.recipe_id = recipe_id;
         this.rating = rating;

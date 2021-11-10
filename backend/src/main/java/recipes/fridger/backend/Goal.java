@@ -3,15 +3,17 @@ package recipes.fridger.backend;
 public class Goal {
     private final long user_id;
     private final String type;
+    private final int calories;
     private final int carbohydrates;
     private final int protein;
     private final int fat;
     private final double current_weight_lb;
     private final double final_weight_lb;
 
-    public Goal(long user_id, String type, int carbohydrates, int protein, int fat, double current_weight_lb, double final_weight_lb) {
+    public Goal(long user_id, String type, int calories, int carbohydrates, int protein, int fat, double current_weight_lb, double final_weight_lb) {
         this.user_id = user_id;
         this.type = type;
+        this.calories = calories;
         this.carbohydrates = carbohydrates;
         this.protein = protein;
         this.fat = fat;
@@ -33,6 +35,14 @@ public class Goal {
     }
     public void setType(String new_type) {
         type = new_type;
+    }
+
+    // Calories
+    public int getCalories() {
+        return calories;
+    }
+    public void setCalories(int new_calories) {
+        calories = new_calories;
     }
 
     // Carbohydrates
