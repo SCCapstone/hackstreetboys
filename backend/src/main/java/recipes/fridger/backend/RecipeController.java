@@ -21,7 +21,7 @@ public class RecipeController {
             @RequestParam(value = "prepTime",  defaultValue = "1") Integer prepTime,
             @RequestParam(value = "cookTime", defaultValue = "1") Integer cookTime,
             @RequestParam(value = "yield",  defaultValue = "1") Integer yield,
-            @RequestParam(value = "ingredients", defaultValue = "") List<String> ingredients,
+            @RequestParam(value = "ingredients", defaultValue = "") List<Ingredient> ingredients,
             @RequestParam(value = "estimatedCost", defaultValue = "1") float estimatedCost,
             @RequestParam(value = "type",  defaultValue = "1") String type,
             @RequestParam(value = "alcoholic", required = false, defaultValue = "false") boolean alcoholic,

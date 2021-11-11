@@ -18,7 +18,7 @@ public class Recipe {
     private final String[] tags;
     private final float rating;
 
-    public Recipe(long recipeId, String title, String author, String description, Integer totalTime, Integer prepTime, Integer cookTime, Integer yield, List<String> ingredients, float estimatedCost, String type, boolean alcoholic, String[] tags, float rating) {
+    public Recipe(long recipeId, String title, String author, String description, Integer totalTime, Integer prepTime, Integer cookTime, Integer yield, List<Ingredient> ingredients, float estimatedCost, String type, boolean alcoholic, String[] tags, float rating) {
         this.recipeId = recipeId;
         this.title = title;
         this.author = author;
@@ -63,7 +63,7 @@ public class Recipe {
         return yield;
     }
 
-    public List<String> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
