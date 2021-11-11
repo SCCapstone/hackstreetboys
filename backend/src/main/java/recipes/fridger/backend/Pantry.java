@@ -5,7 +5,6 @@ import java.util.List;
 public class Pantry {
     private long user_id;
     private List<Ingredient> inventory;
-
     public Pantry(long user_id, List<Ingredient> inventory) {
         this.user_id = user_id;
         this.inventory = inventory;
