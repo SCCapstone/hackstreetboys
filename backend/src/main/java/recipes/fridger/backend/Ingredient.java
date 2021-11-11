@@ -1,13 +1,13 @@
 package recipes.fridger.backend;
 
 public class Ingredient {
-    private final String name;
-    private final int calories;
-    private final int carbohydrates;
-    private final int protein;
-    private final int fat;
-    private final boolean alcohol;
-    private final double cost;
+    private String name;
+    private int calories;
+    private int carbohydrates;
+    private int protein;
+    private int fat;
+    private boolean alcohol;
+    private double cost;
 
     public Ingredient(String name, int calories, int carbohydrates, int protein, int fat, boolean alcohol) {
         this.name = name;

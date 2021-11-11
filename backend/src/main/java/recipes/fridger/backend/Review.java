@@ -1,11 +1,11 @@
 package recipes.fridger.backend;
 
 public class Review {
-    private final long review_id;
-    private final long author_id;
-    private final long recipe_id;
-    private final int rating;
-    private final String feedback;
+    private long review_id;
+    private long author_id;
+    private long recipe_id;
+    private int rating;
+    private String feedback;
 
     public Review(long review_id, long author_id, long recipe_id, int rating, String feedback) {
         this.review_id = review_id;
@@ -19,7 +19,7 @@ public class Review {
     public long getReviewId() {
         return review_id;
     }
-    public void setReviewId(String new_review_id) {
+    public void setReviewId(long new_review_id) {
         review_id = new_review_id;
     }
 
@@ -27,7 +27,7 @@ public class Review {
     public long getAuthorId() {
         return author_id;
     }
-    public void setAuthorId(String new_author_id) {
+    public void setAuthorId(long new_author_id) {
         author_id = new_author_id;
     }
 
@@ -35,7 +35,7 @@ public class Review {
     public long getRecipeId() {
         return recipe_id;
     }
-    public void setRecipeId(String new_recipe_id) {
+    public void setRecipeId(long new_recipe_id) {
         recipe_id = new_recipe_id;
     }
 
@@ -48,10 +48,10 @@ public class Review {
     }
 
     // Feedback
-    public boolean getFeedback() {
+    public String getFeedback() {
         return feedback;
     }
-    public void setFeedback(boolean new_feedback) {
+    public void setFeedback(String new_feedback) {
         feedback = new_feedback;
     }
 

@@ -3,16 +3,18 @@ package recipes.fridger.backend;
 // org.springframework.security.crypto.bcrypt
 // GET SOME BCRYPT ACTION IN HERE
 
+import java.util.Date;
+
 public class User {
-    private final long      id;
-    private final String    type;
-    private final String    email;
-    private final String    password;
-    private final String    name;
-    private final String    bio;
-    private final Date      dob;
-    private final int       height_in;
-    private final double    weight_lb;
+    private long      id;
+    private String    type;
+    private String    email;
+    private String    password;
+    private String    name;
+    private String    bio;
+    private Date      dob;
+    private int       height_in;
+    private double    weight_lb;
 
     public User(long id, String type,  String email,  String password, String name, Date dob, int height_in, double weight_lb) {
         this.id = id;
