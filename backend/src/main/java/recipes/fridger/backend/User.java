@@ -10,11 +10,11 @@ public class User {
     private String    password;
     private String    name;
     private String    bio;
-    private Date      dob;
+    private String      dob;
     private int       height_in;
     private double    weight_lb;
 
-    public User(long id, String type,  String email,  String password, String name, Date dob, int height_in, double weight_lb) {
+    public User(long id, String type,  String email,  String password, String name, String dob, int height_in, double weight_lb) {
         this.id = id;
         this.type = type;
         this.email = email;
@@ -75,10 +75,10 @@ public class User {
     }
 
     // DOB
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
-    public void setDob(Date new_dob) {
+    public void setDob(String new_dob) {
         dob = new_dob;
     }
 
