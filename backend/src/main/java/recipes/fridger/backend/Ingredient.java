@@ -9,14 +9,14 @@ public class Ingredient {
     private boolean alcohol;
     private double cost;
 
-    public Ingredient(String name, int calories, int carbohydrates, int protein, int fat, boolean alcohol) {
+    public Ingredient(String name, int calories, int carbohydrates, int protein, int fat, boolean alcohol, double cost) {
         this.name = name;
         this.calories = calories;
         this.carbohydrates = carbohydrates;
         this.protein = protein;
         this.fat = fat;
         this.alcohol = alcohol;
-        this.cost = 0.0; // Find prices on Walmart's website?
+        this.cost = cost; // Find prices on Walmart's website?
     }
 
     // Name
