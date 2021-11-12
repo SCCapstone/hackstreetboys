@@ -1,4 +1,4 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 public class Goal {
     private long user_id;

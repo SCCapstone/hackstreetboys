@@ -1,4 +1,4 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 public class Ingredient {
     private String name;
