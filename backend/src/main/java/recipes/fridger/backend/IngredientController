@@ -26,7 +26,7 @@ public class IngredientController {
     }
 }
 
-
+// NEED TO IMPLEMENT FOR POST
 //    @PostMapping(path = "/ingredient")
 //    public Ingredient setIngredient(
 //            @RequestParam(value = "name", defaultValue = "Unnamed Ingredient", required = true) String name,
