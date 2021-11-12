@@ -2,23 +2,23 @@ package recipes.fridger.backend;
 
 public class Goal {
     private long user_id;
-    private String type;
+    private String endGoal;
+    private int currentWeight;
+    private int goalWeight;
     private int calories;
     private int carbohydrates;
     private int protein;
     private int fat;
-    private double current_weight_lb;
-    private double final_weight_lb;
 
-    public Goal(long user_id, String type, int calories, int carbohydrates, int protein, int fat, double current_weight_lb, double final_weight_lb) {
+    public Goal(long user_id, String endGoal, int currentWeight, int goalWeight, int calories, int carbohydrates, int protein, int fat) {
         this.user_id = user_id;
-        this.type = type;
+        this.endGoal = endGoal;
+        this.currentWeight = currentWeight;
+        this.goalWeight = goalWeight;
         this.calories = calories;
         this.carbohydrates = carbohydrates;
         this.protein = protein;
         this.fat = fat;
-        this.current_weight_lb = current_weight_lb;
-        this.final_weight_lb = final_weight_lb;
     }
 
     // UserID
@@ -29,12 +29,28 @@ public class Goal {
         user_id = new_user_id;
     }
 
-    // Type
-    public String getType() {
-        return type;
+    // EndGoal
+    public String getEndGoal() {
+        return endGoal;
     }
-    public void setType(String new_type) {
-        type = new_type;
+    public void setEndGoal(String new_endGoal) {
+        endGoal = new_endGoal;
+    }
+
+    //CurrentWeight
+    public int getCurrentaWeight() {
+        return currentWeight;
+    }
+    public void setCurrentWeight(int new_currentWeight) {
+        currentWeight = new_currentWeight;
+    }
+
+    //GoalWeight
+    public int getGoalWeight() {
+        return goalWeight;
+    }
+    public void setGoalWeight(int new_goalWeight) {
+        goalWeight = new_goalWeight;
     }
 
     // Calories
@@ -69,21 +85,7 @@ public class Goal {
         fat = new_fat;
     }
 
-    // Current Weight (Pounds)
-    public double getCurrentWeight() {
-        return current_weight_lb;
-    }
-    public void setCurrentWeight(double new_current_weight_lb) {
-        current_weight_lb = new_current_weight_lb;
-    }
 
-    // Final Weight (Pounds)
-    public double getFinalWeight() {
-        return final_weight_lb;
-    }
-    public void setFinalWeight(double new_final_weight_lb) {
-        final_weight_lb = new_final_weight_lb;
-    }
     
 
 }
