@@ -1,7 +1,7 @@
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonListHeader, IonMenuToggle, IonIcon } from "@ionic/react";
 import { home, restaurantSharp, nutritionSharp, person, fastFoodSharp, folderOpenSharp, heartSharp, cogSharp } from "ionicons/icons";
 import { Link } from "react-router-dom";
-
+import History from "../History";
 const SideBar: React.FC = () => {
     return (
 <IonMenu content-id="main-content">
@@ -42,10 +42,10 @@ const SideBar: React.FC = () => {
               Ingredients
             </IonLabel>
           </IonItem>
-          <IonItem button>
+          <IonItem button onClick={() => History.push('/GoalsPage')} >
           <IonIcon icon={person} slot="start"/>
             <IonLabel>
-              My Stuff
+              My Dashboard
             </IonLabel>
           </IonItem>
           <IonItem button>
