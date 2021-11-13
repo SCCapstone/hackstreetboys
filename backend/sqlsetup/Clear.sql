@@ -1,0 +1,1 @@
+DROP TABLE Ingredients, Recipes, Pantries, Goals, Reviews, Users;

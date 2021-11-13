@@ -1,0 +1,8 @@
+Create a new database called "fridger" in MySQL
+
+Then select it, and run the populate script. 
+This will create the tables that we have talked about using so far and will populate them with just a few tuples a piece
+with super basic dummy data.
+
+As we go forward we can play around with the data types and handling different types and this database 
+will DEFINITELY need to be improved because it sucks right now. It's just SOMETHING to get started.
