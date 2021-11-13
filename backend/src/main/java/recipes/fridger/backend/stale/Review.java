@@ -1,4 +1,4 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 public class Review {
     private long review_id;

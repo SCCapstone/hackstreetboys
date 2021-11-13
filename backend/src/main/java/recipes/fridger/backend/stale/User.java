@@ -1,4 +1,4 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 // org.springframework.security.crypto.bcrypt
 // GET SOME BCRYPT ACTION IN HERE
