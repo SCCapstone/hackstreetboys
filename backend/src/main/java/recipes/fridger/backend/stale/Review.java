@@ -1,14 +1,14 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 public class Review {
-    private long review_id;
+    private long id;
     private long author_id;
     private long recipe_id;
     private int rating;
     private String feedback;
 
-    public Review(long review_id, long author_id, long recipe_id, int rating, String feedback) {
-        this.review_id = review_id;
+    public Review(long id, long author_id, long recipe_id, int rating, String feedback) {
+        this.id = id;
         this.author_id = author_id;
         this.recipe_id = recipe_id;
         this.rating = rating;
@@ -17,10 +17,10 @@ public class Review {
 
     // ReviewID
     public long getReviewId() {
-        return review_id;
+        return id;
     }
-    public void setReviewId(long new_review_id) {
-        review_id = new_review_id;
+    public void setReviewId(long new_id) {
+        id = new_id;
     }
 
     // AuthorID

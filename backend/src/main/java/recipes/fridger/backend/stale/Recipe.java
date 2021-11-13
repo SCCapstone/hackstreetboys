@@ -1,5 +1,9 @@
+// <<<<<<< HEAD:backend/src/main/java/recipes/fridger/backend/Recipe.java
 
-package recipes.fridger.backend;
+// package recipes.fridger.backend;
+// =======
+package recipes.fridger.backend.stale;
+// >>>>>>> f39002ba46a3ed78bec2fff80e4f99e7d3dfb7f3:backend/src/main/java/recipes/fridger/backend/stale/Recipe.java
 
 import java.util.List;
 

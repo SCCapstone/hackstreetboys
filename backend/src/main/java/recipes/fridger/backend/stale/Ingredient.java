@@ -1,6 +1,7 @@
-package recipes.fridger.backend;
+package recipes.fridger.backend.stale;
 
 public class Ingredient {
+    private long id;
     private String name;
     private int calories;
     private int carbohydrates;
@@ -9,14 +10,23 @@ public class Ingredient {
     private boolean alcohol;
     private double cost;
 
-    public Ingredient(String name, int calories, int carbohydrates, int protein, int fat, boolean alcohol) {
+    public Ingredient(long id, String name, int calories, int carbohydrates, int protein, int fat, boolean alcohol, double cost) {
+        this.id = id;
         this.name = name;
         this.calories = calories;
         this.carbohydrates = carbohydrates;
         this.protein = protein;
         this.fat = fat;
         this.alcohol = alcohol;
-        this.cost = 0.0; // Find prices on Walmart's website?
+        this.cost = cost; // Find prices on Walmart's website?
+    }
+
+    // IngredientID
+    public long getIngredientId() {
+        return id;
+    }
+    public void setIngredientID(long new_id) {
+        new_id = id;
     }
 
     // Name
