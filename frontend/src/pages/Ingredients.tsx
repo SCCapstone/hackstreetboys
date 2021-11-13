@@ -1,7 +1,4 @@
-import './GoalsPage.css';
-//import Chart from "react-google-charts";
-
-import Chart1 from '../components/Chart'
+import './Recipes.css';
 
 import {
     IonApp,
@@ -38,14 +35,10 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-//import Dashboard from '../components/Dashboard';
 import { menuOutline } from 'ionicons/icons';
 
-//import React from 'react';
-//import { IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
 
-
-function GoalsPage() {
+function Ingredients() {
     return (
         <Router history={history}>
             <Switch>
@@ -65,10 +58,7 @@ function GoalsPage() {
         </IonToolbar>
       </IonHeader>
       <IonContent className="ion-padding">
-        <h1>Welcome to your dashboard, Seongho!</h1>
-
-        <Chart1 />
-
+        <h1>Add/remove Ingredients from your inventory, or browse! Coming soon!</h1>
       </IonContent>
     </IonPage>
   </IonApp>
@@ -77,4 +67,4 @@ function GoalsPage() {
     );
 }
 
-export default GoalsPage;
+export default Ingredients;
