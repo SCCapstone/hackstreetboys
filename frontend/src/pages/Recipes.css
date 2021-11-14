@@ -26,3 +26,25 @@
       transform: rotate(360deg);
     }
   }
+
+  .main {
+
+    background-color: darkgray;
+ 
+ 
+ }
+ 
+ .cards {
+ 
+   background-color: rgb(225, 220, 220);
+   max-width: 85%;
+ 
+ }
+ 
+ .detail{
+     font-weight: bold;
+ }
+ 
+ .statusButton {
+     margin-right: 10px;
+ }
