@@ -1,4 +1,4 @@
-package main.java.pantry.fridger.backend.model;
+package pantry.fridger.backend.model;
 
 import javax.persistence.*;
 
@@ -23,4 +23,35 @@ public class Pantry {
     @Column(name = "description", nullable = true)
     private String description;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public ArrayList<Ingredients> getPantry() {
+        return pantry;
+    }
+
+    public void setPantry(ArrayList<Ingredients> pantry) {
+        this.pantry = pantry;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }
