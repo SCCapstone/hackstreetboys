@@ -1,5 +1,5 @@
 import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonListHeader, IonMenuToggle, IonIcon } from "@ionic/react";
-import { home, restaurantSharp, nutritionSharp, person, fastFoodSharp, folderOpenSharp, heartSharp, cogSharp } from "ionicons/icons";
+import { home, restaurantSharp, nutritionSharp, person, fastFoodSharp, folderOpenSharp, heartSharp, cogSharp, personCircleSharp } from "ionicons/icons";
 //import { Link } from "react-router-dom";
 
 
@@ -80,6 +80,13 @@ const SideBar: React.FC = () => {
           <IonIcon icon={cogSharp} slot="start"/>
             <IonLabel>
               My Preferences
+            </IonLabel>
+          </IonItem>
+
+          <IonItem button onClick={() => History.push('/profile')} >
+          <IonIcon icon={personCircleSharp} slot="start"/>
+            <IonLabel>
+              Profile
             </IonLabel>
           </IonItem>
 

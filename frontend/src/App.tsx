@@ -13,6 +13,7 @@ import myReviews from './pages/myReviews';
 import Favorites from './pages/Favorites';
 import Preferences from './pages/Preferences';
 import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -46,14 +47,12 @@ import './theme/variables.css';
       <Route path="/myreviews" component={myReviews} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/preferences" component={Preferences} />
+      <Route path="/profile" component={Profile} />
       <Route path="/" component={Home} />
   </Switch>
   </Router>
   </>
 );
 }
-
-
-
 
 export default App;
