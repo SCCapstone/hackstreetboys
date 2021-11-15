@@ -15,6 +15,7 @@ import {
 
 import { Router, Switch, Route } from "react-router-dom";
 import history from '../History';
+<<<<<<< HEAD
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -34,6 +35,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import '../theme/variables.css';
+=======
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
 

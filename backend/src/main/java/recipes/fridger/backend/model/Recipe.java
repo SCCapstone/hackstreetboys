@@ -24,7 +24,7 @@ import lombok.Data;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
     @Size(min = 0, max = 255)
     @Column(name = "title", nullable = true)

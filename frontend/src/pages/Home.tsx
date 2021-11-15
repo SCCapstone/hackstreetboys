@@ -2,6 +2,7 @@ import './Home.css';
 
 import {
     IonApp,
+<<<<<<< HEAD
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -36,6 +37,17 @@ import '@ionic/react/css/display.css';
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
+=======
+    IonContent,
+    IonPage,
+  } from '@ionic/react';
+
+import { Router, Switch } from "react-router-dom";
+import history from '../History';
+import SideBar from '../components/SideBar';
+import Header from '../components/Header';
+import RecipeCard from '../components/RecipeCard';
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 
 
 function Home() {
@@ -45,6 +57,7 @@ function Home() {
                 <IonApp>
     <SideBar />
     <IonPage className="ion-page" id="main-content">
+<<<<<<< HEAD
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -59,6 +72,14 @@ function Home() {
       </IonHeader>
       <IonContent className="ion-padding">
         <h1>Home page! Coming soon!</h1>
+=======
+      <Header/>
+      <IonContent className="ion-padding">
+        <h1>Welcome back, Seongho!</h1>
+        <RecipeCard />
+        <RecipeCard />
+        <RecipeCard />
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
       </IonContent>
     </IonPage>
   </IonApp>

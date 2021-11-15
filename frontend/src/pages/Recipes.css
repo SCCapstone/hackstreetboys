@@ -25,4 +25,30 @@
     to {
       transform: rotate(360deg);
     }
+<<<<<<< HEAD
   }
+=======
+  }
+
+  .main {
+
+    background-color: darkgray;
+ 
+ 
+ }
+ 
+ .cards {
+ 
+   background-color: rgb(225, 220, 220);
+   max-width: 85%;
+ 
+ }
+ 
+ .detail{
+     font-weight: bold;
+ }
+ 
+ .statusButton {
+     margin-right: 10px;
+ }
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0

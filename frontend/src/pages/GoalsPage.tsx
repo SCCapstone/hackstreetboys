@@ -5,6 +5,7 @@ import Chart1 from '../components/Chart'
 
 import {
     IonApp,
+<<<<<<< HEAD
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -40,6 +41,17 @@ import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 //import Dashboard from '../components/Dashboard';
 import { menuOutline } from 'ionicons/icons';
+=======
+    IonContent,
+    IonPage,
+  } from '@ionic/react';
+
+import { Router, Switch } from "react-router-dom";
+import history from '../History';
+import SideBar from '../components/SideBar';
+//import Dashboard from '../components/Dashboard';
+import Header from '../components/Header';
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 
 //import React from 'react';
 //import { IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
@@ -52,6 +64,7 @@ function GoalsPage() {
                 <IonApp>
     <SideBar />
     <IonPage className="ion-page" id="main-content">
+<<<<<<< HEAD
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -64,6 +77,9 @@ function GoalsPage() {
           <IonTitle>Fridger</IonTitle>
         </IonToolbar>
       </IonHeader>
+=======
+     <Header/>
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
       <IonContent className="ion-padding">
         <h1>Welcome to your dashboard, Seongho!</h1>
 

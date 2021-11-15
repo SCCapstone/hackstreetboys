@@ -8,7 +8,10 @@ import recipes.fridger.backend.model.Recipe;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 @Service
 public class RecipeServiceImpl implements RecipeService{
 
@@ -31,7 +34,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
     @Transactional
     @Override
-    public void deleteRecipe(Integer id) {
+    public void deleteRecipe(Long id) {
         Optional<Recipe> recipe = recipes.findById(id);
         if (recipe.isPresent()) {
             Recipe r = recipe.get();
@@ -40,7 +43,7 @@ public class RecipeServiceImpl implements RecipeService{
     }
     @Transactional
     @Override
-    public Recipe getRecipe(Integer id) {
+    public Recipe getRecipe(Long id) {
         Optional<Recipe> recipe = recipes.findById(id);
         if (recipe.isPresent()) {
             return recipe.get();
@@ -48,7 +51,7 @@ public class RecipeServiceImpl implements RecipeService{
         return null;
     }
     @Transactional
-    public Iterable<Recipe> getRecipes(Integer userId) {
+    public Iterable<Recipe> getRecipes(Long userId) {
         return recipes.find(userId);
     }
 }

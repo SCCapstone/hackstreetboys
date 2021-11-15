@@ -2,6 +2,7 @@ import './Recipes.css';
 
 import {
     IonApp,
+<<<<<<< HEAD
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -36,6 +37,16 @@ import '@ionic/react/css/display.css';
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
+=======
+    IonContent,
+    IonPage,
+  } from '@ionic/react';
+
+import { Router, Switch } from "react-router-dom";
+import history from '../History';
+import SideBar from '../components/SideBar';
+import Header from '../components/Header';
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 
 
 function Ingredients() {
@@ -45,6 +56,7 @@ function Ingredients() {
                 <IonApp>
     <SideBar />
     <IonPage className="ion-page" id="main-content">
+<<<<<<< HEAD
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
@@ -57,6 +69,9 @@ function Ingredients() {
           <IonTitle>Fridger</IonTitle>
         </IonToolbar>
       </IonHeader>
+=======
+<Header/>
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
       <IonContent className="ion-padding">
         <h1>Add/remove Ingredients from your inventory, or browse! Coming soon!</h1>
       </IonContent>

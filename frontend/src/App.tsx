@@ -1,15 +1,3 @@
-import {
-  IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonMenuToggle,
-  IonPage,
-  IonButtons,
-  IonButton,
-  IonIcon,
-} from '@ionic/react';
 
 // import { FaHome, FaBars, FaUtensils, FaAppleAlt, FaUser, FaHamburger, FaFolder, FaHeart, FaCog} from 'react-icons/fa';
 
@@ -25,6 +13,10 @@ import myReviews from './pages/myReviews';
 import Favorites from './pages/Favorites';
 import Preferences from './pages/Preferences';
 import Home from './pages/Home';
+<<<<<<< HEAD
+=======
+import Profile from './pages/Profile';
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -44,13 +36,11 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import SideBar from './components/SideBar';
-import RecipeCard from './components/RecipeCard';
-import { menuOutline } from 'ionicons/icons';
 
 //const App: React.FC = () => (
   function App () {
     return (
+<<<<<<< HEAD
   <Router history={history}>
     <Switch>
       <Route path="/Home" component={Home} />
@@ -89,7 +79,25 @@ import { menuOutline } from 'ionicons/icons';
   </IonApp>
   </Switch>
   </Router>
+=======
+    <>
+  <Router history={history}>
+    <Switch>
+      <Route path="/recipes" component={Recipes} />
+      <Route path="/ingredients" component={Ingredients} />
+      <Route path="/goals" component={GoalsPage} />
+      <Route path="/mypantry" component={myPantry} />
+      <Route path="/myreviews" component={myReviews} />
+      <Route path="/favorites" component={Favorites} />
+      <Route path="/preferences" component={Preferences} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/" component={Home} />
+  </Switch>
+  </Router>
+  </>
+>>>>>>> 432e6b5f621843637b7bd9a63701c6258b23fed0
 );
+}
 
 }
 
