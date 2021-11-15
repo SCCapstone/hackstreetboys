@@ -1,4 +1,4 @@
-package com.adamfrederiksen.research;
+package recipes.fridger.backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
