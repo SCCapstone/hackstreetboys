@@ -28,7 +28,7 @@ public class CreateUserDTO {
      private Date dob;
 
      @Min(0)
-     private Integer height_in;
+     private Integer heightIn;
 
      @DecimalMin(value = "0")
      private Double weight_lb;

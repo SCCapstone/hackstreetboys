@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Data
 public class ReturnGoalDTO {
 
-    private Integer id;
+    private Long id;
 
     private String endGoal;
 

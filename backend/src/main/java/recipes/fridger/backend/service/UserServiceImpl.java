@@ -45,6 +45,7 @@ public class UserServiceImpl implements UserService {
         return user.isPresent() ? user.get() : null;
     }
 
+    // SHOULDN'T THIS JUST RETURN A SINGLE USER BECAUSE THE IDs ARE UNIQUE?
     @Transactional
     public Iterable<User> getUsers(Long userId) {
         return users.find(userId);
