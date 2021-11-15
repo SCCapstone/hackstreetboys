@@ -21,6 +21,11 @@ import recipes.fridger.backend.dto.CreateUserDTO;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.service.UserService;
 
+import recipes.fridger.backend.crud.Goals;
+import recipes.fridger.backend.dto.CreateGoalDTO;
+import recipes.fridger.backend.model.Goal;
+import recipes.fridger.backend.service.GoalService;
+
 @RestController
 @Slf4j
 @RequestMapping(path = "/v1/user")
@@ -30,6 +35,12 @@ public class UserController {
     private Users users;
 
     @Autowired
+    private Goals goals;
+
+    @Autowired
+    private GoalService goalService;
+
+    @Autowired
     private UserService userService;
 
     @PostMapping(path = "/")
@@ -37,7 +48,7 @@ public class UserController {
     createUser(@RequestBody @Valid CreateUserDTO u) {
         try {
             userService.createUser(u);
-            log.info("Successful creation od user");
+            log.info("Successful creation of user");
             return ResponseEntity.ok("Created user");
         } catch (Exception e) {
             log.warn("Unable to create user\n" + e.getMessage());
@@ -62,6 +73,15 @@ public class UserController {
     @GetMapping(path = "/{id}")
     public @ResponseBody User getUser(@PathVariable Long id) {
         return userService.getUser(id);
+    }
+
+    @GetMapping(path = "/{id}/goals")
+    public @ResponseBody Iterable<Goal> getGoals(@PathVariable Long id) {
+        return goalService.getGoals(id);
+    }
+
+    @GetMapping(path = "/{id}/goal/{goal_id}")
+    public @ResponseBody Goal getGoalByID(@PathVariable Long id) {return goalService.getGoalByID(id);
     }
 
     @GetMapping(path = "/")
