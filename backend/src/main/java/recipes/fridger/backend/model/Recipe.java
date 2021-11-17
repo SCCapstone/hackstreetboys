@@ -3,6 +3,7 @@ package recipes.fridger.backend.model;
 
 import java.util.Date;
 import java.util.Optional;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +51,9 @@ public class Recipe {
     @Column(name = "yield")
     private Integer yield;
 
+    @Column(name = "ingredient_ids", nullable = true)
+    private List<Long> ingredientIds;
+
     @DecimalMin(value = "0")
     @Column(name = "estimated_cost")
     private Double estimatedCost;
@@ -62,7 +66,7 @@ public class Recipe {
     private Boolean alcoholic;
 
     @Column(name = "tags", nullable = true)
-    private String[] tags;
+    private List<String> tags;
 
     @Min(0)
     @Max(5)

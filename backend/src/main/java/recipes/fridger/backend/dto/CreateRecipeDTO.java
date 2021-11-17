@@ -1,5 +1,6 @@
 package recipes.fridger.backend.dto;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
@@ -28,6 +29,8 @@ public class CreateRecipeDTO {
 
     private Integer yield;
 
+    private List<Long> ingredientIds;
+
     @DecimalMin(value = "0")
     private Double estimatedCost;
 
@@ -36,5 +39,5 @@ public class CreateRecipeDTO {
 
     private Boolean alcoholic;
 
-    private String[] tags;
+    private List<String> tags;
 }

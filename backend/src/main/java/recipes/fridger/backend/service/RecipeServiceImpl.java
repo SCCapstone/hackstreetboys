@@ -27,6 +27,7 @@ public class RecipeServiceImpl implements RecipeService{
         r.setPrepTime(dto.getPrepTime());
         r.setCookTime(dto.getCookTime());
         r.setYield(dto.getYield());
+        r.setIngredientIds(dto.getIngredientIds());
         r.setEstimatedCost(dto.getEstimatedCost());
         r.setType(dto.getType());
         r.setAlcoholic(dto.getAlcoholic());

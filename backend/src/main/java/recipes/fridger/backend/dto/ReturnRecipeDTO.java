@@ -1,6 +1,7 @@
 package recipes.fridger.backend.dto;
 
 import lombok.Data;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
@@ -25,13 +26,15 @@ public class ReturnRecipeDTO {
 
     private Integer yield;
 
+    private List<Long> ingredientIds
+
     private Double estimatedCost;
 
     private String type;
 
     private Boolean alcoholic;
 
-    private String[] tags;
+    private List<String> tags;
 
     private Integer rating;
 }
