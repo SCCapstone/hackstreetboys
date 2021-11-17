@@ -70,6 +70,33 @@ public class UserController {
         }
     }
 
+    @PostMapping(path = "/goal")
+    public ResponseEntity<String>
+    createGoal(@RequestBody @Valid CreateGoalDTO g) {
+        try {
+            goalService.createGoal(g);
+            log.info("Successful creation of goal");
+            return ResponseEntity.ok("Created goal");
+        } catch (Exception e) {
+            log.warn("Unable to create goal\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body(
+                    "Unable to create goal\n" + e.getMessage());
+        }
+    }
+
+    @DeleteMapping(path = "/goal/{goal-id}")
+    public ResponseEntity<String> deleteGoal(@PathVariable Long id) {
+        try {
+            goalService.deleteGoal(id);
+            log.info("Successfully deleted goal #" + id);
+            return ResponseEntity.ok("Deleted goal");
+        } catch (Exception e) {
+            log.warn("Unable to delete goal\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body(
+                    "Unable to delete goal\n" + e.getMessage());
+        }
+    }
+
     @GetMapping(path = "/{id}")
     public @ResponseBody User getUser(@PathVariable Long id) {
         return userService.getUser(id);
