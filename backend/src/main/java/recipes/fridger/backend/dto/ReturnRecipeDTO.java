@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.*;
 @Data
 public class ReturnRecipeDTO {
-    private Integer id;
+    private Long id;
 
     private String title;
 
