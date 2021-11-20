@@ -25,13 +25,15 @@ public class ReturnRecipeDTO {
 
     private Integer yield;
 
+    private String ingredientIds;
+
     private Double estimatedCost;
 
     private String type;
 
     private Boolean alcoholic;
 
-    private String[] tags;
+    private String tags;
 
     private Integer rating;
 }
