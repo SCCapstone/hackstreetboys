@@ -21,6 +21,7 @@ public class ReviewServiceImpl implements ReviewService{
         r.setRecipeId(dto.getRecipeId());
         r.setRating(dto.getRating());
         r.setFeedback(dto.getFeedback());
+        reviews.save(r);
     }
     @Transactional
     @Override

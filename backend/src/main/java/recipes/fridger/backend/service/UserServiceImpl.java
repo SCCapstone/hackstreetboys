@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService {
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
+        users.save(u);
     }
 
     @Transactional
