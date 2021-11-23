@@ -23,6 +23,8 @@ public class IngredientServiceImpl implements IngredientService{
         i.setFat(dto.getFat());
         i.setAlcohol(dto.getAlcohol());
         i.setCost(dto.getCost());
+        ingredients.save(i);
+
     }
     @Transactional
     @Override

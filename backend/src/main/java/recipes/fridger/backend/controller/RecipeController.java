@@ -43,6 +43,7 @@ public class RecipeController {
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
         try {
             recipeService.createRecipe(r);
+//            log.info(String.valueOf(r));
             log.info("Successful creation of recipe");
             return ResponseEntity.ok("Created recipe");
         } catch (Exception e) {

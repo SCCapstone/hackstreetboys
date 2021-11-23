@@ -27,6 +27,8 @@ public class RecipeServiceImpl implements RecipeService{
         r.setType(dto.getType());
         r.setAlcoholic(dto.getAlcoholic());
         r.setTags(dto.getTags());
+        recipes.save(r);
+//        System.out.println(r.toString());
     }
     @Transactional
     @Override
