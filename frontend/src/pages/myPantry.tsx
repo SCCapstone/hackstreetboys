@@ -12,19 +12,23 @@ import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 
 function myPantry() {
+
+
+
+
     return (
-        <Router history={history}>
-            <Switch>
-                <IonApp>
-    <SideBar />
-    <IonPage className="ion-page" id="main-content">
-      <Header/>
-      <IonContent className="ion-padding">
-        <h1>Your pantry! Coming soon!</h1>
-      </IonContent>
-    </IonPage>
-  </IonApp>
-  </Switch>
+  <Router history={history}>
+    <Switch>
+      <IonApp>
+       <SideBar />
+        <IonPage className="ion-page" id="main-content">
+          <Header/>
+          <IonContent className="ion-padding">
+            <h1>Your pantry! Coming soon! Hey testing</h1>
+          </IonContent>
+        </IonPage>
+      </IonApp>
+    </Switch>
   </Router>
     );
 }
