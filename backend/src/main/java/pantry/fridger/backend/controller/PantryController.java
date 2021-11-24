@@ -50,7 +50,7 @@ public class PantryController {
     public @ResponseBody Pantry getPantry(@PathVariable Integer id) {
         return pantryService.getPantry(id);
     }
-    @GetMapping(paht = "/")
+    @GetMapping(path = "/")
     public @ResponseBody Iterable<Pantry> getPantries(@RequestParam(required = false) Integer id) {
         return pantryService.getRecipes(id);
     }
