@@ -31,10 +31,10 @@ function MyPantry() {
   const [pantry, setPantry] = React.useState<Pantry>({
     id: 1,
     user: "Quinn Biscuit",
-    fruits: ["Apple"],
-    vegetables: ["Lettuce"],
-    meats: ["Chicken"],
-    spices: ["Garlic Powder"],
+    fruits: [["Apple","2"]],
+    vegetables: [["Lettuce","7 ounces"]],
+    meats: [["Chicken","1 lb"]],
+    spices: [["Garlic Powder","5 ounces"]],
     description: "This is a basic pantry"  
   })
   return (
@@ -66,7 +66,10 @@ function MyPantry() {
                     <img src=""></img>
                   </IonAvatar>
                   <IonLabel>
-                    <h2>{pantry.fruits}</h2>
+                    <h2>{pantry.fruits[0][0]}</h2>
+                  </IonLabel>
+                  <IonLabel slot="end">
+                    <h2>Quantity: {pantry.fruits[0][1]}</h2>
                   </IonLabel>
                 </IonItem>
               </IonList>
@@ -79,7 +82,10 @@ function MyPantry() {
                     <img src=""></img>
                   </IonAvatar>
                   <IonLabel>
-                    <h2>{pantry.vegetables}</h2>
+                    <h2>{pantry.vegetables[0][0]}</h2>
+                  </IonLabel>
+                  <IonLabel slot="end">
+                    <h2>Quantity: {pantry.vegetables[0][1]}</h2>
                   </IonLabel>
                 </IonItem>
               </IonList>
@@ -92,11 +98,14 @@ function MyPantry() {
                     <img src=""></img>
                   </IonAvatar>
                   <IonLabel>
-                    <h2>{pantry.meats}</h2>
+                    <h2>{pantry.meats[0][0]}</h2>
+                  </IonLabel>
+                  <IonLabel slot="end">
+                    <h2>Quantity: {pantry.meats[0][1]}</h2>
                   </IonLabel>
                 </IonItem>
               </IonList>
-              <IonList> {/* VEGETABLE LIST */}
+              <IonList> {/* SPICES LIST */}
                 <IonListHeader>
                   <h1>Spices</h1>
                 </IonListHeader>
@@ -105,7 +114,10 @@ function MyPantry() {
                     <img src=""></img>
                   </IonAvatar>
                   <IonLabel>
-                    <h2>{pantry.spices}</h2>
+                    <h2>{pantry.spices[0][0]}</h2>
+                  </IonLabel>
+                  <IonLabel slot="end">
+                    <h2>Quantity: {pantry.spices[0][1]}</h2>
                   </IonLabel>
                 </IonItem>
               </IonList>
