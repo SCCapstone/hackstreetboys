@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import recipes.fridger.backend.model.Goal;
 
 public interface Goals extends CrudRepository<Goal, Long> {
-    @Query("select u from Goal u where (:id is null or u.id = :id)")
+    @Query("select g from Goal g where (:id is null or u.id = :id)")
     List<Goal> find(Long id);
 }
 

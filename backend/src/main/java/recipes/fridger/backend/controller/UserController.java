@@ -84,7 +84,7 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(path = "/goal/{goal-id}")
+    @DeleteMapping(path = "/goal/{id}")
     public ResponseEntity<String> deleteGoal(@PathVariable Long id) {
         try {
             goalService.deleteGoal(id);
@@ -107,7 +107,7 @@ public class UserController {
         return goalService.getGoals(id);
     }
 
-    @GetMapping(path = "/{id}/goal/{goal_id}")
+    @GetMapping(path = "/{id}/goal/{id}")
     public @ResponseBody Goal getGoalByID(@PathVariable Long id) {return goalService.getGoalByID(id);
     }
 
