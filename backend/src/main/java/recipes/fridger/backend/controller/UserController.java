@@ -107,8 +107,8 @@ public class UserController {
         return goalService.getGoals(id);
     }
 
-    @GetMapping(path = "/{id}/goal/{id}")
-    public @ResponseBody Goal getGoalByID(@PathVariable Long id) {return goalService.getGoalByID(id);
+    @GetMapping(path = "/{id}/goal/{goalId}")
+    public @ResponseBody Goal getGoalByID(@PathVariable Long goalId) {return goalService.getGoalByID(goalId);
     }
 
     @GetMapping(path = "/")
