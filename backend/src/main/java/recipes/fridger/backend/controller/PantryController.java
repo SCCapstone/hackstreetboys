@@ -1,18 +1,24 @@
 package recipes.fridger.backend.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.model.Pantry;
+import recipes.fridger.backend.service.PantryService;
 
 import java.beans.BeanProperty;
 
-import static java.awt.Container.log;
+import javax.validation.Valid;
 
 @Controller
 @ResponseBody
@@ -52,6 +58,6 @@ public class PantryController {
     }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Pantry> getPantries(@RequestParam(required = false) Integer id) {
-        return pantryService.getRecipes(id);
+        return pantryService.getAllPantries(id);
     }
 }
