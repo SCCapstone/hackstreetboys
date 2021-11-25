@@ -22,6 +22,7 @@ import SideBar from '../components/SideBar';
 import { constructOutline, menuOutline } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
+import  RecipeBanner from '../assets/fridger_banner.png'
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -71,7 +72,9 @@ function RecipePage(this: any) {
             </IonHeader>
             <IonContent className="ion-padding">
               <IonCard>
-                <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} />
+                {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
+                                <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
+
                 <IonCardContent>
                   <h1>{recipe.title}</h1>
                   <p>
