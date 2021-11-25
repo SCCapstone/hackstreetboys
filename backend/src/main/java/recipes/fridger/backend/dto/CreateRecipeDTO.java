@@ -28,6 +28,8 @@ public class CreateRecipeDTO {
 
     private Integer yield;
 
+    private String ingredientIds;
+
     @DecimalMin(value = "0")
     private Double estimatedCost;
 
@@ -36,5 +38,5 @@ public class CreateRecipeDTO {
 
     private Boolean alcoholic;
 
-    private String[] tags;
+    private String tags;
 }

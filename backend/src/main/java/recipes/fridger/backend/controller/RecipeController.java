@@ -43,6 +43,7 @@ public class RecipeController {
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
         try {
             recipeService.createRecipe(r);
+//            log.info(String.valueOf(r));
             log.info("Successful creation of recipe");
             return ResponseEntity.ok("Created recipe");
         } catch (Exception e) {
@@ -51,7 +52,7 @@ public class RecipeController {
         }
     }
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<String> deleteRecipe(@PathVariable Integer id) {
+    public ResponseEntity<String> deleteRecipe(@PathVariable Long id) {
         try {
             recipeService.deleteRecipe(id);
             log.info("Successfully deleted recipe #" + id);
@@ -64,7 +65,7 @@ public class RecipeController {
 
 //    @GetMapping(path = "/{id}")
 //    public @ResponseBody
-//    ReturnRecipeDTO getRecipe(@PathVariable Integer id) {
+//    ReturnRecipeDTO getRecipe(@PathVariable Long id) {
 //        try {
 //            Recipe o = recipeService.getRecipe(id);
 //            ReturnRecipeDTO recipeReturn = modelMapper.map(o, ReturnRecipeDTO.class);
@@ -75,12 +76,12 @@ public class RecipeController {
 //    }
 
     @GetMapping(path = "/{id}")
-    public @ResponseBody Recipe getRecipe(@PathVariable Integer id) {
+    public @ResponseBody Recipe getRecipe(@PathVariable Long id) {
         return recipeService.getRecipe(id);
     }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Recipe>
-    getRecipes(@RequestParam(required = false) Integer id){
+    getRecipes(@RequestParam(required = false) Long id){
         return recipeService.getRecipes(id);
     }
 }

@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.*;
 @Data
 public class ReturnRecipeDTO {
-    private Integer id;
+    private Long id;
 
     private String title;
 
@@ -25,13 +25,15 @@ public class ReturnRecipeDTO {
 
     private Integer yield;
 
+    private String ingredientIds;
+
     private Double estimatedCost;
 
     private String type;
 
     private Boolean alcoholic;
 
-    private String[] tags;
+    private String tags;
 
     private Integer rating;
 }

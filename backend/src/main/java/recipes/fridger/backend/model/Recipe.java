@@ -24,7 +24,8 @@ import lombok.Data;
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "id")
+    private Long id;
 
     @Size(min = 0, max = 255)
     @Column(name = "title", nullable = true)
@@ -50,6 +51,9 @@ public class Recipe {
     @Column(name = "yield")
     private Integer yield;
 
+    @Column(name = "ingredient_ids")
+    private String ingredientIds;
+
     @DecimalMin(value = "0")
     @Column(name = "estimated_cost")
     private Double estimatedCost;
@@ -62,10 +66,29 @@ public class Recipe {
     private Boolean alcoholic;
 
     @Column(name = "tags", nullable = true)
-    private String[] tags;
+    private String tags;
 
     @Min(0)
     @Max(5)
     @Column(name = "rating", nullable = true)
     private Integer rating;
+
+
+    public String toString() {
+        return "\nid: "             + id +
+                "\ntitle: "         + title +
+                "\nauthor: "        + author +
+                "\ndescription: "   + description +
+                "\ntotalTime: "     + totalTime +
+                "\nprepTime: "      + prepTime +
+                "\nprepTime: "      + cookTime +
+                "\nyield: "         + yield +
+                "\ningredientIds: " + ingredientIds +
+                "\nestimatedCost: " + estimatedCost +
+                "\ntype: "          + type +
+                "\nalcoholic: "     + alcoholic +
+                "\ntags: "          + tags +
+                "\nrating: "        + rating + "\n";
+
+    }
 }

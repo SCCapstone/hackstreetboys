@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>recipes.fridger</groupId>
-	<artifactId>research</artifactId>
+	<artifactId>fridger-recipes</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Fridger</name>
 	<description>Fridger Backend Service</description>
@@ -53,7 +53,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.8</version>
+			<version>1.18.22</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
