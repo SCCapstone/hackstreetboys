@@ -10,7 +10,7 @@ import { Router, Switch } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
-import RecipeCard from '../components/RecipeCard';
+import DashboardCard from '../components/DashboardCard';
 
 
 function Home() {
@@ -23,9 +23,9 @@ function Home() {
       <Header/>
       <IonContent className="ion-padding">
         <h1>Welcome back, Seongho!</h1>
-        <RecipeCard />
-        <RecipeCard />
-        <RecipeCard />
+        <DashboardCard />
+        <DashboardCard />
+        <DashboardCard />
       </IonContent>
     </IonPage>
   </IonApp>

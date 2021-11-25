@@ -9,7 +9,7 @@ export interface Recipe{
     yield: number,
     estimatedCost: number,
     type: string,
-    tags: string[],
-    ingredients: string[],
+    tags: string,
+    ingredientIds: string,
     rating: number;
 }

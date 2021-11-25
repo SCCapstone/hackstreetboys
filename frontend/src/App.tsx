@@ -33,6 +33,8 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Recipe from "./pages/Recipe";
+import AddRecipe from "./pages/AddRecipe";
 
 //const App: React.FC = () => (
   function App () {
@@ -40,6 +42,9 @@ import './theme/variables.css';
     <>
   <Router history={history}>
     <Switch>
+    <Route path="/recipe/add" component={AddRecipe} />
+      <Route path="/recipe/:id" component={Recipe} />
+      {/* <Route path="/recipe" component={Recipes} /> */}
       <Route path="/recipes" component={Recipes} />
       <Route path="/ingredients" component={Ingredients} />
       <Route path="/goals" component={GoalsPage} />

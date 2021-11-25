@@ -1,5 +1,5 @@
 import './Recipes.css';
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
@@ -14,18 +14,36 @@ import {
   IonIcon,
   IonCard,
   IonCardContent,
+  IonCol,
+  IonDatetime,
+  IonFab,
+  IonFabButton,
+  IonGrid,
+  IonInput,
+  IonItem,
+  IonLabel,
+  IonModal,
+  IonRow,
+  IonSelect,
+  IonSelectOption,
+  IonText,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { menuOutline } from 'ionicons/icons';
-import React from 'react';
+import { add, menuOutline } from 'ionicons/icons';
+import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
+import { register } from '../serviceWorkerRegistration';
+import RecipeCard from '../components/DashboardCard';
 interface RecipeProps {
   recipe: Recipe,
 }
 function Recipes() {
-  const [recipes, setRecipes] = React.useState<Recipe>({
+  const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
     title: "Biscuits and Jam",
     author: "Quinn Biscuit",
@@ -36,10 +54,16 @@ function Recipes() {
     yield: 10,
     estimatedCost: 69.42,
     type: "food",
-    tags: ["stupid", "food", "quinn biscuit"],
-    ingredients: ["Bread", "Love", "Passion", "Destiny", "A dash of sadness"],
+    tags: "test,string",
+    ingredientIds: "2929, 29292",
     rating: 4.2
-  });
+  }]);
+  useEffect(() => {
+    fetch("http://localhost:7999/v1/recipe/")
+      .then(response => response.json())
+      .then(data => setRecipes(data))
+  }, [])
+  console.log(recipes);
   return (
     <Router history={history}>
       <Switch>
@@ -59,30 +83,35 @@ function Recipes() {
               </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-              <IonCard>
-                <IonCardContent>
-                  <h1>{recipes.title}</h1>
-                  <p>
-                  <h2>{recipes.description}</h2>
-                    <h2>By <a href="">{recipes.author}</a> | Rating: {recipes.rating}</h2>
-                    <h3>{recipes.estimatedCost > 100 ? "$$$" : recipes.estimatedCost > 50 ? "$$" : "$"} ({recipes.estimatedCost})</h3>
-                    <h3>Total Time: {recipes.totalTime} (Prep Time: {recipes.prepTime} + Cook Time: {recipes.cookTime}) makes {recipes.yield}</h3>
-                  </p>
-                </IonCardContent>
-              </IonCard>
-              <IonCard>
-                <IonCardContent>
-                <p>
-                {/* Needs to be blown out.. I'm too lazy to bother with this rn bc we'll be using ingredient objects later*/}
-                Ingreidents needed: {recipes.ingredients}
-                <br />
-                Type: {recipes.type}
-                <br />
-                {/* Needs to be blown out... Yeah I'll deall with that once we actually know what what we want to do with tags... Might become an object of it's own */}
-                Tags: {recipes.tags}
-              </p>
-                </IonCardContent>
-              </IonCard>
+                  <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
+                  <IonGrid>
+                    <IonRow>
+                      {recipes.map(recipe =>
+                        <IonCol sizeXs="12" sizeSm="6" key={recipe.id}>
+                           {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
+                           <Link to={`/recipe/${recipe.id}`}>
+                          <IonCard button routerDirection="forward">
+                            <IonCardHeader>
+                              <IonCardTitle>{recipe.title}</IonCardTitle>
+                              <IonCardSubtitle>By {recipe.author}</IonCardSubtitle>
+                            </IonCardHeader>
+                            <IonCardContent>
+                              <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>
+                              <IonLabel>Time: {recipe.totalTime}</IonLabel>
+                            </IonCardContent>
+                          </IonCard>
+                          </Link>
+                        </IonCol>
+                      )}
+                    </IonRow>
+                  </IonGrid>
+                  <Link to="/recipe/add">
+                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                    <IonFabButton>
+                      <IonIcon icon={add} />
+                    </IonFabButton>
+                  </IonFab>
+                  </Link>
             </IonContent>
           </IonPage>
         </IonApp>
