@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import pantry.fridger.backend.dto.CreatePantryDTO;
-import pantry.fridger.backend.service.PantryService;
+
+import recipes.fridger.backend.model.Pantry;
 
 import java.beans.BeanProperty;
 

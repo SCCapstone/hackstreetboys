@@ -26,4 +26,16 @@ public class CreatePantryDTO {
     //size of description
     //@size(min=0,max=512)
     private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public ArrayList<Ingredient> getPantry() {
+        return pantry;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
 }
