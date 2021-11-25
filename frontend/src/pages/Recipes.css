@@ -1,0 +1,50 @@
+.R {
+    text-align: center;
+  }
+  
+  .R-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+    
+  .R-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+  }
+  
+  @keyframes GP-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .main {
+
+    background-color: darkgray;
+ 
+ 
+ }
+ 
+ .cards {
+ 
+   background-color: rgb(225, 220, 220);
+   max-width: 85%;
+ 
+ }
+ 
+ .detail{
+     font-weight: bold;
+ }
+ 
+ .statusButton {
+     margin-right: 10px;
+ }

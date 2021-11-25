@@ -1,18 +1,19 @@
-import {
-  IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonMenuToggle,
-  IonPage,
-  IonButtons,
-  IonButton,
-  IonIcon,
-} from '@ionic/react';
 
 // import { FaHome, FaBars, FaUtensils, FaAppleAlt, FaUser, FaHamburger, FaFolder, FaHeart, FaCog} from 'react-icons/fa';
 
+
+//ceboozer
+import { Router, Switch, Route } from "react-router-dom";
+import history from './History';
+import GoalsPage from './pages/GoalsPage';
+import Recipes from './pages/Recipes';
+import Ingredients from './pages/Ingredients';
+import myPantry from './pages/myPantry';
+import myReviews from './pages/myReviews';
+import Favorites from './pages/Favorites';
+import Preferences from './pages/Preferences';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -32,34 +33,26 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import SideBar from './components/SideBar';
-import RecipeCard from './components/RecipeCard';
-import { menuOutline } from 'ionicons/icons';
 
-const App: React.FC = () => (
-  <IonApp>
-    <SideBar />
-    <IonPage className="ion-page" id="main-content">
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuToggle>
-              <IonButton>
-                <IonIcon icon={menuOutline} slot="start" />
-              </IonButton>
-            </IonMenuToggle>
-          </IonButtons>
-          <IonTitle>Fridger</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <h1>Welcome back, Seongho!</h1>
-        <RecipeCard />
-        <RecipeCard />
-        <RecipeCard />
-      </IonContent>
-    </IonPage>
-  </IonApp>
+//const App: React.FC = () => (
+  function App () {
+    return (
+    <>
+  <Router history={history}>
+    <Switch>
+      <Route path="/recipes" component={Recipes} />
+      <Route path="/ingredients" component={Ingredients} />
+      <Route path="/goals" component={GoalsPage} />
+      <Route path="/mypantry" component={myPantry} />
+      <Route path="/myreviews" component={myReviews} />
+      <Route path="/favorites" component={Favorites} />
+      <Route path="/preferences" component={Preferences} />
+      <Route path="/profile" component={Profile} />
+      <Route path="/" component={Home} />
+  </Switch>
+  </Router>
+  </>
 );
+}
 
 export default App;
