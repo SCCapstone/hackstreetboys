@@ -26,6 +26,7 @@ public class GoalServiceImpl implements GoalService{
         g.setFat(dto.getFat());
         g.setCurrentWeight(dto.getCurrentWeight());
         g.setGoalWeight(dto.getGoalWeight());
+        goals.save(g);
     }
 
     @Transactional
