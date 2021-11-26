@@ -102,12 +102,14 @@ public class UserController {
         return userService.getUser(id);
     }
 
-    @GetMapping(path = "/{id}/goals")
-    public @ResponseBody Iterable<Goal> getGoals(@PathVariable Long id) {
+
+    @GetMapping(path = "/goals")
+    public @ResponseBody Iterable<Goal>
+    getGoals(@RequestParam(required = false) Long id) {
         return goalService.getGoals(id);
     }
 
-    @GetMapping(path = "/{id}/goal/{goalId}")
+    @GetMapping(path = "/goal/{goalId}")
     public @ResponseBody Goal getGoalByID(@PathVariable Long goalId) {return goalService.getGoalByID(goalId);
     }
 
