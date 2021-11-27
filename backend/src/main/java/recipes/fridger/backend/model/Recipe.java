@@ -39,6 +39,14 @@ public class Recipe {
     @Column(name = "description", nullable = true)
     private String description;
 
+    @Size(min = 0, max = 500)
+    @Column(name = "img_src", nullable = true)
+    private String imgSrc;
+
+    @Size(min = 0, max = 100000)
+    @Column(name = "body", nullable = true)
+    private String body;
+
     @Column(name = "total_time")
     private Integer totalTime;
 

@@ -3,13 +3,15 @@ export interface Recipe{
     title: string;
     author: string;
     description: string;
+    body: string;
+    imgSrc: string;
     totalTime: number;
     prepTime: number,
     cookTime: number,
     yield: number,
     estimatedCost: number,
     type: string,
-    tags: string[],
-    ingredients: string[],
+    tags: string,
+    ingredientIds: string,
     rating: number;
 }
