@@ -13,7 +13,11 @@ import myReviews from './pages/myReviews';
 import Favorites from './pages/Favorites';
 import Preferences from './pages/Preferences';
 import Home from './pages/Home';
+import MyGoals from './pages/MyGoals';
 import Profile from './pages/Profile';
+import Goal from "./pages/MyGoal";
+import SideBar from './components/SideBar';
+import RecipeCard from './components/RecipeCard';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -33,6 +37,11 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import { menuOutline } from 'ionicons/icons';
+import Header from "./components/Header";
+import { IonApp, IonContent, IonPage } from "@ionic/react";
+
+
 
 //const App: React.FC = () => (
   function App () {
@@ -47,9 +56,11 @@ import './theme/variables.css';
       <Route path="/myreviews" component={myReviews} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/preferences" component={Preferences} />
-      <Route path="/profile" component={Profile} />
+      <Route path="/mygoals" component={MyGoals} />
+      <Route path="/goal/:id" component={Goal} />
+       <Route path="/profile" component={Profile} />
       <Route path="/" component={Home} />
-  </Switch>
+      </Switch>
   </Router>
   </>
 );
