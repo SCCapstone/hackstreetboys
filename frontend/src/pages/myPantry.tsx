@@ -23,9 +23,33 @@ import { Router, Switch } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
-import { menuOutline } from 'ionicons/icons';
-import React from 'react';
+import { logoYoutube, menuOutline } from 'ionicons/icons';
+import React, { Component } from 'react';
 import { Pantry } from '../models/Pantry';
+
+let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
+
+for(let _i=0;_i<fruits2.length;_i++) {
+  console.log(fruits2[_i][0]);
+  <IonItem>
+    <h1>{fruits2[_i][0]}</h1>
+  </IonItem>
+}
+
+for(let a=0;a<10;a++) {
+  // do something
+}
+
+<IonApp>
+<IonItem>
+  {{fruits2}} {{fruits2}}
+</IonItem>
+</IonApp>
+
+function loopList(data: string[][]) {
+
+}
+
 
 function MyPantry() {
   const [pantry, setPantry] = React.useState<Pantry>({
@@ -56,22 +80,21 @@ function MyPantry() {
               </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-              <h1>Welcome to your pantry! Here you can see what ingredients you have!</h1>
-              <IonList> {/* FRUIT LIST */}
-                <IonListHeader>
-                  <h1>Fruits</h1>
-                </IonListHeader>
+              <IonList>
+
                 <IonItem>
-                  <IonAvatar slot="start">
-                    <img src=""></img>
-                  </IonAvatar>
-                  <IonLabel>
-                    <h2>{pantry.fruits[0][0]}</h2>
-                  </IonLabel>
-                  <IonLabel slot="end">
-                    <h2>Quantity: {pantry.fruits[0][1]}</h2>
-                  </IonLabel>
+                  {fruits2[0]} {fruits2[1]} {fruits2[2]}
                 </IonItem>
+              </IonList>
+              <h1>Welcome to your pantry! Here you can see what ingredients you have!</h1>
+              <IonList>
+                <IonHeader><h1>Fruits</h1></IonHeader>
+                  {/* <IonItem *ngFor="let frut of fruits">
+                    <IonLabel>
+                      {{ frut[i][0] }}
+                    </IonLabel>
+                  </IonItem> */}
+                
               </IonList>
               <IonList> {/* VEGETABLE LIST */}
                 <IonListHeader>
