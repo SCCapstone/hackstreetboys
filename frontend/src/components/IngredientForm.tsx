@@ -48,7 +48,7 @@ export const IngredientForm: React.FC = () => {
 
             <Link to="/ingredients/">
                 <IonButton className="ion-margin-top, ion-float-left" color="danger">Cancel</IonButton>
-                <IonButton className="ion-margin-top, ion-float-right" type="submit">Submit Recipe</IonButton>
+                <IonButton className="ion-margin-top, ion-float-right" type="submit">Submit Ingredient</IonButton>
 
             </Link>
         </form>
