@@ -49,7 +49,7 @@ function MyGoals() {
         goalWeight: 180.0
     }]);
     React.useEffect(() => {
-        fetch('http://localhost:7999/v1/user/goals/')
+        fetch('http://localhost:8080/v1/user/goals/')
         .then(res => res.json())
         .then(setGoals)
     }, [])
@@ -60,7 +60,7 @@ function MyGoals() {
     <SideBar />
     <IonPage className="ion-page" id="main-content">
   <Header/>
-            <Link to="/GoalsPage">
+            <Link to="/goals">
             <IonButton>
               Return to Dashboard 
             </IonButton>
@@ -85,7 +85,7 @@ function MyGoals() {
                       )}
                     </IonRow>
                   </IonGrid>
-                  <Link to="/goal/add">
+                  <Link to="/mygoals/add">
                   <IonFab vertical="bottom" horizontal="end" slot="fixed">
                     <IonFabButton>
                       <IonIcon icon={add} />
