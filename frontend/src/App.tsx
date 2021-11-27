@@ -13,6 +13,8 @@ import Profile from './pages/Profile';
 import Goal from "./pages/MyGoal";
 import SideBar from './components/SideBar';
 import RecipeCard from './components/RecipeCard';
+import Recipe from './pages/Recipe';
+import AddRecipe from './pages/AddRecipe';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -49,7 +51,8 @@ import { IonApp, IonContent, IonPage } from "@ionic/react";
       <Route path="/recipe" component={Recipes} />
       <Route path="/recipes" component={Recipes} />
       <Route path="/ingredients" component={Ingredients} />
-      <Route path="/goals" component={GoalsPage} />
+      <Route path="/GoalsPage" component={GoalsPage} />
+   
       <Route path="/mypantry" component={myPantry} />
       <Route path="/myreviews" component={myReviews} />
       <Route path="/favorites" component={Favorites} />

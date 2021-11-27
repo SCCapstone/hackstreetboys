@@ -48,7 +48,7 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/goals')} >
+          <IonItem button onClick={() => History.push('/GoalsPage')} >
           <IonIcon icon={person} slot="start"/>
             <IonLabel>
               My Dashboard
