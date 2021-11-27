@@ -38,6 +38,8 @@ import '@ionic/react/css/display.css';
 /* Theme variables */
 import './theme/variables.css';
 import { menuOutline } from 'ionicons/icons';
+import Header from "./components/Header";
+import { IonApp, IonContent, IonPage } from "@ionic/react";
 
 
 
@@ -58,33 +60,7 @@ import { menuOutline } from 'ionicons/icons';
       <Route path="/goal/:id" component={Goal} />
        <Route path="/profile" component={Profile} />
       <Route path="/" component={Home} />
-  <IonApp>
-    <SideBar />
-    <IonPage className="ion-page" id="main-content">
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuToggle>
-              <IonButton>
-                <IonIcon icon={menuOutline} slot="start" />
-              </IonButton>
-            </IonMenuToggle>
-          </IonButtons>
-          <IonTitle>Fridger</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <h1>Welcome back, Seongho!</h1>
-        <RecipeCard />
-        <RecipeCard />
-        <RecipeCard />
-
-
-        
-      </IonContent>
-    </IonPage>
-  </IonApp>
-  </Switch>
+      </Switch>
   </Router>
   </>
 );

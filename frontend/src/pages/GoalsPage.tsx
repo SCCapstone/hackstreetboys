@@ -10,6 +10,7 @@ import {
     IonTitle,
     IonContent,
     IonPage,
+    IonButton,
   } from '@ionic/react';
 
 import { Router, Switch, Route, Link } from "react-router-dom";
@@ -32,7 +33,7 @@ function GoalsPage() {
      <Header/>
       <IonContent className="ion-padding">
         <h1>Welcome to your dashboard, Seongho!</h1>
-        <Link to="/MyGoals"><IonButton>
+        <Link to="/mygoals"><IonButton>
               MyGoals 
             </IonButton>
             </Link>
