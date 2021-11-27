@@ -49,10 +49,12 @@ function MyGoals() {
         goalWeight: 180.0
     }]);
     React.useEffect(() => {
-        fetch('http://localhost:8080/v1/user/goals/')
+        fetch('http://localhost:7999/v1/user/goals/')
         .then(res => res.json())
         .then(setGoals)
     }, [])
+
+
     return (
         <Router history={history}>
             <Switch>

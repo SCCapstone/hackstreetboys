@@ -41,7 +41,7 @@ function RecipePage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/user/goal/${id}/`)
+    fetch(`http://localhost:7999/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
   }, [])

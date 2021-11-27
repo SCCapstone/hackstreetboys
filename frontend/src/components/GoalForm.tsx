@@ -50,6 +50,7 @@ export const GoalForm: React.FC = () => {
         Cancel
       </IonButton>
       </Link>
+
     </form>
   )
 }
