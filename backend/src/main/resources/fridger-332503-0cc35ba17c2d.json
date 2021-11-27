@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fridger-332503",
+  "private_key_id": "0cc35ba17c2d76405aaf73bc355acc3741466348",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDlBb2dUHrBzbo1\n09nCp5Qm8Undtg2A4jW1wR/XaFNuxnRMvxXqAjVgNTJypZziK1ixolQ1dv5Q+8A3\nr3bZh04Xs4hdPdpXS9jpy0g3LYpHubAXnn2VcOE8sSdEguKXX1KrGG8q7QQ/2zYn\nUf3kweVSEH3PhKknsTlEGCWpCy95hiDJLlK0/pjY7KU+c9ZNEZUDiuUVnN0ZozM0\ncsG1Ovh4SNLd515F4M6tAjIsM8xs6GyLLwfd5zoHGHsxnA0CVXGW9IG5R2JrJjOU\nDHhRQIz8GnX6ePcSDaT39UhpKjjj6aKhXqd+KCpFocvVUSKABkk5D19OlYCGYpPC\nEqF4ma5RAgMBAAECggEACT91+IkgSdzjMur88Tan3XozEcI5EZ4gzdfwb5fxfYjD\nN7mkGoTQD7RaNwWvu/TE4jhkNtv5GT9PM9hwn8hOS5f27s/xdgK0rb0lC4BZ4/tQ\nLGX8m3kZSUR8idBQsszZN1o3W/gB6suw6D3P9ymqt0l98RAh7f3Cqpigha7TUhB4\nRi3OsEfwNE+a/faoLuzcuc13AYxZY+6foKGJqdR0aXTbsvvyYDVabuVJTuoqdxH+\nX0yamtX8NCzT6y1XDNNAHkdr8HJZZsDwA4svCwD3S0CfQgya65b9QjovpAKNcPai\neEDOisPJ4qpZqf+maYKDv4QBeEVsdd9j0QSWZVFDQQKBgQD8hFSxg2dvQj7/xkk/\nOFgNs6AilE9oLUOlri/fK9cfcmtA1ejQdCDUQPBsrXGelPIjEf3cXg/P4eixDaJ2\nYMq0wGr26V4DAEfJnRl2+Bup9hyxCr02rQZXholknQTulz0YJ33sUz6Mo5WvcOI2\nv11lEY4ejBkhU6WdxiLCJloLoQKBgQDoLnKkiN7VTq066G0hYaZS7Pxld8amGTif\ndNtilGgRkuFv2ar2ni30FgaN9hXCM6v/zgH77FKB6iyyc6kU/RkHoumg4XcqkL6W\nB536Wl1QzDlJAD16RCvSrROhg6W/lypgerKSUFqNfp59NzDcehwjseXJkO5UKnIF\nPbb5xpUksQKBgQCzwYv81bsDA5iPQVsRCw37qvv6wbMJSPeX8LiZWL8J3syk2eGi\nypg4IIZGBu4T4pnAB2W8wqTk6j9YEomtVVfXdgZvAE9xOXjg99mRzCr9QXrJOQja\n7C7QjbAulGxXYAgYsrw8SEIFocnDm0sdh/p3IRkXe8nD5KTH/KzvopeFIQKBgCSc\nXltvcaO0+j/Vso+W9EETOWFOl7ZNN859ALL0r8xFmuKmMf0dSCW662GrMhcjSrXV\naB6vTvtJT6776edzWWUI3UoPA1lk5YiGvvRhF2HMMiQ+s3L6GObpf7TyK0qgrX/1\nGP9VSFITay5Xa474ekNuo8s63TnMT5pf9uA/3fihAoGBANPhedEX+uuQyGXHpSPC\nnt/5oUkQ5QPuXMMen8Dqlw5fVSMBCX+JXdKVZLxI8n0HImtFfj9uCfc2ln4IcWb4\nmVSTBUY9Tn91hwMj1NKHQMXJpB2z/VVukdQLrB6HuNZ9pqKq3Zm/x7WjXa5CB5Vj\nAJ3DSYsUAjSfgLq8/OnS1kC1\n-----END PRIVATE KEY-----\n",
+  "client_email": "fridger@fridger-332503.iam.gserviceaccount.com",
+  "client_id": "100109922776085347125",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/fridger%40fridger-332503.iam.gserviceaccount.com"
+}
