@@ -1,8 +1,3 @@
-
-// import { FaHome, FaBars, FaUtensils, FaAppleAlt, FaUser, FaHamburger, FaFolder, FaHeart, FaCog} from 'react-icons/fa';
-
-
-//ceboozer
 import { Router, Switch, Route } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
@@ -49,6 +44,9 @@ import { IonApp, IonContent, IonPage } from "@ionic/react";
     <>
   <Router history={history}>
     <Switch>
+      <Route path="/recipe/add" component={AddRecipe} />
+      <Route path="/recipe/:id" component={Recipe} />
+      <Route path="/recipe" component={Recipes} />
       <Route path="/recipes" component={Recipes} />
       <Route path="/ingredients" component={Ingredients} />
       <Route path="/goals" component={GoalsPage} />
@@ -58,12 +56,11 @@ import { IonApp, IonContent, IonPage } from "@ionic/react";
       <Route path="/preferences" component={Preferences} />
       <Route path="/mygoals" component={MyGoals} />
       <Route path="/goal/:id" component={Goal} />
-       <Route path="/profile" component={Profile} />
+      <Route path="/profile" component={Profile} />
       <Route path="/" component={Home} />
       </Switch>
   </Router>
   </>
 );
 }
-
 export default App;

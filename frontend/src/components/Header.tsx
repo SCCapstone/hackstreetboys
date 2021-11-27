@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
       </IonButton>
     </IonMenuToggle>
   </IonButtons>
-  <IonTitle>Fridger</IonTitle>
+  <IonTitle><span style={{ color:"#1b79b7", fontWeight:"bold" }}>F</span>ridger</IonTitle>
 </IonToolbar>
 </IonHeader>);
 }
