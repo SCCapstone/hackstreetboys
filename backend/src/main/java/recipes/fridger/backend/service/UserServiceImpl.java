@@ -31,8 +31,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public void deleteUser(Long id) {
-        Optional<User> user = users.findById(id);
+    public void deleteUser(String email) {
+        Optional<User> user = users.findById(email);
         if (user.isPresent()) {
             User u = user.get();
             users.delete(u);
@@ -41,13 +41,13 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User getUser(Long id) {
-        Optional<User> user = users.findById(id);
+    public User getUser(String email) {
+        Optional<User> user = users.findById(email);
         return user.isPresent() ? user.get() : null;
     }
 
     @Transactional
-    public Iterable<User> getUsers(Long userId) {
-        return users.find(userId);
+    public Iterable<User> getUsers(String email) {
+        return users.find(email);
     }
 }

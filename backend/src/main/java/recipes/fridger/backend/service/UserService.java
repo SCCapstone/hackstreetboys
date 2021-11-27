@@ -5,7 +5,7 @@ import recipes.fridger.backend.model.User;
 
 public interface UserService {
     public void createUser(CreateUserDTO dto);
-    public void deleteUser(Long id);
-    public User getUser(Long id);
-    public Iterable<User> getUsers(Long userId);
+    public void deleteUser(String email);
+    public User getUser(String email);
+    public Iterable<User> getUsers(String email);
 }

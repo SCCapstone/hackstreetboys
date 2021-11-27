@@ -57,11 +57,11 @@ public class UserController {
         }
     }
 
-    @DeleteMapping(path = "/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    @DeleteMapping(path = "/{email}")
+    public ResponseEntity<String> deleteUser(@PathVariable String email) {
         try {
-            userService.deleteUser(id);
-            log.info("Successfully deleted User #" + id);
+            userService.deleteUser(email);
+            log.info("Successfully deleted User " + email);
             return ResponseEntity.ok("Deleted user");
         } catch (Exception e) {
             log.warn("Unable to delete user\n" + e.getMessage());
@@ -97,9 +97,9 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/{id}")
-    public @ResponseBody User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    @GetMapping(path = "/{email}")
+    public @ResponseBody User getUser(@PathVariable String email) {
+        return userService.getUser(email);
     }
 
 
@@ -115,7 +115,7 @@ public class UserController {
 
     @GetMapping(path = "/")
     public @ResponseBody Iterable<User>
-    getUsers(@RequestParam(required = false) Long id) {
-        return userService.getUsers(id);
+    getUsers(@RequestParam(required = false) String email) {
+        return userService.getUsers(email);
     }
 }
