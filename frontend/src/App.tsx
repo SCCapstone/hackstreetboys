@@ -25,6 +25,7 @@ import myReviews from './pages/myReviews';
 import Favorites from './pages/Favorites';
 import Preferences from './pages/Preferences';
 import Home from './pages/Home';
+import MyGoals from './pages/MyGoals';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -47,6 +48,7 @@ import './theme/variables.css';
 import SideBar from './components/SideBar';
 import RecipeCard from './components/RecipeCard';
 import { menuOutline } from 'ionicons/icons';
+import Goal from "./pages/MyGoal";
 
 //const App: React.FC = () => (
   function App () {
@@ -61,6 +63,8 @@ import { menuOutline } from 'ionicons/icons';
       <Route path="/myReviews" component={myReviews} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/preferences" component={Preferences} />
+      <Route path="/MyGoals" component={MyGoals} />
+      <Route path="/goal/:id" component={Goal} />
   <IonApp>
     <SideBar />
     <IonPage className="ion-page" id="main-content">

@@ -1,10 +1,10 @@
 import './GoalsPage.css';
 //import Chart from "react-google-charts";
-
 import Chart1 from '../components/Chart'
-
 import {
     IonApp,
+    IonItem,
+    IonLabel,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -16,7 +16,7 @@ import {
     IonIcon,
   } from '@ionic/react';
 
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
 
 /* Core CSS required for Ionic components to work properly */
@@ -40,9 +40,11 @@ import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 //import Dashboard from '../components/Dashboard';
 import { menuOutline } from 'ionicons/icons';
-
+import { useEffect, useState } from 'react';
+//import {Link } from "react-router-dom";
 //import React from 'react';
 //import { IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
+
 
 
 function GoalsPage() {
@@ -66,10 +68,13 @@ function GoalsPage() {
       </IonHeader>
       <IonContent className="ion-padding">
         <h1>Welcome to your dashboard, Seongho!</h1>
-
+        <Link to="/MyGoals"><IonButton>
+              MyGoals 
+            </IonButton>
+            </Link>
+   
         <Chart1 />
-
-      </IonContent>
+      </IonContent> 
     </IonPage>
   </IonApp>
   </Switch>
