@@ -35,6 +35,8 @@ import './theme/variables.css';
 import { menuOutline } from 'ionicons/icons';
 import Header from "./components/Header";
 import { IonApp, IonContent, IonPage } from "@ionic/react";
+import AddRecipe from "./pages/AddRecipe";
+import Recipe from "./pages/Recipe";
 
 
 

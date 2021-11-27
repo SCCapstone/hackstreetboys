@@ -25,33 +25,13 @@ import {
 import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
 
-/* Core CSS required for Ionic components to work properly */
-import '@ionic/react/css/core.css';
 
-/* Basic CSS for apps built with Ionic */
-import '@ionic/react/css/normalize.css';
-import '@ionic/react/css/structure.css';
-import '@ionic/react/css/typography.css';
-
-/* Optional CSS utils that can be commented out */
-import '@ionic/react/css/padding.css';
-import '@ionic/react/css/float-elements.css';
-import '@ionic/react/css/text-alignment.css';
-import '@ionic/react/css/text-transformation.css';
-import '@ionic/react/css/flex-utils.css';
-import '@ionic/react/css/display.css';
-
-/* Theme variables */
-import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-//import Dashboard from '../components/Dashboard';
 import { add, menuOutline } from 'ionicons/icons';
 import React from 'react';
 
-//import React from 'react';
-//import { IonGrid, IonRow, IonCol, IonContent } from '@ionic/react';
-//import React, { useState, useEffect } from 'react';
 import {Goal} from '../Goal';
+import Header from '../components/Header';
 
 interface GoalExample {
     goal: Goal,
@@ -69,7 +49,7 @@ function MyGoals() {
         goalWeight: 180.0
     }]);
     React.useEffect(() => {
-        fetch('http://localhost:8080/v1/user/goals/')
+        fetch('http://localhost:7999/v1/user/goals/')
         .then(res => res.json())
         .then(setGoals)
     }, [])
@@ -79,18 +59,7 @@ function MyGoals() {
                 <IonApp>
     <SideBar />
     <IonPage className="ion-page" id="main-content">
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonMenuToggle>
-              <IonButton>
-                <IonIcon icon={menuOutline} slot="start" />
-              </IonButton>
-            </IonMenuToggle>
-          </IonButtons>
-          <IonTitle>Fridger</IonTitle>
-          </IonToolbar>
-            </IonHeader>
+  <Header/>
             <Link to="/GoalsPage">
             <IonButton>
               Return to Dashboard 

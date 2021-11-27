@@ -39,6 +39,7 @@ import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import { register } from '../serviceWorkerRegistration';
 import RecipeCard from '../components/DashboardCard';
+import Header from '../components/Header';
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -48,6 +49,8 @@ function Recipes() {
     title: "Biscuits and Jam",
     author: "Quinn Biscuit",
     description: "What do you think? It's biscuits dummy.",
+    body: "Well, here's the sauce.",
+    imgSrc: "",
     totalTime: 55,
     prepTime: 15,
     cookTime: 40,
@@ -70,18 +73,7 @@ function Recipes() {
         <IonApp>
           <SideBar />
           <IonPage className="ion-page" id="main-content">
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuToggle>
-                    <IonButton>
-                      <IonIcon icon={menuOutline} slot="start" />
-                    </IonButton>
-                  </IonMenuToggle>
-                </IonButtons>
-                <IonTitle>Fridger</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+          <Header />
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
                   <IonGrid>

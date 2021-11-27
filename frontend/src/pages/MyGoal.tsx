@@ -20,6 +20,7 @@ import SideBar from '../components/SideBar';
 import { constructOutline, menuOutline } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Goal } from '../Goal';
+import Header from "../components/Header";
 
 interface GoalExample {
   recipe: Goal,
@@ -40,7 +41,7 @@ function RecipePage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/user/goal/${id}/`)
+    fetch(`http://localhost:7999/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
   }, [])
@@ -51,22 +52,11 @@ function RecipePage(this: any) {
         <IonApp>
           <SideBar />
           <IonPage className="ion-page" id="main-content">
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuToggle>
-                    <IonButton>
-                      <IonIcon icon={menuOutline} slot="start" />
-                    </IonButton>
-                  </IonMenuToggle>
-                </IonButtons>
-                <IonTitle>Fridger</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+            <Header/>
             <IonContent className="ion-padding">
               <IonCard>
                 <IonCardContent>
-                <Link to="/GoalsPage">
+                <Link to="/goals">
             <IonButton>
               Return to Dashboard 
             </IonButton>

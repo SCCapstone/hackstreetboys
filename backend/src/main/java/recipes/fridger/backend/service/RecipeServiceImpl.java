@@ -19,6 +19,8 @@ public class RecipeServiceImpl implements RecipeService{
         r.setTitle(dto.getTitle());
         r.setAuthor(dto.getAuthor());
         r.setDescription(dto.getDescription());
+        r.setBody(dto.getBody());
+        r.setImgSrc(dto.getImgSrc());
         r.setTotalTime((dto.getCookTime()+dto.getPrepTime()));
         r.setPrepTime(dto.getPrepTime());
         r.setCookTime(dto.getCookTime());

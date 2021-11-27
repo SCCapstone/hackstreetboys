@@ -17,6 +17,10 @@ public class ReturnRecipeDTO {
 
     private String description;
 
+    private String body;
+
+    private String imgSrc;
+
     private Integer totalTime;
 
     private Integer prepTime;
