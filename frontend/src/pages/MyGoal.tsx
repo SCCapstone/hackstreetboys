@@ -56,7 +56,7 @@ function RecipePage(this: any) {
             <IonContent className="ion-padding">
               <IonCard>
                 <IonCardContent>
-                <Link to="/goalspage">
+                <Link to="/goals">
             <IonButton>
               Return to Dashboard 
             </IonButton>
