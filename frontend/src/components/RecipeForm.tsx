@@ -15,6 +15,10 @@ export const RecipeForm: React.FC = () => {
         <IonInput />
       </IonItem>
       <IonItem>
+        <IonLabel position="floating">Instructions</IonLabel>
+        <IonInput />
+      </IonItem>
+      <IonItem>
         <IonLabel position="floating">Prep Time</IonLabel>
         <IonInput />
       </IonItem>

@@ -22,6 +22,12 @@ public class CreateRecipeDTO {
     @Size(min = 0, max = 500)
     private String description;
 
+    @Size(min = 0, max = 100000)
+    private String body;
+
+    @Size(min = 0, max = 500)
+    private String imgSrc;
+
     private Integer prepTime;
 
     private Integer cookTime;

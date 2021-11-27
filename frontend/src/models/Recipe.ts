@@ -3,6 +3,8 @@ export interface Recipe{
     title: string;
     author: string;
     description: string;
+    body: string;
+    imgSrc: string;
     totalTime: number;
     prepTime: number,
     cookTime: number,

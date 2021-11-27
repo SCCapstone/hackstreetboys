@@ -48,6 +48,8 @@ function Recipes() {
     title: "Biscuits and Jam",
     author: "Quinn Biscuit",
     description: "What do you think? It's biscuits dummy.",
+    body: "Well, here's the sauce.",
+    imgSrc: "",
     totalTime: 55,
     prepTime: 15,
     cookTime: 40,
