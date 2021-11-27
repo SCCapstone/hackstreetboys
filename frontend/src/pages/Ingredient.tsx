@@ -61,7 +61,7 @@ function IngredientPage(this: any) {
                                 {/*<img src={IngredientBanner} alt="IngredientImage" style={{ width: '100%', objectFit: 'cover' }} />*/}
                                 <img src="https://picsum.photos/2000/1000" style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
                                 <IonCardContent>
-                                    <h1>One serving of {ingredient.name.toLowerCase()} is <b>{ingredient.calories}</b> kcal<br/></h1>
+                                    <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/></h1>
                                 </IonCardContent>
 
                                 <IonCardContent>
@@ -75,7 +75,7 @@ function IngredientPage(this: any) {
                                 </IonCardContent>
 
                                 <IonCardContent>
-                                    <IonBadge color="secondary">{ingredient.alcohol == true ? "Alcoholic" : ingredient.alcohol == false ? "Not Alcoholic" : ""}</IonBadge>
+                                    <IonBadge color={ingredient.alcohol == true ? 'danger' : 'secondary'}>{ingredient.alcohol == true ? "Alcoholic" : ingredient.alcohol == false ? "Not Alcoholic" : ""}</IonBadge>
                                 </IonCardContent>
 
 
