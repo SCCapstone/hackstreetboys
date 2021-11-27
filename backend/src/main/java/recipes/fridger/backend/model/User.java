@@ -20,6 +20,7 @@ import lombok.Data;
 public class User {
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
+     @Column(name = "id", unique = true)
      private Long id;
 
      @Size(min = 0, max = 100)
@@ -27,7 +28,7 @@ public class User {
      private String type;
 
      @Size(min = 0, max = 100)
-     @Column(name = "email")
+     @Column(name = "email", unique = true)
      private String email;
 
      @Size(min = 0, max = 100)

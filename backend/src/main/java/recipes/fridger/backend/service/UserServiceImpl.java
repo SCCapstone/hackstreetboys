@@ -47,6 +47,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Transactional
+    @Override
+    public Iterable<User> getUsersByIdAndEmail(Long id, String email) {
+        return users.findByIdAndEmail(id, email);
+    }
+
+    @Transactional
+    @Override
+    public User authenticateUser(String email, String password) {
+        Optional<User> user = users.findByEmailAndPassword(email, password);
+        return user.isPresent() ? user.get() : null;
+    }
+
+    @Transactional
     public Iterable<User> getUsers(Long userId) {
         return users.find(userId);
     }
