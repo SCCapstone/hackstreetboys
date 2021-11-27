@@ -39,6 +39,7 @@ import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import { register } from '../serviceWorkerRegistration';
 import RecipeCard from '../components/DashboardCard';
+import Header from '../components/Header';
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -72,18 +73,7 @@ function Recipes() {
         <IonApp>
           <SideBar />
           <IonPage className="ion-page" id="main-content">
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuToggle>
-                    <IonButton>
-                      <IonIcon icon={menuOutline} slot="start" />
-                    </IonButton>
-                  </IonMenuToggle>
-                </IonButtons>
-                <IonTitle>Fridger</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+          <Header />
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
                   <IonGrid>
