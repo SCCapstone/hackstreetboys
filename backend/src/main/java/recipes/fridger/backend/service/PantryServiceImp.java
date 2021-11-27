@@ -15,7 +15,7 @@ public class PantryServiceImp implements PantryService {
     @Override
     public void createPantry(CreatePantryDTO dto) {
         Pantry pantry = new Pantry();
-        pantry.setOwner(dto.getOwner());
+        pantry.setOwnerId(dto.getOwnerId());
         pantry.setPantry(dto.getPantry());
         pantry.setDescription(dto.getDescription());
         pantries.add(pantry);

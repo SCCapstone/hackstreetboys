@@ -2,44 +2,33 @@ package recipes.fridger.backend.model;
 
 import java.util.ArrayList;
 
+import lombok.Getter;
+import lombok.Setter;
+import recipes.fridger.backend.model.User;
 import javax.persistence.*;
 
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "pantry")
 public class Pantry {
-
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     //this pantry corresponds to this user
     @Column(name = "owner", nullable = false)
-    private User owner;
+    private String ownerId;
 
     //this pantry contains all of these ingredients
     @Column(name = "pantry", nullable = true)
+    @OneToMany
     private ArrayList<Ingredient> pantry;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
     @Column(name = "description", nullable = true)
     private String description;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
-
-    public void setOwner(User owner) {
-        this.owner = owner;
-    }
 
     public ArrayList<Ingredient> getPantry() {
         return pantry;

@@ -1,16 +1,11 @@
 package recipes.fridger.backend.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.model.Pantry;
@@ -20,13 +15,15 @@ import java.beans.BeanProperty;
 
 import javax.validation.Valid;
 
-@Controller
+@RestController
+@Slf4j
 @ResponseBody
-@RequestMapping(path="/pantry") //TODO change later
+@RequestMapping(path="/v1/pantry") //TODO change later
 public class PantryController {
 
     @Autowired
-    private Pantry pantry;
+    private Pantry pantries;
+
     @Autowired
     private PantryService pantryService;
 
