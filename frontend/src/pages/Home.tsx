@@ -12,8 +12,13 @@ import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import DashboardCard from '../components/DashboardCard';
 
+import { useContext } from 'react';
+import Context from '../components/Context';
+
 
 function Home() {
+    const context = useContext(Context);
+
     return (
         <Router history={history}>
             <Switch>
@@ -22,7 +27,7 @@ function Home() {
     <IonPage className="ion-page" id="main-content">
       <Header/>
       <IonContent className="ion-padding">
-        <h1>Welcome back, Seongho!</h1>
+        <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
         <DashboardCard />
         <DashboardCard />
         <DashboardCard />
