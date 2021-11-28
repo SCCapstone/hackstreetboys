@@ -52,4 +52,8 @@ public class Ingredient {
     @DecimalMin(value = "0.0")
     @Column(name = "cost")
     private Double cost;
+
+    @Size(min = 0, max = 500)
+    @Column(name = "img_src", nullable = true)
+    private String imgSrc;
 }

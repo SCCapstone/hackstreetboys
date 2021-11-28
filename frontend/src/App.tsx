@@ -18,6 +18,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import ChangePassword from './pages/ChangePassword';
+import IngredientCard from './components/IngredientCard';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -42,9 +44,11 @@ import Header from "./components/Header";
 import { IonApp, IonContent, IonPage } from "@ionic/react";
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
-
 import Context from './components/Context';
 import { User } from './models/User';
+import AddGoal from "./pages/AddGoal";
+import AddIngredient from "./pages/AddIngredient";
+import Ingredient from "./pages/Ingredient";
 
 //const App: React.FC = () => (
   function App () {
