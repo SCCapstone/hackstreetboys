@@ -13,6 +13,7 @@ import Profile from './pages/Profile';
 import Goal from "./pages/MyGoal";
 import SideBar from './components/SideBar';
 import RecipeCard from './components/RecipeCard';
+import IngredientCard from './components/IngredientCard';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -38,6 +39,8 @@ import { IonApp, IonContent, IonPage } from "@ionic/react";
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
 import AddGoal from "./pages/AddGoal";
+import AddIngredient from "./pages/AddIngredient";
+import Ingredient from "./pages/Ingredient";
 
 
 //const App: React.FC = () => (
@@ -50,7 +53,12 @@ import AddGoal from "./pages/AddGoal";
       <Route path="/recipe/:id" component={Recipe} />
       <Route path="/recipe" component={Recipes} />
       <Route path="/recipes" component={Recipes} />
+
+      <Route path="/ingredient/add" component={AddIngredient} />
+      <Route path="/ingredient/:id" component={Ingredient} />
+      <Route path="/ingredient" component={Ingredients} />
       <Route path="/ingredients" component={Ingredients} />
+
       <Route path="/goals" component={GoalsPage} />
       <Route path="/mygoals/add" component={AddGoal} />
       <Route path="/mypantry" component={myPantry} />
