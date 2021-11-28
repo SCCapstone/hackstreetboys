@@ -33,11 +33,12 @@ function GoalsPage() {
      <Header/>
       <IonContent className="ion-padding">
         <h1>Welcome to your dashboard, Seongho!</h1>
+        <Chart1 />
+        <p></p>
         <Link to="/mygoals"><IonButton>
-              MyGoals 
+              My Goals 
             </IonButton>
             </Link>
-        <Chart1 />
       </IonContent> 
     </IonPage>
   </IonApp>
