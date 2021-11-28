@@ -1,12 +1,10 @@
 package recipes.fridger.backend.model;
 
-import java.util.ArrayList;
-
+import java.util.Hashtable;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
-import recipes.fridger.backend.model.User;
 import javax.persistence.*;
-
 import lombok.Data;
 
 @Data
@@ -15,27 +13,26 @@ import lombok.Data;
 public class Pantry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
 
-    //this pantry corresponds to this user
-    @Column(name = "owner", nullable = false)
-    private String ownerId;
-
-    //this pantry contains all of these ingredients
-    @Column(name = "pantry", nullable = true)
-    @OneToMany
-    private ArrayList<Ingredient> pantry;
+    @Column(name = "ingredientsInPantry", nullable = true)
+    @ManyToMany
+    private List<Ingredient> pantry;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
     @Column(name = "description", nullable = true)
     private String description;
 
-    public ArrayList<Ingredient> getPantry() {
+    public List<Ingredient> getPantry() {
         return pantry;
     }
 
-    public void setPantry(ArrayList<Ingredient> pantry) {
+    public void setPantry(List<Ingredient> pantry) {
         this.pantry = pantry;
+    }
+
+    public void removeIngredient(Long ingredID) {
+
     }
 
     public String getDescription() {

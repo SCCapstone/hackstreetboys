@@ -28,6 +28,7 @@ import recipes.fridger.backend.crud.Goals;
 import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
+import recipes.fridger.backend.crud.Pantries;
 
 @RestController
 @Slf4j
@@ -41,7 +42,7 @@ public class UserController {
     private Goals goals;
 
     @Autowired
-    private Pantry pantry;
+    private Pantries pantry;
 
     @Autowired
     private GoalService goalService;
@@ -118,7 +119,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
-    @DeleteMapping(path = "/pantry/{id}") //TODO create path
+    @DeleteMapping(path = "/{pantryId}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
         try {
@@ -131,7 +132,7 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/{id}")
+    @GetMapping(path = "/{pantryId}")
     public @ResponseBody User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
@@ -149,14 +150,14 @@ public class UserController {
         return goalService.getGoalByID(goalId);
     }
 
-    @GetMapping(path= "/pantry")
+    @GetMapping(path= "/pantry/{pantryId}")
     public @ResponseBody Pantry
     getPantryByID(@PathVariable Long pantryId)
     {
         return pantryService.getPantryByID(pantryId);
     }
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "/pantry")
     public @ResponseBody Iterable<User>
     getUsers(@RequestParam(required = false) Long id) {
         return userService.getUsers(id);

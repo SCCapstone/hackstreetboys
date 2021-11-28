@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +13,16 @@ import recipes.fridger.backend.crud.Pantries;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.model.Pantry;
 
-@Repository
 @Service
 public class PantryServiceImp implements PantryService {
 
+    @Autowired
     private Pantries pantries;
+
     @Override
     public void createPantry(CreatePantryDTO dto) {
         Pantry pantry = new Pantry();
-        pantry.setOwnerId(dto.getOwnerId());
+        //pantry.setOwnerId(dto.getOwnerId());
         pantry.setPantry(dto.getPantry());
         pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
@@ -35,13 +37,14 @@ public class PantryServiceImp implements PantryService {
         }
     }
 
+    @Transactional
     @Override
     public Pantry getPantryByID(Long id) {
         Optional<Pantry> p = pantries.findById(id);
         return p.isPresent() ? p.get() : null;
     }
 
-    @Override
+    @Transactional
     public Iterable<Pantry> getPantries(Long pantryId) {
         return pantries.find(pantryId);
     }

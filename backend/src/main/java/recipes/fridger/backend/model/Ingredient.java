@@ -52,4 +52,11 @@ public class Ingredient {
     @DecimalMin(value = "0.0")
     @Column(name = "cost")
     private Double cost;
+
+    @DecimalMin(value ="0.0")
+    @Column(name = "standardSize")
+    private Double standardSize;
+
+    @Column(name = "standardSizeUnit")
+    private String unitStandardSize;
 }
