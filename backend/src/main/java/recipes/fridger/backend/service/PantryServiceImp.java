@@ -25,6 +25,7 @@ public class PantryServiceImp implements PantryService {
         //pantry.setOwnerId(dto.getOwnerId());
         pantry.setPantry(dto.getPantry());
         pantry.setDescription(dto.getDescription());
+        pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
     }
     @Transactional

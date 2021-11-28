@@ -11,11 +11,11 @@ import javax.validation.constraints.*;
 
 @Data
 public class ReturnPantryDTO {
-    private Integer id;
+    private Long id;
 
     private User owner;
 
-    private ArrayList<Ingredient> pantry;
+    private String pantry;
 
     private String description;
 

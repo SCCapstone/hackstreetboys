@@ -16,23 +16,18 @@ public class Pantry {
     private Long id;
 
     @Column(name = "ingredientsInPantry", nullable = true)
-    @ManyToMany
-    private List<Ingredient> pantry;
+    private String pantry;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
     @Column(name = "description", nullable = true)
     private String description;
 
-    public List<Ingredient> getPantry() {
+    public String getPantry() {
         return pantry;
     }
 
-    public void setPantry(List<Ingredient> pantry) {
+    public void setPantry(String pantry) {
         this.pantry = pantry;
-    }
-
-    public void removeIngredient(Long ingredID) {
-
     }
 
     public String getDescription() {

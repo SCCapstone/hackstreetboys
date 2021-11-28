@@ -20,7 +20,7 @@ public class CreatePantryDTO {
 
     //not sure about size here, but I assume we will hold a LOT of ingredients in the pantry
     //@Size(min=0,max=1024)
-    private List<Ingredient> pantry;
+    private String pantry;
 
     //size of description
     //@size(min=0,max=512)
@@ -30,7 +30,7 @@ public class CreatePantryDTO {
         return description;
     }
 
-    public List<Ingredient> getPantry() {
+    public String getPantry() {
         return pantry;
     }
 
