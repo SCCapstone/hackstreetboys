@@ -1,6 +1,5 @@
 import './myPantry.css';
 
-
 import {
     IonApp,
     IonAvatar,
@@ -26,41 +25,61 @@ import Header from '../components/Header';
 import { logoYoutube, menuOutline } from 'ionicons/icons';
 import React, { Component } from 'react';
 import { Pantry } from '../models/Pantry';
+import { ingredient } from '../models/Ingredient';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
-for(let _i=0;_i<fruits2.length;_i++) {
-  console.log(fruits2[_i][0]);
-  <IonItem>
-    <h1>{fruits2[_i][0]}</h1>
-  </IonItem>
+function IngredientInfo () {
+  const [ing, setIngredient] = React.useState<ingredient>({
+    id: 123,
+    name: "Apple",
+    calories: 70,
+    carbohydrates: 2,
+    protein: 1,
+    fat: 2,
+    alcohol: false,
+    cost: .50,
+    standardSize: 1,
+    standardSizeUnit: "apple",
+  })
+  return (
+    console.log(ing.id,"\n",
+                ing.name,"\n",
+                ing.calories, "\n",
+                ing.carbohydrates,"\n",
+                ing.protein,"\n",
+                ing.fat,"\n",
+                ing.alcohol,"\n",
+                ing.cost,"\n",
+                ing.standardSize,"\n",
+                ing.standardSizeUnit,"\n",
+                )
+  )
 }
-
-for(let a=0;a<10;a++) {
-  // do something
-}
-
-<IonApp>
-<IonItem>
-  {{fruits2}} {{fruits2}}
-</IonItem>
-</IonApp>
-
-function loopList(data: string[][]) {
-
-}
-
 
 function MyPantry() {
   const [pantry, setPantry] = React.useState<Pantry>({
     id: 1,
     user: "Quinn Biscuit",
-    fruits: [["Apple","2"]],
+    fruits: [["Apple","2","70"],["Banana","3"],["Orange","4"]], //{name,}
     vegetables: [["Lettuce","7 ounces"]],
     meats: [["Chicken","1 lb"]],
     spices: [["Garlic Powder","5 ounces"]],
     description: "This is a basic pantry"  
   })
+  // function handleClick() {
+  // console.log(ing.id,"\n",
+  //               ing.name,"\n",
+  //               ing.calories, "\n",
+  //               ing.carbohydrates,"\n",
+  //               ing.protein,"\n",
+  //               ing.fat,"\n",
+  //               ing.alcohol,"\n",
+  //               ing.cost,"\n",
+  //               ing.standardSize,"\n",
+  //               ing.standardSizeUnit,"\n",
+  //               )
+  // )}
   return (
     <Router history={history}>
       <Switch>
@@ -80,69 +99,86 @@ function MyPantry() {
               </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
-              <IonList>
-
-                <IonItem>
-                  {fruits2[0]} {fruits2[1]} {fruits2[2]}
-                </IonItem>
-              </IonList>
-              <h1>Welcome to your pantry! Here you can see what ingredients you have!</h1>
-              <IonList>
-                <IonHeader><h1>Fruits</h1></IonHeader>
-                  {/* <IonItem *ngFor="let frut of fruits">
-                    <IonLabel>
-                      {{ frut[i][0] }}
-                    </IonLabel>
-                  </IonItem> */}
-                
+              <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
+              <IonList> {/*FRUIT LIST */}
+                <IonListHeader>
+                    <h1>Fruits</h1>
+                  </IonListHeader>
+                    {pantry.fruits.map(fruit => {
+                      return (
+                        <IonItem key={fruit[0]} button onClick={ () => {}}> {}
+                          <IonAvatar slot="start">
+                            <img src=""></img>
+                          </IonAvatar>
+                          <IonLabel>
+                            <h2>{fruit[0]}</h2>
+                          </IonLabel>
+                          <IonLabel slot="end">
+                            <h2>Quantity: {fruit[1]}</h2>
+                          </IonLabel>
+                        </IonItem>
+                      )
+                    })}
               </IonList>
               <IonList> {/* VEGETABLE LIST */}
                 <IonListHeader>
-                  <h1>Vegetables</h1>
+                    <h1>Vegetables</h1>
                 </IonListHeader>
-                <IonItem>
-                  <IonAvatar slot="start">
-                    <img src=""></img>
-                  </IonAvatar>
-                  <IonLabel>
-                    <h2>{pantry.vegetables[0][0]}</h2>
-                  </IonLabel>
-                  <IonLabel slot="end">
-                    <h2>Quantity: {pantry.vegetables[0][1]}</h2>
-                  </IonLabel>
-                </IonItem>
+                  {pantry.vegetables.map(veg => {
+                    return (
+                      <IonItem key={veg[0]} button onClick={() => {}}>
+                        <IonAvatar slot="start">
+                          <img src=""></img>
+                        </IonAvatar>
+                        <IonLabel>
+                          <h2>{veg[0]}</h2>
+                        </IonLabel>
+                        <IonLabel slot="end">
+                          <h2>Quantity: {veg[1]}</h2>
+                        </IonLabel>
+                      </IonItem>
+                    )
+                  })}
               </IonList>
               <IonList> {/* MEATS LIST */}
                 <IonListHeader>
-                  <h1>Meats</h1>
+                    <h1>Meats</h1>
                 </IonListHeader>
-                <IonItem>
-                  <IonAvatar slot="start">
-                    <img src=""></img>
-                  </IonAvatar>
-                  <IonLabel>
-                    <h2>{pantry.meats[0][0]}</h2>
-                  </IonLabel>
-                  <IonLabel slot="end">
-                    <h2>Quantity: {pantry.meats[0][1]}</h2>
-                  </IonLabel>
-                </IonItem>
+                  {pantry.meats.map(meat => {
+                    return (
+                      <IonItem key={meat[0]} button onClick={() => {}}>
+                        <IonAvatar slot="start">
+                          <img src=""></img>
+                        </IonAvatar>
+                        <IonLabel>
+                          <h2>{meat[0]}</h2>
+                        </IonLabel>
+                        <IonLabel slot="end">
+                          <h2>Quantity: {meat[1]}</h2>
+                        </IonLabel>
+                      </IonItem>
+                  )
+                })}
               </IonList>
               <IonList> {/* SPICES LIST */}
                 <IonListHeader>
-                  <h1>Spices</h1>
-                </IonListHeader>
-                <IonItem>
-                  <IonAvatar slot="start">
-                    <img src=""></img>
-                  </IonAvatar>
-                  <IonLabel>
-                    <h2>{pantry.spices[0][0]}</h2>
-                  </IonLabel>
-                  <IonLabel slot="end">
-                    <h2>Quantity: {pantry.spices[0][1]}</h2>
-                  </IonLabel>
-                </IonItem>
+                      <h1>Spices</h1>
+                  </IonListHeader>
+                    {pantry.spices.map(spi => {
+                      return (
+                        <IonItem key={spi[0]} button onClick={() => {}}>
+                          <IonAvatar slot="start">
+                            <img src=""></img>
+                          </IonAvatar>
+                          <IonLabel>
+                            <h2>{spi[0]}</h2>
+                          </IonLabel>
+                          <IonLabel slot="end">
+                            <h2>Quantity: {spi[1]}</h2>
+                          </IonLabel>
+                        </IonItem>
+                    )
+                  })}
               </IonList>
             </IonContent>
           </IonPage>
