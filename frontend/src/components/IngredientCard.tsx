@@ -4,6 +4,7 @@ import { Ingredient } from '../models/Ingredient';
 import './IngredientCard.css';
 import { Link } from 'react-router-dom';
 import IngredientBanner from '../assets/fridger_banner.png'
+import Header from '../components/Header';
 
 interface ContainerProps {
     ingredient: Ingredient

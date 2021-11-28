@@ -2,6 +2,7 @@ import './IngredientForm.css';
 import { IonHeader, IonToolbar, IonButtons, IonMenuToggle, IonButton, IonIcon, IonTitle, IonCheckbox, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react";
 import { menuOutline } from "ionicons/icons";
 import { Link } from 'react-router-dom';
+import Header from '../components/Header';
 
 export const IngredientForm: React.FC = () => {
     return (

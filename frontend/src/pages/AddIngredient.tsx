@@ -38,6 +38,7 @@ import SideBar from '../components/SideBar';
 import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import IngredientForm from '../components/IngredientForm';
+import Header from '../components/Header';
 function AddIngredient() {
     return (
         <Router history={history}>
