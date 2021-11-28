@@ -38,9 +38,9 @@ import Header from "./components/Header";
 import { IonApp, IonContent, IonPage } from "@ionic/react";
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
+import AddGoal from "./pages/AddGoal";
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
-
 
 
 //const App: React.FC = () => (
@@ -60,6 +60,7 @@ import Ingredient from "./pages/Ingredient";
       <Route path="/ingredients" component={Ingredients} />
 
       <Route path="/goals" component={GoalsPage} />
+      <Route path="/mygoals/add" component={AddGoal} />
       <Route path="/mypantry" component={myPantry} />
       <Route path="/myreviews" component={myReviews} />
       <Route path="/favorites" component={Favorites} />

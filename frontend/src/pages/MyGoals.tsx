@@ -53,6 +53,8 @@ function MyGoals() {
         .then(res => res.json())
         .then(setGoals)
     }, [])
+
+
     return (
         <Router history={history}>
             <Switch>
@@ -60,7 +62,7 @@ function MyGoals() {
     <SideBar />
     <IonPage className="ion-page" id="main-content">
   <Header/>
-            <Link to="/GoalsPage">
+            <Link to="/goals">
             <IonButton>
               Return to Dashboard 
             </IonButton>
@@ -85,7 +87,7 @@ function MyGoals() {
                       )}
                     </IonRow>
                   </IonGrid>
-                  <Link to="/goal/add">
+                  <Link to="/mygoals/add">
                   <IonFab vertical="bottom" horizontal="end" slot="fixed">
                     <IonFabButton>
                       <IonIcon icon={add} />
