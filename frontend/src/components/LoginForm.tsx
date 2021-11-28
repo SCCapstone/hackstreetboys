@@ -24,7 +24,7 @@ export const LoginForm: React.FC = () => {
                         setError(true);
                         return;
                     }
-
+                }).then(() =>{
                     context.setLoggedIn(true);
                     History.push('/');
                 });
