@@ -1,6 +1,7 @@
 package recipes.fridger.backend.controller;
 
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -159,7 +160,14 @@ public class UserController {
 
     @GetMapping(path = "/pantries")
     public @ResponseBody Iterable<User>
-    getUsers(@RequestParam(required = false) Long id) {
-        return userService.getUsers(id);
+    getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+        return userService.getUsersByIdAndEmail(id, email);
+    }
+
+    @GetMapping(path = "/authenticate")
+    public @ResponseBody User
+    authenticateUser(@RequestParam(required = true) String email, @RequestParam(required = true) String password) {
+        //TODO encrypt password and decrypt at backend
+        return userService.authenticateUser(email, password);
     }
 }

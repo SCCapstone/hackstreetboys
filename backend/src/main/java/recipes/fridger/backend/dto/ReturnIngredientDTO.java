@@ -24,4 +24,6 @@ public class ReturnIngredientDTO {
     private Boolean alcohol;
 
     private Double cost;
+
+    private String imgSrc;
 }

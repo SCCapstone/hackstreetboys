@@ -1,5 +1,5 @@
 import './Profile.css';
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, useParams } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
@@ -22,15 +22,27 @@ import {
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
+import Header from '../components/Header'
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { User } from '../models/User';
 
+import { useContext } from 'react';
+import Context from '../components/Context';
+
+import History from '../History';
+
+export interface routeParams {
+  id: string;
+}
+
 function Users() {
-  const [user, setUser] = React.useState<User>({
-    id: 1,
-    type: 'User',
+  const context = useContext(Context);
+
+  const [user, setUser] = useState<User>({
+    id: 23,
+    type: 'NORMAL',
     email: 'seonghopark@gmail.com',
     password: 'this probably shoudn\'t be here', // This probably shouldn't be here
     name: 'Seongho Park',
@@ -47,24 +59,30 @@ function Users() {
     weight_lb: 600 // Perhaps these shouldn't be publicly displayed?
   });
 
+  // const email = 'smith@gmail.com';
+  // const password = 'password';
+
+  const { id } = useParams<routeParams>();
+
+  useEffect(() => {
+    if(context.currentUser){
+      setUser(context.currentUser);
+    } else if(id) {
+      fetch(`http://localhost:7999/v1/user/${id}`)
+        .then(response => response.json())
+        .then(data => setUser(data))
+    } else {
+      History.push('/login');
+    }
+  }, [])
+
   return (
     <Router history={history}>
       <Switch>
         <IonApp>
           <SideBar />
           <IonPage className="ion-page" id="main-content">
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuToggle>
-                    <IonButton>
-                      <IonIcon icon={menuOutline} slot="start" />
-                    </IonButton>
-                  </IonMenuToggle>
-                </IonButtons>
-                <IonTitle>Fridger</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+            <Header />
             <IonContent className="ion-padding">
               <IonCard>
                 <IonCardHeader>
