@@ -157,7 +157,7 @@ public class UserController {
         return pantryService.getPantryByID(pantryId);
     }
 
-    @GetMapping(path = "/pantry")
+    @GetMapping(path = "/pantries")
     public @ResponseBody Iterable<User>
     getUsers(@RequestParam(required = false) Long id) {
         return userService.getUsers(id);

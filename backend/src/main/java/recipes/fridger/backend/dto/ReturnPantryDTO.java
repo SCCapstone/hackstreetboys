@@ -1,6 +1,6 @@
 package recipes.fridger.backend.dto;
 
-import java.util.ArrayList;
+import java.util.List;
 import recipes.fridger.backend.model.*;
 import lombok.Data;
 import javax.persistence.Column;

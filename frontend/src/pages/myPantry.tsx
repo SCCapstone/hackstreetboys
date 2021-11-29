@@ -23,14 +23,25 @@ import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import { logoYoutube, menuOutline } from 'ionicons/icons';
-import React, { Component } from 'react';
+import React, { Component, useEffect } from 'react';
 import { Pantry } from '../models/Pantry';
-import { ingredient } from '../models/Ingredient';
+import { Ingredient } from '../models/Ingredient';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
+// const [pantry, setPantry] = React.useState<Pantry>({
+//     id: 1,
+//     user: "Quinn Biscuit",
+//     fruits: [["Apple","2","70"],["Banana","3"],["Orange","4"]], //{name,}
+//     vegetables: [["Lettuce","7 ounces"]],
+//     meats: [["Chicken","1 lb"]],
+//     spices: [["Garlic Powder","5 ounces"]],
+//     description: "This is a basic pantry"  
+//   })
+
+
 function IngredientInfo () {
-  const [ing, setIngredient] = React.useState<ingredient>({
+  const [ing, setIngredient] = React.useState<Ingredient>({
     id: 123,
     name: "Apple",
     calories: 70,
@@ -43,18 +54,12 @@ function IngredientInfo () {
     standardSizeUnit: "apple",
   })
   return (
-    console.log(ing.id,"\n",
-                ing.name,"\n",
-                ing.calories, "\n",
-                ing.carbohydrates,"\n",
-                ing.protein,"\n",
-                ing.fat,"\n",
-                ing.alcohol,"\n",
-                ing.cost,"\n",
-                ing.standardSize,"\n",
-                ing.standardSizeUnit,"\n",
-                )
+    console.log(ing)
   )
+}
+
+interface PantryExample {
+  pantry: Pantry
 }
 
 function MyPantry() {
@@ -67,19 +72,15 @@ function MyPantry() {
     spices: [["Garlic Powder","5 ounces"]],
     description: "This is a basic pantry"  
   })
-  // function handleClick() {
-  // console.log(ing.id,"\n",
-  //               ing.name,"\n",
-  //               ing.calories, "\n",
-  //               ing.carbohydrates,"\n",
-  //               ing.protein,"\n",
-  //               ing.fat,"\n",
-  //               ing.alcohol,"\n",
-  //               ing.cost,"\n",
-  //               ing.standardSize,"\n",
-  //               ing.standardSizeUnit,"\n",
-  //               )
-  // )}
+
+  // useEffect(() => {
+  //   fetch("http://localhost:7999/v1/user/pantries")
+  //   .then(res => res.json())
+  //   .then(setPantry)
+  // }, [])
+
+  IngredientInfo() 
+
   return (
     <Router history={history}>
       <Switch>
@@ -104,9 +105,9 @@ function MyPantry() {
                 <IonListHeader>
                     <h1>Fruits</h1>
                   </IonListHeader>
-                    {pantry.fruits.map(fruit => {
-                      return (
-                        <IonItem key={fruit[0]} button onClick={ () => {}}> {}
+                    {pantry.fruits.map(fruit => 
+                      
+                        <IonItem key={fruit[0]} button onClick={ () => {}}> 
                           <IonAvatar slot="start">
                             <img src=""></img>
                           </IonAvatar>
@@ -117,8 +118,8 @@ function MyPantry() {
                             <h2>Quantity: {fruit[1]}</h2>
                           </IonLabel>
                         </IonItem>
-                      )
-                    })}
+                      
+                  ,)}
               </IonList>
               <IonList> {/* VEGETABLE LIST */}
                 <IonListHeader>

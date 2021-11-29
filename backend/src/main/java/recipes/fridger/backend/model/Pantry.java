@@ -16,25 +16,13 @@ public class Pantry {
     private Long id;
 
     @Column(name = "ingredientsInPantry", nullable = true)
-    private String pantry;
+    private String ingredientID;
+
+    @Column(name = "numberofIngredient", nullable = true)
+    private String numIngredientID;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
     @Column(name = "description", nullable = true)
     private String description;
 
-    public String getPantry() {
-        return pantry;
-    }
-
-    public void setPantry(String pantry) {
-        this.pantry = pantry;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

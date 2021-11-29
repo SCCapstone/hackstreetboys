@@ -23,7 +23,7 @@ public class PantryServiceImp implements PantryService {
     public void createPantry(CreatePantryDTO dto) {
         Pantry pantry = new Pantry();
         //pantry.setOwnerId(dto.getOwnerId());
-        pantry.setPantry(dto.getPantry());
+        pantry.setIngredientID(dto.getPantry());
         pantry.setDescription(dto.getDescription());
         pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
