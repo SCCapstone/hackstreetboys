@@ -42,6 +42,7 @@ import Context from './components/Context';
 import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
+import MyPantry from './pages/myPantry';
 
 //const App: React.FC = () => (
   function App () {
@@ -69,7 +70,7 @@ import Ingredient from "./pages/Ingredient";
               <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />
               <Route path="/goals" component={GoalsPage} />
-              <Route path="/mypantry" component={myPantry} />
+              <Route path="/mypantry" component={MyPantry} />
               <Route path="/myreviews" component={myReviews} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />
