@@ -1,31 +1,19 @@
 import './Recipes.css';
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Link } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonMenuToggle,
   IonPage,
-  IonButtons,
-  IonButton,
   IonIcon,
   IonCard,
   IonCardContent,
   IonCol,
-  IonDatetime,
   IonFab,
   IonFabButton,
   IonGrid,
-  IonInput,
-  IonItem,
   IonLabel,
-  IonModal,
   IonRow,
-  IonSelect,
-  IonSelectOption,
   IonText,
   IonCardHeader,
   IonCardTitle,
@@ -34,11 +22,9 @@ import {
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { add, menuOutline } from 'ionicons/icons';
-import React, { useEffect, useState } from 'react';
+import { add } from 'ionicons/icons';
+import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
-import { register } from '../serviceWorkerRegistration';
-import RecipeCard from '../components/DashboardCard';
 import Header from '../components/Header';
 interface RecipeProps {
   recipe: Recipe,
@@ -89,7 +75,7 @@ function Recipes() {
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipe.totalTime}</IonLabel>
+                              <IonLabel>Time: {recipe.totalTime}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
                           </Link>

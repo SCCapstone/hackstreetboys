@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Router, Switch, Route } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
@@ -12,13 +12,10 @@ import Home from './pages/Home';
 import MyGoals from './pages/MyGoals';
 import Profile from './pages/Profile';
 import Goal from "./pages/MyGoal";
-import SideBar from './components/SideBar';
-import RecipeCard from './components/RecipeCard';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import ChangePassword from './pages/ChangePassword';
-import IngredientCard from './components/IngredientCard';
 
 
 /* Core CSS required for Ionic components to work properly */
@@ -39,16 +36,13 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import { menuOutline } from 'ionicons/icons';
-import Header from "./components/Header";
-import { IonApp, IonContent, IonPage } from "@ionic/react";
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
 import Context from './components/Context';
 import { User } from './models/User';
-import AddGoal from "./pages/AddGoal";
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
+import MyPantry from './pages/myPantry';
 
 //const App: React.FC = () => (
   function App () {
@@ -71,9 +65,12 @@ import Ingredient from "./pages/Ingredient";
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
+              <Route path="/ingredient/add" component={AddIngredient} />
+              <Route path="/ingredient/:id" component={Ingredient} />
+              <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />
               <Route path="/goals" component={GoalsPage} />
-              <Route path="/mypantry" component={myPantry} />
+              <Route path="/mypantry" component={MyPantry} />
               <Route path="/myreviews" component={myReviews} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />

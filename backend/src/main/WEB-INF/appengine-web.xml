@@ -1,0 +1,10 @@
+<!-- App Engine Documentation https://cloud.google.com/appengine/docs/java -->
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+  <version>1</version>
+  <threadsafe>true</threadsafe>
+  <runtime>java11</runtime>
+  <resource-files>
+    <include path="/**.json" />
+    <include path="/**.properties" />
+  </resource-files>
+</appengine-web-app>

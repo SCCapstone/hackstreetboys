@@ -1,5 +1,5 @@
 {
-  "name": "research",
+  "name": "fridger",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
@@ -70,5 +70,5 @@
     "@capacitor/cli": "3.2.4",
     "react-scripts": "4.0.2"
   },
-  "description": "An Ionic project"
+  "description": "fridger.recipes"
 }
