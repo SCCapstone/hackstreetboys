@@ -1,4 +1,5 @@
-export interface Ingredient {
+export interface Ingredient{
+
     id: number;
     name: string;
     calories: number;
@@ -7,6 +8,7 @@ export interface Ingredient {
     fat: number;
     alcohol: boolean;
     cost: number;
-    
-    //imgSrc: string;
+
+    imgSrc: string;
+
 }

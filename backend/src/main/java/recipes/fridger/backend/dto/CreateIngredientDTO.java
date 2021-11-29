@@ -28,4 +28,7 @@ public class CreateIngredientDTO {
 
     @DecimalMin(value = "0.0")
     private Double cost;
+
+    @Size(min = 0, max = 500)
+    private String imgSrc;
 }

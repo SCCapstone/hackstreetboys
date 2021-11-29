@@ -2,11 +2,15 @@ import { IonMenu, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem,
 import { home, restaurantSharp, nutritionSharp, person, fastFoodSharp, folderOpenSharp, heartSharp, cogSharp, personCircleSharp } from "ionicons/icons";
 //import { Link } from "react-router-dom";
 
+import { useContext } from 'react';
+import Context from './Context';
 
 import History from "../History";
 
 
 const SideBar: React.FC = () => {
+  const context = useContext(Context);
+
     return (
 <IonMenu content-id="main-content">
     <IonHeader>
@@ -19,7 +23,7 @@ const SideBar: React.FC = () => {
       <IonList>
       <IonItem>
             <IonLabel>
-              Welcome, Seongho!
+              Welcome{context.currentUser && ', ' + context.currentUser.name}!
             </IonLabel>
           </IonItem>
         <IonListHeader>
@@ -51,7 +55,7 @@ const SideBar: React.FC = () => {
           <IonItem button onClick={() => History.push('/goals')} >
           <IonIcon icon={person} slot="start"/>
             <IonLabel>
-              My Dashboard
+              Dashboard and Goals
             </IonLabel>
           </IonItem>
 
@@ -83,10 +87,10 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/profile')} >
+          <IonItem button onClick={() => History.push('/editprofile')} >
           <IonIcon icon={personCircleSharp} slot="start"/>
             <IonLabel>
-              Profile
+              Edit Profile
             </IonLabel>
           </IonItem>
 
