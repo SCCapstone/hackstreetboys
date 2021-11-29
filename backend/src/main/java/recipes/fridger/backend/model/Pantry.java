@@ -15,10 +15,10 @@ public class Pantry {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ingredientsInPantry", nullable = true)
+    @Column(name = "ingredients_in_pantry", nullable = true)
     private String ingredientID;
 
-    @Column(name = "numberofIngredient", nullable = true)
+    @Column(name = "number_of_ingredients", nullable = true)
     private String numIngredientID;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)

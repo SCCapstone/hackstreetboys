@@ -49,6 +49,7 @@ function IngredientInfo () {
     protein: 1,
     fat: 2,
     alcohol: false,
+    imgSrc: "",
     cost: .50,
   })
   return (
@@ -85,18 +86,7 @@ function MyPantry() {
         <IonApp>
         <SideBar />
           <IonPage className="ion-page" id="main-content">
-            <IonHeader>
-              <IonToolbar>
-                <IonButtons slot="start">
-                  <IonMenuToggle>
-                    <IonButton>
-                      <IonIcon icon={menuOutline} slot="start" />
-                    </IonButton>
-                  </IonMenuToggle>
-                </IonButtons>
-                <IonTitle>Fridger</IonTitle>
-              </IonToolbar>
-            </IonHeader>
+            <Header/>
             <IonContent className="ion-padding">
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
               <IonList> {/*FRUIT LIST */}

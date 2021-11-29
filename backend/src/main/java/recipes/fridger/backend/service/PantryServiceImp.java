@@ -8,10 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import org.springframework.transaction.annotation.Transactional;
 import recipes.fridger.backend.crud.Pantries;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.model.Pantry;
+
+import javax.transaction.Transactional;
 
 @Service
 public class PantryServiceImp implements PantryService {
@@ -24,7 +25,6 @@ public class PantryServiceImp implements PantryService {
         Pantry pantry = new Pantry();
         //pantry.setOwnerId(dto.getOwnerId());
         pantry.setIngredientID(dto.getPantry());
-        pantry.setDescription(dto.getDescription());
         pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
     }
