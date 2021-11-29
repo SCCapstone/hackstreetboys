@@ -50,8 +50,6 @@ function IngredientInfo () {
     fat: 2,
     alcohol: false,
     cost: .50,
-    standardSize: 1,
-    standardSizeUnit: "apple",
   })
   return (
     console.log(ing)
