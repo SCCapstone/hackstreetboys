@@ -1,5 +1,5 @@
 runtime: java11
-#service: fridger-recipes
+#service: fridger-backend
 entrypoint: java -jar fridger-recipes-0.0.1-SNAPSHOT.jar
 env: standard
 runtime_config:

@@ -1,4 +1,5 @@
 runtime: nodejs12
+service: fridger-frontend
 handlers:
   # Serve all static files with url ending with a file extension
   - url: /(.*\..+)$
