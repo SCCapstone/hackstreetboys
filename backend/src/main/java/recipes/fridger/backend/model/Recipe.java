@@ -1,6 +1,5 @@
 package recipes.fridger.backend.model;
 
-
 import java.util.Date;
 import java.util.Optional;
 
