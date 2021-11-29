@@ -18,14 +18,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import lombok.extern.slf4j.Slf4j;
 
 import recipes.fridger.backend.crud.Users;
+import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.dto.CreateUserDTO;
+import recipes.fridger.backend.model.Pantry;
 import recipes.fridger.backend.model.User;
+import recipes.fridger.backend.service.PantryService;
 import recipes.fridger.backend.service.UserService;
 
 import recipes.fridger.backend.crud.Goals;
 import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
+import recipes.fridger.backend.crud.Pantries;
 
 @RestController
 @Slf4j
@@ -39,10 +43,16 @@ public class UserController {
     private Goals goals;
 
     @Autowired
+    private Pantries pantry;
+
+    @Autowired
     private GoalService goalService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private PantryService pantryService;
 
     @PostMapping(path = "/")
     public ResponseEntity<String>
@@ -98,11 +108,35 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/{id}")
+    @PostMapping(path = "/pantry") //TODO create path
+    public ResponseEntity<String>
+    createPantry(@RequestBody @Valid CreatePantryDTO p) {
+        try {
+            pantryService.createPantry(p);
+            log.info("Successful creation of pantry");
+            return ResponseEntity.ok("Created pantry");
+        } catch (Exception e) {
+            log.warn("Unable to create pantry\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
+        }
+    }
+    @DeleteMapping(path = "/{pantryId}") //TODO create path
+    public ResponseEntity<String>
+    deletePantry(@PathVariable Long id) {
+        try {
+            pantryService.deletePantry(id);
+            log.info("Successfully delete pantry #"+id);
+            return ResponseEntity.ok("Deleted recipe");
+        } catch (Exception e) {
+            log.warn("Unable to delete recipe #" +id);
+            return ResponseEntity.internalServerError().body("Unable to delete recipe");
+        }
+    }
+
+    @GetMapping(path = "/{pantryId}")
     public @ResponseBody User getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
-
 
     @GetMapping(path = "/goals")
     public @ResponseBody Iterable<Goal>
@@ -111,10 +145,20 @@ public class UserController {
     }
 
     @GetMapping(path = "/goal/{goalId}")
-    public @ResponseBody Goal getGoalByID(@PathVariable Long goalId) {return goalService.getGoalByID(goalId);
+    public @ResponseBody Goal
+    getGoalByID(@PathVariable Long goalId)
+    {
+        return goalService.getGoalByID(goalId);
     }
 
-    @GetMapping(path = "/")
+    @GetMapping(path= "/pantry/{pantryId}")
+    public @ResponseBody Pantry
+    getPantryByID(@PathVariable Long pantryId)
+    {
+        return pantryService.getPantryByID(pantryId);
+    }
+
+    @GetMapping(path = "/pantries")
     public @ResponseBody Iterable<User>
     getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
         return userService.getUsersByIdAndEmail(id, email);
