@@ -9,6 +9,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+
 import lombok.Data;
 
 @Data
