@@ -52,3 +52,7 @@ public class Ingredient {
     @DecimalMin(value = "0.0")
     @Column(name = "cost")
     private Double cost;
+
+    @Column(name = "imgSrc")
+    private String ImgSrc;
+}
