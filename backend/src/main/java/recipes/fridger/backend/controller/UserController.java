@@ -54,6 +54,10 @@ public class UserController {
     @Autowired
     private PantryService pantryService;
 
+    /*
+     *  USER API
+     */
+
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createUser(@RequestBody @Valid CreateUserDTO u) {
@@ -80,6 +84,28 @@ public class UserController {
                 "Unable to delete user\n" + e.getMessage());
         }
     }
+
+    @GetMapping(path = "/")
+    public @ResponseBody Iterable<User>
+    getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+        return userService.getUsersByIdAndEmail(id, email);
+    }
+
+    @GetMapping(path = "/{id}")
+    public @ResponseBody User getUser(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
+
+    @GetMapping(path = "/authenticate")
+    public @ResponseBody User
+    authenticateUser(@RequestParam(required = true) String email, @RequestParam(required = true) String password) {
+        //TODO encrypt password and decrypt at backend
+        return userService.authenticateUser(email, password);
+    }
+
+    /*
+     *  GOAL API
+     */
 
     @PostMapping(path = "/goal")
     public ResponseEntity<String>
@@ -108,6 +134,23 @@ public class UserController {
         }
     }
 
+    @GetMapping(path = "/goals")
+    public @ResponseBody Iterable<Goal>
+    getGoals(@RequestParam(required = false) Long id) {
+        return goalService.getGoals(id);
+    }
+
+    @GetMapping(path = "/goal/{goalId}")
+    public @ResponseBody Goal
+    getGoalByID(@PathVariable Long goalId)
+    {
+        return goalService.getGoalByID(goalId);
+    }
+
+    /*
+     *  PANTRY API
+     */
+
     @PostMapping(path = "/pantry") //TODO create path
     public ResponseEntity<String>
     createPantry(@RequestBody @Valid CreatePantryDTO p) {
@@ -133,22 +176,11 @@ public class UserController {
         }
     }
 
-    @GetMapping(path = "/{pantryId}")
-    public @ResponseBody User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
-    }
-
-    @GetMapping(path = "/goals")
-    public @ResponseBody Iterable<Goal>
-    getGoals(@RequestParam(required = false) Long id) {
-        return goalService.getGoals(id);
-    }
-
-    @GetMapping(path = "/goal/{goalId}")
-    public @ResponseBody Goal
-    getGoalByID(@PathVariable Long goalId)
-    {
-        return goalService.getGoalByID(goalId);
+    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
+    @GetMapping(path = "/pantries")
+    public @ResponseBody Iterable<User>
+    getUserPantries(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+        return userService.getUsersByIdAndEmail(id, email);
     }
 
     @GetMapping(path= "/pantry/{pantryId}")
@@ -156,18 +188,5 @@ public class UserController {
     getPantryByID(@PathVariable Long pantryId)
     {
         return pantryService.getPantryByID(pantryId);
-    }
-
-    @GetMapping(path = "/pantries")
-    public @ResponseBody Iterable<User>
-    getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return userService.getUsersByIdAndEmail(id, email);
-    }
-
-    @GetMapping(path = "/authenticate")
-    public @ResponseBody User
-    authenticateUser(@RequestParam(required = true) String email, @RequestParam(required = true) String password) {
-        //TODO encrypt password and decrypt at backend
-        return userService.authenticateUser(email, password);
     }
 }
