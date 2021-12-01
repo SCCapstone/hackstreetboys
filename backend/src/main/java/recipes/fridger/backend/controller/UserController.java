@@ -183,12 +183,6 @@ public class UserController {
         return userService.getUsersByIdAndEmail(id, email);
     }
 
-    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
-    @GetMapping(path = "/{pantryId}")
-    public @ResponseBody User getUserPantry(@PathVariable Long id) {
-        return userService.getUser(id);
-    }
-
     @GetMapping(path= "/pantry/{pantryId}")
     public @ResponseBody Pantry
     getPantryByID(@PathVariable Long pantryId)
