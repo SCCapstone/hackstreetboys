@@ -62,21 +62,27 @@ interface PantryExample {
 }
 
 function MyPantry() {
-  const [pantry, setPantry] = React.useState<Pantry>({
-    id: 1,
-    user: "Quinn Biscuit",
-    fruits: [["Apple","2","70"],["Banana","3"],["Orange","4"]], //{name,}
-    vegetables: [["Lettuce","7 ounces"]],
-    meats: [["Chicken","1 lb"]],
-    spices: [["Garlic Powder","5 ounces"]],
-    description: "This is a basic pantry"  
-  })
+  const [pantry, setPantry] = React.useState<Ingredient>({
+      id: 99,
+      name: "Biscuit",
+      calories: 273,
+      carbohydrates: 34,
+      protein: 14,
+      fat: 9,
+      alcohol: false,
+      cost: 9.69,
+      imgSrc: ""
+  }); 
 
   // useEffect(() => {
-  //   fetch("http://localhost:7999/v1/user/pantries")
+  //   fetch("http://localhost:7999/v1/user/{userId}/pantry") //pass in user id
   //   .then(res => res.json())
   //   .then(setPantry)
   // }, [])
+
+  //we need to pull ingredients from the list of ingredients that the user has
+  //need to access APIs of ingredients
+
 
   IngredientInfo() 
 
