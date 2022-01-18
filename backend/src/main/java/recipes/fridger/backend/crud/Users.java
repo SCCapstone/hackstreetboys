@@ -14,6 +14,6 @@ public interface Users extends CrudRepository<User, Long> {
     @Query("select u from User u where (:id is null or u.id = :id) and (:email is null or u.email = :email)")
     List<User> findByIdAndEmail(Long id, String email);
 
-    @Query("select u from User u where (u.email = :email) and (u.password = :password)")
-    Optional<User> findByEmailAndPassword(String email, String password);
+    @Query("select u from User u where (u.email = :email)")
+    Optional<User> findByEmail(String email);
 }

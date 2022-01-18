@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Router, Switch, Route } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
@@ -55,6 +55,17 @@ import MyPantry from './pages/myPantry';
       setLoggedIn,
       setUser
     }
+
+    // If user was previously logged in, reload user data
+    useEffect(() => {
+      const loggedInUser = localStorage.getItem('user')
+      if (loggedInUser) {
+        console.log(loggedInUser)
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser);
+        setLoggedIn(true);
+      }
+    }, []);
 
     return (
       <Context.Provider value={globals}>
