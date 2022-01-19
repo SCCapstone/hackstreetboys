@@ -44,7 +44,7 @@ function IngredientPage(this: any) {
     });
     const { id } = useParams<routeParams>();
     useEffect(() => {
-        fetch(`http://localhost:7999/v1/ingredient/${id}`)
+        fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [])

@@ -16,7 +16,7 @@ export const LoginForm: React.FC = () => {
     const [error, setError ] = useState(false);
 
     const LogIn = () => {
-            fetch(`http://localhost:7999/v1/user/authenticate?email=${email}&password=${password}`)
+            fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/authenticate?email=${email}&password=${password}`)
                 .then(response => response.json())
                 .then(data => context.setUser(data))
                 .then(() => {

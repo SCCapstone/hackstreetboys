@@ -33,28 +33,29 @@ export interface routePrams {
 function RecipePage(this: any) {
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
-    title: "Biscuits and Jam",
-    author: "Quinn Biscuit",
-    description: "What do you think? It's biscuits dummy.",
-    body: "Well, here's the sauce.",
+    title: "",
+    author: "",
+    description: "",
+    body: "",
     imgSrc: "",
-    totalTime: 55,
-    prepTime: 15,
-    cookTime: 40,
-    yield: 10,
-    estimatedCost: 69.42,
-    type: "food",
-    tags: "test,string",
-    ingredientIds: "2929, 29292",
-    rating: 4.2
+    totalTime: 0,
+    prepTime: 0,
+    cookTime: 0,
+    yield: 0,
+    estimatedCost: 0,
+    type: "",
+    tags: "",
+    ingredientIds: "",
+    rating: 0
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:7999/v1/recipe/${id}`)
+    fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [])
   console.log(recipe);
+
   return (
     <Router history={history}>
       <Switch>
@@ -90,7 +91,6 @@ function RecipePage(this: any) {
               </IonCard>
               <IonCard>
                 <IonCardContent>
-
                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
                   <br />
                   Tags: {recipe.tags}

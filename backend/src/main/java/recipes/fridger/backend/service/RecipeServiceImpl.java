@@ -8,6 +8,8 @@ import recipes.fridger.backend.model.Recipe;
 
 import javax.transaction.Transactional;
 import java.util.Optional;
+import java.util.concurrent.ThreadLocalRandom;
+
 @Service
 public class RecipeServiceImpl implements RecipeService{
 
@@ -27,8 +29,13 @@ public class RecipeServiceImpl implements RecipeService{
         r.setYield(dto.getYield());
         r.setEstimatedCost(dto.getEstimatedCost());
         r.setType(dto.getType());
+        //We have not established the alcohol feature yet.
         r.setAlcoholic(dto.getAlcoholic());
+        //Fake values for ratings testing...
+        r.setRating(ThreadLocalRandom.current().nextDouble(0, 5));
+        //dto.getAlcoholic()
         r.setTags(dto.getTags());
+        r.setIngredientIds(dto.getIngredientIds());
         recipes.save(r);
 //        System.out.println(r.toString());
     }
@@ -50,8 +57,10 @@ public class RecipeServiceImpl implements RecipeService{
         }
         return null;
     }
+
     @Transactional
-    public Iterable<Recipe> getRecipes(Long userId) {
-        return recipes.find(userId);
+    @Override
+    public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title) {
+        return recipes.find(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
     }
 }

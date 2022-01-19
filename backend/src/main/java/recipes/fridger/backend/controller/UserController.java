@@ -163,7 +163,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
-    @DeleteMapping(path = "/{pantryId}") //TODO create path
+    @DeleteMapping(path = "/pantry/{pantryId}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
         try {
