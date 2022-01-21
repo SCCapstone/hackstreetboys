@@ -2,33 +2,25 @@ import { Router, Switch, Route, Link, useParams } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonMenuToggle,
   IonPage,
-  IonButtons,
   IonButton,
-  IonIcon,
   IonCard,
   IonCardContent,
 } from '@ionic/react';
-/* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { constructOutline, menuOutline } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Goal } from '../Goal';
 import Header from "../components/Header";
 
 interface GoalExample {
-  recipe: Goal,
+  goal: Goal,
 }
 export interface routePrams {
   id: string;
 }
-function RecipePage(this: any) {
+function GoalPage(this: any) {
   const [goal, setGoal] = React.useState<Goal>({
     id: 1,
     endGoal: "Lose",
@@ -81,4 +73,4 @@ function RecipePage(this: any) {
   );
 }
 
-export default RecipePage;
+export default GoalPage;

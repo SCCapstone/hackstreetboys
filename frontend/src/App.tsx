@@ -43,6 +43,7 @@ import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
 import MyPantry from './pages/myPantry';
+import AddGoal from './pages/AddGoal';
 
 //const App: React.FC = () => (
   function App () {
@@ -74,6 +75,7 @@ import MyPantry from './pages/myPantry';
               <Route path="/myreviews" component={myReviews} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />
+              <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/mygoals" component={MyGoals} />
               <Route path="/goal/:id" component={Goal} />
               <Route path="/profile/:id?" component={Profile} />
