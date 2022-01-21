@@ -1,5 +1,4 @@
 import './GoalsPage.css';
-//import Chart from "react-google-charts";
 import Chart from '../components/Chart'
 import LineChart from '../components/LineChart'
 import PieChart from '../components/PieChartFilterable';
@@ -12,12 +11,9 @@ import {
   } from '@ionic/react';
 
 import { Router, Switch, Route, Link } from "react-router-dom";
-//import { Router, Switch, Route, useParams } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
-//import Dashboard from '../components/Dashboard';
-import { menuOutline } from 'ionicons/icons';
-import { useEffect, useState } from 'react';
+
 
 import Header from '../components/Header';
 
