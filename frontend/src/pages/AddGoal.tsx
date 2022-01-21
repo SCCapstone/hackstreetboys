@@ -39,10 +39,10 @@ import SideBar from '../components/SideBar';
         defaultValues: {
             endGoal: "",
             calories: 0,
-            carbs: 0,
+            carbohydrates: 0,
             protein: 0,
             fat: 0,
-            currWeight: 0,
+            currentWeight: 0,
             goalWeight: 0,
             goalID: "",
         }
@@ -97,20 +97,20 @@ import SideBar from '../components/SideBar';
         <form onSubmit={async () =>{await onSubmit();}} >
         <IonItem>
                     <IonLabel>What is your end goal?</IonLabel>
-                    <IonSelect name="endGoal" multiple={false} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('goalID',JSON.stringify(e.detail.value))}>
-                        <IonSelectOption value="1">Lose Weight</IonSelectOption>
-                        <IonSelectOption value="2">Maintain Current Weight</IonSelectOption>
-                        <IonSelectOption value="3">Gain Weight</IonSelectOption>
+                    <IonSelect name="endGoal" multiple={false} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('endGoal',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}>
+                        <IonSelectOption value="Lose Weight">Lose Weight</IonSelectOption>
+                        <IonSelectOption value="Maintain Current Weight">Maintain Current Weight</IonSelectOption>
+                        <IonSelectOption value="Gain Weight">Gain Weight</IonSelectOption>
                     </IonSelect>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating" >How many calories do you consume per day?</IonLabel>
-                    <IonInput type="text" name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
+                    <IonInput name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>
                     <IonLabel position="floating">How many carbohydrates do you consume per day?</IonLabel>
-                    <IonTextarea name="carbs" required onIonInput={(e: any) => setValue("carbs",e.target.value)} />
+                    <IonInput name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">How much protein do you consume per day?</IonLabel>
@@ -122,7 +122,7 @@ import SideBar from '../components/SideBar';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your current weight?</IonLabel>
-                    <IonInput name="currWeight" required onIonInput={(e: any) => setValue("currWeight",e.target.value)} />
+                    <IonInput name="currentWeight" required onIonInput={(e: any) => setValue("currentWeight",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your goal weight?</IonLabel>
