@@ -14,6 +14,7 @@ import {
     IonListHeader,
     IonMenuToggle,
     IonPage,
+    IonPopover,
     IonTitle,
     IonToolbar,
   } from '@ionic/react';
@@ -79,13 +80,20 @@ function MyPantry() {
     userID: 2,
     ingredientID: "273",
     numIngredient: 34,
-    description: "kdajfkldaj"
+    description: "This is a description of the food"
   }]);
   useEffect(() => {
     fetch(`http://localhost:7999/v1/user/pantry/`) //pass in user id
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
+  //Ionic Popover testing
+  const [showPop, setPop] = useState<{open: boolean, event: Event | undefined}>({
+    open: false,
+    event: undefined
+  });
+
+
   console.log(pan);
   return (
     <Router history={history}>
@@ -101,14 +109,22 @@ function MyPantry() {
                 {pan.map(myIng =>
                   <IonItem key={myIng.id}> 
                     <IonAvatar slot="start">
-                          <img src=""></img>
-                        </IonAvatar>
-                        <IonLabel>
-                          <h2>{myIng.ingredientID}</h2>
-                        </IonLabel>
-                        <IonLabel slot="end">
-                          <h2>Quantity: {myIng.numIngredient}</h2>
-                        </IonLabel> 
+                        <img src=""></img>
+                    </IonAvatar>
+                    <IonLabel>
+                      <h2>Ingredient ID: {myIng.ingredientID}</h2>
+                    </IonLabel>
+                    <IonLabel slot="end">
+                      <h2>Quantity: {myIng.numIngredient}</h2>
+                    </IonLabel>
+                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>Description</IonButton>
+                    <IonPopover
+                      isOpen={showPop.open}
+                      event={showPop.event}
+                      onDidDismiss={e => setPop({open: false, event: undefined})}
+                    >
+                      <p>{myIng.description}</p>
+                    </IonPopover>
                   </IonItem>
                 )}
               </IonList> { /*
