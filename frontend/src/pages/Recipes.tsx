@@ -48,7 +48,7 @@ function Recipes() {
     rating: 4.2
   }]);
   useEffect(() => {
-    fetch("http://localhost:7999/v1/recipe/")
+    fetch("http://localhost:7999/v1/recipe/") //calling all recipes
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])

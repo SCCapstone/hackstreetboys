@@ -50,7 +50,7 @@ function RecipePage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:7999/v1/recipe/${id}`)
+    fetch(`http://localhost:7999/v1/recipe/${id}`) //calling single recipe
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [])

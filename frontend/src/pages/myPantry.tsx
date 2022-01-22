@@ -18,14 +18,15 @@ import {
     IonToolbar,
   } from '@ionic/react';
 
-import { Router, Switch } from "react-router-dom";
+import { Router, Switch, useParams } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import { logoYoutube, menuOutline } from 'ionicons/icons';
-import React, { Component, useEffect } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import { Pantry } from '../models/Pantry';
 import { Ingredient } from '../models/Ingredient';
+import { Recipe } from '../models/Recipe';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
@@ -39,53 +40,53 @@ let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 //     description: "This is a basic pantry"  
 //   })
 
+interface PantryProps {
+  pantry: Pantry,
+}
 
 function IngredientInfo () {
-  const [ing, setIngredient] = React.useState<Ingredient>({
-    id: 123,
-    name: "Apple",
-    calories: 70,
-    carbohydrates: 2,
-    protein: 1,
-    fat: 2,
-    alcohol: false,
-    imgSrc: "",
-    cost: .50,
+  const [ing, setIngredient] = React.useState<Pantry>({
+    id: 99,
+    userID: 2,
+    ingredientID: "273",
+    numIngredient: 34,
+    description: "kdajfkldaj"
   })
   return (
     console.log(ing)
   )
 }
 
-interface PantryExample {
-  pantry: Pantry
-}
+//useState returns a pair of values:
+  //[0]the current State
+  //[1]function to update it
+  
 
-function MyPantry() {
-  const [pantry, setPantry] = React.useState<Ingredient>({
-      id: 99,
-      name: "Biscuit",
-      calories: 273,
-      carbohydrates: 34,
-      protein: 14,
-      fat: 9,
-      alcohol: false,
-      cost: 9.69,
-      imgSrc: ""
-  }); 
+  // const userID = 1;
 
-  // useEffect(() => {
-  //   fetch("http://localhost:7999/v1/user/{userId}/pantry") //pass in user id
-  //   .then(res => res.json())
-  //   .then(setPantry)
-  // }, [])
+  // const [quant, setQuant] = useState(0); //set quant to 0 initally
+  // const { id } = useParams<PantryExample>();
 
+  
   //we need to pull ingredients from the list of ingredients that the user has
   //need to access APIs of ingredients
+  //IngredientInfo()
+  // console.log(pantry);
 
-
-  IngredientInfo() 
-
+function MyPantry() {
+  const [pan, setPantry] = React.useState<[Pantry]>([{ //makes pantry a variable containing ingredient
+    id: 99,
+    userID: 2,
+    ingredientID: "273",
+    numIngredient: 34,
+    description: "kdajfkldaj"
+  }]);
+  useEffect(() => {
+    fetch(`http://localhost:7999/v1/user/pantry/`) //pass in user id
+    .then(res => res.json())
+    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+  }, [])
+  console.log(pan);
   return (
     <Router history={history}>
       <Switch>
@@ -95,27 +96,23 @@ function MyPantry() {
             <Header/>
             <IonContent className="ion-padding">
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
-              <IonList> {/*FRUIT LIST */}
-                <IonListHeader>
-                    <h1>Fruits</h1>
-                  </IonListHeader>
-                    {pantry.fruits.map(fruit => 
-                      
-                        <IonItem key={fruit[0]} button onClick={ () => {}}> 
-                          <IonAvatar slot="start">
-                            <img src=""></img>
-                          </IonAvatar>
-                          <IonLabel>
-                            <h2>{fruit[0]}</h2>
-                          </IonLabel>
-                          <IonLabel slot="end">
-                            <h2>Quantity: {fruit[1]}</h2>
-                          </IonLabel>
-                        </IonItem>
-                      
-                  ,)}
-              </IonList>
-              <IonList> {/* VEGETABLE LIST */}
+                    
+              <IonList> 
+                {pan.map(myIng =>
+                  <IonItem key={myIng.id}> 
+                    <IonAvatar slot="start">
+                          <img src=""></img>
+                        </IonAvatar>
+                        <IonLabel>
+                          <h2>{myIng.ingredientID}</h2>
+                        </IonLabel>
+                        <IonLabel slot="end">
+                          <h2>Quantity: {myIng.numIngredient}</h2>
+                        </IonLabel> 
+                  </IonItem>
+                )}
+              </IonList> { /*
+              <IonList> {/* VEGETABLE LIST    }
                 <IonListHeader>
                     <h1>Vegetables</h1>
                 </IonListHeader>
@@ -135,7 +132,7 @@ function MyPantry() {
                     )
                   })}
               </IonList>
-              <IonList> {/* MEATS LIST */}
+              <IonList> {/* MEATS LIST }
                 <IonListHeader>
                     <h1>Meats</h1>
                 </IonListHeader>
@@ -155,7 +152,7 @@ function MyPantry() {
                   )
                 })}
               </IonList>
-              <IonList> {/* SPICES LIST */}
+              <IonList> {/* SPICES LIST }
                 <IonListHeader>
                       <h1>Spices</h1>
                   </IonListHeader>
@@ -175,6 +172,8 @@ function MyPantry() {
                     )
                   })}
               </IonList>
+              </IonPage>
+                */}
             </IonContent>
           </IonPage>
         </IonApp>
@@ -184,3 +183,26 @@ function MyPantry() {
 }
 
 export default MyPantry;
+
+
+
+ /* <IonAvatar slot="start">
+                      <img src=""></img>
+                    </IonAvatar>
+                    <IonLabel>
+                      <h2>{myIng.name}</h2>
+                    </IonLabel><IonButton
+                      onClick= { () => setQuant(quant + 1) }
+                      slot="end"
+                      size="default">
+                      Add {myIng.name} 
+                    </IonButton>
+                    <IonLabel slot="end">
+                      <h2>Quanity: { quant }</h2>
+                    </IonLabel>
+                    <IonButton
+                      onClick= { () => setQuant(quant - 1) }
+                      slot="end"
+                      size="default">
+                      Remove {myIng.name} 
+                    </IonButton> */

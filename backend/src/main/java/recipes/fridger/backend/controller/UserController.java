@@ -177,10 +177,10 @@ public class UserController {
     }
 
     // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
-    @GetMapping(path = "/pantries")
-    public @ResponseBody Iterable<User>
-    getUserPantries(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return userService.getUsersByIdAndEmail(id, email);
+    @GetMapping(path = "/pantry")
+    public @ResponseBody Pantry
+    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+        return pantryService.getPantryByID(id);
     }
 
     @GetMapping(path= "/pantry/{pantryId}")

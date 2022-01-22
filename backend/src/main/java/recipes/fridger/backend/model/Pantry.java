@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import javax.persistence.*;
 import lombok.Data;
-
+/*
+    This table "pantry" will hold all of the ingredients associated with people's pantries.
+ */
 @Data
 @Entity
 @Table(name = "pantry")
