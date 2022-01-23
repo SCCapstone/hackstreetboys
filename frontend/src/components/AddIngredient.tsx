@@ -58,7 +58,7 @@ const AddIngredient: React.FC = () => {
                 console.log("Final: " + response.data);
                 if (response.status === 200) {
                     console.log("Status is " + response.status);
-                    navigate("/ingredients");
+                    navigate("../ingredients");
                 }
             });
             return response;

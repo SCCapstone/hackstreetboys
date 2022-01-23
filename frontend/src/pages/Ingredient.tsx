@@ -110,10 +110,12 @@ function IngredientPage(this: any) {
                                                             <IonCard button routerDirection="forward">
                                                                 <img src="https://picsum.photos/1500/800" alt="ion"/>
                                                                 {/*<img src={recipe.imgSrc} alt="recipePhoto"/>*/}
+
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>
                                                                     <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
                                                                 </IonCardHeader>
+
                                                                 <IonCardContent>
                                                                     <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>
                                                                     <IonLabel>Time: {recipe.totalTime}m</IonLabel>
