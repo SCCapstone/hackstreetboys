@@ -65,7 +65,7 @@ function IngredientInfo () {
 
   // const userID = 1;
 
-  // const [quant, setQuant] = useState(0); //set quant to 0 initally
+
   // const { id } = useParams<PantryExample>();
 
   
@@ -75,11 +75,12 @@ function IngredientInfo () {
   // console.log(pantry);
 
 function MyPantry() {
+  //Grab pantry
   const [pan, setPantry] = React.useState<[Pantry]>([{ //makes pantry a variable containing ingredient
     id: 99,
     userID: 2,
-    ingredientID: "273",
-    numIngredient: 34,
+    ingredientID: "99",
+    numIngredient: 2,
     description: "This is a description of the food"
   }]);
   useEffect(() => {
@@ -87,6 +88,28 @@ function MyPantry() {
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
+  //Grab ingredient!
+  const [ingredients, setIngredients] = React.useState<Ingredient>({
+    id: 99,
+    name: "Biscuit",
+    calories: 273,
+    carbohydrates: 34,
+    protein: 14,
+    fat: 9,
+    alcohol: false,
+    cost: 9.69,
+    imgSrc: ""
+  });
+  useEffect(() => {
+    fetch(`http://localhost:7999/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
+    .then(response => response.json())
+    .then(data => setIngredients(data))
+  }, [])
+  
+  // TODO Number Increment GET AND POST
+  const [quant, setQuant] = useState(0); //set quant to 0 initally
+
+
   //Ionic Popover testing
   const [showPop, setPop] = useState<{open: boolean, event: Event | undefined}>({
     open: false,
@@ -203,22 +226,22 @@ export default MyPantry;
 
 
  /* <IonAvatar slot="start">
-                      <img src=""></img>
-                    </IonAvatar>
-                    <IonLabel>
-                      <h2>{myIng.name}</h2>
-                    </IonLabel><IonButton
-                      onClick= { () => setQuant(quant + 1) }
-                      slot="end"
-                      size="default">
-                      Add {myIng.name} 
-                    </IonButton>
-                    <IonLabel slot="end">
-                      <h2>Quanity: { quant }</h2>
-                    </IonLabel>
-                    <IonButton
-                      onClick= { () => setQuant(quant - 1) }
-                      slot="end"
-                      size="default">
-                      Remove {myIng.name} 
-                    </IonButton> */
+      <img src=""></img>
+    </IonAvatar>
+    <IonLabel>
+      <h2>{myIng.name}</h2>
+    </IonLabel><IonButton
+      onClick= { () => setQuant(quant + 1) }
+      slot="end"
+      size="default">
+      Add {myIng.name} 
+    </IonButton>
+    <IonLabel slot="end">
+      <h2>Quanity: { quant }</h2>
+    </IonLabel>
+    <IonButton
+      onClick= { () => setQuant(quant - 1) }
+      slot="end"
+      size="default">
+      Remove {myIng.name} 
+    </IonButton> */
