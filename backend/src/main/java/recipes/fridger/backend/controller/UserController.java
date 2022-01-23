@@ -3,8 +3,10 @@ package recipes.fridger.backend.controller;
 import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 
+import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +28,7 @@ import recipes.fridger.backend.service.PantryService;
 import recipes.fridger.backend.service.UserService;
 
 import recipes.fridger.backend.crud.Goals;
+import recipes.fridger.backend.dto.CreateAuthRequestDTO;
 import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
@@ -53,6 +56,9 @@ public class UserController {
 
     @Autowired
     private PantryService pantryService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     /*
      *  USER API
@@ -94,13 +100,6 @@ public class UserController {
     @GetMapping(path = "/{id}")
     public @ResponseBody User getUser(@PathVariable Long id) {
         return userService.getUser(id);
-    }
-
-    @GetMapping(path = "/authenticate")
-    public @ResponseBody User
-    authenticateUser(@RequestParam(required = true) String email, @RequestParam(required = true) String password) {
-        //TODO encrypt password and decrypt at backend
-        return userService.authenticateUser(email, password);
     }
 
     /*
@@ -163,7 +162,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
-    @DeleteMapping(path = "/{pantryId}") //TODO create path
+    @DeleteMapping(path = "/pantry/{pantryId}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
         try {

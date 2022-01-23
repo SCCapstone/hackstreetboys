@@ -48,7 +48,7 @@ function Recipes() {
     rating: 4.2
   }]);
   useEffect(() => {
-    fetch("http://localhost:7999/v1/recipe/") //calling all recipes
+ fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/")
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
@@ -65,13 +65,14 @@ function Recipes() {
                   <IonGrid>
                     <IonRow>
                       {recipes.map(recipe =>
-                        <IonCol sizeXs="12" sizeSm="6" key={recipe.id}>
+                        <IonCol sizeXs="16" sizeSm="4" key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                            <Link to={`/recipe/${recipe.id}`}>
                           <IonCard button routerDirection="forward">
+                          <img src="https://picsum.photos/1500/800" alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipe.author}</IonCardSubtitle>
+                              <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>

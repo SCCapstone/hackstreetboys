@@ -68,7 +68,7 @@ function Users() {
     if(context.currentUser){
       setUser(context.currentUser);
     } else if(id) {
-      fetch(`http://localhost:7999/v1/user/${id}`)
+      fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/${id}`)
         .then(response => response.json())
         .then(data => setUser(data))
     } else {

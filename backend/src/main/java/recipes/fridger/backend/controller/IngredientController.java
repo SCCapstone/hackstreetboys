@@ -41,6 +41,7 @@ public class IngredientController {
         try {
             ingredientService.createIngredient(i);
             log.info("Successful creation of ingredient");
+            log.info(String.valueOf(i));
             return ResponseEntity.ok("Created ingredient");
         } catch (Exception e) {
             log.warn("Unable to create ingredient\n" + e.getMessage());
@@ -65,7 +66,15 @@ public class IngredientController {
     }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Ingredient>
-    getIngredients(@RequestParam(required = false) Long id){
-        return ingredientService.getIngredients(id);
+    getIngredients(@RequestParam(required = false) Long id,
+                   @RequestParam(required = false) String name,
+                   @RequestParam(required = false) Integer calories,
+                   @RequestParam(required = false) Integer carbohydrates,
+                   @RequestParam(required = false) Integer protein,
+                   @RequestParam(required = false) Integer fat,
+                   @RequestParam(required = false) Boolean alcohol,
+                   @RequestParam(required = false) Double cost)
+            {
+        return ingredientService.getIngredients(id, name, calories, carbohydrates, protein, fat, alcohol, cost);
     }
 }

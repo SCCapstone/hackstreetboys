@@ -22,7 +22,7 @@ import {
 import { Router, Switch, useParams } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
-import Header from '../components/Header';
+import Header from "../components/Header";
 import { logoYoutube, menuOutline } from 'ionicons/icons';
 import React, { Component, useEffect, useState } from 'react';
 import { Pantry } from '../models/Pantry';
