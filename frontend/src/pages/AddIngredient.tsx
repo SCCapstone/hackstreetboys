@@ -37,7 +37,7 @@ import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-import IngredientForm from '../components/IngredientForm';
+import IngredientForm from '../components/AddIngredient';
 import Header from '../components/Header';
 function AddIngredient() {
     return (
