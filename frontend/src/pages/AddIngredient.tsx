@@ -12,25 +12,7 @@ import {
     IonButtons,
     IonButton,
     IonIcon,
-    IonCard,
-    IonCardContent,
-    IonCol,
-    IonDatetime,
-    IonFab,
-    IonFabButton,
-    IonGrid,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonModal,
-    IonRow,
-    IonSelect,
-    IonSelectOption,
-    IonText,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCheckbox,
+    IonText
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';

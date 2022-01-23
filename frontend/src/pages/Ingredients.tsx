@@ -75,7 +75,7 @@ function Ingredients() {
                                         <IonCol sizeXs="12" sizeSm="4" key={ingredient.id}>
                                             <Link to={`/ingredient/${ingredient.id}`}>
                                                 <IonCard>
-                                                    <img src="https://picsum.photos/500" style={{ width: '50%', height: "100%", objectFit: 'cover', float: "right"}} />
+                                                    <img src="https://picsum.photos/500" style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
                                                     <IonCardHeader>
                                                         {/*<Link to={`/ingredient/${ingredient.id}`}>*/}
                                                             <IonCardTitle>{ingredient.name}</IonCardTitle>
