@@ -21,7 +21,7 @@ import {
 import { Router, Switch } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
-import Header from '../components/Header';
+import Header from "../components/Header";
 import { logoYoutube, menuOutline } from 'ionicons/icons';
 import React, { Component, useEffect } from 'react';
 import { Pantry } from '../models/Pantry';
