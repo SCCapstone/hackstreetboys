@@ -16,20 +16,23 @@ public class CreateUserDTO {
     @Size(min = 0, max = 100)
      private String type;
 
-     @Size(min = 0, max = 100)
-     private String email;
+    @Size(min = 0, max = 100)
+    private String email;
 
-     @Size(min = 0, max = 100)
-     private String password;
+    @Size(min = 0, max = 100)
+    private String password;
 
-     @Size(min = 0, max = 100)
-     private String name;
+    @Size(min = 0, max = 100)
+    private String name;
 
-     private Date dob;
+    @Size(min = 0, max = 1000)
+    private String bio;
 
-     @Min(0)
-     private Integer height_in;
+    private Date dob;
 
-     @DecimalMin(value = "0")
-     private Double weight_lb;
+    @Min(0)
+    private Integer height_in;
+
+    @DecimalMin(value = "0")
+    private Double weight_lb;
 }
