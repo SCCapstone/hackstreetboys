@@ -1,8 +1,18 @@
 import './AddIngredient.css';
-import React, {useContext, useState} from 'react';
-import {NavContext, IonButton, IonCheckbox, IonContent, IonInput, IonItem, IonLabel, IonPage} from "@ionic/react";
+import React, {useContext, useState, useCallback} from 'react';
+import {
+    IonButton,
+    IonCheckbox,
+    IonContent,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonPage,
+    IonText,
+    NavContext
+} from "@ionic/react";
 import {useForm} from 'react-hook-form';
-import {Link, Router, Switch} from 'react-router-dom';
+import {Link, Router} from 'react-router-dom';
 import axios from 'axios';
 import history from '../History';
 
@@ -41,18 +51,18 @@ const AddIngredient: React.FC = () => {
                 }
             };
             const body = JSON.stringify(getValues());
-            const res = await axios.post(
-                'http://localhost:8100/ingredient/',
+            const response = await axios.post(
+                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/ingredient/',
                 body,
                 config
-            ).then(res => {
-                console.log("Final: " + res.data);
-                if (res.status === 200) {
-                    console.log("Status is " + res.status);
+            ).then(response => {
+                console.log("Final: " + response.data);
+                if (response.status === 200) {
+                    console.log("Status is " + response.status);
                     navigate("/ingredients");
                 }
             });
-            return res;
+            return response;
         } catch(e) {
             console.error(e);
         }
@@ -110,7 +120,7 @@ const AddIngredient: React.FC = () => {
                                 <IonCheckbox color="secondary" slot="start" onIonChange={() => setChecked(!checked)}/>
                             </IonItem>
 
-                            <Link to="/ingredients/">
+
                             {/*<IonButton className="ion-margin-top, ion-float-right" type="submit">Submit</IonButton>*/}
                             <IonButton
                                 className="ion-margin-top, ion-float-right"
@@ -120,10 +130,11 @@ const AddIngredient: React.FC = () => {
                                 slot="start"
                                 onClick={async () => { await onSubmit(); }}>Submit</IonButton>
 
-
+                            <Link to="/ingredients/">
                                 <IonButton
                                     className="ion-margin-top, ion-float-left"
                                     color="danger">Cancel</IonButton>
+
                             </Link>
                         </form>
                     </IonContent>

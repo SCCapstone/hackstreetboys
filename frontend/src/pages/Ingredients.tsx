@@ -45,14 +45,14 @@ interface IngredientProps {
 }
 function Ingredients() {
     const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
-        id: 99,
-        name: "Biscuit",
-        calories: 273,
-        carbohydrates: 34,
-        protein: 14,
-        fat: 9,
+        id: 1,
+        name: "",
+        calories: 0,
+        carbohydrates: 0,
+        protein: 0,
+        fat: 0,
         alcohol: false,
-        cost: 9.69,
+        cost: 0.0,
         imgSrc: ""
     }]);
     useEffect(() => {
@@ -60,7 +60,6 @@ function Ingredients() {
             .then(response => response.json())
             .then(data => setIngredients(data))
     }, [])
-    console.log(ingredients);
     return (
         <Router history={history}>
             <Switch>
