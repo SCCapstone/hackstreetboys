@@ -10,11 +10,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+//import javax.validation.constraints.DecimalMin;
+//import javax.validation.constraints.Max;
+import javax.validation.constraints.*;
 
 import lombok.Data;
 
@@ -27,32 +25,39 @@ public class Ingredient {
     private Long id;
 
     @Size(min = 0, max = 255)
-    @Column(name = "name", nullable = true)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Min(0)
-    @Column(name = "calories")
+    @Max(10000)
+    @Column(name = "calories", nullable = false)
     private Integer calories;
 
     @Min(0)
-    @Column(name = "carbohydrates")
+    @Max(1000)
+    @Column(name = "carbohydrates", nullable = false)
     private Integer carbohydrates;
 
     @Min(0)
-    @Column(name = "protein")
+    @Max(1000)
+    @Column(name = "protein", nullable = false)
     private Integer protein;
 
     @Min(0)
-    @Column(name = "fat")
+    @Max(1000)
+    @Column(name = "fat", nullable = false)
     private Integer fat;
 
-    @Column(name = "alcohol")
+    @NotNull
+    @Column(name = "alcohol", nullable = false)
     private Boolean alcohol;
 
     @DecimalMin(value = "0.0")
-    @Column(name = "cost")
+    @DecimalMax(value = "10000.0")
+    @Column(name = "cost", nullable = true)
     private Double cost;
 
-    @Column(name = "imgSrc")
-    private String ImgSrc;
+    @Size(min = 0, max = 500)
+    @Column(name = "imgSrc", nullable = true)
+    private String imgSrc;
 }
