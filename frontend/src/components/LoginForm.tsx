@@ -7,6 +7,8 @@ import Context from './Context';
 
 import History from '../History';
 
+import axios from "axios";
+
 export const LoginForm: React.FC = () => {
     const context = useContext(Context);
 
@@ -15,32 +17,70 @@ export const LoginForm: React.FC = () => {
 
     const [error, setError ] = useState(false);
 
-    const LogIn = () => {
-            fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/authenticate?email=${email}&password=${password}`)
-                .then(response => response.json())
-                .then(data => context.setUser(data))
-                .then(() => {
-                    if (context.currentUser === undefined){
-                        setError(true);
-                        return;
-                    }
-                }).then(() =>{
-                    context.setLoggedIn(true);
-                    History.push('/');
-                });
+    const LogIn = async () => {
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: email, password: password })
+        }
+        const user = { email, password }
+        const response = await axios.post(
+            // Public API
+            `https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/auth/`,
+            // Local API
+            //`http://localhost:7999/v1/auth/`,
+            user
+        );
+
+        const loggedInUser = response.data;
+
+        if (loggedInUser) {
+            localStorage.setItem('user', JSON.stringify(loggedInUser))
+            context.setUser(loggedInUser)
+            console.log(JSON.stringify(loggedInUser))
+            context.setLoggedIn(true);
+            History.push('/');
+        } else {
+            setError(true);
+            return;
+        }
+        
+
+        /*
+        fetch(`http://localhost:7999/v1/user/authenticate?email=${email}&password=${password}`)
+            .then(response => response.json())
+            .then(data => context.setUser(data))
+            .then(() => {
+                if (context.currentUser === undefined){
+                    setError(true);
+                    return;
+                }
+            }).then(() =>{
+                context.setLoggedIn(true);
+                History.push('/');
+            });
+        */
     }
 
     return (
         <form>
             <IonItem>
                 <IonLabel position="floating">Email</IonLabel>
-                <IonInput onIonChange={(e) => setEmail(e.detail.value!)} type="email"/>
+                <IonInput
+                    value={email}
+                    onIonChange={(e) => setEmail(e.detail.value!)}
+                    type="email"
+                />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
-                <IonInput onIonChange={(e) => setPassword(e.detail.value!)} type="password" />
+                <IonInput
+                    value={password}
+                    onIonChange={(e) => setPassword(e.detail.value!)}
+                    type="password"
+                />
             </IonItem>
-            <IonButton className="ion-margin-top" onClick={() => LogIn()} expand="block">
+            <IonButton className="ion-margin-top" onClick={LogIn} expand="block">
                 Log In
             </IonButton>
             <Link to='changepassword'><IonItem>Forgot Password?</IonItem></Link>
