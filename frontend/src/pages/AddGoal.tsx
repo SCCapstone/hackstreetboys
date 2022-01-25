@@ -60,14 +60,15 @@ import SideBar from '../components/SideBar';
             };
             const body = JSON.stringify(getValues());
             const res = await axios.post(
-                 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
+                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
+               //'http://localhost:8080/v1/user/goal/',
                 body,
                 config
             ).then( res =>{
                 console.log("Resulting data" + res.data);
                 if(res.status == 200){
                     console.log("Status is " + res.status);
-                    navigate('/mygoals/');
+                    navigate("/mygoals");
                     //navigate("https://localhost:3000/mygoals/");
                     //<Link to="/mygoals/"></Link>
                    
@@ -125,7 +126,7 @@ import SideBar from '../components/SideBar';
                     <IonInput name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
                 </IonItem>
                 
-                <Link to ="/mygoals/">
+                {/* <Link to ="/mygoals/"> */}
                 <IonButton className="ion-margin-top" disabled={checked}
                         
                         color='primary' 
@@ -141,7 +142,7 @@ import SideBar from '../components/SideBar';
                             Submit Goal
                          
                 </IonButton>
-                </Link>
+                {/* </Link> */}
 
                  <Link to="/mygoals/">
                     <IonButton className="ion-margin-top"
