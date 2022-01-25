@@ -9,11 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 import lombok.Data;
 
@@ -46,39 +42,39 @@ public class Recipe {
     @Column(name = "body", nullable = true)
     private String body;
 
-    @Column(name = "total_time")
+    @Column(name = "total_time", nullable = false)
     private Integer totalTime;
 
-    @Column(name = "prep_time")
+    @Column(name = "prep_time", nullable = false)
     private Integer prepTime;
 
-    @Column(name = "cook_time")
+    @Column(name = "cook_time", nullable = false)
     private Integer cookTime;
 
-    @Column(name = "yield")
+    @Column(name = "yield", nullable = false)
     private Integer yield;
 
-    @Column(name = "ingredient_ids")
+    @Column(name = "ingredient_ids", nullable = false)
     private String ingredientIds;
 
     @DecimalMin(value = "0")
-    @Column(name = "estimated_cost")
+    @Column(name = "estimated_cost", nullable = false)
     private Double estimatedCost;
 
     @Size(min = 0, max = 50)
     @Column(name = "type", nullable = true)
     private String type;
 
-    @Column(name = "alcoholic")
+    @Column(name = "alcoholic", nullable = false)
     private Boolean alcoholic;
 
-    @Column(name = "tags", nullable = true)
+    @Column(name = "tags", nullable = false)
     private String tags;
 
-    @Min(0)
-    @Max(5)
-    @Column(name = "rating", nullable = true)
-    private Integer rating;
+    @DecimalMin(value = "0")
+    @DecimalMax(value = "5")
+    @Column(name = "rating", nullable = false)
+    private Double rating;
 
 
     public String toString() {

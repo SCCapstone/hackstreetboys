@@ -48,6 +48,7 @@ function MyGoals() {
        fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/`)
        .then(res => res.json())
        .then(setGoals)
+
     }, [])
     console.log(goals);
 

@@ -1,6 +1,7 @@
 package recipes.fridger.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreateUserDTO;
@@ -16,12 +17,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private Users users;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public void createUser(CreateUserDTO dto) {
         User u = new User();
         u.setType(dto.getType());
+        // TODO ensure users can't create an account with email address already in use
         u.setEmail(dto.getEmail());
-        u.setPassword(dto.getPassword());
+        u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
@@ -55,8 +60,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public User authenticateUser(String email, String password) {
-        Optional<User> user = users.findByEmailAndPassword(email, password);
-        return user.isPresent() ? user.get() : null;
+        Optional<User> user = users.findByEmail(email);
+        if (user.isPresent()) {
+            User u = user.get();
+            if (passwordEncoder.matches(password, u.getPassword()))
+                return u;
+        }
+        return null;
     }
 
     @Transactional

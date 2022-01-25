@@ -43,7 +43,7 @@ public class RecipeController {
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
         try {
             recipeService.createRecipe(r);
-//            log.info(String.valueOf(r));
+            log.info(String.valueOf(r));
             log.info("Successful creation of recipe");
             return ResponseEntity.ok("Created recipe");
         } catch (Exception e) {
@@ -81,7 +81,16 @@ public class RecipeController {
     }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Recipe>
-    getRecipes(@RequestParam(required = false) Long id){
-        return recipeService.getRecipes(id);
+    getRecipes(@RequestParam(required = false) Long id,
+    @RequestParam(required = false) Integer cookTime,
+    @RequestParam(required = false) Integer prepTime,
+    @RequestParam(required = false) Double estimatedCost,
+    @RequestParam(required = false) Double rating,
+    @RequestParam(required = false) String tags,
+    @RequestParam(required = false) String type,
+    @RequestParam(required = false) String ingredientIds,
+    @RequestParam(required = false) String title)
+    {
+        return recipeService.getRecipes(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
     }
 }

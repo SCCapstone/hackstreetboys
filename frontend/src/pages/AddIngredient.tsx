@@ -12,32 +12,14 @@ import {
     IonButtons,
     IonButton,
     IonIcon,
-    IonCard,
-    IonCardContent,
-    IonCol,
-    IonDatetime,
-    IonFab,
-    IonFabButton,
-    IonGrid,
-    IonInput,
-    IonItem,
-    IonLabel,
-    IonModal,
-    IonRow,
-    IonSelect,
-    IonSelectOption,
-    IonText,
-    IonCardHeader,
-    IonCardTitle,
-    IonCardSubtitle,
-    IonCheckbox,
+    IonText
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
-import IngredientForm from '../components/IngredientForm';
+import IngredientForm from '../components/AddIngredient';
 import Header from '../components/Header';
 function AddIngredient() {
     return (

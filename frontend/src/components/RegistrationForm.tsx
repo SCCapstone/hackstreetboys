@@ -5,37 +5,37 @@ import { useState } from 'react';
 export const RegistrationForm: React.FC = () => {
 
     return (
-        <form>
+        <form /*action="http://localhost:7999/v1/user/" method="post"*/>
             <IonItem>
                 <IonLabel position="floating">Email</IonLabel>
-                <IonInput />
+                <IonInput name="email" />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
-                <IonInput type="password" />
+                <IonInput type="password" name="password" />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Name</IonLabel>
-                <IonInput />
+                <IonInput name="name" />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Bio</IonLabel>
-                <IonInput />
+                <IonInput name="bio" />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Date of Birth</IonLabel>
-                <IonDatetime displayFormat="MMM DD YYYY" placeholder="Select Date"></IonDatetime>
+                <IonDatetime displayFormat="MMM DD YYYY" placeholder="Select Date" name="dob"></IonDatetime>
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Height</IonLabel>
-                <IonInput />
+                <IonInput name="height_in" />
             </IonItem>
             <IonItem>
                 <IonLabel position="floating">Weight</IonLabel>
-                <IonInput />
+                <IonInput name="weight_lb" />
             </IonItem>
             <Link to="/">
-            <IonButton className="ion-margin-top" type="submit" expand="block">
+            <IonButton className="ion-margin-top" /*type="submit"*/ expand="block">
                 Submit
             </IonButton>
             <IonButton className="ion-margin-top" color="danger" expand="block">
