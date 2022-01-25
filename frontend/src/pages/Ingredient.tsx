@@ -7,7 +7,7 @@ import {
     IonPage,
     IonCard,
     IonCardContent,
-    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow,
+    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';

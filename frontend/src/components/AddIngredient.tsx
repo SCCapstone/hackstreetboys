@@ -58,7 +58,7 @@ const AddIngredient: React.FC = () => {
                 console.log("Final: " + response.data);
                 if (response.status === 200) {
                     console.log("Status is " + response.status);
-                    navigate("../ingredients");
+                    navigate("/ingredients");
                 }
             });
             return response;
@@ -72,7 +72,7 @@ const AddIngredient: React.FC = () => {
         <Router history={history}>
             <IonPage className="ion-page">
                 <IonContent className="ion-padding">
-                    <form onSubmit={async () => {await onSubmit();}}>
+                    <form onSubmit={async () =>{await onSubmit();}}>
                         <IonItem>
                             <IonLabel position="floating">What is this ingredient called?</IonLabel>
                             <IonInput name="name" required onIonInput={(e: any) => setValue("name",e.target.value)}/>
@@ -95,11 +95,11 @@ const AddIngredient: React.FC = () => {
                         </IonItem>
                         <IonItem>
                             <IonLabel position="floating">How much does this item cost per serving?</IonLabel>
-                            <IonInput name="cost" onIonInput={(e: any) => setValue("cost",e.target.value)}/>
+                            <IonInput name="cost" required onIonInput={(e: any) => setValue("cost",e.target.value)}/>
                         </IonItem>
                         <IonItem>
                             <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>
-                            <IonInput name="imgSrc" onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
+                            <IonInput name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
                         </IonItem>
                         <IonItem lines="none">
                             <IonLabel>Does this ingredient contain alcohol?</IonLabel>
@@ -109,7 +109,7 @@ const AddIngredient: React.FC = () => {
                             <IonLabel>I agree that this ingredient follows the Terms of Service.</IonLabel>
                             <IonCheckbox color="secondary" slot="start" onIonChange={() => setChecked(!checked)}/>
                         </IonItem>
-                        <IonButton className="ion-margin-top, ion-float-right" disabled={!checked} color='primary' type="submit" slot="start" onClick={async () => { await onSubmit(); }}>Submit</IonButton>
+                        <IonButton className="ion-margin-top, ion-float-right" disabled={!checked} color='primary' type="submit" slot="start" /*onClick={async () => { await onSubmit(); }}*/>Submit</IonButton>
                         <Link to="/ingredients/">
                             <IonButton className="ion-margin-top, ion-float-left" color="danger">Cancel</IonButton>
                         </Link>
