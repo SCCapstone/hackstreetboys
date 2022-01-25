@@ -21,14 +21,12 @@ import Header from '../components/Header';
 
 import SideBar from '../components/SideBar';
 
-
     import {NavContext} from '@ionic/react';
-
 
     const AddGoal: React.FunctionComponent = () => {
         const { navigate } = useContext(NavContext);
         const [checked, setChecked] = useState(false);
-      const {
+        const {
         handleSubmit,
         control,
         setValue,
@@ -51,7 +49,6 @@ import SideBar from '../components/SideBar';
       console.log(errors);
       console.log(getValues());
     
-     
       const onSubmit = async () => {
        
         console.log("updatedValues" + getValues());
@@ -64,27 +61,26 @@ import SideBar from '../components/SideBar';
             const body = JSON.stringify(getValues());
             const res = await axios.post(
                  'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
-                //'http://localhost:7999/v1/user/goal/',
                 body,
                 config
             ).then( res =>{
                 console.log("Resulting data" + res.data);
                 if(res.status == 200){
                     console.log("Status is " + res.status);
-                 navigate("/mygoals");
-                 //or goal?
+                    navigate('/mygoals/');
+                    //navigate("https://localhost:3000/mygoals/");
+                    //<Link to="/mygoals/"></Link>
+                   
             }
+         
             });
             return res;
         } catch (e) {
             console.error(e);
         }
-    
         return false;
       };
-    
       return (
-
 
     <Router history={history}>
         <Switch>
@@ -94,7 +90,7 @@ import SideBar from '../components/SideBar';
         <Header/>
 
        <IonContent className="ion-padding">
-        <form onSubmit={async () =>{await onSubmit();}} >
+         <form onSubmit={async () =>{await onSubmit();}} > 
         <IonItem>
                     <IonLabel>What is your end goal?</IonLabel>
                     <IonSelect name="endGoal" multiple={false} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('endGoal',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}>
@@ -129,18 +125,25 @@ import SideBar from '../components/SideBar';
                     <IonInput name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
                 </IonItem>
                 
-               
+                <Link to ="/mygoals/">
                 <IonButton className="ion-margin-top" disabled={checked}
-                        color='primary' type="submit" 
-                        onClick={async () =>{
-                            await onSubmit();
-                            <Link to="/mygoals/"></Link>
-                         }}
+                        
+                        color='primary' 
+                        type="submit" 
+
+                        // onClick={async () =>{
+                            // await onSubmit();
+                            // <Link to="/mygoals/"></Link>
+                        //  }}
+                       
                         expand='full'>
+                          
                             Submit Goal
+                         
                 </IonButton>
-                
-                <Link to="/mygoals/">
+                </Link>
+
+                 <Link to="/mygoals/">
                     <IonButton className="ion-margin-top"
                         color='danger'
                         expand='full'>
@@ -148,6 +151,7 @@ import SideBar from '../components/SideBar';
                     </IonButton>
                 </Link>
             </form>
+            
         </IonContent>
         </IonPage>
         </IonApp>

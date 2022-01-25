@@ -33,7 +33,7 @@ function GoalPage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:7999/v1/user/goal/${id}/`)
+    fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
   }, [])
@@ -53,8 +53,7 @@ function GoalPage(this: any) {
               Return to Dashboard 
             </IonButton>
             </Link>
-                  <h1>{goal.id}</h1>
-                  <p>
+                    <h1>{goal.id}</h1>
                     <h2>End Goal:{goal.endGoal}</h2>
                     <h2>Calories:{goal.calories}</h2>
                     <h2>Carbohydrates: {goal.carbohydrates}</h2>
@@ -62,7 +61,6 @@ function GoalPage(this: any) {
                     <h2>Fat: {goal.fat}</h2>
                     <h2>CurrentWeight: {goal.currentWeight}</h2>
                     <h2>GoalWeight: {goal.goalWeight}</h2>  
-                  </p>
                 </IonCardContent>
               </IonCard>
             </IonContent>
