@@ -49,7 +49,7 @@ function MyGoals() {
         goalWeight: 180.0
     }]);
     React.useEffect(() => {
-        fetch('http://localhost:7999/v1/user/goals/')
+        fetch('https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/')
         .then(res => res.json())
         .then(setGoals)
     }, [])

@@ -39,5 +39,5 @@ public class ReturnRecipeDTO {
 
     private String tags;
 
-    private Integer rating;
+    private Double rating;
 }

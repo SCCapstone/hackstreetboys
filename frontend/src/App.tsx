@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Router, Switch, Route } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
@@ -43,6 +43,9 @@ import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
 import MyPantry from './pages/myPantry';
+import AddGoal from './pages/AddGoal';
+import EditRecipe from './pages/EditRecipe';
+// import Basic from './components/Basic'
 
 //const App: React.FC = () => (
   function App () {
@@ -56,12 +59,25 @@ import MyPantry from './pages/myPantry';
       setUser
     }
 
+    // If user was previously logged in, reload user data
+    useEffect(() => {
+      const loggedInUser = localStorage.getItem('user')
+      if (loggedInUser) {
+        console.log(loggedInUser)
+        const foundUser = JSON.parse(loggedInUser);
+        setUser(foundUser);
+        setLoggedIn(true);
+      }
+    }, []);
+
     return (
       <Context.Provider value={globals}>
         <>
           <Router history={history}>
             <Switch>
+              {/* /* <Route path="/testform" component={Basic} /> */}
               <Route path="/recipe/add" component={AddRecipe} />
+              <Route path="/recipe/edit/:id" component={EditRecipe} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
@@ -69,6 +85,7 @@ import MyPantry from './pages/myPantry';
               <Route path="/ingredient/:id" component={Ingredient} />
               <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />
+              <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/goals" component={GoalsPage} />
               <Route path="/mypantry" component={MyPantry} />
               <Route path="/myreviews" component={myReviews} />

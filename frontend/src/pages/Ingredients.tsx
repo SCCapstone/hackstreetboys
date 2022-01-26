@@ -45,22 +45,21 @@ interface IngredientProps {
 }
 function Ingredients() {
     const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
-        id: 99,
-        name: "Biscuit",
-        calories: 273,
-        carbohydrates: 34,
-        protein: 14,
-        fat: 9,
+        id: 1,
+        name: "",
+        calories: 0,
+        carbohydrates: 0,
+        protein: 0,
+        fat: 0,
         alcohol: false,
-        cost: 9.69,
+        cost: 0.0,
         imgSrc: ""
     }]);
     useEffect(() => {
-        fetch("http://localhost:7999/v1/ingredient/")
+        fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/ingredient/")
             .then(response => response.json())
             .then(data => setIngredients(data))
     }, [])
-    console.log(ingredients);
     return (
         <Router history={history}>
             <Switch>
@@ -76,7 +75,7 @@ function Ingredients() {
                                         <IonCol sizeXs="12" sizeSm="4" key={ingredient.id}>
                                             <Link to={`/ingredient/${ingredient.id}`}>
                                                 <IonCard>
-                                                    <img src="https://picsum.photos/500" style={{ width: '50%', height: "100%", objectFit: 'cover', float: "right"}} />
+                                                    <img src="https://picsum.photos/500" style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
                                                     <IonCardHeader>
                                                         {/*<Link to={`/ingredient/${ingredient.id}`}>*/}
                                                             <IonCardTitle>{ingredient.name}</IonCardTitle>

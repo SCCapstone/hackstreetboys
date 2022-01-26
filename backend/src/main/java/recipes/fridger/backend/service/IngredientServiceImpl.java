@@ -45,7 +45,8 @@ public class IngredientServiceImpl implements IngredientService{
         return null;
     }
     @Transactional
-    public Iterable<Ingredient> getIngredients(Long recipeId) {
-        return ingredients.find(recipeId);
+    @Override
+    public Iterable<Ingredient> getIngredients(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost) {
+        return ingredients.find(id, name, calories, carbohydrates, protein, fat, alcohol, cost);
     }
 }
