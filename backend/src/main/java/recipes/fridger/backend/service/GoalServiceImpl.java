@@ -46,6 +46,11 @@ public class GoalServiceImpl implements GoalService{
         return goal.isPresent() ? goal.get() : null;
     }
 
+    @Override
+    public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight) {
+        return null;
+    }
+
     @Transactional
     public Iterable<Goal> getGoals(Long goalId) {
         return goals.find(goalId);

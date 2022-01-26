@@ -15,7 +15,7 @@ export const Chart: React.FC = () => {
       ['1400', 150, 250],
     ]}
     options={{
-      title: 'Progress',
+      title: 'Weight Overview Progress',
       hAxis: { title: 'Calories', titleTextStyle: { color: '#333' } },
       vAxis: { minValue: 0 },
       // For the legend to fit, we make the chart area smaller

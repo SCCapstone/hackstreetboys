@@ -111,7 +111,8 @@ public class UserController {
     createGoal(@RequestBody @Valid CreateGoalDTO g) {
         try {
             goalService.createGoal(g);
-            log.info("Successful creation of goal");
+            //log.info("Successful creation of goal");
+            log.info(String.valueOf(g));
             return ResponseEntity.ok("Created goal");
         } catch (Exception e) {
             log.warn("Unable to create goal\n" + e.getMessage());
@@ -135,9 +136,18 @@ public class UserController {
 
     @GetMapping(path = "/goals")
     public @ResponseBody Iterable<Goal>
-    getGoals(@RequestParam(required = false) Long id) {
-        return goalService.getGoals(id);
-    }
+    getGoals(@RequestParam(required = false) Long id,
+                @RequestParam(required = false) String endGoal,
+                @RequestParam(required = false) Double calories,
+                @RequestParam(required = false) Double carbs,
+                @RequestParam(required = false) Double protein,
+                @RequestParam(required = false) Double fat,
+                @RequestParam(required = false) Double currWeight,
+                @RequestParam(required = false) Double goalWeight)
+        {
+            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
+        }
+
 
     @GetMapping(path = "/goal/{goalId}")
     public @ResponseBody Goal
