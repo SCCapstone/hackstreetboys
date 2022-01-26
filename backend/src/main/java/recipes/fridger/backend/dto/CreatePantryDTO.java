@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import javax.validation.constraints.Size;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,22 +17,15 @@ import recipes.fridger.backend.model.User;
 @NotNull
 public class CreatePantryDTO {
 
-    private String ownerId;
+    @Size(min=0,max=10000)
+    private Long userID;
 
-    //not sure about size here, but I assume we will hold a LOT of ingredients in the pantry
-    //@Size(min=0,max=1024)
-    private String pantry;
+    @Size(min=0,max=10000)
+    private String ingredientID;
 
-    //size of description
-    //@size(min=0,max=512)
+    @Size(min=0,max=10000)
+    private Float numIngredient;
+
+    @Size(min=0, max=50)
     private String description;
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getPantry() {
-        return pantry;
-    }
-
 }
