@@ -38,6 +38,6 @@ public class CreateIngredientDTO {
     @DecimalMax(value = "10000.0")
     private Double cost;
 
-    @Size(min = 0, max = 500)
+    @Size(min = 0, max = 1000)
     private String imgSrc;
 }
