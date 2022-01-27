@@ -89,16 +89,16 @@ function MyPantry() {
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
   //Grab ingredient!
-  const [ingredients, setIngredients] = React.useState<Ingredient>({
+  const [ingredient, setIngredients] = React.useState<Ingredient>({
     id: 99,
     name: "Biscuit",
     calories: 273,
     carbohydrates: 34,
     protein: 14,
     fat: 9,
-    alcohol: false,
+    alcohol: true,
     cost: 9.69,
-    imgSrc: ""
+    imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
   });
   useEffect(() => {
     fetch(`http://localhost:7999/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
@@ -128,91 +128,39 @@ function MyPantry() {
             <IonContent className="ion-padding">
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
                     
-              <IonList> 
+              <IonList>
+                <h2>Ingredients</h2> 
                 {pan.map(myIng =>
                   <IonItem key={myIng.id}> 
                     <IonAvatar slot="start">
-                        <img src=""></img>
+                        <img src={ingredient.imgSrc}></img>
                     </IonAvatar>
                     <IonLabel>
-                      <h2>Ingredient ID: {myIng.ingredientID}</h2>
+                      <h2>{ingredient.name}</h2>
                     </IonLabel>
                     <IonLabel slot="end">
                       <h2>Quantity: {myIng.numIngredient}</h2>
                     </IonLabel>
-                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>Description</IonButton>
+                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{ingredient.name} Facts</IonButton>
                     <IonPopover
                       isOpen={showPop.open}
                       event={showPop.event}
                       onDidDismiss={e => setPop({open: false, event: undefined})}
                     >
-                      <p>{myIng.description}</p>
+                      <IonList>
+                        <IonItem>
+                          Calories: {ingredient.calories}
+                        </IonItem>
+                        <IonItem>Carbs: {ingredient.carbohydrates} g</IonItem>
+                        <IonItem>Protein: {ingredient.protein} g</IonItem>
+                        <IonItem>Fat: {ingredient.fat} g</IonItem>
+                        <IonItem>Contains alcohol? {ingredient.alcohol}</IonItem>
+                        <IonItem>Estimated Cost: ${ingredient.cost}</IonItem>
+                      </IonList>
                     </IonPopover>
                   </IonItem>
                 )}
-              </IonList> { /*
-              <IonList> {/* VEGETABLE LIST    }
-                <IonListHeader>
-                    <h1>Vegetables</h1>
-                </IonListHeader>
-                  {pantry.vegetables.map(veg => {
-                    return (
-                      <IonItem key={veg[0]} button onClick={() => {}}>
-                        <IonAvatar slot="start">
-                          <img src=""></img>
-                        </IonAvatar>
-                        <IonLabel>
-                          <h2>{veg[0]}</h2>
-                        </IonLabel>
-                        <IonLabel slot="end">
-                          <h2>Quantity: {veg[1]}</h2>
-                        </IonLabel>
-                      </IonItem>
-                    )
-                  })}
               </IonList>
-              <IonList> {/* MEATS LIST }
-                <IonListHeader>
-                    <h1>Meats</h1>
-                </IonListHeader>
-                  {pantry.meats.map(meat => {
-                    return (
-                      <IonItem key={meat[0]} button onClick={() => {}}>
-                        <IonAvatar slot="start">
-                          <img src=""></img>
-                        </IonAvatar>
-                        <IonLabel>
-                          <h2>{meat[0]}</h2>
-                        </IonLabel>
-                        <IonLabel slot="end">
-                          <h2>Quantity: {meat[1]}</h2>
-                        </IonLabel>
-                      </IonItem>
-                  )
-                })}
-              </IonList>
-              <IonList> {/* SPICES LIST }
-                <IonListHeader>
-                      <h1>Spices</h1>
-                  </IonListHeader>
-                    {pantry.spices.map(spi => {
-                      return (
-                        <IonItem key={spi[0]} button onClick={() => {}}>
-                          <IonAvatar slot="start">
-                            <img src=""></img>
-                          </IonAvatar>
-                          <IonLabel>
-                            <h2>{spi[0]}</h2>
-                          </IonLabel>
-                          <IonLabel slot="end">
-                            <h2>Quantity: {spi[1]}</h2>
-                          </IonLabel>
-                        </IonItem>
-                    )
-                  })}
-              </IonList>
-              </IonPage>
-                */}
             </IonContent>
           </IonPage>
         </IonApp>
