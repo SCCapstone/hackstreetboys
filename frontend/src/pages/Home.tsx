@@ -28,6 +28,7 @@ function Home() {
       <Header/>
       <IonContent className="ion-padding">
         <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
+        <h4>You are on the home page</h4>
         <DashboardCard />
         <DashboardCard />
         <DashboardCard />
