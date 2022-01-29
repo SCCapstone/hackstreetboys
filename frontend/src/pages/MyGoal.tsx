@@ -36,8 +36,10 @@ function GoalPage(this: any) {
     fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
-  }, [])
+  }, [id])
+
   console.log(goal);
+
   return (
     <Router history={history}>
       <Switch>
