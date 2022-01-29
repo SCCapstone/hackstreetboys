@@ -40,7 +40,7 @@ public class FridgerApplicationTests {
     public void goalContextLoads() {
         Assertions.assertThat(goalService).isNotNull();
         }
-        @Test
+   @Test
     public void userContextLoads() {
         Assertions.assertThat(userService).isNotNull();
         }
