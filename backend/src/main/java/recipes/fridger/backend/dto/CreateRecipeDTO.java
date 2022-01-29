@@ -3,14 +3,13 @@ import java.util.Date;
 
 import javax.validation.constraints.*;
 
-import lombok.Getter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
 
-import lombok.Data;
 @Data
 @NotNull
-public class CreateRecipeDTO {
+    public class CreateRecipeDTO {
 
     @Size(min = 0, max = 255)
     private String title;

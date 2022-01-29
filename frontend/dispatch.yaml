@@ -1,0 +1,7 @@
+dispatch:
+  - url: "www.fridger.recipes/*"
+    service: default
+  - url: "api.fridger.recipes/*"
+    service: fridger-backend
+  - url: "fridger.recipes/*"
+    service: default

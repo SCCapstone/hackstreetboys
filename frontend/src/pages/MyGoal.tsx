@@ -33,7 +33,7 @@ function GoalPage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/${id}/`)
+    fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
   }, [id])

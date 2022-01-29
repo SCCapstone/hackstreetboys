@@ -20,11 +20,12 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.25.0",
-    "ionicons": "^5.5.3",
+    "ionicons": "^5.5.4",
+    "lodash": "^4.17.21",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-google-charts": "^3.0.15",
-    "react-hook-form": "^7.24.1",
+    "react-hook-form": "^7.25.1",
     "react-icons": "^4.3.1",
     "react-ionicons": "^4.2.0",
     "react-router": "^5.2.0",
@@ -71,6 +72,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "3.2.4",
+    "@types/lodash": "^4.14.178",
     "@types/node": "^12.20.42",
     "react-scripts": "4.0.2"
   },
