@@ -15,17 +15,32 @@ import {
 } from '@ionic/react';
 import '../theme/variables.css';
 import { useForm, Controller } from 'react-hook-form';
-import { Link, Router, Switch } from 'react-router-dom';
+import { Link, Router, Switch, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
-
+import { routePrams } from './MyGoal';
 import SideBar from '../components/SideBar';
-
+import { Goal } from '../models/Goal';
     import {NavContext} from '@ionic/react';
 
+    /*
     const AddGoal: React.FunctionComponent = () => {
         const { navigate } = useContext(NavContext);
         const [checked, setChecked] = useState(false);
+        const { id } = useParams<routePrams>();
+        const [goal, setGoal] = React.useState<Goal>({
+           
+            id: 1,
+            endGoal: "",
+            calories: 0,
+            carbohydrates: 0,
+            protein: 0,
+            fat: 0,
+            currentWeight: 0,
+            goalWeight: 0,
+           
+        });
+
         const {
         handleSubmit,
         control,
@@ -42,10 +57,35 @@ import SideBar from '../components/SideBar';
             fat: 0,
             currentWeight: 0,
             goalWeight: 0,
-            goalID: "",
+            id: "",
         }
       });
-    
+    */
+
+
+      const AddGoal: React.FC = () => {
+        const {navigate} = useContext(NavContext);
+        const [checked, setChecked] = useState(false);
+        const {
+            control,
+            register,
+            handleSubmit,
+            getValues,
+            setValue,
+            formState: { errors }
+        } = useForm({
+            defaultValues: {
+                endGoal: "",
+                calories: 0,
+                carbohydrates: 0,
+                protein: 0,
+                fat: 0,
+                currentWeight: 0,
+                goalWeight: 0,
+                id: "",
+            }
+        });
+
       console.log(errors);
       console.log(getValues());
     
@@ -66,13 +106,13 @@ import SideBar from '../components/SideBar';
                 config
             ).then( res =>{
                 console.log("Resulting data" + res.data);
-                if(res.status == 200){
+                if (res.status === 200) {
                     console.log("Status is " + res.status);
                     navigate("/mygoals");
                     //navigate("https://localhost:3000/mygoals/");
                     //<Link to="/mygoals/"></Link>
-            }
-         
+
+                }    
             });
             return res;
         } catch (e) {
@@ -130,11 +170,11 @@ import SideBar from '../components/SideBar';
                         
                         color='primary' 
                         type="submit" 
-
-                        // onClick={async () =>{
-                            // await onSubmit();
+                     
+                        onClick={async () =>{
+                             await onSubmit();
                             // <Link to="/mygoals/"></Link>
-                        //  }}
+                          }}
                        
                         expand='full'>
                           
