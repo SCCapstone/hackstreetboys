@@ -51,7 +51,7 @@ const AddIngredient: React.FC = () => {
             };
             const body = JSON.stringify(getValues());
             const response = await axios.post(
-                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/ingredient/',
+                'https://api.fridger.recipes/v1/ingredient/',
                 body,
                 config
             ).then(response => {

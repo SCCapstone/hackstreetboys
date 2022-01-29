@@ -2,21 +2,16 @@ package recipes.fridger.backend.controller;
 import java.util.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import recipes.fridger.backend.crud.Recipes;
@@ -24,11 +19,11 @@ import recipes.fridger.backend.dto.CreateRecipeDTO;
 import recipes.fridger.backend.dto.ReturnRecipeDTO;
 import recipes.fridger.backend.model.Recipe;
 import recipes.fridger.backend.service.RecipeService;
-
 @Controller
 @Slf4j
 @ResponseBody
 @RequestMapping(path = "/v1/recipe")
+//@RestController
 public class RecipeController {
     @Autowired
     private Recipes recipes;
@@ -43,9 +38,10 @@ public class RecipeController {
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
         try {
             recipeService.createRecipe(r);
-            log.info(String.valueOf(r));
+            log.info("Log:" + String.valueOf(r));
             log.info("Successful creation of recipe");
-            return ResponseEntity.ok("Created recipe");
+            return ResponseEntity.ok(r.toString());
+
         } catch (Exception e) {
             log.warn("Unable to create recipe\n" + e.getMessage());
             return ResponseEntity.internalServerError().body("Unable to create recipe\n" + e.getMessage());
@@ -92,5 +88,10 @@ public class RecipeController {
     @RequestParam(required = false) String title)
     {
         return recipeService.getRecipes(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
+    }
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(ValidationException.class)
+    String exceptionHandler(ValidationException e) {
+        return e.getMessage();
     }
 }

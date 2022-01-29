@@ -36,7 +36,7 @@ function IngredientPage(this: any) {
     });
     const { id } = useParams<routeParams>();
     useEffect(() => {
-        fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/ingredient/${id}`)
+        fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [id])
@@ -61,7 +61,7 @@ function IngredientPage(this: any) {
         rating: 5.0
     }]);
     useEffect(() => {
-        fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/")
+        fetch("https://api.fridger.recipes/v1/recipe/")
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])
