@@ -14,7 +14,7 @@ import lombok.Data;
 public class CreateUserDTO {
 
     @Size(min = 0, max = 100)
-     private String type;
+    private String type;
 
     @Size(min = 0, max = 100)
     private String email;
