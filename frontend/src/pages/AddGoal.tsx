@@ -60,7 +60,7 @@ import SideBar from '../components/SideBar';
             };
             const body = JSON.stringify(getValues());
             const res = await axios.post(
-                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
+                'https://api.fridger.recipes/v1/user/goal/',
                //'http://localhost:8080/v1/user/goal/',
                 body,
                 config
@@ -71,7 +71,6 @@ import SideBar from '../components/SideBar';
                     navigate("/mygoals");
                     //navigate("https://localhost:3000/mygoals/");
                     //<Link to="/mygoals/"></Link>
-                   
             }
          
             });

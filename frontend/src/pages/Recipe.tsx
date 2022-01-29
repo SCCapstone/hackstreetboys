@@ -50,7 +50,7 @@ function RecipePage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/${id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [])

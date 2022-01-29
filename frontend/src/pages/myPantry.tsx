@@ -84,7 +84,7 @@ function MyPantry() {
     description: "This is a description of the food"
   }]);
   useEffect(() => {
-    fetch(`http://localhost:7999/v1/user/pantry/`) //pass in user id
+    fetch(`https://api.fridger.recipes/v1/user/pantry/`) //pass in user id
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
@@ -101,7 +101,7 @@ function MyPantry() {
     imgSrc: ""
   });
   useEffect(() => {
-    fetch(`http://localhost:7999/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
+    fetch(`https://api.fridger.recipes/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
     .then(response => response.json())
     .then(data => setIngredients(data))
   }, [])
