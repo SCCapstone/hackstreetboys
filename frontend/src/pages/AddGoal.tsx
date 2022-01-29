@@ -160,5 +160,6 @@ import SideBar from '../components/SideBar';
     </Router >
   );
 };
+module.exports = AddGoal;
 
 export default AddGoal;
