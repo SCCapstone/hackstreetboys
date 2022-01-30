@@ -75,17 +75,14 @@ function Ingredients() {
                                         <IonCol sizeXs="12" sizeSm="4" key={ingredient.id}>
                                             <Link to={`/ingredient/${ingredient.id}`}>
                                                 <IonCard>
-                                                    <img src="https://picsum.photos/500" style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
+                                                    <img src={ingredient.imgSrc ? ingredient.imgSrc : "https://picsum.photos/1500/800"} style={{ width: '50%', height: "200px", objectFit: 'scale-down', float: "right"}} />
                                                     <IonCardHeader>
-                                                        {/*<Link to={`/ingredient/${ingredient.id}`}>*/}
-                                                            <IonCardTitle>{ingredient.name}</IonCardTitle>
-                                                        {/*</Link>*/}
+                                                        <IonCardTitle>{ingredient.name}</IonCardTitle>
                                                         <IonCardSubtitle>{ingredient.calories} kcal<br/></IonCardSubtitle>
                                                     </IonCardHeader>
                                                     <IonCardContent>
                                                        <h3>{ingredient.carbohydrates}g Carbohydrates<br/>{ingredient.protein}g Protein<br/>{ingredient.fat}g Fat</h3>
-                                                       <h3><br/>~$ {String(ingredient.cost.toFixed(2))}</h3>
-
+                                                       <h3><br/>$ {String(ingredient.cost.toFixed(2))}</h3>
                                                     </IonCardContent>
                                                 </IonCard>
                                             </Link>

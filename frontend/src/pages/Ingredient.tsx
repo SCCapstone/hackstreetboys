@@ -7,7 +7,7 @@ import {
     IonPage,
     IonCard,
     IonCardContent,
-    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow,
+    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -77,7 +77,7 @@ function IngredientPage(this: any) {
                         <Header />
                         <IonContent className="ion-padding">
                             <IonCard>
-                                <img src="https://picsum.photos/2000/1000" style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
+                                <img src={ingredient.imgSrc} style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
                                 <IonCardContent>
                                     <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/></h1>
                                 </IonCardContent>
