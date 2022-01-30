@@ -1,9 +1,6 @@
 package recipes.fridger.backend.controller;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
