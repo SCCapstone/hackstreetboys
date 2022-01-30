@@ -8,6 +8,7 @@ import Context from './Context';
 import History from '../History';
 
 import axios from "axios";
+import React from "react";
 
 export const LoginForm: React.FC = () => {
     const context = useContext(Context);
@@ -68,6 +69,7 @@ export const LoginForm: React.FC = () => {
                 <IonLabel position="floating">Email</IonLabel>
                 <IonInput
                     value={email}
+                    placeholder="Email"
                     onIonChange={(e) => setEmail(e.detail.value!)}
                     type="email"
                 />
@@ -75,7 +77,8 @@ export const LoginForm: React.FC = () => {
             <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
                 <IonInput
-                    value={password}
+                    value=""
+                    placeholder="Password"
                     onIonChange={(e) => setPassword(e.detail.value!)}
                     type="password"
                 />

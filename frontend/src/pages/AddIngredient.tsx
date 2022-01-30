@@ -52,8 +52,8 @@ const AddIngredient: React.FC = () => {
         }
     });
 
-    console.log(errors);
-    console.log(getValues());
+    // console.log(errors);
+    // console.log(getValues());
 
     const onSubmit = async () => {
         console.log("Initial: " + getValues());
@@ -80,6 +80,7 @@ const AddIngredient: React.FC = () => {
         }
         return false;
     }
+
 
     return (
         <Router history={history}>
@@ -137,7 +138,7 @@ const AddIngredient: React.FC = () => {
                                     </IonItem>
                                     <IonItem lines="none">
                                         <IonLabel>I agree that this ingredient follows the Terms of Service</IonLabel>
-                                        <IonCheckbox color="secondary" slot="start" onIonChange={() => setChecked(!checked)}/>
+                                        <IonCheckbox color="secondary" name="agree" slot="start" onIonChange={() => setChecked(!checked)}/>
                                     </IonItem>
                                     <IonButton className="ion-margin-top, ion-float-right" disabled={!checked} color='primary' type="submit" slot="start" >Submit</IonButton>
                                     <Link to="/ingredients/">
@@ -151,6 +152,8 @@ const AddIngredient: React.FC = () => {
             </Switch>
         </Router >
     );
+
+
 }
 
 export default AddIngredient;
