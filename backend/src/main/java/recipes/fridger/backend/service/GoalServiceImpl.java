@@ -47,7 +47,8 @@ public class GoalServiceImpl implements GoalService{
     }
 
     @Transactional
-    public Iterable<Goal> getGoals(Long goalId) {
-        return goals.find(goalId);
+    @Override
+    public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight) {
+        return goals.find(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
     }
 }

@@ -7,6 +7,6 @@ public interface GoalService {
     public void createGoal(CreateGoalDTO dto);
     public void deleteGoal(Long id);
     public Goal getGoalByID(Long id);
-    public Iterable<Goal> getGoals(Long GoalId);
+    public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight);
 
 }

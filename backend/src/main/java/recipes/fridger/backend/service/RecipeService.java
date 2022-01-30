@@ -10,4 +10,5 @@ public interface RecipeService {
     public void deleteRecipe(Long id);
     public Recipe getRecipe(Long id);
     public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title);
+    Object recipeByTitleAndAuthor(String title, String author);
 }

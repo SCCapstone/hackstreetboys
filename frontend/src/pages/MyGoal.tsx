@@ -2,33 +2,25 @@ import { Router, Switch, Route, Link, useParams } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonMenuToggle,
   IonPage,
-  IonButtons,
   IonButton,
-  IonIcon,
   IonCard,
   IonCardContent,
 } from '@ionic/react';
-/* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { constructOutline, menuOutline } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Goal } from '../Goal';
 import Header from "../components/Header";
 
 interface GoalExample {
-  recipe: Goal,
+  goal: Goal,
 }
 export interface routePrams {
   id: string;
 }
-function RecipePage(this: any) {
+function GoalPage(this: any) {
   const [goal, setGoal] = React.useState<Goal>({
     id: 1,
     endGoal: "Lose",
@@ -41,11 +33,13 @@ function RecipePage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/${id}/`)
+    fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
-  }, [])
+  }, [id])
+
   console.log(goal);
+
   return (
     <Router history={history}>
       <Switch>
@@ -61,8 +55,7 @@ function RecipePage(this: any) {
               Return to Dashboard 
             </IonButton>
             </Link>
-                  <h1>{goal.id}</h1>
-                  <p>
+                    <h1>{goal.id}</h1>
                     <h2>End Goal:{goal.endGoal}</h2>
                     <h2>Calories:{goal.calories}</h2>
                     <h2>Carbohydrates: {goal.carbohydrates}</h2>
@@ -70,7 +63,6 @@ function RecipePage(this: any) {
                     <h2>Fat: {goal.fat}</h2>
                     <h2>CurrentWeight: {goal.currentWeight}</h2>
                     <h2>GoalWeight: {goal.goalWeight}</h2>  
-                  </p>
                 </IonCardContent>
               </IonCard>
             </IonContent>
@@ -81,4 +73,4 @@ function RecipePage(this: any) {
   );
 }
 
-export default RecipePage;
+export default GoalPage;

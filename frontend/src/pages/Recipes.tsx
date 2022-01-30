@@ -48,8 +48,8 @@ function Recipes() {
     rating: 4.2
   }]);
   useEffect(() => {
-    //fetch("http://localhost:8080/v1/recipe/")
-    fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/")
+
+ fetch("https://api.fridger.recipes/v1/recipe/")
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])

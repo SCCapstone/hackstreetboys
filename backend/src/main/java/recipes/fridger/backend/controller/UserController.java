@@ -1,9 +1,6 @@
 package recipes.fridger.backend.controller;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
-
-import org.hibernate.annotations.common.util.impl.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -111,7 +108,8 @@ public class UserController {
     createGoal(@RequestBody @Valid CreateGoalDTO g) {
         try {
             goalService.createGoal(g);
-            log.info("Successful creation of goal");
+            //log.info("Successful creation of goal");
+            log.info(String.valueOf(g));
             return ResponseEntity.ok("Created goal");
         } catch (Exception e) {
             log.warn("Unable to create goal\n" + e.getMessage());
@@ -135,9 +133,18 @@ public class UserController {
 
     @GetMapping(path = "/goals")
     public @ResponseBody Iterable<Goal>
-    getGoals(@RequestParam(required = false) Long id) {
-        return goalService.getGoals(id);
-    }
+    getGoals(@RequestParam(required = false) Long id,
+                @RequestParam(required = false) String endGoal,
+                @RequestParam(required = false) Double calories,
+                @RequestParam(required = false) Double carbs,
+                @RequestParam(required = false) Double protein,
+                @RequestParam(required = false) Double fat,
+                @RequestParam(required = false) Double currWeight,
+                @RequestParam(required = false) Double goalWeight)
+        {
+            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
+        }
+
 
     @GetMapping(path = "/goal/{goalId}")
     public @ResponseBody Goal
@@ -176,10 +183,10 @@ public class UserController {
     }
 
     // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
-    @GetMapping(path = "/pantries")
-    public @ResponseBody Iterable<User>
-    getUserPantries(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return userService.getUsersByIdAndEmail(id, email);
+    @GetMapping(path = "/pantry")
+    public @ResponseBody Pantry
+    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+        return pantryService.getPantryByID(id);
     }
 
     @GetMapping(path= "/pantry/{pantryId}")

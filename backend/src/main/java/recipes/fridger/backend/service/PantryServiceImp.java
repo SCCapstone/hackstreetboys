@@ -23,9 +23,10 @@ public class PantryServiceImp implements PantryService {
     @Override
     public void createPantry(CreatePantryDTO dto) {
         Pantry pantry = new Pantry();
-        //pantry.setOwnerId(dto.getOwnerId());
-        pantry.setIngredientID(dto.getPantry());
+        pantry.setUserID(dto.getUserID());
+        pantry.setIngredientID(dto.getIngredientID());
         pantry.setDescription(dto.getDescription());
+        pantry.setNumIngredient(dto.getNumIngredient());
         pantries.save(pantry);
     }
     @Transactional
@@ -41,7 +42,7 @@ public class PantryServiceImp implements PantryService {
     @Transactional
     @Override
     public Pantry getPantryByID(Long id) {
-        Optional<Pantry> p = pantries.findById(id);
+        Optional<Pantry> p = pantries.findByUser(id);
         return p.isPresent() ? p.get() : null;
     }
 

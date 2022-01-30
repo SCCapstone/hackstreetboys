@@ -1,9 +1,7 @@
-export interface Pantry {
+export interface Pantry{
     id: number;
-    user: string;
-    fruits: string[][];
-    vegetables: string[][];
-    meats: string[][];
-    spices: string[][];
+    userID: number;
+    ingredientID: string;
+    numIngredient: number;
     description: string;
 }

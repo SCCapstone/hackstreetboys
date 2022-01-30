@@ -27,7 +27,7 @@ import {
 } from '@ionic/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Link, Router, Switch } from 'react-router-dom';
+import { Link, Router, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
@@ -37,6 +37,7 @@ import {NavContext} from '@ionic/react';
 
 const AddRecipe: React.FunctionComponent = () => {
     const { navigate } = useContext(NavContext);
+    const history = useHistory();
     const [checked, setChecked] = useState(false);
   const {
     handleSubmit,
@@ -79,7 +80,7 @@ const AddRecipe: React.FunctionComponent = () => {
         };
         const body = JSON.stringify(getValues());
         const res = await axios.post(
-            'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/recipe/',
+            'https://api.fridger.recipes/v1/recipe/',
             // 'http://localhost:8080/v1/recipe/',
             body,
             config
@@ -87,7 +88,8 @@ const AddRecipe: React.FunctionComponent = () => {
             console.log("Resulting data" + res.data);
             if(res.status == 200){
                 console.log("Status is " + res.status);
-             navigate("/recipes");
+            //  navigate("/recipes");
+            history.push('recipes');
         }
         });
         return res;

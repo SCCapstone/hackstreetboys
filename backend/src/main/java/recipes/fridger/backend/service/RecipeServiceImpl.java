@@ -60,6 +60,12 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Transactional
     @Override
+    public Recipe recipeByTitleAndAuthor(String title, String author) {
+        return recipes.findByTitleAndAuthor(title, author);
+    }
+
+    @Transactional
+    @Override
     public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title) {
         return recipes.find(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
     }

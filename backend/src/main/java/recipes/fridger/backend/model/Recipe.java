@@ -11,9 +11,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "recipes")
 public class Recipe {
@@ -92,6 +98,5 @@ public class Recipe {
                 "\nalcoholic: "     + alcoholic +
                 "\ntags: "          + tags +
                 "\nrating: "        + rating + "\n";
-
     }
 }
