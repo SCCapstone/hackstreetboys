@@ -82,12 +82,12 @@ import { Goal } from '../models/Goal';
                 fat: 0,
                 currentWeight: 0,
                 goalWeight: 0,
-                id: "",
+                //id: "",
             }
         });
 
-      console.log(errors);
-      console.log(getValues());
+    //   console.log(errors);
+    //   console.log(getValues());
     
       const onSubmit = async () => {
        
@@ -100,7 +100,8 @@ import { Goal } from '../models/Goal';
             };
             const body = JSON.stringify(getValues());
             const res = await axios.post(
-                'https://api.fridger.recipes/v1/user/goal/',
+                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
+                //'https://api.fridger.recipes/v1/user/goal/',
                //'http://localhost:8080/v1/user/goal/',
                 body,
                 config
@@ -119,7 +120,7 @@ import { Goal } from '../models/Goal';
             console.error(e);
         }
         return false;
-      };
+      }
       return (
 
     <Router history={history}>
@@ -166,7 +167,7 @@ import { Goal } from '../models/Goal';
                 </IonItem>
                 
                 {/* <Link to ="/mygoals/"> */}
-                <IonButton className="ion-margin-top" disabled={checked}
+                {/* <IonButton className="ion-margin-top" disabled={checked}
                         
                         color='primary' 
                         type="submit" 
@@ -180,16 +181,20 @@ import { Goal } from '../models/Goal';
                           
                             Submit Goal
                          
-                </IonButton>
+                </IonButton> */}
                 {/* </Link> */}
 
-                 <Link to="/mygoals/">
+                 {/* <Link to="/mygoals/">
                     <IonButton className="ion-margin-top"
                         color='danger'
                         expand='full'>
                         Cancel
                     </IonButton>
-                </Link>
+                </Link> */}
+                 <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit</IonButton>
+                                    <Link to="/mygoals/">
+                                        <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
+                                    </Link>
             </form>
             
         </IonContent>

@@ -16,7 +16,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import ChangePassword from './pages/ChangePassword';
-
+import AddReview from './pages/AddReview';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -77,6 +77,8 @@ import EditRecipe from './pages/EditRecipe';
           <Router history={history}>
             <Switch>
               {/* /* <Route path="/testform" component={Basic} /> */}
+              {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
+              <Route path="/review/add" component={AddReview}/>
               <Route path="/recipe/add" component={AddRecipe} />
               <Route path="/recipe/edit/:id" component={EditRecipe} />
               <Route path="/recipe/:id" component={Recipe} />

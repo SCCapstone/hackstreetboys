@@ -18,14 +18,17 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
+  IonButton,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { add } from 'ionicons/icons';
+import { add, colorFill, heart, thumbsDown, thumbsUp } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
 import Header from '../components/Header';
+import { State } from 'ionicons/dist/types/stencil-public-runtime';
+
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -54,6 +57,16 @@ function Recipes() {
       .then(data => setRecipes(data))
   }, [])
   console.log(recipes);
+  
+  var color = "gray";
+ var liked = false;
+
+ const toggle = () => {
+  let localLiked = liked;
+  localLiked = !localLiked;
+  liked = localLiked;
+ };
+
   return (
     <Router history={history}>
       <Switch>
@@ -78,6 +91,21 @@ function Recipes() {
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+
+                              <Link to = {"/recipes"}>
+                              <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                                <IonButton >
+                                 
+                                    <IonIcon icon={thumbsUp} />
+                                
+                                  {/* <IonIcon icon={thumbsUp}/>
+                                  <IonLabel>
+                                    {likes}
+                                  </IonLabel> */}
+                                </IonButton>
+                              </IonFab>
+                              </Link>
+
                             </IonCardContent>
                           </IonCard>
                           </Link>
