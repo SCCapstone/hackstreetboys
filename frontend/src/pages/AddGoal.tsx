@@ -191,7 +191,9 @@ import { Goal } from '../models/Goal';
                         Cancel
                     </IonButton>
                 </Link> */}
+                <Link to = "/mygoals">
                  <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit</IonButton>
+                 </Link>
                                     <Link to="/mygoals/">
                                         <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
                                     </Link>
