@@ -28,6 +28,8 @@ import React, { Component, useEffect, useState } from 'react';
 import { Pantry } from '../models/Pantry';
 import { Ingredient } from '../models/Ingredient';
 import { Recipe } from '../models/Recipe';
+import AddIngredient from './AddIngredient';
+import axios from 'axios';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
@@ -88,6 +90,25 @@ function MyPantry() {
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
+  console.log(pan)
+
+  //Add Ingredient to Pantry
+  const addPantryObj = { 
+    id: 99,
+    userID: 777,
+    ingredientID: "2",
+    numIngredient: 1,
+    description: "This is a test of the food"
+  };
+  const addToPantry = () => {
+    axios.post('https://api.fridger.recipes/v1/user/pantry/', addPantryObj).then(res => {
+      console.log("Status: ", res.status);
+      console.log("Data:", res.data);
+    }).catch(error => {
+      console.error('Something went wrong!', error);
+    });
+  }
+
   //Grab ingredient!
   const [ingredient, setIngredients] = React.useState<Ingredient>({
     id: 99,
@@ -105,19 +126,80 @@ function MyPantry() {
     .then(response => response.json())
     .then(data => setIngredients(data))
   }, [])
+  console.log(ingredient)
+
+  //Grab All Ingredients
+  const [ingredientArray, setAllIngredients] = React.useState<[Ingredient]>([{
+    id: 1,
+    name: "",
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    fat: 0,
+    alcohol: false,
+    cost: 0.0,
+    imgSrc: ""
+  }]);
+  useEffect(() => {
+      fetch("https://api.fridger.recipes/v1/ingredient/")
+          .then(ingResp => ingResp.json())
+          .then(ingData => setAllIngredients(ingData))
+  }, [])
   
   // TODO Number Increment GET AND POST
   const [quant, setQuant] = useState(0); //set quant to 0 initally
 
-
-  //Ionic Popover testing
+  //Ingredient popup
   const [showPop, setPop] = useState<{open: boolean, event: Event | undefined}>({
     open: false,
     event: undefined
   });
 
+  const [showAddIngredient, setAddIngredient] = useState<{open: boolean, event: Event | undefined}>({
+    open: false,
+    event: undefined
+  });
 
-  console.log(pan);
+  //const [articleId, setArticleId] = useState(null);
+
+  // const addIngredient = () => {
+  //   const newIng = { 
+  //     id: 99,
+  //     userID: 777,
+  //     ingredientID: "2",
+  //     numIngredient: 1,
+  //     description: "This is a test of the food"
+  //   };
+  //   axios.post('https://api.fridger.recipes/v1/user/pantry/', newIng)
+  //     .then(response => addIngredient(response.data.id));
+  // }
+  // POST request using axios inside useEffect React hook
+
+  
+
+  // empty dependency array means this effect will only run once (like componentDidMount in classes)
+ 
+
+  // const postIngredient = {
+  //   url: 'https://api.fridger.recipes/v1/user/pantry/',
+  //   method: 'POST',
+  //   headers: {
+  //     'Accept': 'application/json'
+  //   },
+  //   data: {
+  //     id: 99,
+  //     userID: 2,
+  //     ingredientID: "23",
+  //     numIngredient: 2,
+  //     description: "This is a description of the food"
+  //   }
+  // };
+
+  // axios(postIngredient)
+  //   .then(postIngResp => 
+  //     {console.log(postIngResp);
+  //   });
+
   return (
     <Router history={history}>
       <Switch>
@@ -125,15 +207,14 @@ function MyPantry() {
         <SideBar />
           <IonPage className="ion-page" id="main-content">
             <Header/>
-            <IonContent className="ion-padding">
+            <IonContent className="ion-padding"> 
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
-                    
               <IonList>
-                <h2>Ingredients</h2> 
+                <h2>Your Ingredients</h2> 
                 {pan.map(myIng =>
                   <IonItem key={myIng.id}> 
                     <IonAvatar slot="start">
-                        <img src={ingredient.imgSrc}></img>
+                      <img src={ingredient.imgSrc}></img>
                     </IonAvatar>
                     <IonLabel>
                       <h2>{ingredient.name}</h2>
@@ -161,6 +242,46 @@ function MyPantry() {
                   </IonItem>
                 )}
               </IonList>
+            </IonContent>
+            <h2>Add Ingredients To Your Pantry</h2>
+            <IonContent className="ion-padding">
+              <IonList>
+                {ingredientArray.map(ing => 
+                  <IonItem key={ing.id}>
+                    <IonAvatar slot="start">
+                      <img src={ing.imgSrc}></img>
+                    </IonAvatar>
+                    <IonLabel>
+                      <h2>{ing.name}</h2>
+                    </IonLabel>
+                    {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
+                      Add 1 {ing.name}
+                    </IonButton> */}
+                    <IonButton onClick={(e) => addToPantry()}>
+                      Add 1 {ing.name}
+                    </IonButton>
+                  </IonItem>
+                )}
+              </IonList>
+              {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}> Add An Ingredient </IonButton>
+              <IonPopover
+                isOpen={showAddIngredient.open}
+                event={showAddIngredient.event}
+                onDidDismiss={e => setAddIngredient({open: false, event: undefined})}
+              >
+                <IonList>
+                  {ingredientArray.map(ing => 
+                    <IonItem key={ing.id}>
+                      <IonAvatar slot="start">
+                        <img src={ing.imgSrc}></img>
+                      </IonAvatar>
+                      <IonLabel>
+                        <h2>{ing.name}</h2>
+                      </IonLabel>
+                    </IonItem>
+                  )}
+                </IonList>
+              </IonPopover> */}
             </IonContent>
           </IonPage>
         </IonApp>
