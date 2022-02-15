@@ -41,7 +41,7 @@ public class PantryServiceImp implements PantryService {
 
     @Transactional
     @Override
-    public Pantry getPantryByID(Long id) {
+    public Pantry getPantryByUserID(Long id) {
         Optional<Pantry> p = pantries.findByUser(id);
         return p.isPresent() ? p.get() : null;
     }

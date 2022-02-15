@@ -186,13 +186,13 @@ public class UserController {
     @GetMapping(path = "/pantry")
     public @ResponseBody Pantry
     getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return pantryService.getPantryByID(id);
+        return pantryService.getPantryByUserID(id);
     }
 
     @GetMapping(path= "/pantry/{pantryId}")
     public @ResponseBody Pantry
     getPantryByID(@PathVariable Long pantryId)
     {
-        return pantryService.getPantryByID(pantryId);
+        return pantryService.getPantryByUserID(pantryId);
     }
 }

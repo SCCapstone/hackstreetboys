@@ -11,8 +11,8 @@ public interface Pantries extends CrudRepository<Pantry,Long> {
     @Query("select p from Pantry p where (:id is null or p.id = :id)")
     List<Pantry> find(Long id);
 
-    @Query("select p from Pantry p where (p.userID = :userID)")
+    @Query("select p from Pantry p where (:userID = p.userID)")
     Optional<Pantry> findByUser(Long userID);
-    //This will return all of the Pantry items which have the userID associated with the pantry
+    //This will return all the Pantry items which have the userID associated with the pantry
 
 }
