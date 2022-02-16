@@ -162,6 +162,7 @@ public class UserController {
     createPantry(@RequestBody @Valid CreatePantryDTO p) {
         try {
             pantryService.createPantry(p);
+            log.info("Log:" + String.valueOf(p));
             log.info("Successful creation of pantry");
             return ResponseEntity.ok("Created pantry");
         } catch (Exception e) {
@@ -182,11 +183,17 @@ public class UserController {
         }
     }
 
-    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
+//    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
+//    @GetMapping(path = "/pantry")
+//    public @ResponseBody Pantry
+//    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+//        return pantryService.getPantryByUserID(id);
+//    }
     @GetMapping(path = "/pantry")
-    public @ResponseBody Pantry
-    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return pantryService.getPantryByUserID(id);
+    public @ResponseBody Iterable<Pantry>
+    getAllPantrys() {
+        log.info("Returning pantries");
+        return pantryService.getAllPantrys();
     }
 
     @GetMapping(path= "/pantry/{pantryId}")

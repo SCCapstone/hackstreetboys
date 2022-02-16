@@ -8,12 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import lombok.extern.slf4j.Slf4j;
+
 import recipes.fridger.backend.crud.Pantries;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.model.Pantry;
 
 import javax.transaction.Transactional;
 
+@Slf4j
 @Service
 public class PantryServiceImp implements PantryService {
 
@@ -25,8 +28,8 @@ public class PantryServiceImp implements PantryService {
         Pantry pantry = new Pantry();
         pantry.setUserID(dto.getUserID());
         pantry.setIngredientID(dto.getIngredientID());
-        pantry.setDescription(dto.getDescription());
         pantry.setNumIngredient(dto.getNumIngredient());
+        pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
     }
     @Transactional
@@ -44,6 +47,20 @@ public class PantryServiceImp implements PantryService {
     public Pantry getPantryByUserID(Long id) {
         Optional<Pantry> p = pantries.findByUser(id);
         return p.isPresent() ? p.get() : null;
+    }
+
+    @Transactional
+    @Override
+    public Iterable<Pantry> getAllPantrys() {
+        List<Pantry> retPan = pantries.findAllPantrys();
+        for(Pantry s: retPan){
+            log.info("pantryID: " + s.getId());
+            log.info("userID: " + s.getUserID());
+            log.info("ingredientID: " + s.getIngredientID());
+            log.info("numIngredient: " + s.getNumIngredient());
+            log.info("description: " + s.getDescription());
+        }
+        return retPan;
     }
 
     @Transactional

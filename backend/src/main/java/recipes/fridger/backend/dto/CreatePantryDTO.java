@@ -21,13 +21,13 @@ public class CreatePantryDTO {
     @Max(10000000)
     private Long userID;
 
-    @Size(min=0,max=10000)
+    @Size(min = 0,max = 10000)
     private String ingredientID;
 
-    @DecimalMin(value= "0.0", inclusive = true)
-    @DecimalMax(value= "10000", inclusive = true) //inclusive = true is default
+    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMax(value = "10000", inclusive = true) //inclusive = true is default
     private BigDecimal numIngredient;
 
-    @Size(min=0, max=50)
+    @Size(min = 0, max = 100)
     private String description;
 }

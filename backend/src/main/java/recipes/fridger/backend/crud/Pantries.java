@@ -15,4 +15,6 @@ public interface Pantries extends CrudRepository<Pantry,Long> {
     Optional<Pantry> findByUser(Long userID);
     //This will return all the Pantry items which have the userID associated with the pantry
 
+    @Query("select p from Pantry p")
+    List<Pantry> findAllPantrys();
 }

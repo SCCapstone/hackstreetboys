@@ -35,7 +35,7 @@ public class Pantry {
     private BigDecimal numIngredient;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
-    @Size(min = 0, max = 1000)
+    @Size(min = 0, max = 100)
     @Column(name = "description", nullable = true)
     private String description;
 

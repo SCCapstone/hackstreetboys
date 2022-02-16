@@ -8,6 +8,7 @@ public interface PantryService {
     public void createPantry(CreatePantryDTO dto);
     public void deletePantry(Long id);
     public Pantry getPantryByUserID(Long id);
-    public Iterable<Pantry> getPantries(Long pantry);
+    public Iterable<Pantry> getAllPantrys();
+    //public Iterable<Pantry> getPantries(Long pantry);
 
 }
