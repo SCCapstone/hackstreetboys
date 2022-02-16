@@ -120,7 +120,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
 <Header/>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
-        <form onSubmit={async () =>{onSubmit();  props.history.push('/recipes')}} >
+        <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
                     <IonInput type="text" name="title" required onIonInput={(e: any) => setValue("title",e.target.value)}
