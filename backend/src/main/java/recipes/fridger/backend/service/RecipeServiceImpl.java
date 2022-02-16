@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import recipes.fridger.backend.crud.Recipes;
 import recipes.fridger.backend.dto.CreateRecipeDTO;
+import recipes.fridger.backend.dto.UpdateRecipeDTO;
 import recipes.fridger.backend.model.Recipe;
 
 import javax.transaction.Transactional;
@@ -15,6 +16,7 @@ public class RecipeServiceImpl implements RecipeService{
 
     @Autowired
     private Recipes recipes;
+    @Transactional
     @Override
     public void createRecipe(CreateRecipeDTO dto) {
         Recipe r = new Recipe();
@@ -38,6 +40,54 @@ public class RecipeServiceImpl implements RecipeService{
         r.setIngredientIds(dto.getIngredientIds());
         recipes.save(r);
 //        System.out.println(r.toString());
+    }
+    @Transactional
+    @Override
+    public void updateRecipe(Long id, UpdateRecipeDTO dto) throws  Exception{
+        System.out.println("Passed id: " + id);
+        System.out.println("DTO ID:" + dto.getId());
+        System.out.println("DTO Long ID:" + dto.getId().longValue());
+        System.out.println(dto);
+       System.out.println(recipes.findAll());
+        Optional<Recipe> optionalRecipe = recipes.findById(dto.getId().longValue());
+        if(optionalRecipe.isPresent()){
+            Recipe r = optionalRecipe.get();
+            System.out.println("Recipe fetched");
+            if(dto.getTitle() != null &&  dto.getTitle().length() > 0){
+                r.setTitle(dto.getTitle());
+            }
+            if(dto.getBody() != null && dto.getBody().length() > 0){
+                r.setBody(dto.getBody());
+            }
+            if(dto.getAlcoholic() != null){
+                r.setAlcoholic(dto.getAlcoholic());
+            }
+            if(dto.getDescription() != null && dto.getDescription().length() > 0){
+                r.setDescription(dto.getDescription());
+            }
+            if(dto.getCookTime() != null && dto.getCookTime() > 0){
+                r.setCookTime(dto.getCookTime());
+            }
+            if(dto.getEstimatedCost() != null && dto.getEstimatedCost() > 0){
+                r.setEstimatedCost(dto.getEstimatedCost());
+            }
+            if(dto.getIngredientIds() != null && dto.getIngredientIds().length()>0){
+                r.setIngredientIds(dto.getIngredientIds());
+            }
+            if(dto.getPrepTime() != null && dto.getPrepTime() > 0){
+                r.setPrepTime(dto.getPrepTime());
+            }
+            if(dto.getType() != null  && dto.getIngredientIds().length()>0){
+                r.setType(dto.getType());
+            }
+            if(dto.getYield()!=null && dto.getYield() > 0){
+                r.setYield(dto.getYield());
+            }
+            recipes.save(r);
+        }
+        else{
+            System.out.println("No Recipe Found!");
+        }
     }
     @Transactional
     @Override

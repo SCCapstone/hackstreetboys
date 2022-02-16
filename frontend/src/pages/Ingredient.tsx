@@ -55,6 +55,7 @@ function IngredientPage(this: any) {
         cookTime: 0,
         yield: 0,
         estimatedCost: 0.0,
+        alcoholic: false,
         type: "",
         tags: "",
         ingredientIds: "1,2",

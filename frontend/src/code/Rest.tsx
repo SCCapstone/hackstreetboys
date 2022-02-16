@@ -15,10 +15,10 @@ interface IDictionary<TValue> {
 
 export default function rest(url: string, options: RestOptions, data?: Map<string, string>): Promise<Response> {
     let headers = new Headers();
-    let authToken = localStorage.getItem('token');
-    if (authToken !== null) {
-        headers.append('Authorization', authToken);
-    }
+    // let authToken = localStorage.getItem('token');
+    // if (authToken !== null) {
+    //     headers.append('Authorization', authToken);
+    // }
     if (options.useQuery) {
         let params = '';
         if (data !== undefined) {

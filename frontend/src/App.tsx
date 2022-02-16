@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
 import Recipes from './pages/Recipes';
@@ -44,8 +44,9 @@ import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
 import MyPantry from './pages/myPantry';
 import AddGoal from './pages/AddGoal';
-
 import EditRecipe from './pages/EditRecipe';
+import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
+
 // import Basic from './components/Basic'
 
 //const App: React.FC = () => (
@@ -70,40 +71,46 @@ import EditRecipe from './pages/EditRecipe';
         setLoggedIn(true);
       }
     }, []);
+    function UserRoute(props: any) {
+      // if (user !== null && user?.type === 'NORMAL') {
 
+      if (user !== null ) {
+          return (<Route {...props} />);
+      }
+      return (<Redirect to={{ pathname: '/' }} />);
+    }
     return (
       <Context.Provider value={globals}>
-        <>
           <Router history={history}>
             <Switch>
-              {/* /* <Route path="/testform" component={Basic} /> */}
-              <Route path="/recipe/add" component={AddRecipe} />
-              <Route path="/recipe/edit/:id" component={EditRecipe} />
+              {/* /* <Route path="/testform" component={Basic} /> */}.
+              <UserRoute path="/recipe/search" component={AdvancedRecipeSearch} />
+              <UserRoute path="/recipe/add" component={AddRecipe} />
+              <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
+              <UserRoute path="/ingredient/add" component={AddIngredient} />
+              <UserRoute path="/goals" component={GoalsPage} />
+              <UserRoute path="/mypantry" component={MyPantry} />
+              <UserRoute path="/myreviews" component={myReviews} />
+              <UserRoute path="/favorites" component={Favorites} />
+              <UserRoute path="/preferences" component={Preferences} />
+              <UserRoute path="/mygoals/add" component={AddGoal} />
+              <UserRoute path="/mygoals" component={MyGoals} />
+              <UserRoute path="/goal/:id" component={Goal} />
+              <UserRoute path="/profile/:id?" component={Profile} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
-              <Route path="/ingredient/add" component={AddIngredient} />
+              <Route path="/login" component={Login} />
+              <Route path="/register" component={Register} />
               <Route path="/ingredient/:id" component={Ingredient} />
               <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />
               <Route path="/mygoals/add" component={AddGoal} />
-              <Route path="/goals" component={GoalsPage} />
-              <Route path="/mypantry" component={MyPantry} />
-              <Route path="/myreviews" component={myReviews} />
-              <Route path="/favorites" component={Favorites} />
-              <Route path="/preferences" component={Preferences} />
-              <Route path="/mygoals/add" component={AddGoal} />
-              <Route path="/mygoals" component={MyGoals} />
-              <Route path="/goal/:id" component={Goal} />
-              <Route path="/profile/:id?" component={Profile} />
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
-              <Route path="/editprofile" component={EditProfile} />
+              <UserRoute path="/editprofile" component={EditProfile} />
               <Route path="/changepassword" component={ChangePassword} />
               <Route path="/" component={Home} />
             </Switch>
           </Router>
-        </>
       </Context.Provider>
     );
 }

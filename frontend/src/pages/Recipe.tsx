@@ -1,5 +1,5 @@
 import './Recipe.css';
-import { Router, Switch, Route, useParams } from "react-router-dom";
+import { Router, Switch, Route, useParams, RouteComponentProps, useHistory } from "react-router-dom";
 import history from '../History';
 import {
   IonApp,
@@ -15,22 +15,25 @@ import {
   IonCard,
   IonCardContent,
   IonBadge,
+  IonFab,
+  IonFabButton,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { constructOutline, menuOutline } from 'ionicons/icons';
-import React, { useEffect } from 'react';
+import { add, constructOutline, menuOutline, pencil } from 'ionicons/icons';
+import React, { useContext, useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
+import Context from '../components/Context';
 interface RecipeProps {
   recipe: Recipe,
 }
 export interface routePrams {
   id: string;
 }
-function RecipePage(this: any) {
+const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
@@ -43,12 +46,14 @@ function RecipePage(this: any) {
     cookTime: 0,
     yield: 0,
     estimatedCost: 0,
+    alcoholic: false,
     type: "",
     tags: "",
     ingredientIds: "",
     rating: 0
   });
   const { id } = useParams<routePrams>();
+  const context = useContext(Context);
   useEffect(() => {
     fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
       .then(response => response.json())
@@ -66,8 +71,7 @@ function RecipePage(this: any) {
             <IonContent className="ion-padding">
               <IonCard>
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
-                <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
-
+                <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
                 <IonCardContent>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
@@ -96,6 +100,11 @@ function RecipePage(this: any) {
                   Tags: {recipe.tags}
                 </IonCardContent>
               </IonCard>
+              {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
+                    <IonFabButton routerLink={`/recipe/edit/${id}`}>
+                      <IonIcon icon={pencil} />
+                    </IonFabButton>
+                  </IonFab> : ""} 
             </IonContent>
           </IonPage>
         </IonApp>
@@ -105,3 +114,5 @@ function RecipePage(this: any) {
 }
 
 export default RecipePage;
+
+

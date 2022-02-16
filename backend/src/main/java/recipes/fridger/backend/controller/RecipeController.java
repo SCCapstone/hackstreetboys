@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import recipes.fridger.backend.crud.Recipes;
 import recipes.fridger.backend.dto.CreateRecipeDTO;
 import recipes.fridger.backend.dto.ReturnRecipeDTO;
+import recipes.fridger.backend.dto.UpdateRecipeDTO;
 import recipes.fridger.backend.model.Recipe;
 import recipes.fridger.backend.service.RecipeService;
 @Controller
@@ -47,6 +48,21 @@ public class RecipeController {
             return ResponseEntity.internalServerError().body("Unable to create recipe\n" + e.getMessage());
         }
     }
+    @PutMapping(path = "/")
+    public ResponseEntity<String>
+    createRecipe(@RequestBody @Valid UpdateRecipeDTO r) {
+        try {
+            recipeService.updateRecipe(r.getId(),r);
+            log.info("Log:" + String.valueOf(r));
+            log.info("Successful update of recipe");
+            return ResponseEntity.ok("Updated Recipe");
+
+        } catch (Exception e) {
+            log.warn("Unable to update recipe\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to update recipe\n" + e.getMessage());
+        }
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteRecipe(@PathVariable Long id) {
         try {

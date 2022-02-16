@@ -27,15 +27,18 @@ import {
 } from '@ionic/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
-import { Link, Router, Switch, useHistory } from 'react-router-dom';
+import { Link, RouteComponentProps, Router, Switch, useHistory } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
 import history from '../History';
 import {NavContext} from '@ionic/react';
+import Context from '../components/Context';
+import { userInfo } from 'os';
 
 
-const AddRecipe: React.FunctionComponent = () => {
+const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+    const context = useContext(Context);
     const { navigate } = useContext(NavContext);
     const history = useHistory();
     const [checked, setChecked] = useState(false);
@@ -49,11 +52,13 @@ const AddRecipe: React.FunctionComponent = () => {
   } = useForm({
     defaultValues: {
         title: "",
+        id: context.currentUser?.id,
         description: "",
         body: "",
         prepTime: 0,
         cookTime: 0,
         yield: 0,
+        imgSrc: "",
         alcoholic: false,
         estimatedCost: 0,
         type: "",
@@ -69,7 +74,7 @@ const AddRecipe: React.FunctionComponent = () => {
    *
    * @param data
    */
-  const onSubmit = async () => {
+  const onSubmit = () => {
     // preventDefault()
     console.log("updatedValues" + getValues());
     try {
@@ -78,8 +83,10 @@ const AddRecipe: React.FunctionComponent = () => {
                 'Content-Type': 'application/json',
             },
         };
+        console.log("User ID: " + context.currentUser?.id)
+        // setValue("id",string(context.currentUser?.id);
         const body = JSON.stringify(getValues());
-        const res = await axios.post(
+        const res = axios.post(
             'https://api.fridger.recipes/v1/recipe/',
             // 'http://localhost:8080/v1/recipe/',
             body,
@@ -89,14 +96,17 @@ const AddRecipe: React.FunctionComponent = () => {
             if(res.status == 200){
                 console.log("Status is " + res.status);
             //  navigate("/recipes");
-            history.push('recipes');
+            // props.history.push('/recipes')
         }
         });
         return res;
     } catch (e) {
         console.error(e);
     }
+
+    
     // alert(JSON.stringify(data, null, 2));
+
    
     return false;
   };
@@ -110,7 +120,7 @@ const AddRecipe: React.FunctionComponent = () => {
 <Header/>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
-        <form onSubmit={async () =>{await onSubmit();}} >
+        <form onSubmit={async () =>{onSubmit();  props.history.push('/recipes')}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
                     <IonInput type="text" name="title" required onIonInput={(e: any) => setValue("title",e.target.value)}
@@ -122,7 +132,8 @@ const AddRecipe: React.FunctionComponent = () => {
                 </IonItem>
                 <IonItem>
                     <IonLabel>Ingredients</IonLabel>
-                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}>
+                    {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
+                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',String(e.detail.value))}>
                         <IonSelectOption value="1">Carrot</IonSelectOption>
                         <IonSelectOption value="2">Apple</IonSelectOption>
                         <IonSelectOption value="3">Uh</IonSelectOption>
@@ -135,6 +146,11 @@ const AddRecipe: React.FunctionComponent = () => {
                 <IonItem>
                     <IonLabel position="floating">Instructions</IonLabel>
                     <IonTextarea name="instructions" required onIonInput={(e: any) => setValue("body",e.target.value)} />
+                </IonItem>
+                <IonItem>
+                    <IonLabel position="floating">Image</IonLabel>
+                    {/* MAKE THIS A FILE POND */}
+                    <IonTextarea name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
@@ -158,14 +174,15 @@ const AddRecipe: React.FunctionComponent = () => {
                 </IonItem>
                 <IonItem>
                     <IonLabel>Type</IonLabel>
-                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}>
-                        <IonSelectOption value="american">American</IonSelectOption>
-                        <IonSelectOption value="mexican">Mexican</IonSelectOption>
-                        <IonSelectOption value="chinese">Chinese</IonSelectOption>
-                        <IonSelectOption value="italian">Italian</IonSelectOption>
-                        <IonSelectOption value="spanish">Spanish</IonSelectOption>
-                        <IonSelectOption value="nigerian">Nigerian</IonSelectOption>
-                        <IonSelectOption value="lebanese">Lebanese</IonSelectOption>
+                    {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
+                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',String(e.detail.value))}>
+                        <IonSelectOption value="1">American</IonSelectOption>
+                        <IonSelectOption value="2">Mexican</IonSelectOption>
+                        <IonSelectOption value="3">Chinese</IonSelectOption>
+                        <IonSelectOption value="4">Italian</IonSelectOption>
+                        <IonSelectOption value="5">Spanish</IonSelectOption>
+                        <IonSelectOption value="6">Nigerian</IonSelectOption>
+                        <IonSelectOption value="7">Lebanese</IonSelectOption>
                     </IonSelect>
                 </IonItem>
                 <IonItem>
