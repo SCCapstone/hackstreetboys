@@ -65,6 +65,9 @@ public class RecipeServiceImpl implements RecipeService{
             if(dto.getDescription() != null && dto.getDescription().length() > 0){
                 r.setDescription(dto.getDescription());
             }
+            if(dto.getImgSrc() != null && dto.getImgSrc().length() > 0){
+                r.setImgSrc(dto.getImgSrc());
+            }
             if(dto.getCookTime() != null && dto.getCookTime() > 0){
                 r.setCookTime(dto.getCookTime());
             }
