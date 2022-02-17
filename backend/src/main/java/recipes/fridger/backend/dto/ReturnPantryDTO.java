@@ -16,7 +16,7 @@ public class ReturnPantryDTO {
 
     private Long userID;
 
-    private String ingredientID;
+    private String ingredientName;
 
     private Double numIngredient;
 

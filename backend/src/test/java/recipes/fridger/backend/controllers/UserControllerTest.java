@@ -95,7 +95,7 @@ public class UserControllerTest {
         Pantry pantryTest1 = new Pantry(); //this will generate random id
 
         pantryTest1.setUserID(123L);
-        pantryTest1.setIngredientID("banana");
+        pantryTest1.setIngredientName("banana");
         pantryTest1.setNumIngredient(3.0);
         pantryTest1.setDescription("this is a banana for monkeys");
 
@@ -120,13 +120,13 @@ public class UserControllerTest {
         //Create Pantry Objects
         Pantry pantryTest1 = new Pantry(); //this will generate random id
         pantryTest1.setUserID(123L);
-        pantryTest1.setIngredientID("banana");
+        pantryTest1.setIngredientName("banana");
         pantryTest1.setNumIngredient(3.0);
         pantryTest1.setDescription("this is a banana for monkeys");
 
         Pantry pantryTest2 = new Pantry(); //this will generate random id
         pantryTest2.setUserID(256L);
-        pantryTest2.setIngredientID("apple");
+        pantryTest2.setIngredientName("apple");
         pantryTest2.setNumIngredient(1.0);
         pantryTest2.setDescription("this is an apple for test");
 

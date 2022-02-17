@@ -22,7 +22,7 @@ public class CreatePantryDTO {
     private Long userID;
 
     @Size(min = 0,max = 10000)
-    private String ingredientID;
+    private String ingredientName;
 
     @DecimalMin(value = "0.0", inclusive = true)
     @DecimalMax(value = "10000", inclusive = true) //inclusive = true is default

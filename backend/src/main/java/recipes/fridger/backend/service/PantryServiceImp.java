@@ -27,7 +27,7 @@ public class PantryServiceImp implements PantryService {
     public void createPantry(CreatePantryDTO dto) {
         Pantry pantry = new Pantry();
         pantry.setUserID(dto.getUserID());
-        pantry.setIngredientID(dto.getIngredientID());
+        pantry.setIngredientName(dto.getIngredientName());
         pantry.setNumIngredient(dto.getNumIngredient());
         pantry.setDescription(dto.getDescription());
         pantries.save(pantry);
@@ -56,7 +56,7 @@ public class PantryServiceImp implements PantryService {
         for(Pantry s: retPan){
             log.info("pantryID: " + s.getId());
             log.info("userID: " + s.getUserID());
-            log.info("ingredientID: " + s.getIngredientID());
+            log.info("ingredientID: " + s.getIngredientName());
             log.info("numIngredient: " + s.getNumIngredient());
             log.info("description: " + s.getDescription());
         }

@@ -27,8 +27,8 @@ public class Pantry {
     private Long userID;
 
     @Size(min = 0, max = 100000)
-    @Column(name = "ingredient_id", nullable = true)
-    private String ingredientID;
+    @Column(name = "ingredient_name", nullable = true)
+    private String ingredientName;
 
     @DecimalMin(value= "0.0", inclusive = true)
     @DecimalMax(value= "10000.0") //inclusive = true is default

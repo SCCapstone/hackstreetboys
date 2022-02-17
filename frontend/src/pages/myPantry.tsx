@@ -82,13 +82,15 @@ function MyPantry() {
   console.log(pan)
 
   //Add Ingredient to Pantry
+  //base ingredient for testing
   const addPantryObj = { 
-    id: 99,
+    id: 3,
     userID: 777,
-    ingredientID: "2",
+    ingredientID: "3",
     numIngredient: 1,
     description: "This is a test of the food"
   };
+
   const addToPantry = () => {
     axios.post(DOMAIN+'/v1/user/pantry/', addPantryObj).then(res => {
       console.log("Status: ", res.status);
@@ -111,7 +113,7 @@ function MyPantry() {
     imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
   });
   useEffect(() => {
-    fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.id)}') //need this id to be the same as whats in the pantry
+    fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
     .then(response => response.json())
     .then(data => setIngredients(data))
   }, [])
