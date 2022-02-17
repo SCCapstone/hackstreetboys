@@ -33,6 +33,11 @@ import axios from 'axios';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
+const DOMAIN = "http://localhost:8080" 
+// DOMAIN options:
+// https://api.fridger.recipes  -> web server testing
+// http://localhost:8080        -> mySQL + Springboot test
+
 // const [pantry, setPantry] = React.useState<Pantry>({
 //     id: 1,
 //     user: "Quinn Biscuit",
@@ -60,22 +65,6 @@ function IngredientInfo () {
   )
 }
 
-//useState returns a pair of values:
-  //[0]the current State
-  //[1]function to update it
-  
-
-  // const userID = 1;
-
-
-  // const { id } = useParams<PantryExample>();
-
-  
-  //we need to pull ingredients from the list of ingredients that the user has
-  //need to access APIs of ingredients
-  //IngredientInfo()
-  // console.log(pantry);
-
 function MyPantry() {
   //Grab pantry
   const [pan, setPantry] = React.useState<[Pantry]>([{ //makes pantry a variable containing ingredient
@@ -86,7 +75,7 @@ function MyPantry() {
     description: "This is a description of the food"
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/user/pantry/`) //pass in user id
+    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
@@ -101,7 +90,7 @@ function MyPantry() {
     description: "This is a test of the food"
   };
   const addToPantry = () => {
-    axios.post('https://api.fridger.recipes/v1/user/pantry/', addPantryObj).then(res => {
+    axios.post(DOMAIN+'/v1/user/pantry/', addPantryObj).then(res => {
       console.log("Status: ", res.status);
       console.log("Data:", res.data);
     }).catch(error => {
@@ -122,7 +111,7 @@ function MyPantry() {
     imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
+    fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.id)}') //need this id to be the same as whats in the pantry
     .then(response => response.json())
     .then(data => setIngredients(data))
   }, [])
@@ -141,7 +130,7 @@ function MyPantry() {
     imgSrc: ""
   }]);
   useEffect(() => {
-      fetch("https://api.fridger.recipes/v1/ingredient/")
+      fetch(DOMAIN+'/v1/ingredient/')
           .then(ingResp => ingResp.json())
           .then(ingData => setAllIngredients(ingData))
   }, [])

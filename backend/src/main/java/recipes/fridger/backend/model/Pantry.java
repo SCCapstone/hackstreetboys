@@ -18,6 +18,7 @@ import lombok.Data;
 public class Pantry {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Min(0)
@@ -26,13 +27,13 @@ public class Pantry {
     private Long userID;
 
     @Size(min = 0, max = 100000)
-    @Column(name = "ingredients_in_pantry", nullable = true)
+    @Column(name = "ingredient_id", nullable = true)
     private String ingredientID;
 
     @DecimalMin(value= "0.0", inclusive = true)
-    @DecimalMax(value= "10000") //inclusive = true is default
-    @Column(name = "number_of_ingredients", nullable = true)
-    private BigDecimal numIngredient;
+    @DecimalMax(value= "10000.0") //inclusive = true is default
+    @Column(name = "num_of_ingredient", nullable = true)
+    private Double numIngredient;
 
     //description of pantry (home, office, kitchen, grandmas, etc.)
     @Size(min = 0, max = 100)

@@ -26,7 +26,7 @@ public class CreatePantryDTO {
 
     @DecimalMin(value = "0.0", inclusive = true)
     @DecimalMax(value = "10000", inclusive = true) //inclusive = true is default
-    private BigDecimal numIngredient;
+    private Double numIngredient;
 
     @Size(min = 0, max = 100)
     private String description;

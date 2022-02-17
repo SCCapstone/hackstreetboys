@@ -18,7 +18,7 @@ public class ReturnPantryDTO {
 
     private String ingredientID;
 
-    private BigDecimal numIngredient;
+    private Double numIngredient;
 
     private String description;
 

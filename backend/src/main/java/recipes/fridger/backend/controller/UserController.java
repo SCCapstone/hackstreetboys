@@ -142,6 +142,7 @@ public class UserController {
                 @RequestParam(required = false) Double currWeight,
                 @RequestParam(required = false) Double goalWeight)
         {
+            log.info("Returning all goals");
             return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
         }
 
@@ -157,7 +158,7 @@ public class UserController {
      *  PANTRY API
      */
 
-    @PostMapping(path = "/pantry") //TODO create path
+    @PostMapping(path = "/pantry")
     public ResponseEntity<String>
     createPantry(@RequestBody @Valid CreatePantryDTO p) {
         try {
