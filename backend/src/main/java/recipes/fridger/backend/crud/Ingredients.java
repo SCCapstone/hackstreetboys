@@ -1,5 +1,7 @@
 package recipes.fridger.backend.crud;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import recipes.fridger.backend.model.Ingredient;
@@ -16,6 +18,9 @@ public interface Ingredients extends CrudRepository<Ingredient, Long> {
                 "(:alcohol is NULL or i.alcohol = :alcohol) AND " +
                 "(:cost is NULL or i.cost = :cost)")
     List<Ingredient> find(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost);
+
+    @Query("select i from Ingredient i where (:name = i.name)")
+    Optional<Ingredient> findByName(String name);
 
 
 

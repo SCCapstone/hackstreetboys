@@ -7,6 +7,7 @@ import recipes.fridger.backend.dto.CreateIngredientDTO;
 import recipes.fridger.backend.model.Ingredient;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 @Service
 public class IngredientServiceImpl implements IngredientService{
@@ -39,6 +40,15 @@ public class IngredientServiceImpl implements IngredientService{
     @Override
     public Ingredient getIngredient(Long id) {
         Optional<Ingredient> ingredient = ingredients.findById(id);
+        if (ingredient.isPresent()) {
+            return ingredient.get();
+        }
+        return null;
+    }
+    @Transactional
+    @Override
+    public Ingredient getIngredientByName(String name) {
+        Optional<Ingredient> ingredient = ingredients.findByName(name);
         if (ingredient.isPresent()) {
             return ingredient.get();
         }
