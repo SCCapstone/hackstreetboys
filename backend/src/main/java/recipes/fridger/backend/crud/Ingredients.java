@@ -19,8 +19,8 @@ public interface Ingredients extends CrudRepository<Ingredient, Long> {
                 "(:cost is NULL or i.cost = :cost)")
     List<Ingredient> find(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost);
 
-    @Query("select i from Ingredient i where (:name = i.name)")
-    Optional<Ingredient> findByName(String name);
+//    @Query("select i from Ingredient i where (:name = i.name)")
+//    Optional<Ingredient> findByName(String name);
 
 
 

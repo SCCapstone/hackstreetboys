@@ -60,10 +60,10 @@ public class IngredientController {
         }
     }
 
-//    @GetMapping(path = "/{id}")
-//    public @ResponseBody Ingredient getIngredient(@PathVariable Long id) {
-//        return ingredientService.getIngredient(id);
-//    }
+    @GetMapping(path = "/{id}")
+    public @ResponseBody Ingredient getIngredient(@PathVariable Long id) {
+        return ingredientService.getIngredient(id);
+    }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Ingredient>
     getIngredients(@RequestParam(required = false) Long id,
@@ -77,8 +77,8 @@ public class IngredientController {
             {
         return ingredientService.getIngredients(id, name, calories, carbohydrates, protein, fat, alcohol, cost);
     }
-    @GetMapping(path = "/{name}")
-    public @ResponseBody Ingredient getIngredientByName(@PathVariable String name) {
-        return ingredientService.getIngredientByName(name);
-    }
+//    @GetMapping(path = "/{name}")
+//    public @ResponseBody Ingredient getIngredientByName(@PathVariable String name) {
+//        return ingredientService.getIngredientByName(name);
+//    }
 }

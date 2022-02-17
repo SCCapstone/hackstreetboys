@@ -45,15 +45,15 @@ public class IngredientServiceImpl implements IngredientService{
         }
         return null;
     }
-    @Transactional
-    @Override
-    public Ingredient getIngredientByName(String name) {
-        Optional<Ingredient> ingredient = ingredients.findByName(name);
-        if (ingredient.isPresent()) {
-            return ingredient.get();
-        }
-        return null;
-    }
+//    @Transactional
+//    @Override
+//    public Ingredient getIngredientByName(String name) {
+//        Optional<Ingredient> ingredient = ingredients.findByName(name);
+//        if (ingredient.isPresent()) {
+//            return ingredient.get();
+//        }
+//        return null;
+//    }
     @Transactional
     @Override
     public Iterable<Ingredient> getIngredients(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost) {
