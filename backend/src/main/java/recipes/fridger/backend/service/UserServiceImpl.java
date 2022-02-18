@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
+        u.setFavorites(dto.getFavorites());
         users.save(u);
     }
 
@@ -73,4 +74,5 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> getUsers(Long userId) {
         return users.find(userId);
     }
+
 }

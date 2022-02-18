@@ -53,4 +53,7 @@ public class User {
      @DecimalMin(value = "0")
      @Column(name = "weight_lb")
      private Double weight_lb;
+
+     @Column(name = "favorites", nullable = false)
+     private String favorites;
 }

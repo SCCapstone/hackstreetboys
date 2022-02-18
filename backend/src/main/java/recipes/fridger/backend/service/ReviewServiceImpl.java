@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import recipes.fridger.backend.crud.Reviews;
 import recipes.fridger.backend.dto.CreateReviewDTO;
+import recipes.fridger.backend.model.Ingredient;
 import recipes.fridger.backend.model.Review;
 
 import javax.transaction.Transactional;
@@ -43,8 +44,8 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     @Transactional
-    public Iterable<Review> getReviews(Long userId) {
-        return reviews.find(userId);
+    public Iterable<Review> getReviews(Long id, Long authorId, Long recipeId, Integer rating, String feedback ) {
+        return reviews.find(id, authorId, recipeId, rating, feedback);
     }
 
 }

@@ -7,6 +7,6 @@ public interface ReviewService {
     public void createReview(CreateReviewDTO dto);
     public void deleteReview(Long id);
     public Review getReview(Long id);
-    public Iterable<Review> getReviews(Long reviewId);
+    public Iterable<Review> getReviews(Long id, Long authorId, Long recipeId, Integer rating, String feedback);
 
 }

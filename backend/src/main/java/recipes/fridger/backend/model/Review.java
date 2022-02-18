@@ -27,20 +27,20 @@ public class Review {
     private Long id;
 
     @Min(0)
-    @Column(name = "author_id")
+    @Column(name = "authorId")
     private Long authorId;
 
     @Min(0)
-    @Column(name = "recipe_id")
+    @Column(name = "recipeId")
     private Long recipeId;
 
     @Max(5)
     @Min(0)
-    @Column(name = "rating", nullable = true)
+    @Column(name = "rating", nullable = false)
     private Integer rating;
 
     @Size(min = 0, max = 255)
-    @Column(name = "feedback", nullable = true)
+    @Column(name = "feedback", nullable = false)
     private String feedback;
 
 }
