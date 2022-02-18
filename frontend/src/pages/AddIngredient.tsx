@@ -55,7 +55,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
     // console.log(errors);
     // console.log(getValues());
 
-    const onSubmit = async () => {
+    const onSubmit = () => {
         console.log("Initial: " + getValues());
         try {
             const config = {

@@ -12,18 +12,26 @@ import {
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import React, { useEffect } from 'react';
-import { Ingredient } from '../models/Ingredient';
+import React, {useEffect, useContext} from 'react';
+import {Ingredient} from '../models/Ingredient';
 import Header from '../components/Header';
 import {Recipe} from "../models/Recipe";
+import Context from '../components/Context';
+
 import {some} from "lodash";
+
 interface IngredientProps {
     ingredient: Ingredient,
 }
+
 export interface routeParams {
     id: string;
 }
+
 function IngredientPage(this: any) {
+    const context = useContext(Context);
+    console.log(context.currentUser?.email)
+
     const [ingredient, setIngredient] = React.useState<Ingredient>({
         id: 1,
         name: "",
@@ -35,7 +43,7 @@ function IngredientPage(this: any) {
         cost: 0.0,
         imgSrc: ""
     });
-    const { id } = useParams<routeParams>();
+    const {id} = useParams<routeParams>();
     useEffect(() => {
         fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
             .then(response => response.json())
@@ -68,71 +76,63 @@ function IngredientPage(this: any) {
     }, [])
 
     function chooseSome() {
-        let inclusiveRecipes = [recipes[0]];
+        // HOW MANY RECIPES TO SELECT
+        const wantedNumber = 3;
 
-        for(let value = 0; value < recipes.length; value += 1) {
-            if(recipes[value].ingredientIds.split(",").includes(ingredient.id.toString())) {
-                inclusiveRecipes.concat(recipes[value]);
+        // DETERMINES WHICH RECIPES INCLUDE THE CURRENT INGREDIENT
+        const inclusiveRecipes = [];
+        for (let i = 0; i < recipes.length; i += 1) {
+            if (recipes[i].ingredientIds.split(",").includes(ingredient.id.toString())) {
+                const tempRec = recipes[i];
+                inclusiveRecipes.push(tempRec);
             }
         }
 
-        inclusiveRecipes = inclusiveRecipes.slice(1,inclusiveRecipes.length-1);
-
-        // return inclusiveRecipes;
-
-        console.log(inclusiveRecipes)
-
+        // MAXIMUM OF wantedNumber RECIPES TO BE CHOSEN
         let curr;
-        if(inclusiveRecipes.length < 6) {
-            curr = inclusiveRecipes.length;
-        } else {
-            curr = 6;
-        }
+        inclusiveRecipes.length < wantedNumber ? curr = inclusiveRecipes.length : curr = wantedNumber;
 
         const elementIndex = [curr];
+        const len = curr;
 
         curr--;
 
-        while(curr !== -1) {
-
-            const num = Number((Math.random() * inclusiveRecipes.length - 1).toFixed(0))+1;
-            if(!elementIndex.includes(num)) {
+        // RANDOM RECIPE INDICES SELECTED
+        while (curr >= 0) {
+            const num = Number((Math.random() * inclusiveRecipes.length).toFixed(0));
+            if (!elementIndex.includes(num)) {
                 elementIndex[curr] = num;
                 curr--;
             }
         }
 
-        console.log(elementIndex)
-
+        // RANDOM RECIPES ASSIGNED
         const someRecipes = [];
-
-        // for (let i = 0; i < 6; i++) {
-        for(let i = 0; i < 6; i += 1) {
-            someRecipes[i] = inclusiveRecipes[elementIndex[i]];
+        for (let i = 0; i < len; i += 1) {
+            someRecipes.push(inclusiveRecipes[elementIndex[i]]);
         }
-
-        // r = someRecipes;
         return someRecipes;
-
     }
 
-    console.log(recipes);
-    console.log(chooseSome());
-    // let someRecipes=
+    const someRecipes = chooseSome();
+    console.log("SOME RECIPES");
+    console.log(someRecipes);
 
 
     return (
         <Router history={history}>
             <Switch>
                 <IonApp>
-                    <SideBar />
+                    <SideBar/>
                     <IonPage className="ion-page" id="main-content">
-                        <Header />
+                        <Header/>
                         <IonContent className="ion-padding">
                             <IonCard>
-                                <img src={ingredient.imgSrc} style={{ width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}} />
+                                <img src={ingredient.imgSrc}
+                                     style={{width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}}/>
                                 <IonCardContent>
-                                    <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/></h1>
+                                    <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/>
+                                    </h1>
                                 </IonCardContent>
 
                                 <IonCardContent>
@@ -142,27 +142,34 @@ function IngredientPage(this: any) {
                                         {ingredient.protein}g of protein, and<br/>
                                         {ingredient.fat}g of fat.<br/><br/>
                                     </p>
-                                    <h3>The estimated cost of one serving of {ingredient.name.toLowerCase()} is about ${ingredient.cost.toFixed(2)}<br/></h3>
+                                    <h3>The estimated cost of one serving of {ingredient.name.toLowerCase()} is about
+                                        ${ingredient.cost.toFixed(2)}<br/></h3>
                                 </IonCardContent>
 
                                 <IonCardContent>
-                                    <IonBadge color={ingredient.alcohol ? 'danger' : 'secondary'}>{ingredient.alcohol ? "Alcoholic" : !ingredient.alcohol ? "Not Alcoholic" : ""}</IonBadge>
+                                    <IonBadge
+                                        color={ingredient.alcohol ? 'danger' : 'secondary'}>{ingredient.alcohol ? "Alcoholic" : !ingredient.alcohol ? "Not Alcoholic" : ""}</IonBadge>
                                 </IonCardContent>
                             </IonCard>
 
                             <IonCard>
-                                <IonCardTitle className="ion-margin-top, ion-text-center" style={{paddingTop:"20px", paddingBottom:"10px", fontSize:"25px", fontStyle:"italic"}}>Check out some recipes that contain {ingredient.name.toLowerCase()}!</IonCardTitle>
+                                <IonCardTitle className="ion-margin-top, ion-text-center" style={{
+                                    paddingTop: "20px",
+                                    paddingBottom: "10px",
+                                    fontSize: "25px",
+                                    fontStyle: "italic"
+                                }}>Check out some recipes that contain {ingredient.name.toLowerCase()}!</IonCardTitle>
                                 <IonRow>
-                                    {/*{ chooseSome().map(recipe =>*/}
-                                    { recipes.map(recipe =>
-                                        { if(recipe.ingredientIds != null) {
-                                            if(recipe.ingredientIds.split(",").includes(ingredient.id.toString())) {
-                                                return(
+                                    {someRecipes.map(recipe => {
+                                        console.log(recipe);
+                                        if (recipe != null) {
+                                            if (recipe.ingredientIds != null) {
+                                                return (
                                                     <IonCol sizeXs="20" sizeSm="4" key={recipe.id}>
                                                         <Link to={`/recipe/${recipe.id}`}>
                                                             <IonCard button routerDirection="forward">
-                                                                <img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
-                                                                {/*<img src={recipe.imgSrc} alt="recipePhoto"/>*/}
+                                                                {/*<img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="recipePhoto"/>*/}
+                                                                <img src={"https://picsum.photos/1500/800"} alt="recipePhoto"/>
 
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>
@@ -178,30 +185,8 @@ function IngredientPage(this: any) {
                                                     </IonCol>
                                                 )
                                             }
-                                        }}
-                                    )}
-
-                                    {/*{ chooseSome().map(recipe =>*/}
-                                    {/*    { return(*/}
-                                    {/*            <IonCol sizeXs="20" sizeSm="4" key={recipe.id}>*/}
-                                    {/*                <Link to={`/recipe/${recipe.id}`}>*/}
-                                    {/*                    <IonCard button routerDirection="forward">*/}
-                                    {/*                        <img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>*/}
-
-                                    {/*                        <IonCardHeader>*/}
-                                    {/*                            <IonCardTitle>{recipe.title}</IonCardTitle>*/}
-                                    {/*                            <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>*/}
-                                    {/*                        </IonCardHeader>*/}
-
-                                    {/*                        <IonCardContent>*/}
-                                    {/*                            <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>*/}
-                                    {/*                            <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>*/}
-                                    {/*                        </IonCardContent>*/}
-                                    {/*                    </IonCard>*/}
-                                    {/*                </Link>*/}
-                                    {/*            </IonCol>*/}
-                                    {/*    )}*/}
-                                    {/*)}*/}
+                                        }
+                                    })}
 
                                 </IonRow>
                             </IonCard>
