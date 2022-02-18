@@ -108,8 +108,8 @@ import Context from '../components/Context';
             const body = JSON.stringify(getValues());
             const res = axios.post(
                // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
-                'https://api.fridger.recipes/v1/user/goal/',
-               //'http://localhost:8080/v1/user/goal/',
+                //'https://api.fridger.recipes/v1/user/goal/',
+               'http://localhost:8080/v1/user/goal/',
                 body,
                 config
             ).then( res =>{

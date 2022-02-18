@@ -23,6 +23,7 @@ import {
   IonFabButton,
   IonFab,
   IonLabel,
+  IonRow,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -38,8 +39,11 @@ import { useContext } from 'react';
 import Context from '../components/Context';
 import App from '../App';
 import { User } from '../models/User';
+import { Review } from '../models/Review';
 
-
+interface ReviewExample {
+  reviews: Review,
+}
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -58,6 +62,14 @@ function RecipePage() {
     setUser
   }
   const context = useContext(Context);
+  const [review, retReview] = React.useState<Review>({
+    id: 1,
+    rating: 0,
+    review: "",
+    authorId: 0,
+    recipeId: 0
+  })
+  //const context = useContext(Context);
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
@@ -192,6 +204,21 @@ const getFav = () => {
                   <br />
                   Tags: {recipe.tags}
                 </IonCardContent>
+                <IonRow>
+                {/* {review.map((review) =>
+                        <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+                         <Link to={`/review/${review.id}`}>
+                          <IonCard button routerDirection="forward">
+                            <IonCardHeader>
+
+                              <IonCardTitle>{review.id}</IonCardTitle>
+                              <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
+                            </IonCardHeader>
+                          </IonCard>
+                          </Link>
+                        </IonCol>
+                      )} */}
+                      </IonRow>
                 {/* <Link to={`/recipe/${recipe.id}/addreview`}> */}
                 <Link to={`/review/add`}>
                   <IonFab vertical="bottom" horizontal="end" slot="fixed">
