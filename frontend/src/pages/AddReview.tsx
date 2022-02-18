@@ -15,7 +15,7 @@ import {
 } from '@ionic/react';
 import '../theme/variables.css';
 import { useForm, Controller } from 'react-hook-form';
-import { Link, Router, Switch, useParams } from 'react-router-dom';
+import { Link, RouteComponentProps, Router, Switch, useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
@@ -24,6 +24,7 @@ import {NavContext} from '@ionic/react';
 import {IonicRatingModule} from 'ionic-rating';
 import { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';    
+import Context from '../components/Context';
     interface ReviewExample {
         review: Review,
       }
@@ -39,8 +40,10 @@ import { Recipe } from '../models/Recipe';
             }]);
 
     */
-            const AddReview: React.FC = () => {
+            const AddReview: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+                const context = useContext(Context);
                 const {navigate} = useContext(NavContext);
+                const history = useHistory();
                 const [checked, setChecked] = useState(false);
                 const {
                     control,
@@ -51,6 +54,7 @@ import { Recipe } from '../models/Recipe';
                     formState: { errors }
                 } = useForm({
                     defaultValues: {
+                        id: context.currentUser?.id,
                         authorId: 0,
                         recipeId: 0,
                         rating: 0,
@@ -101,10 +105,10 @@ import { Recipe } from '../models/Recipe';
                 //       .then(data => setRecipes(data))
                 //   }, [])
 
-                // console.log(errors);
-                // console.log(getValues());
+                console.log(errors);
+                console.log(getValues());
                 
-        const onSubmit = async () => {
+        const onSubmit = () => {
        
         console.log("updatedValues" + getValues());
         try {
@@ -114,9 +118,9 @@ import { Recipe } from '../models/Recipe';
                 },
             };
             const body = JSON.stringify(getValues());
-            const res = await axios.post(
-                //'https://api.fridger.recipes/v1/review/',
-                'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/review/',
+            const res = axios.post(
+                'https://api.fridger.recipes/v1/review/',
+                //'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/review/',
                 body,
                 config
             ).then( res =>{
@@ -124,7 +128,7 @@ import { Recipe } from '../models/Recipe';
                 if (res.status === 200) {
                     console.log("Status is " + res.status);
                     //navigate(`/recipe/${recipe.id}`);
-                    navigate(`/recipes`);
+                    //navigate(`/recipes`);
 
                 }    
             });
@@ -146,7 +150,7 @@ import { Recipe } from '../models/Recipe';
         <Header/>
 
        <IonContent className="ion-padding">
-         <form onSubmit={async () =>{await onSubmit();}} > 
+         <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
         <IonItem>
                     <IonLabel position="floating" >What would you rate this recipe?</IonLabel>
                     <IonInput name="rating" required onIonInput={(e: any) => setValue("rating",e.target.value)} />

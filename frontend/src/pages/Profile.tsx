@@ -32,6 +32,7 @@ import { useContext } from 'react';
 import Context from '../components/Context';
 
 import History from '../History';
+import Favorites from './Favorites';
 
 export interface routeParams {
   id: string;
@@ -56,7 +57,8 @@ function Users() {
           off our shoulders, spending time with family and friends would become easier.`,
     dob: 'Mar. 20, 1987',
     height_in: 85, // Perhaps these shouldn't be publicly displayed?
-    weight_lb: 600 // Perhaps these shouldn't be publicly displayed?
+    weight_lb: 600, // Perhaps these shouldn't be publicly displayed?
+    favorites: "none yet"
   });
 
   // const email = 'smith@gmail.com';

@@ -19,6 +19,8 @@ import {
   IonCardTitle,
   IonCardSubtitle,
   IonButton,
+  IonAlert,
+  IonRippleEffect,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -95,9 +97,7 @@ function Recipes() {
                               <Link to = {"/recipes"}>
                               <IonFab vertical="bottom" horizontal="end" slot="fixed">
                                 <IonButton >
-                                 
                                     <IonIcon icon={thumbsUp} />
-                                
                                   {/* <IonIcon icon={thumbsUp}/>
                                   <IonLabel>
                                     {likes}

@@ -22,6 +22,7 @@ import {
   IonBadge,
   IonFabButton,
   IonFab,
+  IonLabel,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -38,12 +39,15 @@ import Context from '../components/Context';
 import App from '../App';
 import { User } from '../models/User';
 
+
 interface RecipeProps {
   recipe: Recipe,
 }
 export interface routePrams {
   id: string;
 }//this: any
+
+
 function RecipePage() {
   const [ loggedIn, setLoggedIn ] = useState(false);
   const [ user, setUser ] = useState<User>();
@@ -92,7 +96,51 @@ useEffect(() => {
   }
 }, []);
 
+const addFav = (recipe : any) => {
+ <>
+ <IonCard>      
+ <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
+        
+                <IonCardContent>
+                  <h1>{recipe.title}</h1>
+                  <h2>{recipe.description}</h2>
+                  <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
+                  <h2>By: <a href="">{recipe.author}</a></h2>
+                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
+                  <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
+                  
+                </IonCardContent>
+               
+              </IonCard>
+              <IonCard>
+                <IonCardContent>
+                  <h2>Ingredients </h2>
+                  <p>
+                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
+                    <br />
+                  </p>
+                  <h2>Instructions</h2>
+                  <p>
+                    {recipe.body}
+                  </p>
+                </IonCardContent>
+              </IonCard>
+              <IonCard>
+                <IonCardContent>
+                  Type: <IonBadge color="primary">{recipe.type}</IonBadge>
+                  <br />
+                  Tags: {recipe.tags}
+                </IonCardContent>
+                </IonCard>
 
+  </>
+  
+}
+
+const getFav = () => {
+  history.push('/favorites')
+  addFav(recipe);
+}
   return (
     
     <Router history={history}>
@@ -108,7 +156,7 @@ useEffect(() => {
                
                   {/* <Link to="/favorites"> */}
                     {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else history.push('/favorites')}} >
+                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (getFav())}} >
                             <IonIcon icon={heart} />
                           </IonButton>
                       {/* </IonFab> */}

@@ -92,6 +92,7 @@ import EditRecipe from './pages/EditRecipe';
               <Route path="/goals" component={GoalsPage} />
               <Route path="/mypantry" component={MyPantry} />
               <Route path="/myreviews" component={myReviews} />
+              <Route path="/favorites/recipe/:id" component={Favorites} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />
               <Route path="/mygoals/add" component={AddGoal} />
