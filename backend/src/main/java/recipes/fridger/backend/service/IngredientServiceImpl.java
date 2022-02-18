@@ -36,6 +36,7 @@ public class IngredientServiceImpl implements IngredientService{
             ingredients.delete(i);
         }
     }
+
     @Transactional
     @Override
     public Ingredient getIngredient(Long id) {

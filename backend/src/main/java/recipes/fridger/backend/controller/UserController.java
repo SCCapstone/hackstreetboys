@@ -171,19 +171,29 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
-    @DeleteMapping(path = "/pantry/{pantryId}") //TODO create path
+    @DeleteMapping(path = "/pantry/{id}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
         try {
             pantryService.deletePantry(id);
             log.info("Successfully delete pantry #"+id);
-            return ResponseEntity.ok("Deleted recipe");
+            return ResponseEntity.ok("Deleted pantry");
         } catch (Exception e) {
-            log.warn("Unable to delete recipe #" +id);
+            log.warn("Unable to delete pantry" +id);
             return ResponseEntity.internalServerError().body("Unable to delete recipe");
         }
     }
-
+    @DeleteMapping(path = "/pantry")
+    public ResponseEntity<String> clearPantry() {
+        try {
+            pantryService.clearPantry();
+            log.info("Successfully deleted all pantry items. You wield a dangerous power!");
+            return ResponseEntity.ok("Deleted all pantry items");
+        } catch (Exception e) {
+            log.warn("Unable to clear pantry");
+            return ResponseEntity.internalServerError().body("Unable to clear pantry");
+        }
+    }
 //    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
 //    @GetMapping(path = "/pantry")
 //    public @ResponseBody Pantry

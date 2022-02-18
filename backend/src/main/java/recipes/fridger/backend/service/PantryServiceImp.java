@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import recipes.fridger.backend.crud.Pantries;
 import recipes.fridger.backend.dto.CreatePantryDTO;
+import recipes.fridger.backend.model.Ingredient;
 import recipes.fridger.backend.model.Pantry;
 
 import javax.transaction.Transactional;
@@ -39,6 +40,14 @@ public class PantryServiceImp implements PantryService {
         if(p.isPresent()) {
             Pantry u = p.get();
             pantries.delete(u);
+        }
+    }
+    @Transactional
+    @Override
+    public void clearPantry() {
+        List<Pantry> p = pantries.findAllPantrys();
+        for(Pantry pan : p) {
+            pantries.delete(pan);
         }
     }
 

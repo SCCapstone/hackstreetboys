@@ -56,7 +56,7 @@ function IngredientInfo () {
   const [ing, setIngredient] = React.useState<Pantry>({
     id: 99,
     userID: 2,
-    ingredientID: "273",
+    ingredientName: "273",
     numIngredient: 34,
     description: "kdajfkldaj"
   })
@@ -66,11 +66,12 @@ function IngredientInfo () {
 }
 
 function MyPantry() {
-  //Grab pantry
-  const [pan, setPantry] = React.useState<[Pantry]>([{ //makes pantry a variable containing ingredient
+  //Grab pantry at start
+  //this will reload EVERY time setPantry is called
+  const [pan, setPantry] = React.useState<[Pantry]>([{ 
     id: 99,
     userID: 2,
-    ingredientID: "99",
+    ingredientName: "99",
     numIngredient: 2,
     description: "This is a description of the food"
   }]);
@@ -83,16 +84,24 @@ function MyPantry() {
 
   //Add Ingredient to Pantry
   //base ingredient for testing
-  const addPantryObj = { 
+  const [newPantry, setNewPantry] = useState<Pantry>({
     id: 3,
-    userID: 777,
-    ingredientID: "3",
+    userID: 1,
+    ingredientName: "REFRESHING RANDY",
     numIngredient: 1,
     description: "This is a test of the food"
-  };
+  });
+  useEffect(() => {
+    addToPantry()
+    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
+    .then(res => res.json())
+    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+     //this essentially forces a refresh? idk tbh
+  }, [])
+
 
   const addToPantry = () => {
-    axios.post(DOMAIN+'/v1/user/pantry/', addPantryObj).then(res => {
+    axios.post(DOMAIN+'/v1/user/pantry/', newPantry).then(res => {
       console.log("Status: ", res.status);
       console.log("Data:", res.data);
     }).catch(error => {
@@ -100,24 +109,26 @@ function MyPantry() {
     });
   }
 
-  //Grab ingredient!
-  const [ingredient, setIngredients] = React.useState<Ingredient>({
-    id: 99,
-    name: "Biscuit",
-    calories: 273,
-    carbohydrates: 34,
-    protein: 14,
-    fat: 9,
-    alcohol: true,
-    cost: 9.69,
-    imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
-  });
-  useEffect(() => {
-    fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
-    .then(response => response.json())
-    .then(data => setIngredients(data))
-  }, [])
-  console.log(ingredient)
+  const [count, setCount] = useState(0);
+
+  // //Grab ingredient!
+  // const [ingredient, setIngredients] = React.useState<Ingredient>({
+  //   id: 99,
+  //   name: "Biscuit",
+  //   calories: 273,
+  //   carbohydrates: 34,
+  //   protein: 14,
+  //   fat: 9,
+  //   alcohol: true,
+  //   cost: 9.69,
+  //   imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
+  // });
+  // useEffect(() => {
+  //   fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
+  //   .then(response => response.json())
+  //   .then(data => setIngredients(data))
+  // }, [])
+  // console.log(ingredient)
 
   //Grab All Ingredients
   const [ingredientArray, setAllIngredients] = React.useState<[Ingredient]>([{
@@ -198,36 +209,37 @@ function MyPantry() {
         <SideBar />
           <IonPage className="ion-page" id="main-content">
             <Header/>
+            <h2>PANTRY</h2> 
             <IonContent className="ion-padding"> 
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
               <IonList>
-                <h2>Your Ingredients</h2> 
+                
                 {pan.map(myIng =>
                   <IonItem key={myIng.id}> 
                     <IonAvatar slot="start">
-                      <img src={ingredient.imgSrc}></img>
+                      {/* <img src={ingredient.imgSrc}></img> */}
                     </IonAvatar>
                     <IonLabel>
-                      <h2>{ingredient.name}</h2>
+                      <h2>{myIng.ingredientName}</h2>
                     </IonLabel>
                     <IonLabel slot="end">
                       <h2>Quantity: {myIng.numIngredient}</h2>
                     </IonLabel>
-                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{ingredient.name} Facts</IonButton>
+                    {/* <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{ingredient.name} Facts</IonButton> */}
                     <IonPopover
                       isOpen={showPop.open}
                       event={showPop.event}
                       onDidDismiss={e => setPop({open: false, event: undefined})}
                     >
                       <IonList>
-                        <IonItem>
+                        {/* <IonItem>
                           Calories: {ingredient.calories}
                         </IonItem>
                         <IonItem>Carbs: {ingredient.carbohydrates} g</IonItem>
                         <IonItem>Protein: {ingredient.protein} g</IonItem>
                         <IonItem>Fat: {ingredient.fat} g</IonItem>
                         <IonItem>Contains alcohol? {ingredient.alcohol}</IonItem>
-                        <IonItem>Estimated Cost: ${ingredient.cost}</IonItem>
+                        <IonItem>Estimated Cost: ${ingredient.cost}</IonItem> */}
                       </IonList>
                     </IonPopover>
                   </IonItem>
@@ -248,7 +260,11 @@ function MyPantry() {
                     {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
                       Add 1 {ing.name}
                     </IonButton> */}
-                    <IonButton onClick={(e) => addToPantry()}>
+                    <IonButton onClick={(e) => setNewPantry({id: 3,
+                      userID: 3,
+                      ingredientName: "3",
+                      numIngredient: 3,
+                      description: "3"})}>
                       Add 1 {ing.name}
                     </IonButton>
                   </IonItem>
