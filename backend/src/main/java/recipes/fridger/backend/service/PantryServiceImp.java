@@ -62,7 +62,22 @@ public class PantryServiceImp implements PantryService {
             pantries.save(pan);
             log.info("Incrementing "+pan.getIngredientName()+" by 1");
         } else {
-            log.info("Did not increment by 1. Item could not be found by " + id);
+            log.info("Did not increment by 1. Item could not be found by id=" + id);
+        }
+    }
+
+    @Transactional
+    @Override
+    public void decrementPantryByOne(Long id) {
+        Optional<Pantry> p = pantries.findById(id);
+        if(p.isPresent()) {
+
+            Pantry pan = p.get();
+            pan.setNumIngredient(pan.getNumIngredient()-1);
+            pantries.save(pan);
+            log.info("Decrementing "+pan.getIngredientName()+" by 1");
+        } else {
+            log.info("Did not decrement by 1. Item could not be found by id=" + id);
         }
     }
 

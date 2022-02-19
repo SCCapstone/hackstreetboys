@@ -70,14 +70,38 @@ function MyPantry() {
     cost: 0.0,
     imgSrc: ""
   }]);
-  // useEffect(() => {
-  //     fetch(DOMAIN+'/v1/ingredient/')
-  //         .then(ingResp => ingResp.json())
-  //         .then(ingData => setAllIngredients(ingData))
-  // }, [])
+  useEffect(() => {
+      fetch(DOMAIN+'/v1/ingredient/')
+          .then(ingResp => ingResp.json())
+          .then(ingData => setAllIngredients(ingData))
+  }, [])
+
+  //Grab all recipes for the current ingredients
+  const [recipeArray, setAllRecipes] = React.useState<[Recipe]>([{
+    id: 1,
+    title: "",
+    author: "",
+    description: "",
+    body: "",
+    imgSrc: "",
+    totalTime: 0,
+    prepTime: 0,
+    cookTime: 0,
+    yield: 0,
+    estimatedCost: 0,
+    type: "",
+    tags: "",
+    ingredientIds: "",
+    rating: 0
+  }]);
+  useEffect(() => {
+    fetch(DOMAIN+'/v1/recipes/')
+      .then(recResp => recResp.json())
+      .then(recData => setAllRecipes(recData))
+  }, [])
+
 
   //This will refresh pantry with current
-
    const refreshPantry = async () => {
     fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
     .then(res => {
@@ -162,7 +186,7 @@ function MyPantry() {
     //if pantry includes the item
     if(containsPantryItem(newPan,pan)) {
       console.log(newPan);
-      axios.put(DOMAIN+'/v1/user/pantry/'+newPan.id)
+      axios.put(DOMAIN+'/v1/user/pantry/'+newPan.id+'/increase')
         .then(response => 
           {console.log(response);}
       );
@@ -188,10 +212,20 @@ function MyPantry() {
   }
 
   //Remove an item from pantry
-  const removeFromPantry = (pantryName: string) => {
+  const removeFromPantry = (removePan: Pantry) => {
+    console.log(removePan);
     refreshPantry();
-    axios.delete(DOMAIN+'/v1/user/pantry/'+pantryName+'/remove')
-    console.log("Clearing Pantry item "+pantryName);
+    //if pantry includes the item
+    if(containsPantryItem(removePan,pan)) {
+      console.log(removePan);
+      axios.put(DOMAIN+'/v1/user/pantry/'+removePan.id+'/decrease')
+        .then(response => 
+          {console.log(response);}
+      );
+          //console.log(response);)
+    } else { //If Pantry does not include item
+      console.log("Item does not exist. Can not delete a non-existent item");
+    }
     refresh = refresh+1; //this causes useeffect to reload
   }
     
@@ -313,9 +347,17 @@ function MyPantry() {
                     <IonLabel>
                       <h2>{myPan.ingredientName}</h2>
                     </IonLabel>
+                    <IonButton slot="end" color="danger" onClick={(e) => {
+                        removeFromPantry(myPan);
+                      }}>Remove {myPan.ingredientName}
+                    </IonButton>
                     <IonLabel slot="end">
                       <h2>Quantity: {myPan.numIngredient}</h2>
                     </IonLabel>
+                    <IonButton slot="end" color="success" onClick={(e) => {
+                        addToPantry(myPan);
+                      }}>ADD {myPan.ingredientName}
+                    </IonButton>
                     <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton>
                     <IonPopover
                       isOpen={showPop.open}

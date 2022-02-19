@@ -9,6 +9,7 @@ public interface PantryService {
     public void deletePantry(Long id);
     public void clearPantry();
     public void incrementPantryByOne(Long id);
+    public void decrementPantryByOne(Long id);
     public Pantry getPantryByUserID(Long id);
     public Pantry getPantryByPantryID(Long id);
     public Iterable<Pantry> getAllPantrys();

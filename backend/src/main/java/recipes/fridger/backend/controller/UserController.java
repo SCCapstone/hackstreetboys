@@ -192,15 +192,27 @@ public class UserController {
 //    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
 //        return pantryService.getPantryByUserID(id);
 //    }
-    @PutMapping(path = "/pantry/{id}")
+    @PutMapping(path = "/pantry/{id}/increase")
     public ResponseEntity<String>
     incrementPantryByOne(@PathVariable Long id) {
         try {
             pantryService.incrementPantryByOne(id);
-            log.info("Successfully Incremented pantry item by 1");
+            //log.info("Successfully Incremented pantry item by 1");
             return ResponseEntity.ok("Successfully Incremented pantry item by 1");
         } catch (Exception e) {
             log.warn("Unable to update pantry, does it exist?");
+            return ResponseEntity.internalServerError().body("Unable to update pantry, does it exist?");
+        }
+    }
+    @PutMapping(path = "/pantry/{id}/decrease")
+    public ResponseEntity<String>
+    decrementPantryByOne(@PathVariable Long id) {
+        try {
+            pantryService.decrementPantryByOne(id);
+            //log.info("Successfully Incremented pantry item by 1");
+            return ResponseEntity.ok("Successfully Incremented pantry item by 1");
+        } catch (Exception e) {
+            log.warn("Unable to decrement item. numIngredient can not go less than 0");
             return ResponseEntity.internalServerError().body("Unable to update pantry, does it exist?");
         }
     }
