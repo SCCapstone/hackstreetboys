@@ -62,13 +62,16 @@ function RecipePage() {
     setUser
   }
   const context = useContext(Context);
-  const [review, retReview] = React.useState<Review>({
+  const [reviews, setReview] = React.useState<[Review]>([{
     id: 1,
     rating: 0,
     review: "",
     authorId: 0,
     recipeId: 0
-  })
+  }]);
+  
+
+
   //const context = useContext(Context);
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
@@ -95,7 +98,14 @@ function RecipePage() {
   }, [])
   console.log(recipe);
 
-  const [favorites, setFavorites] = useState([] as Array<number>);
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/reviews`)
+    .then(response => response.json())
+    .then(data => setReview(data))
+  }, [])
+  
+
+  //const [favorites, setFavorites] = useState([] as Array<number>);
 
   
 useEffect(() => {
@@ -198,6 +208,7 @@ const getFav = () => {
                   </p>
                 </IonCardContent>
               </IonCard>
+
               <IonCard>
                 <IonCardContent>
                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
@@ -220,15 +231,41 @@ const getFav = () => {
                       )} */}
                       </IonRow>
                 {/* <Link to={`/recipe/${recipe.id}/addreview`}> */}
+               
+              </IonCard>
+
+              <IonCard>
+                  <IonCardContent>
+                    <Link to={`/review/${id}`}><IonButton>
+              Click to see Reviews about this recipe 
+            </IonButton>
+            </Link>
+            <h2>Add a review:</h2>
                 <Link to={`/review/add`}>
-                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                    <IonFabButton>
+                    <IonFabButton >
                       <IonIcon icon={add} />
                     </IonFabButton>
-                  </IonFab>
                   </Link>
-              </IonCard>
+                  
+                  {/* {reviews.map(review =>
+                        <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+                         <Link to={`/review/${review.id}`}>
+                          <IonCard button routerDirection="forward">
+                            <IonCardHeader>
+
+                              <IonCardTitle>{review.id}</IonCardTitle>
+                              <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
+                            </IonCardHeader>
+                          </IonCard>
+                          </Link>
+                        </IonCol>
+                      )} */}
+                
+                  </IonCardContent>
+                  </IonCard>
             </IonContent>
+
+            
           </IonPage>
         </IonApp>
       </Switch>

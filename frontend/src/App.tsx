@@ -5,7 +5,6 @@ import GoalsPage from './pages/GoalsPage';
 import Recipes from './pages/Recipes';
 import Ingredients from './pages/Ingredients';
 import myPantry from './pages/myPantry';
-import myReviews from './pages/myReviews';
 import Favorites from './pages/Favorites';
 import Preferences from './pages/Preferences';
 import Home from './pages/Home';
@@ -44,9 +43,10 @@ import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
 import MyPantry from './pages/myPantry';
 import AddGoal from './pages/AddGoal';
-
 import EditRecipe from './pages/EditRecipe';
+//import Review from './pages/MyReviews';
 // import Basic from './components/Basic'
+import Review from './pages/RecipeReviews';
 
 //const App: React.FC = () => (
   function App () {
@@ -79,6 +79,7 @@ import EditRecipe from './pages/EditRecipe';
               {/* /* <Route path="/testform" component={Basic} /> */}
               {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
               <Route path="/review/add" component={AddReview}/>
+              <Route path="/review/:id" component={Review}/>
               <Route path="/recipe/add" component={AddRecipe} />
               <Route path="/recipe/edit/:id" component={EditRecipe} />
               <Route path="/recipe/:id" component={Recipe} />
@@ -91,11 +92,11 @@ import EditRecipe from './pages/EditRecipe';
               <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/goals" component={GoalsPage} />
               <Route path="/mypantry" component={MyPantry} />
-              <Route path="/myreviews" component={myReviews} />
+              {/* <Route path="/myreviews" component={myReviews} /> */}
               <Route path="/favorites/recipe/:id" component={Favorites} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />
-              <Route path="/mygoals/add" component={AddGoal} />
+              {/* <Route path="/mygoals/add" component={AddGoal} /> */}
               <Route path="/mygoals" component={MyGoals} />
               <Route path="/goal/:id" component={Goal} />
               <Route path="/profile/:id?" component={Profile} />
