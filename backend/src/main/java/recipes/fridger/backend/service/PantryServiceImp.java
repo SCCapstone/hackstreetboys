@@ -53,8 +53,30 @@ public class PantryServiceImp implements PantryService {
 
     @Transactional
     @Override
+    public void incrementPantryByOne(Long id) {
+        Optional<Pantry> p = pantries.findById(id);
+        if(p.isPresent()) {
+
+            Pantry pan = p.get();
+            pan.setNumIngredient(pan.getNumIngredient()+1);
+            pantries.save(pan);
+            log.info("Incrementing "+pan.getIngredientName()+" by 1");
+        } else {
+            log.info("Did not increment by 1. Item could not be found by " + id);
+        }
+    }
+
+    @Transactional
+    @Override
     public Pantry getPantryByUserID(Long id) {
         Optional<Pantry> p = pantries.findByUser(id);
+        return p.isPresent() ? p.get() : null;
+    }
+
+    @Transactional
+    @Override
+    public Pantry getPantryByPantryID(Long id) {
+        Optional<Pantry> p = pantries.findByPantryID(id);
         return p.isPresent() ? p.get() : null;
     }
 
