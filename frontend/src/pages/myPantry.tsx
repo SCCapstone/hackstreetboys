@@ -34,7 +34,7 @@ import { stringify } from 'querystring';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
-const DOMAIN = "http://localhost:8080" 
+const DOMAIN = "https://api.fridger.recipes" 
 // DOMAIN options:
 // https://api.fridger.recipes  -> web server testing
 // http://localhost:8080        -> mySQL + Springboot test
