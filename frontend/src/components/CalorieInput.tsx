@@ -9,7 +9,7 @@ const CalorieInput = ({addItemHandler, calories, mealName, setCalories, setItemN
 
     return (
         <div>
-            <IonInput color = 'dark' type="text" placeholder='Food Item' value={mealName} onIonInput={(e: any) => setItemName(e.target.value)}/>
+            <IonInput color = 'dark' type="text" placeholder="Food Item" value={mealName} onIonInput={(e: any) => setItemName(e.target.value)}/>
               <IonInput color='dark' type="number" placeholder='Calories'value={calories} onIonInput={(e: any) => setCalories(e.target.value)}/>
               <IonButton onClick={onAddItemClick} color="dark">Add Item</IonButton>
         </div>

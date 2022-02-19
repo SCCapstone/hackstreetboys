@@ -1,10 +1,10 @@
 import React from 'react';
 
-const CaloriesCounter = () => {
+const CaloriesCounter = ({total}: any) => {
     return (
         <div>
             <h2>
-                Total Calories: <span>0</span>
+                Total Calories: <span>{total}</span>
             </h2>
         </div>
     );
