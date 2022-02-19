@@ -98,7 +98,7 @@ function MyPantry() {
     fetch(DOMAIN+'/v1/recipes/')
       .then(recResp => recResp.json())
       .then(recData => setAllRecipes(recData))
-  }, [])
+  }, []) //this will grab all recipes at the start. if we want to refresh recipes must do a manual page refresh. I also might add a button to do that idk
 
 
   //This will refresh pantry with current
@@ -334,7 +334,10 @@ function MyPantry() {
             <Header/>
             <h2>PANTRY</h2> 
             <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton>
-            <IonContent className="ion-padding"> 
+            <IonContent 
+              className="ion-padding"
+              
+            > 
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
               <IonList>
                 
@@ -410,26 +413,8 @@ function MyPantry() {
                   </IonItem>
                 )}
               </IonList>
-              {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}> Add An Ingredient </IonButton>
-              <IonPopover
-                isOpen={showAddIngredient.open}
-                event={showAddIngredient.event}
-                onDidDismiss={e => setAddIngredient({open: false, event: undefined})}
-              >
-                <IonList>
-                  {ingredientArray.map(ing => 
-                    <IonItem key={ing.id}>
-                      <IonAvatar slot="start">
-                        <img src={ing.imgSrc}></img>
-                      </IonAvatar>
-                      <IonLabel>
-                        <h2>{ing.name}</h2>
-                      </IonLabel>
-                    </IonItem>
-                  )}
-                </IonList>
-              </IonPopover> */}
             </IonContent>
+
           </IonPage>
         </IonApp>
       </Switch>
