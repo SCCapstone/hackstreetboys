@@ -84,13 +84,13 @@ public class PantryServiceImp implements PantryService {
     @Override
     public Iterable<Pantry> getAllPantrys() {
         List<Pantry> retPan = pantries.findAllPantrys();
-        for(Pantry s: retPan){
-            log.info("pantryID: " + s.getId());
-            log.info("userID: " + s.getUserID());
-            log.info("ingredientID: " + s.getIngredientName());
-            log.info("numIngredient: " + s.getNumIngredient());
-            log.info("description: " + s.getDescription());
-        }
+//        for(Pantry s: retPan){
+//            log.info("pantryID: " + s.getId());
+//            log.info("userID: " + s.getUserID());
+//            log.info("ingredientID: " + s.getIngredientName());
+//            log.info("numIngredient: " + s.getNumIngredient());
+//            log.info("description: " + s.getDescription());
+//        }
         return retPan;
     }
 

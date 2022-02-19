@@ -23,13 +23,14 @@ import { Router, Switch, useParams } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from "../components/Header";
-import { logoYoutube, menuOutline } from 'ionicons/icons';
+import { image, logoYoutube, menuOutline } from 'ionicons/icons';
 import React, { Component, useEffect, useState } from 'react';
 import { Pantry } from '../models/Pantry';
 import { Ingredient } from '../models/Ingredient';
 import { Recipe } from '../models/Recipe';
 import AddIngredient from './AddIngredient';
 import axios from 'axios';
+import { stringify } from 'querystring';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
@@ -38,19 +39,7 @@ const DOMAIN = "http://localhost:8080"
 // https://api.fridger.recipes  -> web server testing
 // http://localhost:8080        -> mySQL + Springboot test
 
-// const [pantry, setPantry] = React.useState<Pantry>({
-//     id: 1,
-//     user: "Quinn Biscuit",
-//     fruits: [["Apple","2","70"],["Banana","3"],["Orange","4"]], //{name,}
-//     vegetables: [["Lettuce","7 ounces"]],
-//     meats: [["Chicken","1 lb"]],
-//     spices: [["Garlic Powder","5 ounces"]],
-//     description: "This is a basic pantry"  
-//   })
-
-interface PantryProps {
-  pantry: Pantry,
-}
+const userID = 11;//TODO change this
 
 function IngredientInfo () {
   const [ing, setIngredient] = React.useState<Pantry>({
@@ -66,71 +55,8 @@ function IngredientInfo () {
 }
 
 function MyPantry() {
-  //Grab pantry at start
-  //this will reload EVERY time setPantry is called
-  const [pan, setPantry] = React.useState<[Pantry]>([{ 
-    id: 99,
-    userID: 2,
-    ingredientName: "99",
-    numIngredient: 2,
-    description: "This is a description of the food"
-  }]);
-  useEffect(() => {
-    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
-    .then(res => res.json())
-    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
-  }, [])
-  console.log(pan)
-
-  //Add Ingredient to Pantry
-  //base ingredient for testing
-  const [newPantry, setNewPantry] = useState<Pantry>({
-    id: 3,
-    userID: 1,
-    ingredientName: "REFRESHING RANDY",
-    numIngredient: 1,
-    description: "This is a test of the food"
-  });
-  useEffect(() => {
-    addToPantry()
-    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
-    .then(res => res.json())
-    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
-     //this essentially forces a refresh? idk tbh
-  }, [])
-
-
-  const addToPantry = () => {
-    axios.post(DOMAIN+'/v1/user/pantry/', newPantry).then(res => {
-      console.log("Status: ", res.status);
-      console.log("Data:", res.data);
-    }).catch(error => {
-      console.error('Something went wrong!', error);
-    });
-  }
-
-  const [count, setCount] = useState(0);
-
-  // //Grab ingredient!
-  // const [ingredient, setIngredients] = React.useState<Ingredient>({
-  //   id: 99,
-  //   name: "Biscuit",
-  //   calories: 273,
-  //   carbohydrates: 34,
-  //   protein: 14,
-  //   fat: 9,
-  //   alcohol: true,
-  //   cost: 9.69,
-  //   imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
-  // });
-  // useEffect(() => {
-  //   fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
-  //   .then(response => response.json())
-  //   .then(data => setIngredients(data))
-  // }, [])
-  // console.log(ingredient)
-
-  //Grab All Ingredients
+  
+  //Grab all ingredient for bottom section
   const [ingredientArray, setAllIngredients] = React.useState<[Ingredient]>([{
     id: 1,
     name: "",
@@ -142,14 +68,211 @@ function MyPantry() {
     cost: 0.0,
     imgSrc: ""
   }]);
-  useEffect(() => {
-      fetch(DOMAIN+'/v1/ingredient/')
+  // useEffect(() => {
+  //     fetch(DOMAIN+'/v1/ingredient/')
+  //         .then(ingResp => ingResp.json())
+  //         .then(ingData => setAllIngredients(ingData))
+  // }, [])
+
+  //This will refresh pantry with current
+
+   const refreshPantry = () => {
+    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
+    .then(res => res.json())
+    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+  }
+
+  //Grab pantry at start
+  //This will reload EVERY time setPantry is called
+  const [pan, setPantry] = React.useState<[Pantry]>([{ 
+    id: 99,
+    userID: 2,
+    ingredientName: "99",
+    numIngredient: 2,
+    description: "This is a description of the food"
+  }]);
+  useEffect(() => { //doesn't pull and log right at the start!
+    console.log("HELLO");
+    console.log(pan);
+    refreshPantry();
+    console.log(pan);
+    fetch(DOMAIN+'/v1/ingredient/')
           .then(ingResp => ingResp.json())
           .then(ingData => setAllIngredients(ingData))
-  }, [])
+  }, [pan.length])
   
-  // TODO Number Increment GET AND POST
-  const [quant, setQuant] = useState(0); //set quant to 0 initally
+  //Base Ingredient to be edited to add to pantry
+
+  //IngredientToPantry
+  const givePantryVersionFromName = (ingPanName: string) => {
+    for(let i=0;i<pan.length;i++) {
+      if(pan[i].ingredientName === ingPanName) {
+        console.log("FOUND ITEM in pantry")
+        return pan[i];
+      }
+    }
+    //we did not find the pantry item currently in pantry. Give new version of it
+    return {
+      id: 0,//this will get reassigned in backend
+      userID: userID,
+      ingredientName: ingPanName,
+      numIngredient: 1,
+      description: "This is a description of the pantryitem"
+    }
+
+  }
+  const [currPan, setCurrPan] = useState<Pantry>({
+    id: 3,
+    userID: 1,
+    ingredientName: "REFRESHING RANDY",
+    numIngredient: 1,
+    description: "This is a test of the food"
+  })
+
+  //PantryToIngredient
+  const giveIngredientVersionFromName = (ingPanName: string) => {
+    for(let i=0;i<ingredientArray.length;i++) {
+      if(ingredientArray[i].name === ingPanName) {
+        setCurrIng(ingredientArray[i]);
+      }
+    }
+  }
+  const [currIng, setCurrIng] = useState<Ingredient>({
+    id: 1000,
+    name: "test",
+    calories: 1000,
+    carbohydrates: 1000,
+    protein: 1000,
+    fat: 1000,
+    alcohol: true,
+    cost: 1000.0,
+    imgSrc: ""
+  })
+  
+
+
+  //Add new item to pantry
+  const addToPantry = (newPan: Pantry) => {
+    console.log(newPan);
+    refreshPantry();
+    //if pantry includes the item
+    if(containsPantryItem(newPan,pan)) {
+      console.log(newPan);
+      axios.put(DOMAIN+'/v1/user/pantry/'+newPan.id)
+        .then(response => 
+          {console.log(response);}
+      );
+          //console.log(response);)
+    } else { //If Pantry does not include item
+      axios.post(DOMAIN+'/v1/user/pantry/', newPan).then(res => {
+        console.log("Status: ", res.status);
+        console.log("Data:", res.data);
+      }).catch(error => {
+        console.error('Something went wrong!', error);
+        console.error(newPan);
+      });
+    }
+  }
+
+  //Clear the pantry
+  const clearPantry = () => {
+    refreshPantry();
+    axios.delete(DOMAIN+'/v1/user/pantry/');
+    console.log("Clearing Pantry");
+    
+  }
+
+  //Remove an item from pantry
+  const removeFromPantry = (pantryName: string) => {
+    refreshPantry();
+    axios.delete(DOMAIN+'/v1/user/pantry/'+pantryName)
+    console.log("Clearing Pantry item "+pantryName);
+  }
+    
+  //This will check to see if the name of the ingredient is already in pantry
+  const containsPantryItem = (panItem: Pantry, pantry: [Pantry]) => {
+    for(let i=0;i<pantry.length;i++) {
+      if(pantry[i].ingredientName === panItem.ingredientName) {
+        return true; //in pantry
+      }  
+    }
+    return false; //not in pantry
+  }
+
+  //Grab ingredient!
+  const setIngFromPantry = (pantryName: String) => {
+    for(let i=0;i<ingredientArray.length;i++) {
+      if(ingredientArray[i].name === pantryName) {
+        //setCurrIng(ingredientArray[i]);
+      }
+    }
+  }
+
+  //Grab ingredient stats for mapping
+  const ingredientStatsImgSrc = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].imgSrc;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsAlcohol = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].alcohol;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsCalories = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].calories;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsCarbs= (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].carbohydrates;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsProtein = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].protein;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsFat = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].fat;
+      }
+    }
+    return "";
+  }
+  const ingredientStatsCost = (pantryName: string, ingArray: [Ingredient]) => {
+    for(let i=0;i<ingArray.length;i++) {
+      if(ingArray[i].name === pantryName) {
+        return ingArray[i].cost;
+      }
+    }
+    return "";
+  }
+
+
+  // useEffect(() => {
+  //   fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
+  //   .then(response => response.json())
+  //   .then(data => setIngredients(data))
+  // }, [])
+  // console.log(ingredient)
 
   //Ingredient popup
   const [showPop, setPop] = useState<{open: boolean, event: Event | undefined}>({
@@ -162,46 +285,6 @@ function MyPantry() {
     event: undefined
   });
 
-  //const [articleId, setArticleId] = useState(null);
-
-  // const addIngredient = () => {
-  //   const newIng = { 
-  //     id: 99,
-  //     userID: 777,
-  //     ingredientID: "2",
-  //     numIngredient: 1,
-  //     description: "This is a test of the food"
-  //   };
-  //   axios.post('https://api.fridger.recipes/v1/user/pantry/', newIng)
-  //     .then(response => addIngredient(response.data.id));
-  // }
-  // POST request using axios inside useEffect React hook
-
-  
-
-  // empty dependency array means this effect will only run once (like componentDidMount in classes)
- 
-
-  // const postIngredient = {
-  //   url: 'https://api.fridger.recipes/v1/user/pantry/',
-  //   method: 'POST',
-  //   headers: {
-  //     'Accept': 'application/json'
-  //   },
-  //   data: {
-  //     id: 99,
-  //     userID: 2,
-  //     ingredientID: "23",
-  //     numIngredient: 2,
-  //     description: "This is a description of the food"
-  //   }
-  // };
-
-  // axios(postIngredient)
-  //   .then(postIngResp => 
-  //     {console.log(postIngResp);
-  //   });
-
   return (
     <Router history={history}>
       <Switch>
@@ -210,36 +293,38 @@ function MyPantry() {
           <IonPage className="ion-page" id="main-content">
             <Header/>
             <h2>PANTRY</h2> 
+            <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton>
             <IonContent className="ion-padding"> 
               <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
               <IonList>
                 
-                {pan.map(myIng =>
-                  <IonItem key={myIng.id}> 
+                {pan.map(myPan =>
+                  <IonItem key={myPan.id}> 
+                    {setIngFromPantry(myPan.ingredientName)}
                     <IonAvatar slot="start">
-                      {/* <img src={ingredient.imgSrc}></img> */}
+                      <img src={ingredientStatsImgSrc(myPan.ingredientName,ingredientArray)}></img>
                     </IonAvatar>
                     <IonLabel>
-                      <h2>{myIng.ingredientName}</h2>
+                      <h2>{myPan.ingredientName}</h2>
                     </IonLabel>
                     <IonLabel slot="end">
-                      <h2>Quantity: {myIng.numIngredient}</h2>
+                      <h2>Quantity: {myPan.numIngredient}</h2>
                     </IonLabel>
-                    {/* <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{ingredient.name} Facts</IonButton> */}
+                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton>
                     <IonPopover
                       isOpen={showPop.open}
                       event={showPop.event}
                       onDidDismiss={e => setPop({open: false, event: undefined})}
                     >
                       <IonList>
-                        {/* <IonItem>
-                          Calories: {ingredient.calories}
+                        <IonItem>
+                          Calories: {ingredientStatsCalories(myPan.ingredientName,ingredientArray)}
                         </IonItem>
-                        <IonItem>Carbs: {ingredient.carbohydrates} g</IonItem>
-                        <IonItem>Protein: {ingredient.protein} g</IonItem>
-                        <IonItem>Fat: {ingredient.fat} g</IonItem>
-                        <IonItem>Contains alcohol? {ingredient.alcohol}</IonItem>
-                        <IonItem>Estimated Cost: ${ingredient.cost}</IonItem> */}
+                        <IonItem>Carbs: {ingredientStatsCarbs(myPan.ingredientName,ingredientArray)} g</IonItem>
+                        <IonItem>Protein: {ingredientStatsProtein(myPan.ingredientName,ingredientArray)} g</IonItem>
+                        <IonItem>Fat: {ingredientStatsFat(myPan.ingredientName,ingredientArray)} g</IonItem>
+                        <IonItem>Contains alcohol? {ingredientStatsAlcohol(myPan.ingredientName,ingredientArray)}</IonItem>
+                        <IonItem>Estimated Cost: ${ingredientStatsCost(myPan.ingredientName,ingredientArray)}</IonItem>
                       </IonList>
                     </IonPopover>
                   </IonItem>
@@ -260,13 +345,20 @@ function MyPantry() {
                     {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
                       Add 1 {ing.name}
                     </IonButton> */}
-                    <IonButton onClick={(e) => setNewPantry({id: 3,
+                    {/* <IonButton onClick={(e) => setNewPantry({id: 3,
                       userID: 3,
                       ingredientName: "3",
                       numIngredient: 3,
                       description: "3"})}>
                       Add 1 {ing.name}
-                    </IonButton>
+                    </IonButton> */}
+                    <IonButton onClick={(e) => {
+                        console.log("button clicks")
+                        console.log(givePantryVersionFromName(ing.name))
+                        addToPantry(givePantryVersionFromName(ing.name))
+                      }
+                    }>
+                    ADD {ing.name}</IonButton>
                   </IonItem>
                 )}
               </IonList>
@@ -298,10 +390,10 @@ function MyPantry() {
 }
 
 export default MyPantry;
+{/* //<IonButton onClick={(e) => removeFromPantry(ing.name)}>REMOVE {ing.name}</IonButton>
 
 
-
- /* <IonAvatar slot="start">
+ {/* /* <IonAvatar slot="start">
       <img src=""></img>
     </IonAvatar>
     <IonLabel>
@@ -320,4 +412,4 @@ export default MyPantry;
       slot="end"
       size="default">
       Remove {myIng.name} 
-    </IonButton> */
+</IonButton> */}
