@@ -62,49 +62,7 @@ import Context from '../components/Context';
                     }
                 });
                 
-                // const [recipe, setRecipe] = React.useState<Recipe>({
-                //     id: 1,
-                //     title: "",
-                //     author: "",
-                //     description: "",
-                //     body: "",
-                //     imgSrc: "",
-                //     totalTime: 0,
-                //     prepTime: 0,
-                //     cookTime: 0,
-                //     yield: 0,
-                //     estimatedCost: 0,
-                //     type: "",
-                //     tags: "",
-                //     ingredientIds: "",
-                //     rating: 0
-                //   });
-
-                 
-                //   const [recipes, setRecipes] = React.useState<[Recipe]>([{
-                //     id: 1,
-                //     title: "Biscuits and Jam",
-                //     author: "Quinn Biscuit",
-                //     description: "What do you think? It's biscuits dummy.",
-                //     body: "Well, here's the sauce.",
-                //     imgSrc: "",
-                //     totalTime: 55,
-                //     prepTime: 15,
-                //     cookTime: 40,
-                //     yield: 10,
-                //     estimatedCost: 69.42,
-                //     type: "food",
-                //     tags: "test,string",
-                //     ingredientIds: "2929, 29292",
-                //     rating: 4.2
-                //   }]);
-                //   useEffect(() => {
                 
-                //  fetch("https://api.fridger.recipes/v1/recipe/")
-                //       .then(response => response.json())
-                //       .then(data => setRecipes(data))
-                //   }, [])
-
                 console.log(errors);
                 console.log(getValues());
                 
@@ -153,7 +111,7 @@ import Context from '../components/Context';
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
         <IonItem>
                     <IonLabel position="floating" >What would you rate this recipe?</IonLabel>
-                    <IonInput name="rating" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
+                    <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>
@@ -175,7 +133,7 @@ import Context from '../components/Context';
                 </IonButton> */}
         
                 {/* <Link to={`/recipe/${recipe.id}`}> */}
-                <Link to={"/recipes/"}>
+                <Link to={"/recipes"}>
                     {/* <IonButton className="ion-margin-top"
                         color='danger'
                         expand='full'>

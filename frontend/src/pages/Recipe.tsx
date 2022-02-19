@@ -51,7 +51,6 @@ export interface routePrams {
   id: string;
 }//this: any
 
-
 function RecipePage() {
   const [ loggedIn, setLoggedIn ] = useState(false);
   const [ user, setUser ] = useState<User>();
@@ -70,8 +69,6 @@ function RecipePage() {
     recipeId: 0
   }]);
   
-
-
   //const context = useContext(Context);
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
@@ -92,14 +89,16 @@ function RecipePage() {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(`http://localhost:8080/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
-  }, [])
+  }, [id])
   console.log(recipe);
 
   useEffect(() => {
     fetch(`https://api.fridger.recipes/v1/reviews`)
+    //fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
@@ -236,10 +235,14 @@ const getFav = () => {
 
               <IonCard>
                   <IonCardContent>
-                    <Link to={`/review/${id}`}><IonButton>
+                    <Link to={`/review/${recipe.id}`}><IonButton>
               Click to see Reviews about this recipe 
             </IonButton>
             </Link>
+            </IonCardContent>
+            </IonCard>
+            <IonCard>
+              <IonCardContent>
             <h2>Add a review:</h2>
                 <Link to={`/review/add`}>
                     <IonFabButton >

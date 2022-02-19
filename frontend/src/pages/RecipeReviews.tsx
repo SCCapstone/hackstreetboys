@@ -28,6 +28,7 @@ import { menuOutline } from 'ionicons/icons';
 import { Review } from '../models/Review';
 import { useEffect } from 'react';
 import React from 'react';
+import { routePrams } from './Recipe';
 //import Context from '../components/Context';
 interface ReviewExample {
   review: Review,
@@ -42,9 +43,13 @@ function RecipeReviews() {
     authorId: 0,
     recipeId: 0
   }]);
+
+  
   //const { id } = useParams<routePrams>();
+  
   useEffect(() => {
     fetch(`https://api.fridger.recipes/v1/review/`)
+    //fetch('http://localhost:8080/v1/review/')
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
@@ -71,14 +76,21 @@ function RecipeReviews() {
       <IonCard>
       <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Reviews</h1></IonText>
                   <IonGrid>
+                  <Link to="/recipes">
+            <IonButton >
+              Return to Recipes 
+            </IonButton>
+            </Link>
                     <IonRow>
                       {reviews.map(review =>
                         <IonCol sizeXs="12" sizeSm="6" key={review.id}>
-                         <Link to={`/review/${review.id}`}>
+                            {/* maybe in future, for now - just filter */}
+                         <Link to={`/review/recipe/${review.id}`}>
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 
-                              <IonCardTitle>{review.id}</IonCardTitle>
+                              <IonCardTitle>Review: {review.id}</IonCardTitle>
+                              <IonCardSubtitle></IonCardSubtitle>
                               <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
                             </IonCardHeader>
                           </IonCard>

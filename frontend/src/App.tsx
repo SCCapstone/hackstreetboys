@@ -16,7 +16,7 @@ import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import ChangePassword from './pages/ChangePassword';
 import AddReview from './pages/AddReview';
-
+//import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -47,7 +47,8 @@ import EditRecipe from './pages/EditRecipe';
 //import Review from './pages/MyReviews';
 // import Basic from './components/Basic'
 import Review from './pages/RecipeReviews';
-
+import SpecificReview from './pages/ReviewOfRecipe';
+import myReviews from './pages/myReviews';
 //const App: React.FC = () => (
   function App () {
 
@@ -92,11 +93,11 @@ import Review from './pages/RecipeReviews';
               <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/goals" component={GoalsPage} />
               <Route path="/mypantry" component={MyPantry} />
-              {/* <Route path="/myreviews" component={myReviews} /> */}
+              <Route path="/myreviews" component={myReviews} />
               <Route path="/favorites/recipe/:id" component={Favorites} />
               <Route path="/favorites" component={Favorites} />
               <Route path="/preferences" component={Preferences} />
-              {/* <Route path="/mygoals/add" component={AddGoal} /> */}
+              <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/mygoals" component={MyGoals} />
               <Route path="/goal/:id" component={Goal} />
               <Route path="/profile/:id?" component={Profile} />
@@ -105,6 +106,29 @@ import Review from './pages/RecipeReviews';
               <Route path="/editprofile" component={EditProfile} />
               <Route path="/changepassword" component={ChangePassword} />
               <Route path="/" component={Home} />
+              
+              
+              
+              
+              {/* <Route path="/myreviews" component={myReviews} /> */}
+              <Route path="/myreviews" component={myReviews} />
+              
+              
+              
+              
+            
+              
+
+              
+              {/* <Route path="/review/recipe/:id" component={SpecificReview}/> */}
+            
+              
+              
+              
+              
+              {/* <Route path="/myreviews" component={myReviews} /> */}
+              
+              
             </Switch>
           </Router>
         </>
