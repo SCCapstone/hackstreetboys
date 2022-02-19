@@ -40,6 +40,8 @@ const DOMAIN = "http://localhost:8080"
 // http://localhost:8080        -> mySQL + Springboot test
 
 const userID = 11;//TODO change this
+let refresh: number = 1;
+
 
 function IngredientInfo () {
   const [ing, setIngredient] = React.useState<Pantry>({
@@ -76,10 +78,12 @@ function MyPantry() {
 
   //This will refresh pantry with current
 
-   const refreshPantry = () => {
+   const refreshPantry = async () => {
     fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
-    .then(res => res.json())
-    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+    .then(res => {
+      return res.json();
+    })
+    .then((data) => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }
 
   //Grab pantry at start
@@ -99,7 +103,7 @@ function MyPantry() {
     fetch(DOMAIN+'/v1/ingredient/')
           .then(ingResp => ingResp.json())
           .then(ingData => setAllIngredients(ingData))
-  }, [pan.length])
+  }, [refresh])
   
   //Base Ingredient to be edited to add to pantry
 
@@ -172,6 +176,7 @@ function MyPantry() {
         console.error(newPan);
       });
     }
+    refresh = refresh+1; //this causes useeffect to reload
   }
 
   //Clear the pantry
@@ -179,14 +184,15 @@ function MyPantry() {
     refreshPantry();
     axios.delete(DOMAIN+'/v1/user/pantry/');
     console.log("Clearing Pantry");
-    
+    refresh = refresh+1; //this causes useeffect to reload
   }
 
   //Remove an item from pantry
   const removeFromPantry = (pantryName: string) => {
     refreshPantry();
-    axios.delete(DOMAIN+'/v1/user/pantry/'+pantryName)
+    axios.delete(DOMAIN+'/v1/user/pantry/'+pantryName+'/remove')
     console.log("Clearing Pantry item "+pantryName);
+    refresh = refresh+1; //this causes useeffect to reload
   }
     
   //This will check to see if the name of the ingredient is already in pantry
