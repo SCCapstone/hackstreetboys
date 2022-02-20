@@ -40,18 +40,35 @@ import Context from '../components/Context';
 import App from '../App';
 import { User } from '../models/User';
 import { Review } from '../models/Review';
+import {Favorite} from '../models/Favorite';
 
+interface FavoriteExample {
+  favorite: Favorite;
+}
 interface ReviewExample {
-  reviews: Review,
+  reviews: Review;
 }
 interface RecipeProps {
-  recipe: Recipe,
+  recipe: Recipe;
 }
 export interface routePrams {
   id: string;
 }//this: any
 
 function RecipePage() {
+  const context = useContext(Context);
+  const [favorites, setFavorites ] = React.useState<Favorite>({
+    id: 1, 
+    userId: context.currentUser?.id, 
+    recipeId: 1
+  });
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/favorites`)
+    //fetch(`http://localhost:8080/v1/reviews`)
+    .then(response => response.json())
+    .then(data => setFavorites(data))
+  }, [])
+
   const [ loggedIn, setLoggedIn ] = useState(false);
   const [ user, setUser ] = useState<User>();
   const globals = {
@@ -60,14 +77,14 @@ function RecipePage() {
     setLoggedIn,
     setUser
   }
-  const context = useContext(Context);
-  const [reviews, setReview] = React.useState<[Review]>([{
+  
+  const [reviews, setReview] = React.useState<Review>({
     id: 1,
     rating: 0,
-    review: "",
+    feedback: "",
     authorId: 0,
     recipeId: 0
-  }]);
+  });
   
   //const context = useContext(Context);
   const [recipe, setRecipe] = React.useState<Recipe>({
@@ -117,51 +134,80 @@ useEffect(() => {
   }
 }, []);
 
-const addFav = (recipe : any) => {
- <>
- <IonCard>      
- <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
+// const addFav = (recipe : any) => {
+//  <>
+//  <IonCard>      
+//  <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
         
-                <IonCardContent>
-                  <h1>{recipe.title}</h1>
-                  <h2>{recipe.description}</h2>
-                  <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
-                  <h2>By: <a href="">{recipe.author}</a></h2>
-                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
-                  <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
+//                 <IonCardContent>
+//                   <h1>{recipe.title}</h1>
+//                   <h2>{recipe.description}</h2>
+//                   <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
+//                   <h2>By: <a href="">{recipe.author}</a></h2>
+//                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
+//                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
                   
-                </IonCardContent>
+//                 </IonCardContent>
                
-              </IonCard>
-              <IonCard>
-                <IonCardContent>
-                  <h2>Ingredients </h2>
-                  <p>
-                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
-                    <br />
-                  </p>
-                  <h2>Instructions</h2>
-                  <p>
-                    {recipe.body}
-                  </p>
-                </IonCardContent>
-              </IonCard>
-              <IonCard>
-                <IonCardContent>
-                  Type: <IonBadge color="primary">{recipe.type}</IonBadge>
-                  <br />
-                  Tags: {recipe.tags}
-                </IonCardContent>
-                </IonCard>
+//               </IonCard>
+//               <IonCard>
+//                 <IonCardContent>
+//                   <h2>Ingredients </h2>
+//                   <p>
+//                     {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
+//                     <br />
+//                   </p>
+//                   <h2>Instructions</h2>
+//                   <p>
+//                     {recipe.body}
+//                   </p>
+//                 </IonCardContent>
+//               </IonCard>
+//               <IonCard>
+//                 <IonCardContent>
+//                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
+//                   <br />
+//                   Tags: {recipe.tags}
+//                 </IonCardContent>
+//                 </IonCard>
 
-  </>
+//   </>
   
+// }
+
+
+const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
+  id: 1,
+  title: "",
+  author: "",
+  description: "",
+  body: "",
+  imgSrc: "",
+  totalTime: 0,
+  prepTime: 0,
+  cookTime: 0,
+  yield: 0,
+  estimatedCost: 0,
+  type: "",
+  tags: "",
+  ingredientIds: "",
+  rating: 0
+}]);
+useEffect(() => {
+  fetch('https://api.fridger.recipes/v1/recipe/')
+  .then(res => res.json())
+  .then(data => setAllRecipes(data))
+}, [])
+
+//const favs = recipes.find(() => true);
+
+const addFav = (recipe: any) => {
+  
+  favorites.userId = context.currentUser?.id;
+  favorites.recipeId = recipe.id;
+  history.push('/favorites');
 }
 
-const getFav = () => {
-  history.push('/favorites')
-  addFav(recipe);
-}
   return (
     
     <Router history={history}>
@@ -177,7 +223,7 @@ const getFav = () => {
                
                   {/* <Link to="/favorites"> */}
                     {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (getFav())}} >
+                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (addFav(recipe))}} >
                             <IonIcon icon={heart} />
                           </IonButton>
                       {/* </IonFab> */}
@@ -235,8 +281,9 @@ const getFav = () => {
 
               <IonCard>
                   <IonCardContent>
+                    {/* <Link to={`/review/${recipe.id}`}><IonButton> */}
                     <Link to={`/review/${recipe.id}`}><IonButton>
-              Click to see Reviews about this recipe 
+              Click to see Reviews about all recipes
             </IonButton>
             </Link>
             </IonCardContent>

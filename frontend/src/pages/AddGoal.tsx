@@ -33,18 +33,18 @@ import Context from '../components/Context';
         // const { navigate } = useContext(NavContext);
         // const [checked, setChecked] = useState(false);
        // const { id } = useParams<routePrams>();
-       //const [goal, setGoal] = React.useState<Goal>({
+       const [goal, setGoal] = React.useState<Goal>({
+            id: 1,
+            endGoal: "",
+            calories: 0,
+            carbohydrates: 0,
+            protein: 0,
+            fat: 0,
+            currentWeight: 0,
+            goalWeight: 0,
+            userId: context.currentUser?.id
            
-        //     id: 1,
-        //     endGoal: "",
-        //     calories: 0,
-        //     carbohydrates: 0,
-        //     protein: 0,
-        //     fat: 0,
-        //     currentWeight: 0,
-        //     goalWeight: 0,
-           
-        // });
+        });
 
         const {
         handleSubmit,
@@ -55,7 +55,7 @@ import Context from '../components/Context';
         formState: { errors }
       } = useForm({
         defaultValues: {
-            id: context.currentUser?.id,
+            id: 1,
             endGoal: "",
             calories: 0,
             carbohydrates: 0,
@@ -63,6 +63,7 @@ import Context from '../components/Context';
             fat: 0,
             currentWeight: 0,
             goalWeight: 0,
+            userId: context.currentUser?.id,
           
         }
       });
@@ -105,6 +106,7 @@ import Context from '../components/Context';
                 },
             };
             console.log("User ID: " + context.currentUser?.id)
+            goal.userId = context.currentUser?.id;
             const body = JSON.stringify(getValues());
             const res = axios.post(
                // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',

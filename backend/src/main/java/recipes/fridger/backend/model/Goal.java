@@ -47,5 +47,8 @@ public class Goal {
     @DecimalMin(value = "0")
     @Column(name = "goalWeight")
     private Double goalWeight;
+
+    @Column(name = "userId", nullable = false)
+    private String userId;
 }
 

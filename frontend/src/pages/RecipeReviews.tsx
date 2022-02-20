@@ -39,7 +39,7 @@ function RecipeReviews() {
   const [reviews, setReview] = React.useState<[Review]>([{
     id: 1,
     rating: 0,
-    review: "",
+    feedback: "",
     authorId: 0,
     recipeId: 0
   }]);
@@ -89,9 +89,10 @@ function RecipeReviews() {
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 
-                              <IonCardTitle>Review: {review.id}</IonCardTitle>
-                              <IonCardSubtitle></IonCardSubtitle>
+                              <IonCardTitle>{review.id}</IonCardTitle>
+                              <IonCardSubtitle>Review: {review.feedback}</IonCardSubtitle>
                               <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
+
                             </IonCardHeader>
                           </IonCard>
                           </Link>

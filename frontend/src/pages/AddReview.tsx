@@ -25,22 +25,36 @@ import {IonicRatingModule} from 'ionic-rating';
 import { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';    
 import Context from '../components/Context';
+import { User } from '../models/User';
     interface ReviewExample {
         review: Review,
       }
-
-      /*
-        function AddReview() {
-            const [review, setReview] = React.useState<[Review]>([{
-                id: 1,
-                authorId: 1,
-                recipeId: 1,
-                rating: 4.5,
-                review: "This was amazing!"
-            }]);
-
-    */
             const AddReview: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+                const [ loggedIn, setLoggedIn ] = useState(false);
+                const [ user, setUser ] = useState<User>();
+                const globals = {
+                  loggedInState: loggedIn,
+                  currentUser: user,
+                  setLoggedIn,
+                  setUser
+                }
+                // const [recipe, setRecipe] = React.useState<Recipe>({
+                //     id: 1,
+                //     title: "",
+                //     author: "",
+                //     description: "",
+                //     body: "",
+                //     imgSrc: "",
+                //     totalTime: 0,
+                //     prepTime: 0,
+                //     cookTime: 0,
+                //     yield: 0,
+                //     estimatedCost: 0,
+                //     type: "",
+                //     tags: "",
+                //     ingredientIds: "",
+                //     rating: 0
+                //   });
                 const context = useContext(Context);
                 const {navigate} = useContext(NavContext);
                 const history = useHistory();
@@ -58,7 +72,7 @@ import Context from '../components/Context';
                         authorId: 0,
                         recipeId: 0,
                         rating: 0,
-                        review: "",
+                        feedback: "",
                     }
                 });
                 
@@ -116,9 +130,10 @@ import Context from '../components/Context';
                 
                 <IonItem>
                     <IonLabel position="floating">Please write your review:</IonLabel>
-                    <IonInput name="review" required onIonInput={(e: any) => setValue("review",e.target.value)} />
+                    <IonInput name="feedback" required onIonInput={(e: any) => setValue("feedback",e.target.value)} />
                 </IonItem>
-                  
+                {/* {(e: any) => setValue("authorId", e.context.currentUser?.id)} */}
+                
                 <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Review</IonButton>
        
                 {/* <IonButton className="ion-margin-top" disabled={!checked}

@@ -24,7 +24,7 @@ function SpecifiedRecipe(this: any) {
   const [review, setReview] = React.useState<Review>({
     id: 1,
     rating: 0,
-    review: "",
+    feedback: "",
     authorId: 0,
     recipeId: 0
   });
@@ -56,7 +56,7 @@ function SpecifiedRecipe(this: any) {
             </Link>
                     <h1>{review.id}</h1>
                     <h2>Rating:{review.rating}</h2>
-                    <h2>Review:{review.review}</h2>
+                    <h2>Review:{review.feedback}</h2>
                     <h2>By: {review.authorId}</h2> 
                 </IonCardContent>
               </IonCard>

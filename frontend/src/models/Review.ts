@@ -3,5 +3,5 @@ export interface Review{
     authorId: number;
     recipeId: number;
     rating: number;
-    review: string;
+    feedback: string;
 }

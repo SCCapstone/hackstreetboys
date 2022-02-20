@@ -15,6 +15,13 @@ import {
     IonInput,
     IonAlert,
     useIonAlert,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonFab,
+    IonIcon,
+    IonLabel,
+    IonHeader,
   } from '@ionic/react';
 import React, {useState, useEffect} from 'react';
 import { Router, Switch, Route, Link } from "react-router-dom";
@@ -27,8 +34,33 @@ import DeleteCalories from '../components/DeleteCalories';
 import CalorieInput from '../components/CalorieInput';
 import ItemList from '../components/ItemList';
 import Calories from '../components/Calories';
-
+import {Recipe} from '../models/Recipe';
+import { thumbsUp } from 'ionicons/icons';
 const GoalsPage = () => {
+
+  const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
+    id: 1,
+    title: "",
+    author: "",
+    description: "",
+    body: "",
+    imgSrc: "",
+    totalTime: 0,
+    prepTime: 0,
+    cookTime: 0,
+    yield: 0,
+    estimatedCost: 0,
+    type: "",
+    tags: "",
+    ingredientIds: "",
+    rating: 0
+  }]);
+  useEffect(() => {
+    fetch('https://api.fridger.recipes/v1/recipe/')
+    .then(res => res.json())
+    .then(data => setAllRecipes(data))
+  }, [])
+
   const[items, setItems] = useState([""]);
   const[itemName, setItemName] = useState("");
   const[calories, setCalories] = useState(0);
@@ -58,6 +90,8 @@ const GoalsPage = () => {
     setCalories(0);
 
   };
+  
+  const randRecipes = recipes.sort(() => Math.random() - Math.random()).find(() => true);
 
     return (
         <Router history={history}>
@@ -96,20 +130,34 @@ const GoalsPage = () => {
             </IonCard>
           
 
-            {/* <IonCard color='primary'>
-            <IonCardContent >
-          
-              <h1 align-iems='center'>Here is your personal Calorie Tracker!</h1>
-              <CaloriesCounter/>
-              <DeleteCalories/>
-             
-              <CalorieInput addItemHandler = {addItemHandler} itemName = {itemName} calories = {calories}
-              setItemName = {setItemName} setCalories = {setCalories}/>
-            
-              <ItemList items={items}/>
-            </IonCardContent>
-            </IonCard> */}
-            
+            {/* random recipe */}
+            <IonCard>
+            <h1 align-iems='center'>A recipe that may interest you:</h1>
+                      <IonRow>
+                      {randRecipes &&
+                        <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
+                           {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
+                           <Link to={`/recipe/${randRecipes.id}`}>
+                          <IonCard button routerDirection="forward">
+                            <IonCardHeader>
+                              <IonCardTitle>{randRecipes.title}</IonCardTitle>
+                              <IonCardSubtitle>By {randRecipes.author ? (randRecipes.author) : "Anonymous"}</IonCardSubtitle>
+                            </IonCardHeader>
+                            <IonCardContent>
+                              <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
+                              <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
+
+                              <Link to = {"/recipes"}>
+                    
+                              </Link>
+
+                            </IonCardContent>
+                          </IonCard>
+                          </Link>
+                        </IonCol>
+                      }
+                    </IonRow>
+                    </IonCard>
 
           </IonContent> 
     </IonPage>

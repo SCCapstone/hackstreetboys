@@ -140,9 +140,10 @@ public class UserController {
                 @RequestParam(required = false) Double protein,
                 @RequestParam(required = false) Double fat,
                 @RequestParam(required = false) Double currWeight,
-                @RequestParam(required = false) Double goalWeight)
+                @RequestParam(required = false) Double goalWeight,
+                @RequestParam(required = false) Long userId)
         {
-            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
+            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight, userId);
         }
 
 
