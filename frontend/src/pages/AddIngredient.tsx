@@ -21,23 +21,27 @@ import {
 
 /* Theme variables */
 import '../theme/variables.css';
-import { Router, Switch, RouteComponentProps, Link } from "react-router-dom";
+import { Router, Switch, RouteComponentProps, Link, useHistory } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import { menuOutline } from 'ionicons/icons';
 import {useForm} from 'react-hook-form';
 import axios from 'axios';
+import Context from '../components/Context';
+import { userInfo } from 'os';
 
 const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
-    const {navigate} = useContext(NavContext);
+    const context = useContext(Context);
+    const { navigate } = useContext(NavContext);
+    const history = useHistory();
     const [checked, setChecked] = useState(false);
     const {
-        control,
-        register,
         handleSubmit,
-        getValues,
+        control,
         setValue,
+        register,
+        getValues,
         formState: { errors }
     } = useForm({
         defaultValues: {
@@ -103,7 +107,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
                         <IonContent className="ion-padding">
                             <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Create Ingredient</h1></IonText>
                             <IonContent className="ion-padding">
-                                <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredients'); history.go(0)}} >
+                                <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient'); history.go(0)}} >
                                     <IonItem>
                                         <IonLabel position="floating">What is this ingredient called?</IonLabel>
                                         <IonInput name="name" required onIonInput={(e: any) => setValue("name",e.target.value)}/>

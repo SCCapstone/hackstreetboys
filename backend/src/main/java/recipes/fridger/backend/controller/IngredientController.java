@@ -5,18 +5,12 @@ import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import lombok.extern.slf4j.Slf4j;
 import recipes.fridger.backend.crud.Ingredients;
@@ -50,16 +44,17 @@ public class IngredientController {
         }
     }
 
-    @PutMapping(path ="/")
+    @PutMapping(path = "/")
     public ResponseEntity<String>
     createIngredient(@RequestBody @Valid UpdateIngredientDTO i) {
         try {
-            ingredientService.updateIngredient(i.getId(), i);
+            ingredientService.updateIngredient(i.getId(),i);
+            log.info("Log:" + String.valueOf(i));
             log.info("Successful update of ingredient");
-            log.info(String.valueOf(i));
-            return ResponseEntity.ok("Updated ingredient");
+            return ResponseEntity.ok("Updated Ingredient");
+
         } catch (Exception e) {
-            log.warn("Unable to edit ingredient\n" + e.getMessage());
+            log.warn("Unable to update ingredient\n" + e.getMessage());
             return ResponseEntity.internalServerError().body("Unable to update ingredient\n" + e.getMessage());
         }
     }

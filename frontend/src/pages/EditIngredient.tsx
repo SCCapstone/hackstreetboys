@@ -79,46 +79,34 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         formState: { errors }
     } = useForm({
         defaultValues: {
-            id: 1,
-            name: "",
-            calories: 0,
-            carbohydrates: 0,
-            protein: 0,
-            fat: 0,
-            alcohol: false,
-            cost: 0.0,
-            imgSrc: ""
+            ...ingredient
         }
     });
 
-    const onSubmit = () => {
-        console.log("Initial: name:" + ingredient.name +" id:" +ingredient.id);
+    const onSubmit = async () => {
+        // preventDefault()
+        console.log("updatedValues" + getValues());
         try {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
-                }
+                },
             };
             setValue("id", ingredient.id);
-            console.log("ID: "+id);
             const body = JSON.stringify(getValues());
-            console.log("BODY"+body);
-            const response = axios.put(
+            console.log("Body" + body)
+            const response = await axios.put(
                 `https://api.fridger.recipes/v1/ingredient/`,
                 body,
                 config
             ).then( response =>{
-                if (response.status == 200) {
-                    console.log("Status is " + response.status);
-                    // navigate("/ingredients");
-                }
-                console.log("RESPONSE:"+response.status)
+                console.log("Resulting data" + response.data);
             });
-
             return response;
         } catch (e) {
             console.error(e);
         }
+
         return false;
     };
 
@@ -142,8 +130,6 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         }
         return false;
     };
-
-    console.log(ingredient.name)
 
     const [showAlert, setShowAlert] = useState(false);
 
@@ -187,18 +173,20 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                                 </IonItem>
                                 <IonItem lines="none">
                                     <IonLabel>Does this ingredient contain alcohol?</IonLabel>
-                                    <IonCheckbox color="secondary" name="alcohol" checked={getValues("alcohol")} slot="start" onIonChange={(e: any) => setValue('alcohol',e.detail.checked)}/>
+                                    <IonCheckbox color="secondary" name="alcohol" checked={getValues("alcohol")} slot="start" onIonChange={(e: any) => setValue("alcohol",e.detail.checked)}/>
                                 </IonItem>
-                                {/*<IonItem>*/}
-                                {/*    <IonLabel>I agree that the updates to this ingredient follow the Terms of Service</IonLabel>*/}
-                                {/*    <IonCheckbox color="secondary" name="agree" slot="start" onIonChange={() => setChecked(!checked)}/>*/}
-                                {/*</IonItem>*/}
+                                <IonItem>
+                                    <IonLabel>I agree that the updates to this ingredient follow the Terms of Service</IonLabel>
+                                    <IonCheckbox color="secondary" name="agree" slot="start" onIonChange={() => setChecked(!checked)}/>
+                                </IonItem>
 
-                                <IonButton  className="ion-margin-top, ion-float-right" /*disabled={!checked}*/ color='primary' type="submit" slot="start">Update Ingredient</IonButton>
+                                <IonButton  className="ion-margin-top, ion-float-right" disabled={!checked} color='primary' type="submit" slot="start">Update Ingredient</IonButton>
+
                                 <IonButton  color="danger" type="button" className="ion-margin-top, ion-float-right" onClick={() => setShowAlert(true)}>Delete Ingredient</IonButton>
                                 <IonAlert
                                     isOpen={showAlert}
                                     onDidDismiss={() => setShowAlert(false)}
+                                    cssClass='my-custom-class'
                                     header={'Delete ' + ingredient.name +' permanently?'}
                                     message={'Are you sure you want to delete the ingredient?'}
                                     buttons={[
