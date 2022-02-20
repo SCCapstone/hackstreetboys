@@ -5,7 +5,14 @@ import {
     IonAvatar,
     IonButton,
     IonButtons,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCol,
     IonContent,
+    IonGrid,
     IonHeader,
     IonIcon,
     IonItem,
@@ -15,11 +22,12 @@ import {
     IonMenuToggle,
     IonPage,
     IonPopover,
+    IonRow,
     IonTitle,
     IonToolbar,
   } from '@ionic/react';
 
-import { Router, Switch, useParams } from "react-router-dom";
+import { Link, Router, Switch, useParams } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from "../components/Header";
@@ -34,7 +42,7 @@ import { stringify } from 'querystring';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
-const DOMAIN = "https://api.fridger.recipes" 
+const DOMAIN = "http://localhost:8080" 
 // DOMAIN options:
 // https://api.fridger.recipes  -> web server testing
 // http://localhost:8080        -> mySQL + Springboot test
@@ -42,6 +50,9 @@ const DOMAIN = "https://api.fridger.recipes"
 const userID = 11;//TODO change this
 let refresh: number = 1;
 
+// function delay(ms: number) {
+//   return new Promise( resolve => setTimeout(resolve, ms) );
+// }
 
 function IngredientInfo () {
   const [ing, setIngredient] = React.useState<Pantry>({
@@ -55,6 +66,7 @@ function IngredientInfo () {
     console.log(ing)
   )
 }
+
 
 function MyPantry() {
   
@@ -77,7 +89,7 @@ function MyPantry() {
   }, [])
 
   //Grab all recipes for the current ingredients
-  const [recipeArray, setAllRecipes] = React.useState<[Recipe]>([{
+  const [recipes, setAllRecipes] = React.useState<[Recipe]>([{
     id: 1,
     title: "",
     author: "",
@@ -95,14 +107,14 @@ function MyPantry() {
     rating: 0
   }]);
   useEffect(() => {
-    fetch(DOMAIN+'/v1/recipes/')
+    fetch(DOMAIN+'/v1/recipe/')
       .then(recResp => recResp.json())
       .then(recData => setAllRecipes(recData))
-  }, []) //this will grab all recipes at the start. if we want to refresh recipes must do a manual page refresh. I also might add a button to do that idk
+  }, []) //this will grab all recipes at the start.
 
 
   //This will refresh pantry with current
-   const refreshPantry = async () => {
+   const refreshPantry = () => {
     fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
     .then(res => {
       return res.json();
@@ -161,9 +173,10 @@ function MyPantry() {
   const giveIngredientVersionFromName = (ingPanName: string) => {
     for(let i=0;i<ingredientArray.length;i++) {
       if(ingredientArray[i].name === ingPanName) {
-        setCurrIng(ingredientArray[i]);
+        return ingredientArray[i];
       }
     }
+    return null;
   }
   const [currIng, setCurrIng] = useState<Ingredient>({
     id: 1000,
@@ -177,7 +190,23 @@ function MyPantry() {
     imgSrc: ""
   })
   
-
+  //This method will populate all ingredientIDs in Pantry
+  const pantryIngredientIDs = () => {
+    refreshPantry()
+    let panIngredientIDS: number[] = [];
+    pan.map(panItem =>
+      {
+        if(giveIngredientVersionFromName(panItem.ingredientName)!=null) {
+          var tempIngID: number = (giveIngredientVersionFromName(panItem.ingredientName))!.id; //! = strict null check
+          panIngredientIDS.push(tempIngID) //this will hold the ingredient IDs from Pantry.
+        }
+        
+      }
+    )
+    // console.log("panIngredientIDS: ");
+    // console.log(panIngredientIDS);
+    return panIngredientIDS;
+  }
 
   //Add new item to pantry
   const addToPantry = (newPan: Pantry) => {
@@ -332,89 +361,122 @@ function MyPantry() {
         <SideBar />
           <IonPage className="ion-page" id="main-content">
             <Header/>
-            <h2>PANTRY</h2> 
-            <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton>
-            <IonContent 
-              className="ion-padding"
-              
-            > 
-              <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
-              <IonList>
-                
-                {pan.map(myPan =>
-                  <IonItem key={myPan.id}> 
-                    {setIngFromPantry(myPan.ingredientName)}
-                    <IonAvatar slot="start">
-                      <img src={ingredientStatsImgSrc(myPan.ingredientName,ingredientArray)}></img>
-                    </IonAvatar>
-                    <IonLabel>
-                      <h2>{myPan.ingredientName}</h2>
-                    </IonLabel>
-                    <IonButton slot="end" color="danger" onClick={(e) => {
-                        removeFromPantry(myPan);
-                      }}>Remove {myPan.ingredientName}
-                    </IonButton>
-                    <IonLabel slot="end">
-                      <h2>Quantity: {myPan.numIngredient}</h2>
-                    </IonLabel>
-                    <IonButton slot="end" color="success" onClick={(e) => {
-                        addToPantry(myPan);
-                      }}>ADD {myPan.ingredientName}
-                    </IonButton>
-                    <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton>
-                    <IonPopover
-                      isOpen={showPop.open}
-                      event={showPop.event}
-                      onDidDismiss={e => setPop({open: false, event: undefined})}
-                    >
-                      <IonList>
-                        <IonItem>
-                          Calories: {ingredientStatsCalories(myPan.ingredientName,ingredientArray)}
+            <h2>PANTRY</h2>
+            <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton> 
+                  <IonContent 
+                    className="ion-padding"
+                  > 
+                    <h1>Welcome to your pantry, Seongho! Here you can see what ingredients you have!</h1> {/*TODO Chance Seongho to {user.id} */}
+                    <IonList>
+                      
+                      {pan.map(myPan =>
+                        <IonItem key={myPan.id}> 
+                          {setIngFromPantry(myPan.ingredientName)}
+                          <IonAvatar slot="start">
+                            <img src={ingredientStatsImgSrc(myPan.ingredientName,ingredientArray)}></img>
+                          </IonAvatar>
+                          <IonLabel>
+                            <h2>{myPan.ingredientName}</h2>
+                          </IonLabel>
+                          <IonButton slot="end" color="danger" onClick={(e) => {
+                              removeFromPantry(myPan);
+                            }}>Remove {myPan.ingredientName}
+                          </IonButton>
+                          <IonLabel slot="end">
+                            <h2>Quantity: {myPan.numIngredient}</h2>
+                          </IonLabel>
+                          <IonButton slot="end" color="success" onClick={(e) => {
+                              addToPantry(myPan);
+                            }}>ADD {myPan.ingredientName}
+                          </IonButton>
+                          <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton>
+                          <IonPopover
+                            isOpen={showPop.open}
+                            event={showPop.event}
+                            onDidDismiss={e => setPop({open: false, event: undefined})}
+                          >
+                            <IonList>
+                              <IonItem>
+                                Calories: {ingredientStatsCalories(myPan.ingredientName,ingredientArray)}
+                              </IonItem>
+                              <IonItem>Carbs: {ingredientStatsCarbs(myPan.ingredientName,ingredientArray)} g</IonItem>
+                              <IonItem>Protein: {ingredientStatsProtein(myPan.ingredientName,ingredientArray)} g</IonItem>
+                              <IonItem>Fat: {ingredientStatsFat(myPan.ingredientName,ingredientArray)} g</IonItem>
+                              <IonItem>Contains alcohol? {ingredientStatsAlcohol(myPan.ingredientName,ingredientArray)}</IonItem>
+                              <IonItem>Estimated Cost: ${ingredientStatsCost(myPan.ingredientName,ingredientArray)}</IonItem>
+                            </IonList>
+                          </IonPopover>
                         </IonItem>
-                        <IonItem>Carbs: {ingredientStatsCarbs(myPan.ingredientName,ingredientArray)} g</IonItem>
-                        <IonItem>Protein: {ingredientStatsProtein(myPan.ingredientName,ingredientArray)} g</IonItem>
-                        <IonItem>Fat: {ingredientStatsFat(myPan.ingredientName,ingredientArray)} g</IonItem>
-                        <IonItem>Contains alcohol? {ingredientStatsAlcohol(myPan.ingredientName,ingredientArray)}</IonItem>
-                        <IonItem>Estimated Cost: ${ingredientStatsCost(myPan.ingredientName,ingredientArray)}</IonItem>
-                      </IonList>
-                    </IonPopover>
-                  </IonItem>
-                )}
-              </IonList>
-            </IonContent>
-            <h2>Add Ingredients To Your Pantry</h2>
-            <IonContent className="ion-padding">
-              <IonList>
-                {ingredientArray.map(ing => 
-                  <IonItem key={ing.id}>
-                    <IonAvatar slot="start">
-                      <img src={ing.imgSrc}></img>
-                    </IonAvatar>
-                    <IonLabel>
-                      <h2>{ing.name}</h2>
-                    </IonLabel>
-                    {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
-                      Add 1 {ing.name}
-                    </IonButton> */}
-                    {/* <IonButton onClick={(e) => setNewPantry({id: 3,
-                      userID: 3,
-                      ingredientName: "3",
-                      numIngredient: 3,
-                      description: "3"})}>
-                      Add 1 {ing.name}
-                    </IonButton> */}
-                    <IonButton onClick={(e) => {
-                        console.log("button clicks")
-                        console.log(givePantryVersionFromName(ing.name))
-                        addToPantry(givePantryVersionFromName(ing.name))
-                      }
-                    }>
-                    ADD {ing.name}</IonButton>
-                  </IonItem>
-                )}
-              </IonList>
-            </IonContent>
+                      )}
+                    </IonList>
+                  </IonContent>
+                  <h2>Add Ingredients To Your Pantry</h2>
+                  <IonContent className="ion-padding">
+                    <IonList>
+                      {ingredientArray.map(ing => 
+                        <IonItem key={ing.id}>
+                          <IonAvatar slot="start">
+                            <img src={ing.imgSrc}></img>
+                          </IonAvatar>
+                          <IonLabel>
+                            <h2>{ing.name}</h2>
+                          </IonLabel>
+                          {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
+                            Add 1 {ing.name}
+                          </IonButton> */}
+                          {/* <IonButton onClick={(e) => setNewPantry({id: 3,
+                            userID: 3,
+                            ingredientName: "3",
+                            numIngredient: 3,
+                            description: "3"})}>
+                            Add 1 {ing.name}
+                          </IonButton> */}
+                          <IonButton onClick={(e) => {
+                              console.log("button clicks")
+                              console.log(givePantryVersionFromName(ing.name))
+                              addToPantry(givePantryVersionFromName(ing.name))
+                            }
+                          }>
+                          ADD {ing.name}</IonButton>
+                        </IonItem>
+                      )}
+                    </IonList>
+                  </IonContent>
+                  <IonContent className="ion-padding">
+                    <IonCard>
+                      <IonRow>
+                        {recipes.map(recipe => { //map each recipe
+                          if (recipe.ingredientIds != null) {
+                            let recipeIDs = recipe.ingredientIds.split(","); //get string o
+                            let panIDS = pantryIngredientIDs()
+                            console.log("panIDS")
+                            console.log(panIDS)
+                            panIDS.map(panID => {
+                              if(recipeIDs.includes(panID.toString())) {
+                                <IonCol sizeXs="20" sizeSm="4" key={recipe.id}>
+                                  <Link to={`/recipe/${recipe.id}`}>
+                                    <IonCard button routerDirection="forward">
+                                      <img src="" alt="ion" />
 
+                                      <IonCardHeader>
+                                        <IonCardTitle>{recipe.title}</IonCardTitle>
+                                        <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                                      </IonCardHeader>
+
+                                      <IonCardContent>
+                                        <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br />
+                                        <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+                                      </IonCardContent>
+                                    </IonCard>
+                                  </Link>
+                                </IonCol>
+                              }
+                            })
+                          }
+                        })}
+                      </IonRow>
+                    </IonCard>
+                  </IonContent>
           </IonPage>
         </IonApp>
       </Switch>
