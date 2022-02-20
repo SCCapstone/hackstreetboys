@@ -10,8 +10,6 @@ public class ReturnUserDTO {
     
     private Long id;
 
-    private String type;
-
     private String email;
 
     private String name;
@@ -26,7 +24,6 @@ public class ReturnUserDTO {
 
     public void convertFromUser(User user) {
         id = user.getId();
-        type = user.getType();
         email = user.getEmail();
         name = user.getName();
         bio = user.getBio();
