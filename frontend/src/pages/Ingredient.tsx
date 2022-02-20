@@ -7,7 +7,7 @@ import {
     IonPage,
     IonCard,
     IonCardContent,
-    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow
+    IonBadge, IonCol, IonCardHeader, IonCardTitle, IonCardSubtitle, IonLabel, IonRow, IonButton
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -30,7 +30,6 @@ export interface routeParams {
 
 function IngredientPage(this: any) {
     const context = useContext(Context);
-    console.log(context.currentUser?.email)
 
     const [ingredient, setIngredient] = React.useState<Ingredient>({
         id: 1,
@@ -43,6 +42,7 @@ function IngredientPage(this: any) {
         cost: 0.0,
         imgSrc: ""
     });
+
     const {id} = useParams<routeParams>();
     useEffect(() => {
         fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
@@ -50,9 +50,7 @@ function IngredientPage(this: any) {
             .then(data => setIngredient(data))
     }, [id])
 
-    console.log(ingredient);
-
-    const [recipes, setRecipes] = React.useState<[Recipe]>([{
+      const [recipes, setRecipes] = React.useState<[Recipe]>([{
         id: 1,
         title: "",
         author: "",
@@ -115,8 +113,8 @@ function IngredientPage(this: any) {
     }
 
     const someRecipes = chooseSome();
-    console.log("SOME RECIPES");
-    console.log(someRecipes);
+    // console.log("SOME RECIPES");
+    // console.log(someRecipes);
 
 
     return (
@@ -127,7 +125,7 @@ function IngredientPage(this: any) {
                     <IonPage className="ion-page" id="main-content">
                         <Header/>
                         <IonContent className="ion-padding">
-                            <IonCard>
+                            <IonCard style={{height:"400px"}}>
                                 <img src={ingredient.imgSrc}
                                      style={{width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}}/>
                                 <IonCardContent>
@@ -147,10 +145,19 @@ function IngredientPage(this: any) {
                                 </IonCardContent>
 
                                 <IonCardContent>
-                                    <IonBadge
-                                        color={ingredient.alcohol ? 'danger' : 'secondary'}>{ingredient.alcohol ? "Alcoholic" : !ingredient.alcohol ? "Not Alcoholic" : ""}</IonBadge>
+                                    <IonBadge style={{padding:"5px"}} color={ingredient.alcohol ? 'danger' : 'secondary'}>{ingredient.alcohol ? "Alcoholic" : !ingredient.alcohol ? "Not Alcoholic" : ""}</IonBadge>
+                                </IonCardContent>
+                                <IonCardContent>
+                                    {context.currentUser ?
+                                        <Link to={`/ingredient/edit/${id}`}>
+                                            <IonBadge style={{paddingLeft:"25px", paddingRight:"25px", padding:"10px"}} color="success">
+                                                Edit {ingredient.name}
+                                            </IonBadge>
+                                        </Link>
+                                         : ""}
                                 </IonCardContent>
                             </IonCard>
+
 
                             <IonCard>
                                 <IonCardTitle className="ion-margin-top, ion-text-center" style={{
@@ -161,7 +168,7 @@ function IngredientPage(this: any) {
                                 }}>Check out some recipes that contain {ingredient.name.toLowerCase()}!</IonCardTitle>
                                 <IonRow>
                                     {someRecipes.map(recipe => {
-                                        console.log(recipe);
+                                        // console.log(recipe);
                                         if (recipe != null) {
                                             if (recipe.ingredientIds != null) {
                                                 return (

@@ -22,6 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 import recipes.fridger.backend.crud.Ingredients;
 import recipes.fridger.backend.dto.CreateIngredientDTO;
 import recipes.fridger.backend.dto.ReturnIngredientDTO;
+import recipes.fridger.backend.dto.UpdateIngredientDTO;
 import recipes.fridger.backend.model.Ingredient;
 import recipes.fridger.backend.service.IngredientService;
 
@@ -48,6 +49,21 @@ public class IngredientController {
             return ResponseEntity.internalServerError().body("Unable to create ingredient\n" + e.getMessage());
         }
     }
+
+    @PutMapping(path ="/")
+    public ResponseEntity<String>
+    createIngredient(@RequestBody @Valid UpdateIngredientDTO i) {
+        try {
+            ingredientService.updateIngredient(i.getId(), i);
+            log.info("Successful update of ingredient");
+            log.info(String.valueOf(i));
+            return ResponseEntity.ok("Updated ingredient");
+        } catch (Exception e) {
+            log.warn("Unable to edit ingredient\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to update ingredient\n" + e.getMessage());
+        }
+    }
+
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteIngredient(@PathVariable Long id) {
         try {
