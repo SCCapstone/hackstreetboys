@@ -24,7 +24,6 @@ public class UserServiceImpl implements UserService {
     public void createUser(CreateUserDTO dto) {
         User u = new User();
         u.setType(dto.getType());
-        // TODO ensure users can't create an account with email address already in use
         u.setEmail(dto.getEmail());
         u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
@@ -72,5 +71,11 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Iterable<User> getUsers(Long userId) {
         return users.find(userId);
+    }
+
+    @Transactional
+    @Override
+    public User getUserByEmail(String email) {
+        return users.findByEmail(email).orElse(null);
     }
 }

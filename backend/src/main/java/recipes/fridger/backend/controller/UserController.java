@@ -64,6 +64,10 @@ public class UserController {
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createUser(@RequestBody @Valid CreateUserDTO u) {
+        // Ensure email is unique
+        if(userService.getUserByEmail(u.getEmail()) != null)
+             return ResponseEntity.badRequest().body("Account already exists");
+        
         try {
             userService.createUser(u);
             log.info("Successful creation of user");
