@@ -87,21 +87,36 @@ VALUES
 
 # UPDATED
 CREATE TABLE Users (
-	id BIGINT NOT NULL,
-    type VARCHAR(100) NOT NULL,
+	id BIGINT NOT NULL AUTO_INCREMENT,
     email VARCHAR(100) NOT NULL,
     password VARCHAR(100) NOT NULL,
     name VARCHAR (100) NOT NULL,
     bio VARCHAR (1000),
     dob DATE,
     height_in INT CHECK(height_in >= 0),
-    weight_lb FLOAT CHECK(weight_lb >= 0)
+    weight_lb FLOAT CHECK(weight_lb >= 0),
+    Primary Key (id)
 );
 
 INSERT INTO Users(id, type, email, password, name, bio, dob, height_in, weight_lb)
 VALUES 
-	(000000001, "ADMIN", "admin@fridger.com", "ultimate_SECURE_Pa55w0rD", "Adam Hackstreet", NULL, NULL, NULL, NULL),
-    (000000002, "NORMAL", "smith@gmail.com", "password", "Tim Colton", "This is a bio.", "2001-02-01", 0, 0),
-    (000000003, "NORMAL", "portrait@yahoo.com", "password", "Mary Smith", "This is another bio.", "2010-03-11", 62, 170),
-    (000000004, "NORMAL", "zebra@gmail.com", "password", "Sean Bean", "This is the third bio.", "1990-04-21", 67, 200),
-    (000000005, "NORMAL", "nobody@aol.com", "password", "Christine Cheese", "This is yet another bio.", "2005-05-18", 52, 150);
+	(000000001, "admin@fridger.com", "ultimate_SECURE_Pa55w0rD", "Adam Hackstreet", NULL, NULL, NULL, NULL),
+    (000000002, "smith@gmail.com", "password", "Tim Colton", "This is a bio.", "2001-02-01", 0, 0),
+    (000000003, "portrait@yahoo.com", "password", "Mary Smith", "This is another bio.", "2010-03-11", 62, 170),
+    (000000004, "zebra@gmail.com", "password", "Sean Bean", "This is the third bio.", "1990-04-21", 67, 200),
+    (000000005, "nobody@aol.com", "password", "Christine Cheese", "This is yet another bio.", "2005-05-18", 52, 150);
+
+# JWT Addition
+CREATE TABLE Roles (
+	id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR (100) NOT NULL,
+    Primary Key (id)
+);
+
+INSERT INTO roles(name) VALUES('ROLE_USER');
+INSERT INTO roles(name) VALUES('ROLE_ADMIN');
+
+CREATE TABLE User_Roles (
+	user_id BIGINT NOT NULL,
+    role_id INT NOT NULL
+);
