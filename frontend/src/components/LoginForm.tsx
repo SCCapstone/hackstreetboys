@@ -77,7 +77,7 @@ export const LoginForm: React.FC = () => {
             <IonItem>
                 <IonLabel position="floating">Password</IonLabel>
                 <IonInput
-                    value=""
+                    value={password}
                     placeholder="Password"
                     onIonChange={(e) => setPassword(e.detail.value!)}
                     type="password"

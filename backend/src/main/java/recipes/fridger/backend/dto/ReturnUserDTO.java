@@ -3,17 +3,14 @@ package recipes.fridger.backend.dto;
 import java.util.Date;
 
 import lombok.Data;
+import recipes.fridger.backend.model.User;
 
 @Data
 public class ReturnUserDTO {
     
     private Long id;
 
-    private String type;
-
     private String email;
-
-    private String password;
 
     private String name;
 
@@ -24,4 +21,14 @@ public class ReturnUserDTO {
     private Integer height_in;
 
     private Double weight_lb;
+
+    public void convertFromUser(User user) {
+        id = user.getId();
+        email = user.getEmail();
+        name = user.getName();
+        bio = user.getBio();
+        dob = user.getDob();
+        height_in = user.getHeight_in();
+        weight_lb = user.getWeight_lb();
+    }
 }
