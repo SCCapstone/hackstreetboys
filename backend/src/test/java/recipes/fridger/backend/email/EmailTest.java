@@ -30,6 +30,6 @@ public class EmailTest {
 
         String sendTo = "andrew.bernhardt@fridger.recipes";
 
-        simpleEmailTest(sendTo, "this is a test");
+        emailService.sendSimpleEmail(sendTo, "TEST Subject","test message");
     }
 }

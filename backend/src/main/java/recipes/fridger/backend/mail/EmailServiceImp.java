@@ -1,11 +1,14 @@
 package recipes.fridger.backend.mail;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Slf4j
+@Service
 public class EmailServiceImp implements EmailService {
 
     @Autowired
@@ -18,13 +21,18 @@ public class EmailServiceImp implements EmailService {
             "\n";
 
     @Override
-    public void sendSimpleEmail(String to,String subject,String text) {
+    public void sendSimpleEmail(String sendTo,
+                                String subject,
+                                String text) {
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("fridgerEmail");
+        message.setFrom(fridgerEmail);
         message.setTo(sendTo);
-        message.setSubject(verificationSubject);
-        message.setText(verificationBody);
+        message.setSubject(subject);
+        message.setText(text);
 
+        emailSender.send(message);
+
+        log.info("mail sent i think");
     }
 
     @Override

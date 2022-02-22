@@ -19,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.dto.CreateUserDTO;
+import recipes.fridger.backend.mail.EmailServiceImp;
 import recipes.fridger.backend.model.Pantry;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.service.PantryService;
@@ -30,6 +31,7 @@ import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
 import recipes.fridger.backend.crud.Pantries;
+import recipes.fridger.backend.mail.EmailService;
 
 @RestController
 @Slf4j
@@ -44,6 +46,9 @@ public class UserController {
 
     @Autowired
     private Pantries pantry;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     private GoalService goalService;
@@ -66,6 +71,7 @@ public class UserController {
     createUser(@RequestBody @Valid CreateUserDTO u) {
         try {
             userService.createUser(u);
+
             log.info("Successful creation of user");
             return ResponseEntity.ok("Created user");
         } catch (Exception e) {
