@@ -25,11 +25,12 @@ import {
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { add, colorFill, heart, thumbsDown, thumbsUp } from 'ionicons/icons';
+import { add, arrowBack, colorFill, heart, thumbsDown, thumbsUp } from 'ionicons/icons';
 import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
 import Header from '../components/Header';
 import { State } from 'ionicons/dist/types/stencil-public-runtime';
+import { open } from 'fs';
 
 interface RecipeProps {
   recipe: Recipe,
@@ -97,13 +98,11 @@ function Recipes() {
 
                               <Link to = {"/recipes"}>
                               <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                              <Link to = {`/recipe/${recipe.id}`}>
                                 <IonButton >
-                                    <IonIcon icon={thumbsUp} />
-                                  {/* <IonIcon icon={thumbsUp}/>
-                                  <IonLabel>
-                                    {likes}
-                                  </IonLabel> */}
+                                   See more {/* <IonIcon icon={thumbsUp} /> */}
                                 </IonButton>
+                                </Link>
                               </IonFab>
                               </Link>
 

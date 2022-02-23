@@ -24,11 +24,12 @@ import {
   IonFab,
   IonLabel,
   IonRow,
+  NavContext,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { constructOutline, menuOutline } from 'ionicons/icons';
+import { constructOutline, menuOutline, navigate } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
@@ -41,6 +42,9 @@ import App from '../App';
 import { User } from '../models/User';
 import { Review } from '../models/Review';
 import {Favorite} from '../models/Favorite';
+import axios from 'axios';
+import { config } from 'process';
+import { useForm } from 'react-hook-form';
 
 interface FavoriteExample {
   favorite: Favorite;
@@ -122,8 +126,35 @@ function RecipePage() {
   
 
   //const [favorites, setFavorites] = useState([] as Array<number>);
+  const {navigate} = useContext(NavContext);
+//   const getValues = () => {
 
-  
+//   }
+//   const onSubmit = async () => {
+//     console.log("Initial: " + getValues());
+//     try {
+//         const config = {
+//             headers: {
+//                 'Content-Type':'application/json',
+//             }
+//         };
+//         const body = JSON.stringify(getValues());
+//         const response = await axios.post(
+//             'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/favorites/',
+//             body,
+//             config
+//         ).then(response => {
+//             if (response.status == 200) {
+//                 console.log("Status is " + response.status);
+//                 navigate("/favorites");
+//             }
+//         });
+//         return response;
+//     } catch(e) {
+//         console.error(e);
+//     }
+//     return false;
+// }
 useEffect(() => {
   const loggedInUser = localStorage.getItem('user')
   if (loggedInUser) {
@@ -201,12 +232,42 @@ useEffect(() => {
 
 //const favs = recipes.find(() => true);
 
-const addFav = (recipe: any) => {
+// const addFav = (recipe: any) => {
   
-  favorites.userId = context.currentUser?.id;
-  favorites.recipeId = recipe.id;
-  history.push('/favorites');
+//   favorites.userId = context.currentUser?.id;
+//   favorites.recipeId = recipe.id;
+//   history.push('/favorites');
+// }
+
+const addFav = async () => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    const body = {
+      "userId":context.currentUser?.id,
+      "recipeId":recipe.id
+    }
+    const res = await axios.post(
+      'http://localhost:8080/v1/favorites',
+      body,
+      config
+    ).then(res=> {
+      console.log("Resulting data" + res.data);
+      if(res.status == 200){
+        console.log("Status is "+res.status);
+        history.push('favorites');
+      }
+      
+    });
+    return res;
+  }catch (e) {
+    console.error(e);
 }
+return false;
+};
 
   return (
     
@@ -223,7 +284,7 @@ const addFav = (recipe: any) => {
                
                   {/* <Link to="/favorites"> */}
                     {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (addFav(recipe))}} >
+                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (addFav())}} >
                             <IonIcon icon={heart} />
                           </IonButton>
                       {/* </IonFab> */}
