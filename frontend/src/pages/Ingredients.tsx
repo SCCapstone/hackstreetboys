@@ -56,7 +56,7 @@ function Ingredients() {
         imgSrc: ""
     }]);
     useEffect(() => {
-        fetch("https://api.fridger.recipes/v1/ingredient/")
+        fetch("http://localhost:8080/v1/ingredient/")
             .then(response => response.json())
             .then(data => setIngredients(data))
     }, [])

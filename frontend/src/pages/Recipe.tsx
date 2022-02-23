@@ -55,7 +55,7 @@ const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) =
   const { id } = useParams<routePrams>();
   const context = useContext(Context);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(`http://localhost:8080/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [])

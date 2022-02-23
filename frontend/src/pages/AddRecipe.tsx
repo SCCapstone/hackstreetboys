@@ -87,7 +87,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         // setValue("id",string(context.currentUser?.id);
         const body = JSON.stringify(getValues());
         const res = axios.post(
-            'https://api.fridger.recipes/v1/recipe/',
+            'http://localhost:8080/v1/recipe/',
             // 'http://localhost:8080/v1/recipe/',
             body,
             config

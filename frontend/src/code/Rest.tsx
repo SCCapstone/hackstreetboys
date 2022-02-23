@@ -2,7 +2,7 @@
 // const BASE_URL = 'http://localhost:7999/';
 
 // use this BASE_URL for deployment and if you want to interact with deployed backend
-const BASE_URL = 'https://api.fridger.recipes/';
+const BASE_URL = 'http://localhost:8080/';
 
 export interface RestOptions {
     method: string;

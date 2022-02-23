@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +34,7 @@ public class RecipeController {
 //Later....
     //    @Autowired
 //    private ModelMapper modelMapper;
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
@@ -48,6 +49,7 @@ public class RecipeController {
             return ResponseEntity.internalServerError().body("Unable to create recipe\n" + e.getMessage());
         }
     }
+    @PreAuthorize("hasRole('USER')")
     @PutMapping(path = "/")
     public ResponseEntity<String>
     createRecipe(@RequestBody @Valid UpdateRecipeDTO r) {
@@ -62,7 +64,7 @@ public class RecipeController {
             return ResponseEntity.internalServerError().body("Unable to update recipe\n" + e.getMessage());
         }
     }
-
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteRecipe(@PathVariable Long id) {
         try {

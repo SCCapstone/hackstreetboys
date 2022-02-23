@@ -70,7 +70,7 @@ import Context from '../components/Context';
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+        fetch(`http://localhost:8080/v1/recipe/${id}`)
           .then(response => response.json())
           .then(data => setRecipe(data))
       }, [])
@@ -108,8 +108,8 @@ import Context from '../components/Context';
         const body = JSON.stringify(getValues());
         console.log("Body" + body)
         const res = await axios.put(
-            //'https://api.fridger.recipes/v1/recipe/',
-            `https://api.fridger.recipes/v1/recipe/`,
+            //'http://localhost:8080/v1/recipe/',
+            `http://localhost:8080/v1/recipe/`,
             body,
             config
         ).then( res =>{
@@ -135,8 +135,8 @@ import Context from '../components/Context';
         };
         const body = JSON.stringify(getValues());
         const res = await axios.delete(
-            //'https://api.fridger.recipes/v1/recipe/',
-            `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
+            //'http://localhost:8080/v1/recipe/',
+            `http://localhost:8080/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
             console.log("Deleted Recipe by " + recipe.id);

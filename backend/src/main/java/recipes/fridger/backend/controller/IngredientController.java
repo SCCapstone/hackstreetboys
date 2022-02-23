@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createIngredient(@RequestBody @Valid CreateIngredientDTO i) {
@@ -48,6 +50,7 @@ public class IngredientController {
             return ResponseEntity.internalServerError().body("Unable to create ingredient\n" + e.getMessage());
         }
     }
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteIngredient(@PathVariable Long id) {
         try {
