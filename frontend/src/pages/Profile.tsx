@@ -42,9 +42,7 @@ function Users() {
 
   const [user, setUser] = useState<User>({
     id: 23,
-    type: 'NORMAL',
     email: 'seonghopark@gmail.com',
-    password: 'this probably shoudn\'t be here', // This probably shouldn't be here
     name: 'Seongho Park',
     bio: `Hi, I'm Seongho Park, a recent MIT doctoral candidate, and now magnet high-school
           mathematics teacher. I'm new to teaching, but I now understand that spending time
@@ -68,7 +66,8 @@ function Users() {
     if(context.currentUser){
       setUser(context.currentUser);
     } else if(id) {
-      fetch(`https://api.fridger.recipes/v1/user/${id}`)
+      // fetch(`https://api.fridger.recipes/v1/user/${id}`)
+      fetch(`http://localhost:8080/v1/user/${id}`)
         .then(response => response.json())
         .then(data => setUser(data))
     } else {
