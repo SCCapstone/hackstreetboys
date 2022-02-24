@@ -24,6 +24,7 @@ import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
+import {Ingredient} from "../models/Ingredient";
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -56,6 +57,23 @@ function RecipePage(this: any) {
   }, [])
   console.log(recipe);
 
+  const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+    id: 1,
+    name: "",
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    fat: 0,
+    alcohol: false,
+    cost: 0.0,
+    imgSrc: ""
+  }]);
+  useEffect(() => {
+    fetch("https://api.fridger.recipes/v1/ingredient/")
+        .then(response => response.json())
+        .then(data => setIngredients(data))
+  }, [])
+
   return (
     <Router history={history}>
       <Switch>
@@ -79,10 +97,13 @@ function RecipePage(this: any) {
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
-                  <p>
-                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
-                    <br />
-                  </p>
+                  {ingredients.filter(ingredient => (
+                      recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
+                      <p>
+                        - {ingredient.name}
+                      </p>
+                  ))}
+
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
