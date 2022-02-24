@@ -85,7 +85,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
 
     const onSubmit = async () => {
         // preventDefault()
-        console.log("updatedValues" + getValues());
+        console.log("updatedValues" + ingredient.imgSrc);
         try {
             const config = {
                 headers: {
@@ -142,7 +142,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                         <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Edit {ingredient.name}</h1></IonText>
                         <Header/>
                         <IonContent>
-                            <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >
+                            <form onSubmit={ async () =>{ await onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >
                                 <IonItem>
                                     <IonLabel position="floating">What is this ingredient called?</IonLabel>
                                     <IonInput name="name" value={ingredient.name} onIonInput={(e: any) => setValue("name",e.target.value)}/>
@@ -169,18 +169,18 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>
-                                    <IonInput name="imgSrc" value={ingredient.imgSrc} onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
+                                    <IonInput name="imgSrc" value={"ingredient.imgSrc"} onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
                                 </IonItem>
                                 <IonItem lines="none">
                                     <IonLabel>Does this ingredient contain alcohol?</IonLabel>
                                     <IonCheckbox color="secondary" name="alcohol" checked={getValues("alcohol")} slot="start" onIonChange={(e: any) => setValue("alcohol",e.detail.checked)}/>
                                 </IonItem>
-                                <IonItem>
-                                    <IonLabel>I agree that the updates to this ingredient follow the Terms of Service</IonLabel>
-                                    <IonCheckbox color="secondary" name="agree" slot="start" onIonChange={() => setChecked(!checked)}/>
-                                </IonItem>
+                                {/*<IonItem>*/}
+                                {/*    <IonLabel>I agree that the updates to this ingredient follow the Terms of Service</IonLabel>*/}
+                                {/*    <IonCheckbox color="secondary" name="agree" slot="start" onIonChange={() => setChecked(!checked)}/>*/}
+                                {/*</IonItem>*/}
 
-                                <IonButton  className="ion-margin-top, ion-float-right" disabled={!checked} color='primary' type="submit" slot="start">Update Ingredient</IonButton>
+                                <IonButton  className="ion-margin-top, ion-float-right" /*disabled={!checked}*/ color='primary' type="submit" slot="start">Update Ingredient</IonButton>
 
                                 <IonButton  color="danger" type="button" className="ion-margin-top, ion-float-right" onClick={() => setShowAlert(true)}>Delete Ingredient</IonButton>
                                 <IonAlert
