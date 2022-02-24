@@ -71,7 +71,7 @@ function RecipePage(this: any) {
                 <IonCardContent>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
-                  <h2>By <a href="">{recipe.author}</a> | {recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
+                  <h2>By <a href="">{recipe.author}</a> | {recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
                 </IonCardContent>
