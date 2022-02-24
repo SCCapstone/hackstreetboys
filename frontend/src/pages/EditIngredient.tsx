@@ -70,17 +70,17 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             .then(data => setIngredient(data))
     }, [])
 
-    const {
-        handleSubmit,
-        control,
-        setValue,
-        register,
-        getValues,
-        formState: { errors }
-    } = useForm({
-        defaultValues: {
-            ...ingredient
-        }
+        const {
+            handleSubmit,
+            control,
+            setValue,
+            register,
+            getValues,
+            formState: { errors }
+        } = useForm({
+            defaultValues: {
+                ...ingredient
+            }
     });
 
     const onSubmit = async () => {
@@ -142,7 +142,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                         <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Edit {ingredient.name}</h1></IonText>
                         <Header/>
                         <IonContent>
-                            <form onSubmit={ async () =>{ await onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >
+                            <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >
                                 <IonItem>
                                     <IonLabel position="floating">What is this ingredient called?</IonLabel>
                                     <IonInput name="name" value={ingredient.name} onIonInput={(e: any) => setValue("name",e.target.value)}/>
@@ -169,7 +169,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>
-                                    <IonInput name="imgSrc" value={"ingredient.imgSrc"} onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
+                                    <IonInput name="imgSrc" value={ingredient.imgSrc} onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
                                 </IonItem>
                                 <IonItem lines="none">
                                     <IonLabel>Does this ingredient contain alcohol?</IonLabel>
