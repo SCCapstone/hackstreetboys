@@ -10,4 +10,5 @@ public interface UserService {
     public Iterable<User> getUsersByIdAndEmail(Long id, String email);
     public User authenticateUser(String email, String password);
     public Iterable<User> getUsers(Long userId);
+    public User getUserByEmail(String email);
 }
