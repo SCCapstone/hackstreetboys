@@ -48,6 +48,7 @@ public class IngredientController {
     public ResponseEntity<String>
     createIngredient(@RequestBody @Valid UpdateIngredientDTO i) {
         try {
+            log.info("Attempting to update ingredient.");
             ingredientService.updateIngredient(i.getId(),i);
             log.info("Log:" + String.valueOf(i));
             log.info("Successful update of ingredient");
