@@ -12,6 +12,8 @@ public class ReturnUserDTO {
 
     private String email;
 
+    private boolean enabled;
+
     private String name;
 
     private String bio;

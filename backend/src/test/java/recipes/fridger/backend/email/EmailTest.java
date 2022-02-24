@@ -30,6 +30,6 @@ public class EmailTest {
 
         String sendTo = "andrew.bernhardt@fridger.recipes";
 
-        emailService.sendSimpleEmail(sendTo, "TEST Subject","test message");
+        emailService.sendSimpleEmail(sendTo, "THIS IS A Fridger email test","this is sent from a test file in spring boot\nTest: simpleEmailTest");
     }
 }
