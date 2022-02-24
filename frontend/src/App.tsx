@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Router, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route, Redirect } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
 import Recipes from './pages/Recipes';
@@ -46,6 +46,7 @@ import MyPantry from './pages/myPantry';
 import AddGoal from './pages/AddGoal';
 
 import EditRecipe from './pages/EditRecipe';
+import EditIngredient from "./pages/EditIngredient";
 // import Basic from './components/Basic'
 
 //const App: React.FC = () => (
@@ -83,6 +84,7 @@ import EditRecipe from './pages/EditRecipe';
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
               <Route path="/ingredient/add" component={AddIngredient} />
+              <Route path="/ingredient/edit/:id" component={EditIngredient} />
               <Route path="/ingredient/:id" component={Ingredient} />
               <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />

@@ -15,5 +15,5 @@ public interface Ingredients extends CrudRepository<Ingredient, Long> {
                 "(:fat is NULL or i.fat = :fat) AND " +
                 "(:alcohol is NULL or i.alcohol = :alcohol) AND " +
                 "(:cost is NULL or i.cost = :cost)")
-    List<Ingredient> find(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost);
+            List<Ingredient> find(Long id, String name, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Boolean alcohol, Double cost);
 }
