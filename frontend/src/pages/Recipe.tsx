@@ -99,6 +99,12 @@ function RecipePage() {
     authorId: 0,
     complaintId: 0
   });
+  useEffect(() => {
+    fetch(`http://localhost:8080/v1/complaints`)
+    //fetch(`http://localhost:8080/v1/complaints`)
+    .then(response => response.json())
+    .then(data => setComplaints(data))
+  }, [])
   
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
@@ -128,12 +134,7 @@ function RecipePage() {
 
   
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/v1/complaints`)
-    //fetch(`http://localhost:8080/v1/complaints`)
-    .then(response => response.json())
-    .then(data => setComplaints(data))
-  }, [])
+  
   
 
   //const [favorites, setFavorites] = useState([] as Array<number>);
