@@ -81,6 +81,23 @@ const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) =
   }, [])
   console.log(recipe);
 
+  const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+    id: 1,
+    name: "",
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    fat: 0,
+    alcohol: false,
+    cost: 0.0,
+    imgSrc: ""
+  }]);
+  useEffect(() => {
+    fetch("https://api.fridger.recipes/v1/ingredient/")
+        .then(response => response.json())
+        .then(data => setIngredients(data))
+  }, [])
+
   return (
     <Router history={history}>
       <Switch>
@@ -95,7 +112,7 @@ const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) =
                 <IonCardContent>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
-                  <h2>By <a href="">{recipe.author}</a> | {recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
+                  <h2>By <a href="">{recipe.author}</a> | {recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
                 </IonCardContent>
@@ -103,15 +120,14 @@ const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) =
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
-                  {recipe.ingredientIds.split(',').map(ingredientElement => (
-                    // Make this fetch the name later
-                    <><IonBadge color="primary">{ingredientElement}</IonBadge><span> </span></>
+                  {ingredients.filter(ingredient => (
+                      recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
+                      <p>
+                        - {ingredient.name}
+                      </p>
                   ))}
-                  
-                  <p>
-                    {/* {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"} */}
-                    <br />
-                  </p>
+                  <br />
+
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
@@ -122,7 +138,11 @@ const RecipePage: React.FC<RouteComponentProps> = (props: RouteComponentProps) =
                 <IonCardContent>
                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
                   <br />
-                  Tags: {recipe.tags}
+                  <br />
+                  Tags: { recipe.tags.split(",").map(tag => (
+                  <p>
+                    - {tag}
+                  </p>))}
                 </IonCardContent>
               </IonCard>
               {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
