@@ -46,7 +46,7 @@ import MyPantry from './pages/myPantry';
 import AddGoal from './pages/AddGoal';
 import EditRecipe from './pages/EditRecipe';
 import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
-
+import EditIngredient from "./pages/EditIngredient";
 // import Basic from './components/Basic'
 
 //const App: React.FC = () => (
@@ -54,21 +54,49 @@ import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
 
     const [ loggedIn, setLoggedIn ] = useState(false);
     const [ user, setUser ] = useState<User>();
+    const [ token, setToken ] = useState<string>();
+    const [ id, setId ] = useState<number>();
+    const [ isAdmin, setAdmin ] = useState<boolean>(false);
+    const [ email, setEmail ] = useState<string>();
     const globals = {
       loggedInState: loggedIn,
       currentUser: user,
+      token,
+      id,
+      isAdmin,
+      email,
+
       setLoggedIn,
-      setUser
+      setUser,
+      setToken,
+      setId,
+      setAdmin,
+      setEmail
     }
 
     // If user was previously logged in, reload user data
     useEffect(() => {
       const loggedInUser = localStorage.getItem('user')
       if (loggedInUser) {
-        console.log(loggedInUser)
+        console.log(loggedInUser);
         const foundUser = JSON.parse(loggedInUser);
         setUser(foundUser);
         setLoggedIn(true);
+
+        const savedToken = localStorage.getItem('token');
+        if (savedToken)
+          setToken(savedToken);
+        const savedId = localStorage.getItem('id');
+        if (savedId)
+          setId(+savedId);
+        const savedAdmin = Boolean(JSON.parse(localStorage.getItem('admin') || 'false'));
+        if (savedAdmin)
+          setAdmin(savedAdmin);
+        const savedEmail = localStorage.getItem('email');
+        if (savedEmail)
+          setEmail(savedEmail);
+
+        console.log(localStorage.getItem('token'))
       }
     }, []);
     function UserRoute(props: any) {
@@ -102,6 +130,8 @@ import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
               <Route path="/recipes" component={Recipes} />
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
+              <Route path="/ingredient/add" component={AddIngredient} />
+              <Route path="/ingredient/edit/:id" component={EditIngredient} />
               <Route path="/ingredient/:id" component={Ingredient} />
               <Route path="/ingredient" component={Ingredients} />
               <Route path="/ingredients" component={Ingredients} />
