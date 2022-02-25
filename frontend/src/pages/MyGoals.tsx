@@ -121,7 +121,6 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
       return <>
        <IonGrid>
          <IonRow>
-            {userGoalDisplay()}
             {goals.map(goal =>
                <IonCol sizeXs="12" sizeSm="6" key={goal.id}>
                    <Link to={`/goal/${goal.id}`}>
@@ -156,6 +155,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
         <h1>Here you are able to view your goals!</h1>
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Goals</h1></IonText>
+                 {userGoalDisplay()}
                   {/* <IonGrid>
                     <IonRow>
                       {userGoalDisplay()}
