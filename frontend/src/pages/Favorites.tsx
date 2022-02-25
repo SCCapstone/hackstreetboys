@@ -42,7 +42,7 @@ function Favorites() {
   }]);
   useEffect(() => {
     fetch(`http://localhost:8080/v1/favorites/`)
-    //fetch(`http://localhost:8080/v1/reviews`)
+    //fetch(`http://localhost:8080/v1/favorites`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])

@@ -72,20 +72,11 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    //fetch(`http://localhost:8080/v1/favorites`)
+    //fetch(`http://localhost:8080/v1/reviews`)
     fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
-
-  // const [ loggedIn, setLoggedIn ] = useState(false);
-  // const [ user, setUser ] = useState<User>();
-  // const globals = {
-  //   loggedInState: loggedIn,
-  //   currentUser: user,
-  //   setLoggedIn,
-  //   setUser
-  // }
   
   const [reviews, setReview] = React.useState<Review>({
     id: 1,
@@ -103,7 +94,6 @@ function RecipePage() {
     complaintId: 0
   });
   
-  //const context = useContext(Context);
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
@@ -147,46 +137,6 @@ function RecipePage() {
 
   //const [favorites, setFavorites] = useState([] as Array<number>);
   const {navigate} = useContext(NavContext);
-//   const getValues = () => {
-
-//   }
-//   const onSubmit = async () => {
-//     console.log("Initial: " + getValues());
-//     try {
-//         const config = {
-//             headers: {
-//                 'Content-Type':'application/json',
-//             }
-//         };
-//         const body = JSON.stringify(getValues());
-//         const response = await axios.post(
-//             'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/favorites/',
-//             body,
-//             config
-//         ).then(response => {
-//             if (response.status == 200) {
-//                 console.log("Status is " + response.status);
-//                 navigate("/favorites");
-//             }
-//         });
-//         return response;
-//     } catch(e) {
-//         console.error(e);
-//     }
-//     return false;
-// }
-
-// useEffect(() => {
-//   const loggedInUser = localStorage.getItem('user')
-//   if (loggedInUser) {
-//     console.log(loggedInUser)
-//     const foundUser = JSON.parse(loggedInUser);
-//     setUser(foundUser);
-//     setLoggedIn(true);
-//   }
-// }, []);
-
-
 
 
 const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
@@ -221,6 +171,11 @@ useEffect(() => {
 //   history.push('/favorites');
 // }
 
+const fav = async () => {
+  addFav();
+  removeFav();
+}
+
 const addFav = async () => {
   try {
     const config = {
@@ -233,16 +188,46 @@ const addFav = async () => {
       "recipeId":recipe.id
     }
     const res = await axios.post(
-      'http://localhost:8080/v1/favorites',
+      'http://localhost:8080/v1/favorites/',
       body,
       config
     ).then(res=> {
       console.log("Resulting data" + res.data);
       if(res.status == 200){
         console.log("Status is "+res.status);
-        history.push('favorites');
+        navigate('/favorites');
       }
+
       
+    });
+    return res;
+  }catch (e) {
+    console.error(e);
+}
+return false;
+};
+
+const removeFav = async () => {
+  try {
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    // const body = {
+    //   "userId":context.currentUser?.id,
+    //   "recipeId":recipe.id
+    // }
+    const res = await axios.delete(
+      `http://localhost:8080/v1/favorites/${recipe.id}`,
+      config
+      ).then(res=> {
+      console.log("Removed from favorites by" + recipe.id);
+      // if(res.status == 200){
+      //   console.log("Status is "+res.status);
+      //   navigate('/favorites');
+      // }
+
     });
     return res;
   }catch (e) {
@@ -280,7 +265,7 @@ const complaintLink = () => {
                
                   {/* <Link to="/favorites"> */}
                     {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else (addFav())}} >
+                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
                             <IonIcon icon={heart} />
                           </IonButton>
                       {/* </IonFab> */}
