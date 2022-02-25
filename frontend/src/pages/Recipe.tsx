@@ -239,17 +239,17 @@ return false;
 };
 
 const complaintLink = () => {
- // if(context.isAdmin) {
+ if(context.isAdmin) {
     return <>
     <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
     Click to see Reviews about all recipes
   </IonButton>
   </Link>
     </>
-  // }
-  // else {
-  //   return <></>
-  // }
+  }
+  else {
+    return <></>
+  }
 }
   return (
     
