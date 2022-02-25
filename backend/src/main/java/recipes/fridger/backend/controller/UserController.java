@@ -3,14 +3,25 @@ package recipes.fridger.backend.controller;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.dto.CreateUserDTO;
+import recipes.fridger.backend.dto.ReturnUserDTO;
 import recipes.fridger.backend.model.Pantry;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.service.PantryService;
@@ -80,6 +91,7 @@ public class UserController {
         }
     }
 
+    // TODO use ReturnUserDTO instead of User
     @GetMapping(path = "/")
     public @ResponseBody Iterable<User>
     getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
@@ -87,8 +99,19 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}")
-    public @ResponseBody User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public @ResponseBody ReturnUserDTO getUser(@PathVariable Long id) {
+        ReturnUserDTO toRet = new ReturnUserDTO();
+        toRet.convertFromUser(userService.getUser(id));
+        return toRet;
+    }
+
+    // TODO update user, match token w/ username for security
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping(path = "/{id}")
+    public @ResponseBody ReturnUserDTO updateUser(@PathVariable Long id) {
+        ReturnUserDTO toRet = new ReturnUserDTO();
+        toRet.convertFromUser(userService.getUser(id));
+        return toRet;
     }
 
     /*

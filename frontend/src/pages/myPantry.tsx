@@ -105,6 +105,7 @@ function MyPantry() {
     estimatedCost: 69.42,
     type: "food",
     tags: "test,string",
+    alcoholic: false,
     ingredientIds: "2929, 29292",
     rating: 4.2
   }]);
