@@ -40,6 +40,7 @@ import AddIngredient from './AddIngredient';
 import axios from 'axios';
 import { stringify } from 'querystring';
 import RecipePage from './Recipe';
+import { remove } from 'lodash';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
@@ -83,11 +84,11 @@ function MyPantry() {
     cost: 0.0,
     imgSrc: ""
   }]);
-  // useEffect(() => {
-  //     fetch(DOMAIN+'/v1/ingredient/')
-  //         .then(ingResp => ingResp.json())
-  //         .then(ingData => setAllIngredients(ingData))
-  // }, [])
+  useEffect(() => {
+      fetch(DOMAIN+'/v1/ingredient/')
+          .then(ingResp => ingResp.json())
+          .then(ingData => setAllIngredients(ingData))
+  }, []) //i only want this to refresh at start or when ingredientArray changes
 
   //Grab all recipes for the current ingredients
   const [recipes, setRecipes] = React.useState<[Recipe]>([{
@@ -107,11 +108,11 @@ function MyPantry() {
     ingredientIds: "2929, 29292",
     rating: 4.2
   }]);
-  // useEffect(() => {
-  //   fetch("https://api.fridger.recipes/v1/recipe/")
-  //     .then(response => response.json())
-  //     .then(data => setRecipes(data))
-  // }, [])
+  useEffect(() => {
+    fetch(DOMAIN+"/v1/recipe/")
+      .then(response => response.json())
+      .then(data => setRecipes(data))
+  }, [])
 
 
   //This will refresh pantry with current
@@ -140,13 +141,9 @@ function MyPantry() {
     refreshPantry();
     console.log(pan);
 
-    fetch(DOMAIN+'/v1/ingredient/')
-      .then(ingResp => ingResp.json())
-      .then(ingData => setAllIngredients(ingData))
-
-    fetch(DOMAIN+'/v1/recipe/')
-      .then(recResp => recResp.json())
-      .then(recData => setRecipes(recData))
+    // fetch(DOMAIN+'/v1/ingredient/')
+    //   .then(ingResp => ingResp.json())
+    //   .then(ingData => setAllIngredients(ingData))
   }, [refresh])
   
   //Base Ingredient to be edited to add to pantry
@@ -209,7 +206,6 @@ function MyPantry() {
 
   //This method will populate all ingredientIDs in Pantry
   const pantryIngredientIDs = () => {
-    refreshPantry()
     let panIngredientIDS: string[] = [];
     pan.map(panItem =>
       {
@@ -263,11 +259,21 @@ function MyPantry() {
     //if pantry includes the item
     if(containsPantryItem(removePan,pan)) {
       console.log(removePan);
-      axios.put(DOMAIN+'/v1/user/pantry/'+removePan.id+'/decrease')
+      if(removePan.numIngredient>1) {
+        axios.put(DOMAIN+'/v1/user/pantry/'+removePan.id+'/decrease')
+          .then(response => 
+          {console.log(response);}
+         );
+      } 
+      else { //pan.numIngredient == 1
+        axios.delete(DOMAIN+'/v1/user/pantry/'+removePan.id)
         .then(response => 
           {console.log(response);}
-      );
+         );
+      }
+      
           //console.log(response);)
+      
     } else { //If Pantry does not include item
       console.log("Item does not exist. Can not delete a non-existent item");
     }
@@ -482,19 +488,24 @@ function MyPantry() {
                           </IonItem>
                         )}
                     </IonList>
-                    <h2>real filtering</h2>
+                  </IonContent>
+                  <IonContent>
+                    <h2>You Can Make these recipes with your ingredients!</h2>
                     <IonList>
                       {recipes.map(rec => {
-                          let ids = rec.ingredientIds.split(",");
-                          if(canMakeRecipe(ids))
-                          <IonItem key={rec.id}>
-                            <IonAvatar slot="start">
-                              <img src={rec.imgSrc}></img>
-                            </IonAvatar>
-                            <IonLabel>
-                              <h2>{rec.title}</h2>
-                            </IonLabel>
-                          </IonItem>
+                          let ids = rec.ingredientIds.split(",")
+                          if(canMakeRecipe(ids)) {
+                            return (
+                              <IonItem key={rec.id}>
+                                <IonAvatar slot="start">
+                                  <img src={rec.imgSrc}></img>
+                                </IonAvatar>
+                                <IonLabel>
+                                  <h2>{rec.title}</h2>
+                                </IonLabel>
+                              </IonItem>
+                            )
+                          }
                         }
                       )}
                     </IonList>
