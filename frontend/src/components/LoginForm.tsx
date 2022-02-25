@@ -25,42 +25,49 @@ export const LoginForm: React.FC = () => {
             body: JSON.stringify({ email: email, password: password })
         }
         const user = { email, password }
-        const response = await axios.post(
+        await axios.post(
             // Public API
-            `https://api.fridger.recipes/v1/auth/`,
+            // `https://api.fridger.recipes/v1/auth/`,
             // Local API
-            //`http://localhost:7999/v1/auth/`,
+            `http://localhost:8080/v1/auth/login`,
             user
-        );
+        ).then(function (response)  {
+            console.log(response.data);
+            console.log(response.data.token);
 
-        const loggedInUser = response.data;
-
-        if (loggedInUser) {
-            localStorage.setItem('user', JSON.stringify(loggedInUser))
-            context.setUser(loggedInUser)
-            console.log(JSON.stringify(loggedInUser))
             context.setLoggedIn(true);
-            History.push('/');
-        } else {
-            setError(true);
-            return;
-        }
-        
+            context.setEmail(response.data.email);
+            localStorage.setItem('email', response.data.email)
+            context.setId(response.data.id);
+            localStorage.setItem('id', response.data.id)
+            context.setToken(response.data.token);
+            localStorage.setItem('token', response.data.token)
+            context.setAdmin(response.data.roles.includes("ROLE_ADMIN"))
+            localStorage.setItem('admin', response.data.roles.includes("ROLE_ADMIN"))
 
-        /*
-        fetch(`http://localhost:7999/v1/user/authenticate?email=${email}&password=${password}`)
-            .then(response => response.json())
-            .then(data => context.setUser(data))
-            .then(() => {
-                if (context.currentUser === undefined){
+            axios.get(
+            // Public API
+            // `http://localhost:8080/v1/user/${context.id}`
+            // Local API
+            `http://localhost:8080/v1/user/${response.data.id}`
+            ).then(function (response) {
+                const user = response.data;
+                if (user) {
+                    localStorage.setItem('user', JSON.stringify(user));
+                    context.setUser(user);
+                    console.log(JSON.stringify(user));
+                    History.push('/');
+                } else {
                     setError(true);
                     return;
                 }
-            }).then(() =>{
-                context.setLoggedIn(true);
-                History.push('/');
-            });
-        */
+            })           
+        })
+        // If an authorization error occurred display error message
+        .catch(function (response) {
+            setError(true);
+            console.log(response);
+        })
     }
 
     return (
