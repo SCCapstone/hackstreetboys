@@ -21,12 +21,12 @@ import Header from '../components/Header';
 import { routePrams } from './MyGoal';
 import SideBar from '../components/SideBar';
 import { Goal } from '../models/Goal';
-    import {NavContext} from '@ionic/react';
+import {NavContext} from '@ionic/react';
 import Context from '../components/Context';
 
     
     const AddGoal: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
-        const context = useContext(Context);
+    const context = useContext(Context);
     const { navigate } = useContext(NavContext);
     const history = useHistory();
     const [checked, setChecked] = useState(false);
@@ -42,7 +42,7 @@ import Context from '../components/Context';
             fat: 0,
             currentWeight: 0,
             goalWeight: 0,
-            userId: context.currentUser?.id
+            userId: Number(context.currentUser?.id)
            
         });
 
@@ -68,31 +68,6 @@ import Context from '../components/Context';
         }
       });
     
-
-/*
-      const AddGoal: React.FC = () => {
-        const {navigate} = useContext(NavContext);
-        const [checked, setChecked] = useState(false);
-        const {
-            control,
-            register,
-            handleSubmit,
-            getValues,
-            setValue,
-            formState: { errors }
-        } = useForm({
-            defaultValues: {
-                endGoal: "",
-                calories: 0,
-                carbohydrates: 0,
-                protein: 0,
-                fat: 0,
-                currentWeight: 0,
-                goalWeight: 0,
-                //id: "",
-            }
-        });
-*/
       console.log(errors);
       console.log(getValues());
     
@@ -106,7 +81,7 @@ import Context from '../components/Context';
                 },
             };
             console.log("User ID: " + context.currentUser?.id)
-            goal.userId = context.currentUser?.id;
+            goal.userId = Number(context.currentUser?.id);
             const body = JSON.stringify(getValues());
             const res = axios.post(
                // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',

@@ -7,5 +7,5 @@ export interface Goal{
     fat: number;
     currentWeight: number;
     goalWeight: number;
-    userId: any;
+    userId: number;
 }

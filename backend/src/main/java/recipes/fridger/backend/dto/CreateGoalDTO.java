@@ -34,6 +34,5 @@ public class CreateGoalDTO {
     @DecimalMin(value = "0")
     private Double goalWeight;
 
-    @Size(min = 0, max = 255)
-    private String userId;
+    private Long userId;
 }

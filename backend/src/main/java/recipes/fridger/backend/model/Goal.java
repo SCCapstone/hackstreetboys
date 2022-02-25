@@ -49,6 +49,6 @@ public class Goal {
     private Double goalWeight;
 
     @Column(name = "userId", nullable = false)
-    private String userId;
+    private Long userId;
 }
 
