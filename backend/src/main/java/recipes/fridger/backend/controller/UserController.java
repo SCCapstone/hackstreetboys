@@ -99,8 +99,19 @@ public class UserController {
     }
 
     @GetMapping(path = "/{id}")
-    public @ResponseBody User getUser(@PathVariable Long id) {
-        return userService.getUser(id);
+    public @ResponseBody ReturnUserDTO getUser(@PathVariable Long id) {
+        ReturnUserDTO toRet = new ReturnUserDTO();
+        toRet.convertFromUser(userService.getUser(id));
+        return toRet;
+    }
+
+    // TODO update user, match token w/ username for security
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping(path = "/{id}")
+    public @ResponseBody ReturnUserDTO updateUser(@PathVariable Long id) {
+        ReturnUserDTO toRet = new ReturnUserDTO();
+        toRet.convertFromUser(userService.getUser(id));
+        return toRet;
     }
 
     /*
