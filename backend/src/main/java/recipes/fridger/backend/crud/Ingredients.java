@@ -22,6 +22,4 @@ public interface Ingredients extends CrudRepository<Ingredient, Long> {
 //    @Query("select i from Ingredient i where (:name = i.name)")
 //    Optional<Ingredient> findByName(String name);
 
-
-
 }
