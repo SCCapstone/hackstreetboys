@@ -1,8 +1,5 @@
 // Local testing BASE_URL
-// const BASE_URL = 'http://localhost:7999/';
-
-// use this BASE_URL for deployment and if you want to interact with deployed backend
-const BASE_URL = 'http://localhost:8080/';
+const BASE_URL = 'https://api.fridger.recipes/';
 
 export interface RestOptions {
     method: string;
@@ -15,10 +12,10 @@ interface IDictionary<TValue> {
 
 export default function rest(url: string, options: RestOptions, data?: Map<string, string>): Promise<Response> {
     let headers = new Headers();
-    // let authToken = localStorage.getItem('token');
-    // if (authToken !== null) {
-    //     headers.append('Authorization', authToken);
-    // }
+    let authToken = localStorage.getItem('token');
+    if (authToken !== null) {
+        headers.append('Authorization', authToken);
+    }
     if (options.useQuery) {
         let params = '';
         if (data !== undefined) {

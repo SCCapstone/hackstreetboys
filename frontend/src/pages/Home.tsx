@@ -52,7 +52,7 @@ function Home() {
   
     useEffect(() => {
   
-   fetch(`http://localhost:8080/v1/recipe/`)
+   fetch(`https://api.fridger.recipes/v1/recipe/`)
         .then(response => response.json())
         .then(data => setRecipes(data))
     }, [])
@@ -66,10 +66,11 @@ function Home() {
       <IonContent className="ion-padding">
         <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
         <h4>You are on the home page</h4>
+        <h1>Latest Recipes</h1>
         <IonGrid>
                     <IonRow>
-                    {recipes.slice(10).map(recipe =>
-                        <IonCol sizeXs="2" sizeSm="2" key={recipe.id}>
+                    {recipes.slice(recipes.length-5,recipes.length-1).map(recipe =>
+                        <IonCol sizeXs="6" sizeSm="6" key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
                           <img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>

@@ -37,6 +37,7 @@ import history from '../History';
 import {NavContext} from '@ionic/react';
 import { Recipe } from '../models/Recipe';
 import Context from '../components/Context';
+import { Ingredient } from '../models/Ingredient';
   export interface routePrams {
     id: string;
   }
@@ -70,7 +71,7 @@ import Context from '../components/Context';
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`http://localhost:8080/v1/recipe/${id}`)
+        fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
           .then(response => response.json())
           .then(data => setRecipe(data))
       }, [])
@@ -105,11 +106,12 @@ import Context from '../components/Context';
             },
         };
         setValue("id", recipe.id);
+        setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
         console.log("Body" + body)
         const res = await axios.put(
-            //'http://localhost:8080/v1/recipe/',
-            `http://localhost:8080/v1/recipe/`,
+            //'https://api.fridger.recipes/v1/recipe/',
+            `https://api.fridger.recipes/v1/recipe/`,
             body,
             config
         ).then( res =>{
@@ -135,8 +137,8 @@ import Context from '../components/Context';
         };
         const body = JSON.stringify(getValues());
         const res = await axios.delete(
-            //'http://localhost:8080/v1/recipe/',
-            `http://localhost:8080/v1/recipe/${recipe.id}`,
+            //'https://api.fridger.recipes/v1/recipe/',
+            `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
             console.log("Deleted Recipe by " + recipe.id);
@@ -151,7 +153,6 @@ import Context from '../components/Context';
     return false;
   };
   const [showAlert, setShowAlert] = useState(false);
-
   return (
     <Router history={history}>
     <Switch>
@@ -160,8 +161,8 @@ import Context from '../components/Context';
 <IonPage className="ion-page" id="main-content">
 <Header/>
 <IonContent className="ion-padding">
-<IonButton  color="danger" onClick={() => setShowAlert(true)} expand="block">Delete Recipe</IonButton>
-<IonAlert
+ <IonButton  color="danger" onClick={() => setShowAlert(true)} expand="block">Delete Recipe</IonButton>
+ <IonAlert
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
           cssClass='my-custom-class'
@@ -182,7 +183,7 @@ import Context from '../components/Context';
               }
             }
           ]}
-        />
+        /> 
 
        <form onSubmit={async () =>{onSubmit();  props.history.push(`/recipe/${id}`); history.go(0)} } >
                 <IonItem>
@@ -193,18 +194,6 @@ import Context from '../components/Context';
                 <IonItem>
                     <IonLabel position="floating" >Description</IonLabel>
                     <IonInput type="text" name="description" value={recipe.description}required onIonInput={(e: any) => setValue("description",e.target.value)} />
-                </IonItem>
-                <IonItem>
-                    <IonLabel>Ingredients</IonLabel>
-                    <IonSelect name="ingredients" multiple={true} value={Array.from(recipe.ingredientIds)} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',String(e.detail.value))}>
-                        <IonSelectOption value="1">Carrot</IonSelectOption>
-                        <IonSelectOption value="2">Apple</IonSelectOption>
-                        <IonSelectOption value="3">Uh</IonSelectOption>
-                        <IonSelectOption value="4">What</IonSelectOption>
-                        <IonSelectOption value="5">Yeah</IonSelectOption>
-                        <IonSelectOption value="6">Static</IonSelectOption>
-                        <IonSelectOption value="7">Right...</IonSelectOption>
-                    </IonSelect>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Instructions</IonLabel>
@@ -238,13 +227,20 @@ import Context from '../components/Context';
                 <IonItem>
                     <IonLabel>Type</IonLabel>
                     <IonSelect name="type" multiple={true} value={Array.from(recipe.type)} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',String(e.detail.value))}>
-                        <IonSelectOption value="1">American</IonSelectOption>
+                        {/* <IonSelectOption value="1">American</IonSelectOption>
                         <IonSelectOption value="2">Mexican</IonSelectOption>
                         <IonSelectOption value="3">Chinese</IonSelectOption>
                         <IonSelectOption value="4">Italian</IonSelectOption>
                         <IonSelectOption value="5">Spanish</IonSelectOption>
                         <IonSelectOption value="6">Nigerian</IonSelectOption>
-                        <IonSelectOption value="7">Lebanese</IonSelectOption>
+                        <IonSelectOption value="7">Lebanese</IonSelectOption> */}
+                        <IonSelectOption value="american">American</IonSelectOption>
+                        <IonSelectOption value="mexican">Mexican</IonSelectOption>
+                        <IonSelectOption value="chinese">Chinese</IonSelectOption>
+                        <IonSelectOption value="italian">Italian</IonSelectOption>
+                        <IonSelectOption value="spanish">Spanish</IonSelectOption>
+                        <IonSelectOption value="nigerian">Nigerian</IonSelectOption>
+                        <IonSelectOption value="lebanese">Lebanese</IonSelectOption>
                     </IonSelect>
                 </IonItem>
                 <IonItem>

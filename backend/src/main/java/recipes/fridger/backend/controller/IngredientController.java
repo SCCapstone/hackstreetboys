@@ -50,7 +50,7 @@ public class IngredientController {
             return ResponseEntity.internalServerError().body("Unable to create ingredient\n" + e.getMessage());
         }
     }
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteIngredient(@PathVariable Long id) {
         try {

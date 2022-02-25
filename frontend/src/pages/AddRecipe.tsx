@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
   IonApp,
   IonIcon,
@@ -35,6 +35,7 @@ import history from '../History';
 import {NavContext} from '@ionic/react';
 import Context from '../components/Context';
 import { userInfo } from 'os';
+import { Ingredient } from '../models/Ingredient';
 
 
 const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
@@ -66,7 +67,17 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         ingredientIds: "",
     }
   });
-
+  const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+    id: 1,
+    name: "",
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    fat: 0,
+    alcohol: false,
+    cost: 0.0,
+    imgSrc: ""
+}]);
   console.log(errors);
   console.log(getValues());
 
@@ -87,8 +98,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         // setValue("id",string(context.currentUser?.id);
         const body = JSON.stringify(getValues());
         const res = axios.post(
-            'http://localhost:8080/v1/recipe/',
-            // 'http://localhost:8080/v1/recipe/',
+            'https://api.fridger.recipes/v1/recipe/',
+            // 'https://api.fridger.recipes/v1/recipe/',
             body,
             config
         ).then( res =>{
@@ -110,7 +121,14 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
    
     return false;
   };
-
+  useEffect(() => {
+    // if(!context.currentUser){
+    //     props.history.push('/login');
+    // }
+    fetch("https://api.fridger.recipes/v1/ingredient/")
+        .then(response => response.json())
+        .then(data => setIngredients(data))
+  }, [])
   return (
     <Router history={history}>
     <Switch>
@@ -134,13 +152,10 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonLabel>Ingredients</IonLabel>
                     {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
                     <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',String(e.detail.value))}>
-                        <IonSelectOption value="1">Carrot</IonSelectOption>
-                        <IonSelectOption value="2">Apple</IonSelectOption>
-                        <IonSelectOption value="3">Uh</IonSelectOption>
-                        <IonSelectOption value="4">What</IonSelectOption>
-                        <IonSelectOption value="5">Yeah</IonSelectOption>
-                        <IonSelectOption value="6">Static</IonSelectOption>
-                        <IonSelectOption value="7">Right...</IonSelectOption>
+                   {/* TODO: Add Searching Through Modal */}
+                   {ingredients.map(ingredient => 
+                        <IonSelectOption key={ingredient.id} value={Number(ingredient.id)}>{ingredient.name}</IonSelectOption>
+                    )}
                     </IonSelect>
                 </IonItem>
                 <IonItem>
@@ -176,13 +191,13 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonLabel>Type</IonLabel>
                     {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
                     <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',String(e.detail.value))}>
-                        <IonSelectOption value="1">American</IonSelectOption>
-                        <IonSelectOption value="2">Mexican</IonSelectOption>
-                        <IonSelectOption value="3">Chinese</IonSelectOption>
-                        <IonSelectOption value="4">Italian</IonSelectOption>
-                        <IonSelectOption value="5">Spanish</IonSelectOption>
-                        <IonSelectOption value="6">Nigerian</IonSelectOption>
-                        <IonSelectOption value="7">Lebanese</IonSelectOption>
+                    <IonSelectOption value="american">American</IonSelectOption>
+                        <IonSelectOption value="mexican">Mexican</IonSelectOption>
+                        <IonSelectOption value="chinese">Chinese</IonSelectOption>
+                        <IonSelectOption value="italian">Italian</IonSelectOption>
+                        <IonSelectOption value="spanish">Spanish</IonSelectOption>
+                        <IonSelectOption value="nigerian">Nigerian</IonSelectOption>
+                        <IonSelectOption value="lebanese">Lebanese</IonSelectOption>
                     </IonSelect>
                 </IonItem>
                 <IonItem>

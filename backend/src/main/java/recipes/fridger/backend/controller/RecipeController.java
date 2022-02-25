@@ -34,7 +34,7 @@ public class RecipeController {
 //Later....
     //    @Autowired
 //    private ModelMapper modelMapper;
-    @PreAuthorize("hasRole('USER')")
+@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createRecipe(@RequestBody @Valid CreateRecipeDTO r) {
@@ -49,7 +49,7 @@ public class RecipeController {
             return ResponseEntity.internalServerError().body("Unable to create recipe\n" + e.getMessage());
         }
     }
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PutMapping(path = "/")
     public ResponseEntity<String>
     createRecipe(@RequestBody @Valid UpdateRecipeDTO r) {
@@ -64,7 +64,7 @@ public class RecipeController {
             return ResponseEntity.internalServerError().body("Unable to update recipe\n" + e.getMessage());
         }
     }
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteRecipe(@PathVariable Long id) {
         try {
