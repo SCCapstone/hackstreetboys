@@ -67,7 +67,6 @@ function Users() {
       setUser(context.currentUser);
     } else if(id) {
       fetch(`https://api.fridger.recipes/v1/user/${id}`)
-      // fetch(`http://localhost:8080/v1/user/${id}`)
         .then(response => response.json())
         .then(data => setUser(data))
     } else {
