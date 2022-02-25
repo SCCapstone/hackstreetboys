@@ -26,6 +26,8 @@ import Context from '../components/Context';
 import React from 'react';
 import { Recipe } from '../models/Recipe';
 
+// const DOMAIN = "http://localhost:8080";
+const DOMAIN = "https://api.friger.recipes";
 
 function Home() {
     const context = useContext(Context);
@@ -52,7 +54,7 @@ function Home() {
   
     useEffect(() => {
   
-   fetch(`https://api.fridger.recipes/v1/recipe/`)
+   fetch(`${DOMAIN}/v1/recipe/`)
         .then(response => response.json())
         .then(data => setRecipes(data))
     }, [])

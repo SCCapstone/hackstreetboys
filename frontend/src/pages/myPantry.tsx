@@ -90,12 +90,13 @@ function MyPantry() {
     yield: 0,
     estimatedCost: 0,
     type: "",
+    alcoholic: false,
     tags: "",
     ingredientIds: "",
     rating: 0
   }]);
   useEffect(() => {
-    fetch(DOMAIN+'/v1/recipes/')
+    fetch(DOMAIN+'/v1/recipe/')
       .then(recResp => recResp.json())
       .then(recData => setAllRecipes(recData))
   }, []) //this will grab all recipes at the start. if we want to refresh recipes must do a manual page refresh. I also might add a button to do that idk
