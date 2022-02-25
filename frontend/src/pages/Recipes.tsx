@@ -23,7 +23,7 @@ import {
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import {add, searchOutline} from 'ionicons/icons';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import { Recipe } from '../models/Recipe';
 import Header from '../components/Header';
 import Context from '../components/Context';
@@ -90,8 +90,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
           <IonPage className="ion-page" id="main-content">
           <Header />
             <IonContent className="ion-padding">
-                  <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
-                  <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
+            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
                   <IonGrid>
                     <IonRow>
                         <IonCol>
@@ -147,8 +146,8 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                           <IonCard button routerDirection="forward">
                           <img src="https://picsum.photos/1500/800" alt="ion"/>
                             <IonCardHeader>
-                              <IonCardTitle>{fRecipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {fRecipe.author ? (fRecipe.author) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardTitle>{recipe.title}</IonCardTitle>
+                              <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
@@ -158,6 +157,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                           </Link>
                             )}
                         </IonCol>
+
                     </IonRow>
                   </IonGrid>
                   {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
