@@ -20,7 +20,7 @@ import lombok.Data;
 
 @Data
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "reviews")
+@Table(name = "complaints")
 public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

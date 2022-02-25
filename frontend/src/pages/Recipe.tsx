@@ -81,15 +81,21 @@ function RecipePage() {
   const [reviews, setReview] = React.useState<Review>({
     id: 1,
     rating: 0,
-    feedback: "",
+    feedback: "none yet",
     authorId: 0,
     recipeId: 0
   });
+  useEffect(() => {
+    fetch(`http://localhost:8080/v1/reviews`)
+    //fetch(`http://localhost:8080/v1/reviews`)
+    .then(response => response.json())
+    .then(data => setReview(data))
+  }, [])
 
   const [complaints, setComplaints] = React.useState<Complaint>({
     id: 1,
     severity: 0,
-    reason: "",
+    reason: "none yet",
     authorId: 0,
     complaintId: 0
   });
@@ -120,12 +126,7 @@ function RecipePage() {
   }, [id])
   console.log(recipe);
 
-  useEffect(() => {
-    fetch(`http://localhost:8080/v1/reviews`)
-    //fetch(`http://localhost:8080/v1/reviews`)
-    .then(response => response.json())
-    .then(data => setReview(data))
-  }, [])
+  
 
   useEffect(() => {
     fetch(`http://localhost:8080/v1/complaints`)
@@ -237,17 +238,17 @@ return false;
 };
 
 const complaintLink = () => {
-  if(context.isAdmin) {
+ // if(context.isAdmin) {
     return <>
     <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
     Click to see Reviews about all recipes
   </IonButton>
   </Link>
     </>
-  }
-  else {
-    return <></>
-  }
+  // }
+  // else {
+  //   return <></>
+  // }
 }
   return (
     
