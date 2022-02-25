@@ -58,7 +58,8 @@ public class UserControllerTest {
     @Test
     public void createAndAuthUser() throws Exception {
         User user = new User();
-        user.setType("NORMAL");
+        // Deprecated
+        // user.setType("NORMAL");
         user.setEmail("seonghopark@gmail.com");
         user.setPassword("password");
         user.setName("Seongho Park");
