@@ -13,6 +13,10 @@ export const LogInOrProfileLink: React.FC = () => {
     const LogOut = () => {
         context.setLoggedIn(false);
         context.setUser(undefined);
+        context.setToken(undefined);
+        context.setId(undefined)
+        context.setAdmin(false);
+        context.setEmail(undefined);
         localStorage.clear();
         History.push('/');
     };
