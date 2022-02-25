@@ -19,17 +19,17 @@ import { Link, RouteComponentProps, Router, Switch, useHistory, useParams } from
 import axios from 'axios';
 import Header from '../components/Header';
 import SideBar from '../components/SideBar';
-import {Review} from '../models/Review';
+import {Complaint} from '../models/Complaint';
 import {NavContext} from '@ionic/react';
 import {IonicRatingModule} from 'ionic-rating';
 import { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';    
 import Context from '../components/Context';
 import { User } from '../models/User';
-    interface ReviewExample {
-        review: Review,
+    interface ComplaintExample {
+        complaint: Complaint,
       }
-            const AddReview: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+            const AddComplaint: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                 const [ loggedIn, setLoggedIn ] = useState(false);
                 const [ user, setUser ] = useState<User>();
                 const globals = {
@@ -38,23 +38,7 @@ import { User } from '../models/User';
                   setLoggedIn,
                   setUser
                 }
-                // const [recipe, setRecipe] = React.useState<Recipe>({
-                //     id: 1,
-                //     title: "",
-                //     author: "",
-                //     description: "",
-                //     body: "",
-                //     imgSrc: "",
-                //     totalTime: 0,
-                //     prepTime: 0,
-                //     cookTime: 0,
-                //     yield: 0,
-                //     estimatedCost: 0,
-                //     type: "",
-                //     tags: "",
-                //     ingredientIds: "",
-                //     rating: 0
-                //   });
+               
                 const context = useContext(Context);
                 const {navigate} = useContext(NavContext);
                 const history = useHistory();
@@ -70,13 +54,12 @@ import { User } from '../models/User';
                     defaultValues: {
                         id: context.currentUser?.id,
                         authorId: 0,
-                        recipeId: 0,
-                        rating: 0,
-                        feedback: "",
+                        complaintId: 0,
+                        severity: 0,
+                        reason: "",
                     }
                 });
-                
-                
+
                 console.log(errors);
                 console.log(getValues());
                 
@@ -96,12 +79,8 @@ import { User } from '../models/User';
                 body,
                 config
             ).then( res =>{
-                //console.log("Resulting data" + res.data);
                 if (res.status === 200) {
                     console.log("Status is " + res.status);
-                    //navigate(`/recipe/${recipe.id}`);
-                    //navigate(`/recipes`);
-
                 }    
             });
             return res;
@@ -111,8 +90,7 @@ import { User } from '../models/User';
         return false;
       }
 
-     
-      return (
+return (
 
     <Router history={history}>
         <Switch>
@@ -124,36 +102,19 @@ import { User } from '../models/User';
        <IonContent className="ion-padding">
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
         <IonItem>
-                    <IonLabel position="floating" >What would you rate this recipe?</IonLabel>
-                    <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
+                    <IonLabel position="floating" >Please rate the severity of your complaint.</IonLabel>
+                    <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("severity",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>
-                    <IonLabel position="floating">Please write your review:</IonLabel>
-                    <IonInput name="feedback" required onIonInput={(e: any) => setValue("feedback",e.target.value)} />
+                    <IonLabel position="floating">Please tell us your reasoning for this complaint:</IonLabel>
+                    <IonInput name="feedback" required onIonInput={(e: any) => setValue("reason",e.target.value)} />
                 </IonItem>
-                {/* {(e: any) => setValue("authorId", e.context.currentUser?.id)} */}
                 
-                <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Review</IonButton>
-       
-                {/* <IonButton className="ion-margin-top" disabled={!checked}
-                        
-                        color='primary' 
-                        type="submit" 
-                        onClick={async () =>{
-                             await onSubmit();
-                          }}
-                        expand='full'>
-                            Submit Review        
-                </IonButton> */}
-        
-                {/* <Link to={`/recipe/${recipe.id}`}> */}
+                <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Complaint</IonButton>
+
                 <Link to={"/recipes"}>
-                    {/* <IonButton className="ion-margin-top"
-                        color='danger'
-                        expand='full'>
-                        Cancel
-                    </IonButton> */}
+                   
                     <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
                 </Link>
             </form>
@@ -165,4 +126,4 @@ import { User } from '../models/User';
   );
 };
 
-export default AddReview;
+export default AddComplaint;

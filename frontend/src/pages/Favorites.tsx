@@ -41,7 +41,7 @@ function Favorites() {
     recipeId: 1
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    fetch(`http://localhost:8080/v1/favorites/`)
     //fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
     .then(data => setFavorites(data))
@@ -66,7 +66,7 @@ function Favorites() {
   }])
   // const { id } = useParams<routePrams>();
   // useEffect(() => {
-  //   //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+  //   //fetch(`http://localhost:8080/v1/recipe/${id}`)
   //   fetch(`http://localhost:8080/v1/recipe/${id}`)
   //     .then(response => response.json())
   //     .then(data => setRecipe(data))
@@ -74,7 +74,7 @@ function Favorites() {
   // console.log(recipes);
 
   useEffect(() => {
-    fetch('https://api.fridger.recipes/v1/recipe/')
+    fetch('http://localhost:8080/v1/recipe/')
     .then(res => res.json())
     .then(data => setRecipe(data))
   }, [])

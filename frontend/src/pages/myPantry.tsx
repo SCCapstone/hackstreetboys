@@ -84,7 +84,7 @@ function MyPantry() {
     description: "This is a description of the food"
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/user/pantry/`) //pass in user id
+    fetch(`http://localhost:8080/v1/user/pantry/`) //pass in user id
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
   }, [])
@@ -101,7 +101,7 @@ function MyPantry() {
     imgSrc: "https://www.seriouseats.com/thmb/FHtNoz4Uyi3bCwV9rc6JDgpBXbI=/1500x1125/filters:fill(auto,1)/20210510-The-Food-Labs-Buttermilk-Biscuits-liz-voltz-seriouseats-16-8a0c924e4c9440088e073c67ed77d3c1.jpg"
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
+    fetch(`http://localhost:8080/v1/ingredient/${pan.map(myIng=> myIng.id)}`) //need this id to be the same as whats in the pantry
     .then(response => response.json())
     .then(data => setIngredients(data))
   }, [])

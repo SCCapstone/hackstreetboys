@@ -25,35 +25,37 @@ import { Router, Switch, Route, useParams, Link } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
-import { Review } from '../models/Review';
+import { Complaint } from '../models/Complaint';
 import { useEffect } from 'react';
 import React from 'react';
-import { routePrams } from './Recipe';
-//import Context from '../components/Context';
-interface ReviewExample {
-  review: Review,
-}
 
-function RecipeReviews() {
+//import Context from '../components/Context';
+interface ComplaintExample {
+  complaint: Complaint,
+}
+export interface routePrams {
+    id: string;
+  }
+function ComplaintPage() {
   //const context = useContext(Context);
-  const [reviews, setReview] = React.useState<[Review]>([{
+  const [complaints, setComplaint] = React.useState<[Complaint]>([{
     id: 1,
-    rating: 0,
-    feedback: "",
+    severity: 0,
+    reason: "",
     authorId: 0,
-    recipeId: 0
+    complaintId: 0
   }]);
 
   
-  //const { id } = useParams<routePrams>();
+  const { id } = useParams<routePrams>();
   
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/review/`)
-    //fetch('http://localhost:8080/v1/review/')
+    //fetch(`http://localhost:8080/v1/complaint/`)
+    fetch('http://localhost:8080/v1/complaint/')
     .then(response => response.json())
-    .then(data => setReview(data))
-  }, [])
-  console.log(reviews);
+    .then(data => setComplaint(data))
+  }, [id])
+  console.log(complaints);
     return (
         <Router history={history}>
             <Switch>
@@ -74,7 +76,7 @@ function RecipeReviews() {
       </IonHeader>
       <IonContent className="ion-padding">
       <IonCard>
-      <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Reviews</h1></IonText>
+      <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Complaints</h1></IonText>
                   <IonGrid>
                   <Link to="/recipes">
             <IonButton >
@@ -82,20 +84,20 @@ function RecipeReviews() {
             </IonButton>
             </Link>
                     <IonRow>
-                      {reviews.map(review =>
-                        <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+                      {complaints.map(complaint =>
+                        <IonCol sizeXs="12" sizeSm="6" key={complaint.id}>
                             {/* maybe in future, for now - just filter */}
-                         <Link to={`/review/recipe/${review.id}`}>
+                         {/* <Link to={`/review/recipe/${complaint.id}`}> */}
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 
-                              <IonCardTitle>{review.id}</IonCardTitle>
-                              <IonCardSubtitle>Review: {review.feedback}</IonCardSubtitle>
-                              <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
+                              <IonCardTitle>{complaint.id}</IonCardTitle>
+                              <IonCardSubtitle>Reason: {complaint.reason}</IonCardSubtitle>
+                              <IonCardSubtitle>Serverity: {complaint.severity}</IonCardSubtitle>
 
                             </IonCardHeader>
                           </IonCard>
-                          </Link>
+                          {/* </Link> */}
                         </IonCol>
                       )}
                     </IonRow>
@@ -109,4 +111,4 @@ function RecipeReviews() {
     );
 }
 
-export default RecipeReviews;
+export default ComplaintPage;

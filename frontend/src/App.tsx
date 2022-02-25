@@ -16,6 +16,8 @@ import Register from './pages/Register';
 import EditProfile from './pages/EditProfile';
 import ChangePassword from './pages/ChangePassword';
 import AddReview from './pages/AddReview';
+import AddComplaint from './pages/AddComplaint';
+import Complaint from './pages/Complaint';
 //import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -54,11 +56,24 @@ import myReviews from './pages/myReviews';
 
     const [ loggedIn, setLoggedIn ] = useState(false);
     const [ user, setUser ] = useState<User>();
+    const [ token, setToken ] = useState<string>();
+    const [ id, setId ] = useState<number>();
+    const [ isAdmin, setAdmin ] = useState<boolean>(false);
+    const [ email, setEmail ] = useState<string>();
     const globals = {
       loggedInState: loggedIn,
       currentUser: user,
+      token,
+      id,
+      isAdmin,
+      email,
+
       setLoggedIn,
-      setUser
+      setUser,
+      setToken,
+      setId,
+      setAdmin,
+      setEmail
     }
 
     // If user was previously logged in, reload user data
@@ -79,6 +94,8 @@ import myReviews from './pages/myReviews';
             <Switch>
               {/* /* <Route path="/testform" component={Basic} /> */}
               {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
+              <Route path="/complaint/add" component={AddComplaint}/>
+              <Route path="/complaint/:id" component={Complaint}/>
               <Route path="/review/add" component={AddReview}/>
               <Route path="/review/:id" component={Review}/>
               <Route path="/recipe/add" component={AddRecipe} />

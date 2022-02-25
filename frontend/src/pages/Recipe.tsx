@@ -45,6 +45,11 @@ import {Favorite} from '../models/Favorite';
 import axios from 'axios';
 import { config } from 'process';
 import { useForm } from 'react-hook-form';
+import {Complaint} from '../models/Complaint';
+
+interface ComplaintExample {
+  complaint: Complaint;
+}
 
 interface FavoriteExample {
   favorite: Favorite;
@@ -57,7 +62,7 @@ interface RecipeProps {
 }
 export interface routePrams {
   id: string;
-}//this: any
+}
 
 function RecipePage() {
   const context = useContext(Context);
@@ -67,20 +72,20 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites`)
-    //fetch(`http://localhost:8080/v1/reviews`)
+    //fetch(`http://localhost:8080/v1/favorites`)
+    fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
 
-  const [ loggedIn, setLoggedIn ] = useState(false);
-  const [ user, setUser ] = useState<User>();
-  const globals = {
-    loggedInState: loggedIn,
-    currentUser: user,
-    setLoggedIn,
-    setUser
-  }
+  // const [ loggedIn, setLoggedIn ] = useState(false);
+  // const [ user, setUser ] = useState<User>();
+  // const globals = {
+  //   loggedInState: loggedIn,
+  //   currentUser: user,
+  //   setLoggedIn,
+  //   setUser
+  // }
   
   const [reviews, setReview] = React.useState<Review>({
     id: 1,
@@ -88,6 +93,14 @@ function RecipePage() {
     feedback: "",
     authorId: 0,
     recipeId: 0
+  });
+
+  const [complaints, setComplaints] = React.useState<Complaint>({
+    id: 1,
+    severity: 0,
+    reason: "",
+    authorId: 0,
+    complaintId: 0
   });
   
   //const context = useContext(Context);
@@ -110,7 +123,7 @@ function RecipePage() {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    //fetch(`http://localhost:8080/v1/recipe/${id}`)
     fetch(`http://localhost:8080/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
@@ -118,10 +131,17 @@ function RecipePage() {
   console.log(recipe);
 
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/reviews`)
+    fetch(`http://localhost:8080/v1/reviews`)
     //fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
     .then(data => setReview(data))
+  }, [])
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/v1/complaints`)
+    //fetch(`http://localhost:8080/v1/complaints`)
+    .then(response => response.json())
+    .then(data => setComplaints(data))
   }, [])
   
 
@@ -155,56 +175,18 @@ function RecipePage() {
 //     }
 //     return false;
 // }
-useEffect(() => {
-  const loggedInUser = localStorage.getItem('user')
-  if (loggedInUser) {
-    console.log(loggedInUser)
-    const foundUser = JSON.parse(loggedInUser);
-    setUser(foundUser);
-    setLoggedIn(true);
-  }
-}, []);
 
-// const addFav = (recipe : any) => {
-//  <>
-//  <IonCard>      
-//  <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
-        
-//                 <IonCardContent>
-//                   <h1>{recipe.title}</h1>
-//                   <h2>{recipe.description}</h2>
-//                   <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
-//                   <h2>By: <a href="">{recipe.author}</a></h2>
-//                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
-//                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
-                  
-//                 </IonCardContent>
-               
-//               </IonCard>
-//               <IonCard>
-//                 <IonCardContent>
-//                   <h2>Ingredients </h2>
-//                   <p>
-//                     {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
-//                     <br />
-//                   </p>
-//                   <h2>Instructions</h2>
-//                   <p>
-//                     {recipe.body}
-//                   </p>
-//                 </IonCardContent>
-//               </IonCard>
-//               <IonCard>
-//                 <IonCardContent>
-//                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
-//                   <br />
-//                   Tags: {recipe.tags}
-//                 </IonCardContent>
-//                 </IonCard>
+// useEffect(() => {
+//   const loggedInUser = localStorage.getItem('user')
+//   if (loggedInUser) {
+//     console.log(loggedInUser)
+//     const foundUser = JSON.parse(loggedInUser);
+//     setUser(foundUser);
+//     setLoggedIn(true);
+//   }
+// }, []);
 
-//   </>
-  
-// }
+
 
 
 const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
@@ -225,7 +207,7 @@ const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
   rating: 0
 }]);
 useEffect(() => {
-  fetch('https://api.fridger.recipes/v1/recipe/')
+  fetch('http://localhost:8080/v1/recipe/')
   .then(res => res.json())
   .then(data => setAllRecipes(data))
 }, [])
@@ -269,6 +251,19 @@ const addFav = async () => {
 return false;
 };
 
+const complaintLink = () => {
+  if(context.isAdmin) {
+    return <>
+    <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
+    Click to see Reviews about all recipes
+  </IonButton>
+  </Link>
+    </>
+  }
+  else {
+    return <></>
+  }
+}
   return (
     
     <Router history={history}>
@@ -278,13 +273,14 @@ return false;
           <IonPage className="ion-page" id="main-content">
             <Header />
             <IonContent className="ion-padding">
+              {complaintLink()}
               <IonCard>
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
                 <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
                
                   {/* <Link to="/favorites"> */}
                     {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!loggedIn) history.push('/register'); else (addFav())}} >
+                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else (addFav())}} >
                             <IonIcon icon={heart} />
                           </IonButton>
                       {/* </IonFab> */}
@@ -358,6 +354,7 @@ return false;
                     </IonFabButton>
                   </Link>
                   
+                  
                   {/* {reviews.map(review =>
                         <IonCol sizeXs="12" sizeSm="6" key={review.id}>
                          <Link to={`/review/${review.id}`}>
@@ -372,6 +369,14 @@ return false;
                         </IonCol>
                       )} */}
                 
+                  </IonCardContent>
+                  <IonCardContent>
+            <h2>Submit a Complaint:</h2>
+                <Link to={`/complaint/add`}>
+                    <IonFabButton >
+                      <IonIcon icon={add} />
+                    </IonFabButton>
+                  </Link>
                   </IonCardContent>
                   </IonCard>
             </IonContent>
