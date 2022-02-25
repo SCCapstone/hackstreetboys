@@ -39,6 +39,7 @@ import { Recipe } from '../models/Recipe';
 import AddIngredient from './AddIngredient';
 import axios from 'axios';
 import { stringify } from 'querystring';
+import RecipePage from './Recipe';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
@@ -54,18 +55,18 @@ let refresh: number = 1;
 //   return new Promise( resolve => setTimeout(resolve, ms) );
 // }
 
-function IngredientInfo () {
-  const [ing, setIngredient] = React.useState<Pantry>({
-    id: 99,
-    userID: 2,
-    ingredientName: "273",
-    numIngredient: 34,
-    description: "kdajfkldaj"
-  })
-  return (
-    console.log(ing)
-  )
-}
+// function IngredientInfo () {
+//   const [ing, setIngredient] = React.useState<Pantry>({
+//     id: 99,
+//     userID: 2,
+//     ingredientName: "273",
+//     numIngredient: 34,
+//     description: "kdajfkldaj"
+//   })
+//   return (
+//     console.log(ing)
+//   )
+// }
 
 
 function MyPantry() {
@@ -82,35 +83,35 @@ function MyPantry() {
     cost: 0.0,
     imgSrc: ""
   }]);
-  useEffect(() => {
-      fetch(DOMAIN+'/v1/ingredient/')
-          .then(ingResp => ingResp.json())
-          .then(ingData => setAllIngredients(ingData))
-  }, [])
+  // useEffect(() => {
+  //     fetch(DOMAIN+'/v1/ingredient/')
+  //         .then(ingResp => ingResp.json())
+  //         .then(ingData => setAllIngredients(ingData))
+  // }, [])
 
   //Grab all recipes for the current ingredients
-  const [recipes, setAllRecipes] = React.useState<[Recipe]>([{
+  const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
-    title: "",
-    author: "",
-    description: "",
-    body: "",
+    title: "Biscuits and Jam",
+    author: "Quinn Biscuit",
+    description: "What do you think? It's biscuits dummy.",
+    body: "Well, here's the sauce.",
     imgSrc: "",
-    totalTime: 0,
-    prepTime: 0,
-    cookTime: 0,
-    yield: 0,
-    estimatedCost: 0,
-    type: "",
-    tags: "",
-    ingredientIds: "",
-    rating: 0
+    totalTime: 55,
+    prepTime: 15,
+    cookTime: 40,
+    yield: 10,
+    estimatedCost: 69.42,
+    type: "food",
+    tags: "test,string",
+    ingredientIds: "2929, 29292",
+    rating: 4.2
   }]);
-  useEffect(() => {
-    fetch(DOMAIN+'/v1/recipe/')
-      .then(recResp => recResp.json())
-      .then(recData => setAllRecipes(recData))
-  }, []) //this will grab all recipes at the start.
+  // useEffect(() => {
+  //   fetch("https://api.fridger.recipes/v1/recipe/")
+  //     .then(response => response.json())
+  //     .then(data => setRecipes(data))
+  // }, [])
 
 
   //This will refresh pantry with current
@@ -120,6 +121,8 @@ function MyPantry() {
       return res.json();
     })
     .then((data) => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+    console.log("Refreshing Pantry")
+    console.log(pan);
   }
 
   //Grab pantry at start
@@ -136,9 +139,14 @@ function MyPantry() {
     console.log(pan);
     refreshPantry();
     console.log(pan);
+
     fetch(DOMAIN+'/v1/ingredient/')
-          .then(ingResp => ingResp.json())
-          .then(ingData => setAllIngredients(ingData))
+      .then(ingResp => ingResp.json())
+      .then(ingData => setAllIngredients(ingData))
+
+    fetch(DOMAIN+'/v1/recipe/')
+      .then(recResp => recResp.json())
+      .then(recData => setRecipes(recData))
   }, [refresh])
   
   //Base Ingredient to be edited to add to pantry
@@ -190,17 +198,25 @@ function MyPantry() {
     imgSrc: ""
   })
   
+  const canMakeRecipe = (recipeIng: string[]) => {
+    let panIngredientIDS = pantryIngredientIDs();
+    for(let i=0;i<recipeIng.length;i++) {
+      if(!panIngredientIDS.includes(recipeIng[i]))
+        return false;
+    }
+    return true;
+  }
+
   //This method will populate all ingredientIDs in Pantry
   const pantryIngredientIDs = () => {
     refreshPantry()
-    let panIngredientIDS: number[] = [];
+    let panIngredientIDS: string[] = [];
     pan.map(panItem =>
       {
         if(giveIngredientVersionFromName(panItem.ingredientName)!=null) {
-          var tempIngID: number = (giveIngredientVersionFromName(panItem.ingredientName))!.id; //! = strict null check
+          var tempIngID: string = ((giveIngredientVersionFromName(panItem.ingredientName))!.id).toString(); //! = strict null check
           panIngredientIDS.push(tempIngID) //this will hold the ingredient IDs from Pantry.
         }
-        
       }
     )
     // console.log("panIngredientIDS: ");
@@ -335,6 +351,10 @@ function MyPantry() {
     return "";
   }
 
+  // const sleep = (milliseconds) => {
+  //   return new Promise(resolve => setTimeout(resolve, milliseconds))
+  // }
+
 
   // useEffect(() => {
   //   fetch(DOMAIN+'/v1/ingredient/${pan.map(myIng=> myIng.name)}') //need this id to be the same as whats in the pantry
@@ -353,6 +373,12 @@ function MyPantry() {
     open: false,
     event: undefined
   });
+  
+  const logRecipes = () => {
+    console.log("RECIPES");
+    console.log(recipes);
+  }
+  
 
   return (
     <Router history={history}>
@@ -442,9 +468,37 @@ function MyPantry() {
                       )}
                     </IonList>
                   </IonContent>
+                  <h2>All Recipes</h2>
                   <IonContent className="ion-padding">
-                    <IonCard>
-                      <IonRow>
+                    <IonList>
+                     {recipes.map(recipe => 
+                          <IonItem key={recipe.id}>
+                            <IonAvatar slot="start">
+                              <img src={recipe.imgSrc}></img>
+                            </IonAvatar>
+                            <IonLabel>
+                              <h2>{recipe.title}</h2>
+                            </IonLabel>
+                          </IonItem>
+                        )}
+                    </IonList>
+                    <h2>real filtering</h2>
+                    <IonList>
+                      {recipes.map(rec => {
+                          let ids = rec.ingredientIds.split(",");
+                          if(canMakeRecipe(ids))
+                          <IonItem key={rec.id}>
+                            <IonAvatar slot="start">
+                              <img src={rec.imgSrc}></img>
+                            </IonAvatar>
+                            <IonLabel>
+                              <h2>{rec.title}</h2>
+                            </IonLabel>
+                          </IonItem>
+                        }
+                      )}
+                    </IonList>
+                      {/* <IonRow>
                         {recipes.map(recipe => { //map each recipe
                           if (recipe.ingredientIds != null) {
                             let recipeIDs = recipe.ingredientIds.split(","); //get string o
@@ -474,37 +528,14 @@ function MyPantry() {
                             })
                           }
                         })}
-                      </IonRow>
-                    </IonCard>
+                      </IonRow> */}
+                    
                   </IonContent>
           </IonPage>
         </IonApp>
       </Switch>
     </Router>
-    );
+  );
 }
 
 export default MyPantry;
-{/* //<IonButton onClick={(e) => removeFromPantry(ing.name)}>REMOVE {ing.name}</IonButton>
-
-
- {/* /* <IonAvatar slot="start">
-      <img src=""></img>
-    </IonAvatar>
-    <IonLabel>
-      <h2>{myIng.name}</h2>
-    </IonLabel><IonButton
-      onClick= { () => setQuant(quant + 1) }
-      slot="end"
-      size="default">
-      Add {myIng.name} 
-    </IonButton>
-    <IonLabel slot="end">
-      <h2>Quanity: { quant }</h2>
-    </IonLabel>
-    <IonButton
-      onClick= { () => setQuant(quant - 1) }
-      slot="end"
-      size="default">
-      Remove {myIng.name} 
-</IonButton> */}
