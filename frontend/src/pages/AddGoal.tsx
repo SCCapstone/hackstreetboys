@@ -101,7 +101,7 @@ import { Goal } from '../models/Goal';
             const body = JSON.stringify(getValues());
             const res = await axios.post(
                 'https://api.fridger.recipes/v1/user/goal/',
-               //'http://localhost:8080/v1/user/goal/',
+               //'https://api.fridger.recipes/v1/user/goal/',
                 body,
                 config
             ).then( res =>{

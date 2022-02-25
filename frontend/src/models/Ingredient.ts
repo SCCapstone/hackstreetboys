@@ -8,7 +8,6 @@ export interface Ingredient{
     fat: number;
     alcohol: boolean;
     cost: number;
-
     imgSrc: string;
 
 }

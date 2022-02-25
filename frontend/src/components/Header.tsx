@@ -1,4 +1,4 @@
-import { IonHeader, IonToolbar, IonButtons, IonMenuToggle, IonButton, IonIcon, IonTitle } from "@ionic/react";
+import { IonHeader, IonToolbar, IonButtons, IonMenuToggle, IonButton, IonIcon, IonTitle, IonBackButton } from "@ionic/react";
 import { Link } from 'react-router-dom';
 import { menuOutline } from "ionicons/icons";
 
@@ -14,6 +14,7 @@ export const Header: React.FC = () => {
         <IonIcon icon={menuOutline} slot="start" />
       </IonButton>
     </IonMenuToggle>
+    <IonBackButton/>
   </IonButtons>
   <Link to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}><IonTitle><span style={{ color:"#1b79b7", fontWeight:"bold" }}>F</span>ridger</IonTitle></Link>
   <LogInOrProfileLink />

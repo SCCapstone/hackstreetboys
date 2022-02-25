@@ -1,5 +1,5 @@
 import './Recipes.css';
-import { Router, Switch, Link } from "react-router-dom";
+import { Router, Switch, Link, RouteComponentProps } from "react-router-dom";
 import history from '../History';
 import {
     IonApp,
@@ -26,10 +26,15 @@ import {add, searchOutline} from 'ionicons/icons';
 import React, {useEffect, useState} from 'react';
 import { Recipe } from '../models/Recipe';
 import Header from '../components/Header';
+import Context from '../components/Context';
 interface RecipeProps {
   recipe: Recipe,
 }
-function Recipes() {
+const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+
+  const [ searchText, setSearchText ] = useState("");
+
+
   const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
     title: "Biscuits and Jam",
@@ -42,14 +47,17 @@ function Recipes() {
     cookTime: 40,
     yield: 10,
     estimatedCost: 69.42,
+    alcoholic: false,
     type: "food",
     tags: "test,string",
     ingredientIds: "2929, 29292",
     rating: 4.2
   }]);
+  const context = useContext(Context);
+
   useEffect(() => {
 
- fetch("https://api.fridger.recipes/v1/recipe/")
+ fetch(`https://api.fridger.recipes/v1/recipe/`)
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
@@ -83,6 +91,7 @@ function Recipes() {
           <Header />
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
+                  <IonSearchbar value={searchText} onIonChange={e => setSearchText(e.detail.value!)}></IonSearchbar>
                   <IonGrid>
                     <IonRow>
                         <IonCol>
@@ -138,8 +147,8 @@ function Recipes() {
                           <IonCard button routerDirection="forward">
                           <img src="https://picsum.photos/1500/800" alt="ion"/>
                             <IonCardHeader>
-                              <IonCardTitle>{recipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardTitle>{fRecipe.title}</IonCardTitle>
+                              <IonCardSubtitle>By {fRecipe.author ? (fRecipe.author) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
@@ -149,16 +158,13 @@ function Recipes() {
                           </Link>
                             )}
                         </IonCol>
-
                     </IonRow>
                   </IonGrid>
-                  <Link to="/recipe/add">
-                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                    <IonFabButton>
+                  {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
+                  <IonFabButton routerLink={`/recipe/add`}>
                       <IonIcon icon={add} />
                     </IonFabButton>
-                  </IonFab>
-                  </Link>
+                  </IonFab> : ""}
             </IonContent>
           </IonPage>
         </IonApp>
