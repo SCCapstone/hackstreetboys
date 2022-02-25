@@ -103,6 +103,7 @@ function RecipePage(this: any) {
                         - {ingredient.name}
                       </p>
                   ))}
+                  <br />
 
                   <h2>Instructions</h2>
                   <p>
@@ -114,7 +115,11 @@ function RecipePage(this: any) {
                 <IonCardContent>
                   Type: <IonBadge color="primary">{recipe.type}</IonBadge>
                   <br />
-                  Tags: {recipe.tags}
+                  <br />
+                  Tags: { recipe.tags.split(",").map(tag => (
+                  <p>
+                    - {tag}
+                  </p>))}
                 </IonCardContent>
               </IonCard>
             </IonContent>
