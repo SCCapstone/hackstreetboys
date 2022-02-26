@@ -80,8 +80,8 @@ const AddRecipe: React.FunctionComponent = () => {
         };
         const body = JSON.stringify(getValues());
         const res = await axios.post(
-            'http://localhost:8080/v1/recipe/',
-            // 'http://localhost:8080/v1/recipe/',
+            'https://api.fridger.recipes/v1/recipe/',
+            // 'https://api.fridger.recipes/v1/recipe/',
             body,
             config
         ).then( res =>{

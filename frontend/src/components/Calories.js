@@ -47,7 +47,7 @@ const Calories = () => {
           setItems(newItems);
          
             //  const article = { title: 'React PUT Request' };
-            //  axios.put('http://localhost:8080/v1/user/mygoals/')
+            //  axios.put('https://api.fridger.recipes/v1/user/mygoals/')
             // .then(response => this.setState({ updatedAt: response.data.updatedAt }));
         }
 

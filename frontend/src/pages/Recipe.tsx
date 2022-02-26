@@ -72,8 +72,8 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    //fetch(`http://localhost:8080/v1/reviews`)
-    fetch(`http://localhost:8080/v1/reviews`)
+    //fetch(`https://api.fridger.recipes/v1/reviews`)
+    fetch(`https://api.fridger.recipes/v1/reviews`)
     .then(response => response.json())
     .then(data => setFavorite(data))
   }, [])
@@ -86,8 +86,8 @@ function RecipePage() {
     recipeId: 0
   });
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/reviews`)
-    //fetch(`http://localhost:8080/v1/reviews`)
+    fetch(`https://api.fridger.recipes/v1/reviews`)
+    //fetch(`https://api.fridger.recipes/v1/reviews`)
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
@@ -100,8 +100,8 @@ function RecipePage() {
     complaintId: 0
   });
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/complaints`)
-    //fetch(`http://localhost:8080/v1/complaints`)
+    fetch(`https://api.fridger.recipes/v1/complaints`)
+    //fetch(`https://api.fridger.recipes/v1/complaints`)
     .then(response => response.json())
     .then(data => setComplaints(data))
   }, [])
@@ -125,8 +125,8 @@ function RecipePage() {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    //fetch(`http://localhost:8080/v1/recipe/${id}`)
-    fetch(`http://localhost:8080/v1/recipe/${id}`)
+    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [id])
@@ -154,7 +154,7 @@ const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
   rating: 0
 }]);
 useEffect(() => {
-  fetch('http://localhost:8080/v1/recipe/')
+  fetch('https://api.fridger.recipes/v1/recipe/')
   .then(res => res.json())
   .then(data => setAllRecipes(data))
 }, [])
@@ -187,7 +187,7 @@ const addFav = async () => {
       "recipeId":recipe.id
     }
     const res = await axios.post(
-      'http://localhost:8080/v1/favorites/',
+      'https://api.fridger.recipes/v1/favorites/',
       body,
       config
     ).then(res=> {
@@ -219,7 +219,7 @@ const removeFav = async () => {
     //   "recipeId":recipe.id
     // }
     const res = await axios.delete(
-      `http://localhost:8080/v1/favorites/recipe/${recipe.id}`,
+      `https://api.fridger.recipes/v1/favorites/recipe/${recipe.id}`,
       config
       ).then(res=> {
       console.log("Removed from favorites by" + recipe.id);

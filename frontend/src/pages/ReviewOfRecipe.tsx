@@ -31,8 +31,8 @@ function SpecifiedRecipe(this: any) {
   
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/review/${id}/`)
-    //fetch(`http://localhost:8080/v1/review/${id}`)
+    fetch(`https://api.fridger.recipes/v1/review/${id}/`)
+    //fetch(`https://api.fridger.recipes/v1/review/${id}`)
       .then(response => response.json())
       .then(data => setReview(data))
   }, [id])
