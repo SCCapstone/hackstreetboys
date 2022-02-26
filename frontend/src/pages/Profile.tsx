@@ -43,9 +43,7 @@ function Users() {
 
   const [user, setUser] = useState<User>({
     id: 23,
-    type: 'NORMAL',
     email: 'seonghopark@gmail.com',
-    //password: 'this probably shoudn\'t be here', // This probably shouldn't be here
     name: 'Seongho Park',
     bio: `Hi, I'm Seongho Park, a recent MIT doctoral candidate, and now magnet high-school
           mathematics teacher. I'm new to teaching, but I now understand that spending time

@@ -76,7 +76,6 @@ function Favorites() {
     cookTime: 0,
     yield: 0,
     estimatedCost: 0,
-    alcoholic: false,
     type: "",
     tags: "",
     ingredientIds: "", 
