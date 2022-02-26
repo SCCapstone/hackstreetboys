@@ -263,8 +263,8 @@ const complaintLink = () => {
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
                 <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
                
-                          {/* <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} > */}
-                          <IonButton onClick={() => { fav() }} >
+                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
+                          {/* <IonButton onClick={() => { fav() }} > */}
                             <IonIcon icon={heart} />
                           </IonButton>
 
