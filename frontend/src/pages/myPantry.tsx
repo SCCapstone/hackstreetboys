@@ -75,6 +75,8 @@ function MyPantryNotSignedIn() {
 }
 function MyPantry() {
   
+  
+
   const context = useContext(Context)
   // if(context==null)
   //   return (
@@ -82,7 +84,11 @@ function MyPantry() {
   //   );
   
   let thisUserID =0;
-  
+
+  const headers = {
+    'Authorization':`Bearer ${context.token}`
+  }
+
   console.log(context)
   if(context.currentUser!=undefined) {
     thisUserID = context.currentUser!.id;
@@ -136,7 +142,9 @@ function MyPantry() {
   //   +thisUserID.toString()
   
    const refreshPantry = () => {
-    fetch(DOMAIN+'/v1/user/pantry/') //pass in user id
+    fetch(DOMAIN+'/v1/user/pantry/', {
+      headers: headers
+    }) //pass in user id
     .then(res => {
       return res.json();
     })
