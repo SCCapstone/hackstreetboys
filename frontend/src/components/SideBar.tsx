@@ -66,12 +66,12 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          {/* <IonItem button onClick={() => History.push('/myreviews')} >
+          <IonItem button onClick={() => History.push('/myreviews')} >
           <IonIcon icon={folderOpenSharp} slot="start"/>
             <IonLabel>
               My Reviews
             </IonLabel>
-          </IonItem> */}
+          </IonItem>
 
           <IonItem button onClick={() => History.push('/favorites')} >
           <IonIcon icon={heartSharp} slot="start"/>

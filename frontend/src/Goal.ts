@@ -6,6 +6,5 @@ export interface Goal{
     protein: number;
     fat: number,
     currentWeight: number,
-    goalWeight: number,
-    userId: number
+    goalWeight: number;
 }

@@ -20,7 +20,6 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "axios": "^0.25.0",
-    "ionic-rating": "^2.0.0",
     "ionicons": "^5.5.4",
     "lodash": "^4.17.21",
     "react": "^17.0.1",

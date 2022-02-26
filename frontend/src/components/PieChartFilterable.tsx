@@ -23,7 +23,7 @@ export const PieChart: React.FC = () => {
     ]}
     options={{
         legend: "none",
-        chartArea: { left: 0, top: 0, right: 0, bottom: 45 },
+        chartArea: { left: 15, top: 15, right: 0, bottom: 0 },
         pieSliceText: "label",
 
     }}

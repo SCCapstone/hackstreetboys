@@ -157,12 +157,10 @@ public class UserController {
                 @RequestParam(required = false) Double protein,
                 @RequestParam(required = false) Double fat,
                 @RequestParam(required = false) Double currWeight,
-                @RequestParam(required = false) Double goalWeight,
-                @RequestParam(required = false) Long userId)
+                @RequestParam(required = false) Double goalWeight)
         {
             log.info("Returning all goals");
-            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight, userId);
-
+            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
         }
 
 
@@ -259,4 +257,3 @@ public class UserController {
         return pantryService.getPantryByPantryID(pantryId);
     }
 }
-

@@ -15,25 +15,21 @@ import {
 } from '@ionic/react';
 import '../theme/variables.css';
 import { useForm, Controller } from 'react-hook-form';
-import { Link, RouteComponentProps, Router, Switch, useHistory, useParams } from 'react-router-dom';
+import { Link, Router, Switch, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Header from '../components/Header';
 import { routePrams } from './MyGoal';
 import SideBar from '../components/SideBar';
 import { Goal } from '../models/Goal';
-import {NavContext} from '@ionic/react';
-import Context from '../components/Context';
+    import {NavContext} from '@ionic/react';
 
-    
-    const AddGoal: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
-    const context = useContext(Context);
-    const { navigate } = useContext(NavContext);
-    const history = useHistory();
-    const [checked, setChecked] = useState(false);
-        // const { navigate } = useContext(NavContext);
-        // const [checked, setChecked] = useState(false);
-       // const { id } = useParams<routePrams>();
-       const [goal, setGoal] = React.useState<Goal>({
+    /*
+    const AddGoal: React.FunctionComponent = () => {
+        const { navigate } = useContext(NavContext);
+        const [checked, setChecked] = useState(false);
+        const { id } = useParams<routePrams>();
+        const [goal, setGoal] = React.useState<Goal>({
+           
             id: 1,
             endGoal: "",
             calories: 0,
@@ -42,7 +38,6 @@ import Context from '../components/Context';
             fat: 0,
             currentWeight: 0,
             goalWeight: 0,
-            userId: Number(context.currentUser?.id)
            
         });
 
@@ -55,7 +50,6 @@ import Context from '../components/Context';
         formState: { errors }
       } = useForm({
         defaultValues: {
-            id: 1,
             endGoal: "",
             calories: 0,
             carbohydrates: 0,
@@ -63,15 +57,39 @@ import Context from '../components/Context';
             fat: 0,
             currentWeight: 0,
             goalWeight: 0,
-            userId: context.currentUser?.id,
-          
+            id: "",
         }
       });
-    
+    */
+
+
+      const AddGoal: React.FC = () => {
+        const {navigate} = useContext(NavContext);
+        const [checked, setChecked] = useState(false);
+        const {
+            control,
+            register,
+            handleSubmit,
+            getValues,
+            setValue,
+            formState: { errors }
+        } = useForm({
+            defaultValues: {
+                endGoal: "",
+                calories: 0,
+                carbohydrates: 0,
+                protein: 0,
+                fat: 0,
+                currentWeight: 0,
+                goalWeight: 0,
+                id: "",
+            }
+        });
+
       console.log(errors);
       console.log(getValues());
     
-      const onSubmit = () => {
+      const onSubmit = async () => {
        
         console.log("updatedValues" + getValues());
         try {
@@ -80,23 +98,17 @@ import Context from '../components/Context';
                     'Content-Type': 'application/json',
                 },
             };
-            console.log("User ID: " + context.currentUser?.id)
-            goal.userId = Number(context.currentUser?.id);
             const body = JSON.stringify(getValues());
-
-            const res = axios.post(
-               // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
-                //'https://api.fridger.recipes/v1/user/goal/',
-               'https://api.fridger.recipes/v1/user/goal/',
-
+            const res = await axios.post(
+                'https://api.fridger.recipes/v1/user/goal/',
+               //'https://api.fridger.recipes/v1/user/goal/',
                 body,
                 config
             ).then( res =>{
                 console.log("Resulting data" + res.data);
                 if (res.status === 200) {
                     console.log("Status is " + res.status);
-                    //navigate("/mygoals");
-                   // history.push('/mygoals');
+                    navigate("/mygoals");
                     //navigate("https://localhost:3000/mygoals/");
                     //<Link to="/mygoals/"></Link>
 
@@ -107,7 +119,7 @@ import Context from '../components/Context';
             console.error(e);
         }
         return false;
-      }
+      };
       return (
 
     <Router history={history}>
@@ -118,7 +130,7 @@ import Context from '../components/Context';
         <Header/>
 
        <IonContent className="ion-padding">
-         <form onSubmit={async () =>{onSubmit(); props.history.push('/mygoals'); history.go(0)}} > 
+         <form onSubmit={async () =>{await onSubmit();}} > 
         <IonItem>
                     <IonLabel>What is your end goal?</IonLabel>
                     <IonSelect name="endGoal" multiple={false} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('endGoal',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}>
@@ -154,7 +166,7 @@ import Context from '../components/Context';
                 </IonItem>
                 
                 {/* <Link to ="/mygoals/"> */}
-                {/* <IonButton className="ion-margin-top" disabled={checked}
+                <IonButton className="ion-margin-top" disabled={checked}
                         
                         color='primary' 
                         type="submit" 
@@ -168,22 +180,16 @@ import Context from '../components/Context';
                           
                             Submit Goal
                          
-                </IonButton> */}
+                </IonButton>
                 {/* </Link> */}
 
-                 {/* <Link to="/mygoals/">
+                 <Link to="/mygoals/">
                     <IonButton className="ion-margin-top"
                         color='danger'
                         expand='full'>
                         Cancel
                     </IonButton>
-                </Link> */}
-                
-                 <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" >Submit</IonButton>
-               
-                                    <Link to="/mygoals/">
-                                        <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
-                                    </Link>
+                </Link>
             </form>
             
         </IonContent>

@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 @Data
 public class ReturnGoalDTO {
 
-    private Long id;
+    private Integer id;
 
     private String endGoal;
 
@@ -26,6 +26,4 @@ public class ReturnGoalDTO {
     private Double currentWeight;
 
     private Double goalWeight;
-
-    private Long userId;
 }

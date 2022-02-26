@@ -17,23 +17,16 @@ import {
     IonText,
     IonCardHeader,
     IonCardTitle,
-    IonButton,
-    IonAlert,
-    IonRippleEffect,
     IonCardSubtitle, IonSearchbar, IonItem, IonRange, IonToggle,
-
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { add, searchOutline, arrowBack, colorFill, heart, thumbsDown, thumbsUp } from 'ionicons/icons';
+import {add, searchOutline} from 'ionicons/icons';
 import React, {useContext, useEffect, useState} from 'react';
 import { Recipe } from '../models/Recipe';
 import Header from '../components/Header';
-import { State } from 'ionicons/dist/types/stencil-public-runtime';
-import { open } from 'fs';
 import Context from '../components/Context';
-
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -64,23 +57,11 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
   useEffect(() => {
 
-
- //fetch("https://api.fridger.recipes/v1/recipe/")
- fetch('https://api.fridger.recipes/v1/recipe/')
-
+ fetch(`https://api.fridger.recipes/v1/recipe/`)
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
   console.log(recipes);
-  
-  var color = "gray";
- var liked = false;
-
- const toggle = () => {
-  let localLiked = liked;
-  localLiked = !localLiked;
-  liked = localLiked;
- };
 
     let totalTimeLower = Math.min.apply(Math, recipes.map(function(r) { return r.totalTime;}));
     let totalTimeUpper = Math.max.apply(Math, recipes.map(function(r) { return r.totalTime;}));
@@ -171,17 +152,6 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {recipe.totalTime}m</IonLabel>
-
-                              <Link to = {"/recipes"}>
-                              <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                              <Link to = {`/recipe/${recipe.id}`}>
-                                <IonButton >
-                                   See more {/* <IonIcon icon={thumbsUp} /> */}
-                                </IonButton>
-                                </Link>
-                              </IonFab>
-                              </Link>
-
                             </IonCardContent>
                           </IonCard>
                           </Link>
