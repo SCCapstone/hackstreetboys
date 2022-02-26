@@ -9,17 +9,17 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 import lombok.Data;
 @Data
 @NotNull
-public class CreateReviewDTO {
+public class CreateComplaintDTO {
 
     private Long authorId;
 
-    private Long recipeId;
+    private Long complaintId;
 
     @Min(0)
     @Max(5)
-    private Integer rating;
+    private Integer severity;
 
     @Size(min = 0, max = 10000)
-    private String feedback;
+    private String reason;
 
 }

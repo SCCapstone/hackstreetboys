@@ -6,6 +6,7 @@ export interface User {
     dob: string;
     height_in: number;
     weight_lb: number;
+    favorites: string;
 }
 
 /*

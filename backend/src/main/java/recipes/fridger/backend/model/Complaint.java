@@ -20,8 +20,8 @@ import lombok.Data;
 
 @Data
 @Entity // This tells Hibernate to make a table out of this class
-@Table(name = "reviews")
-public class Review {
+@Table(name = "complaints")
+public class Complaint {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -31,16 +31,16 @@ public class Review {
     private Long authorId;
 
     @Min(0)
-    @Column(name = "recipeId")
-    private Long recipeId;
+    @Column(name = "complaintId")
+    private Long complaintId;
 
     @Max(5)
     @Min(0)
-    @Column(name = "rating", nullable = false)
-    private Integer rating;
+    @Column(name = "severity", nullable = false)
+    private Integer severity;
 
     @Size(min = 0, max = 255)
-    @Column(name = "feedback", nullable = false)
-    private String feedback;
+    @Column(name = "reason", nullable = false)
+    private String reason;
 
 }

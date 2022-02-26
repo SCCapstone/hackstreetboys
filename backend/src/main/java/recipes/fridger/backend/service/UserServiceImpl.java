@@ -38,11 +38,13 @@ public class UserServiceImpl implements UserService {
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
+
         Set<Role> userRoles = new HashSet<>();
         userRoles.add(roles.findByName(RoleEnum.ROLE_USER).orElseThrow(
             () -> new RuntimeException("Role not found")
         ));
         u.setRoles(userRoles);
+
         users.save(u);
     }
 
@@ -86,9 +88,11 @@ public class UserServiceImpl implements UserService {
         return users.find(userId);
     }
 
+
     @Transactional
     @Override
     public User getUserByEmail(String email) {
         return users.findByEmail(email).orElse(null);
     }
+
 }

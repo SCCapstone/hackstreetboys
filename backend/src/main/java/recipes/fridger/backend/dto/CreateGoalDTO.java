@@ -33,4 +33,6 @@ public class CreateGoalDTO {
 
     @DecimalMin(value = "0")
     private Double goalWeight;
+
+    private Long userId;
 }
