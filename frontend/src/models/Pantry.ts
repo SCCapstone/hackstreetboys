@@ -1,7 +1,7 @@
 export interface Pantry{
     id: number;
     userID: number;
-    ingredientID: string;
+    ingredientName: string;
     numIngredient: number;
     description: string;
 }

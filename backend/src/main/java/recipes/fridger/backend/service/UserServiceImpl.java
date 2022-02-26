@@ -3,19 +3,28 @@ package recipes.fridger.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import recipes.fridger.backend.crud.Roles;
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreateUserDTO;
+import recipes.fridger.backend.model.Role;
+import recipes.fridger.backend.model.RoleEnum;
 import recipes.fridger.backend.model.User;
 
 import javax.transaction.Transactional;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Autowired
     private Users users;
+    
+    @Autowired
+    private Roles roles;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -23,15 +32,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public void createUser(CreateUserDTO dto) {
         User u = new User();
-        u.setType(dto.getType());
-        // TODO ensure users can't create an account with email address already in use
         u.setEmail(dto.getEmail());
         u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
-        //u.setFavorites(dto.getFavorites());
+
+        Set<Role> userRoles = new HashSet<>();
+        userRoles.add(roles.findByName(RoleEnum.ROLE_USER).orElseThrow(
+            () -> new RuntimeException("Role not found")
+        ));
+        u.setRoles(userRoles);
+
         users.save(u);
     }
 
@@ -73,6 +86,13 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Iterable<User> getUsers(Long userId) {
         return users.find(userId);
+    }
+
+
+    @Transactional
+    @Override
+    public User getUserByEmail(String email) {
+        return users.findByEmail(email).orElse(null);
     }
 
 }

@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
+    @PreAuthorize("hasRole('USER')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createReview(@RequestBody @Valid CreateReviewDTO r) {
@@ -45,7 +47,7 @@ public class ReviewController {
                 "Unable to create review\n" + e.getMessage());
         }
     }
-
+    @PreAuthorize("hasRole('USER')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteReview(@PathVariable Long id) {
         try {

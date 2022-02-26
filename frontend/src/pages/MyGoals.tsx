@@ -97,6 +97,13 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
    
    
     useEffect(() => {
+
+
+       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
+       //fetch('https://api.fridger.recipes/v1/user/goals/')
+       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
+       //fetch(`https://api.fridger.recipes/v1/user/goals/`)
+
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
        //fetch('https://api.fridger.recipes/v1/user/goals/')
        fetch(`https://api.fridger.recipes/v1/user/goals/`)

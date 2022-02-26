@@ -83,10 +83,12 @@ import Context from '../components/Context';
             console.log("User ID: " + context.currentUser?.id)
             goal.userId = Number(context.currentUser?.id);
             const body = JSON.stringify(getValues());
+
             const res = axios.post(
                // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
                 //'https://api.fridger.recipes/v1/user/goal/',
                'https://api.fridger.recipes/v1/user/goal/',
+
                 body,
                 config
             ).then( res =>{
