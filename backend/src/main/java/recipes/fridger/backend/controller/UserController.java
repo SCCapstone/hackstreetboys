@@ -116,6 +116,22 @@ public class UserController {
         return toRet;
     }
 
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping(path = "/")
+    public ResponseEntity<String>
+    createRecipe(@RequestBody @Valid UpdateUserDTO r) {
+        try {
+            recipeService.updateRecipe(r.getId(),r);
+            log.info("Log:" + String.valueOf(r));
+            log.info("Successful update of recipe");
+            return ResponseEntity.ok("Updated Recipe");
+
+        } catch (Exception e) {
+            log.warn("Unable to update recipe\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to update recipe\n" + e.getMessage());
+        }
+    }
+
     /*
      *  GOAL API
      */
