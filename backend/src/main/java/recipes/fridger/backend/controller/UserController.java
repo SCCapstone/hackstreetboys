@@ -175,6 +175,7 @@ public class UserController {
      *  PANTRY API
      */
 
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PostMapping(path = "/pantry")
     public ResponseEntity<String>
     createPantry(@RequestBody @Valid CreatePantryDTO p) {
@@ -188,6 +189,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/pantry/{id}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
@@ -200,10 +202,23 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to delete recipe");
         }
     }
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @DeleteMapping(path = "/pantry")
     public ResponseEntity<String> clearPantry() {
         try {
             pantryService.clearPantry();
+            log.info("Successfully deleted all pantry items. You wield a dangerous power!");
+            return ResponseEntity.ok("Deleted all pantry items");
+        } catch (Exception e) {
+            log.warn("Unable to clear pantry");
+            return ResponseEntity.internalServerError().body("Unable to clear pantry");
+        }
+    }
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @DeleteMapping(path = "/pantry/{userID}")
+    public ResponseEntity<String> clearUserPantry(Long userID) {
+        try {
+            pantryService.clearUserPantry(userID);
             log.info("Successfully deleted all pantry items. You wield a dangerous power!");
             return ResponseEntity.ok("Deleted all pantry items");
         } catch (Exception e) {
@@ -217,6 +232,7 @@ public class UserController {
 //    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
 //        return pantryService.getPantryByUserID(id);
 //    }
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/pantry/{id}/increase")
     public ResponseEntity<String>
     incrementPantryByOne(@PathVariable Long id) {
@@ -229,6 +245,7 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to update pantry, does it exist?");
         }
     }
+    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PutMapping(path = "/pantry/{id}/decrease")
     public ResponseEntity<String>
     decrementPantryByOne(@PathVariable Long id) {
@@ -242,7 +259,8 @@ public class UserController {
         }
     }
 
-
+    //@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(path = "/pantry")
     public @ResponseBody Iterable<Pantry>
     getAllPantrys() {
@@ -250,10 +268,12 @@ public class UserController {
         return pantryService.getAllPantrys();
     }
 
-    @GetMapping(path= "/pantry/{pantryId}")
+    //@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @GetMapping(path= "/pantry/{userID}")
     public @ResponseBody Pantry
-    getPantryByPantryID(@PathVariable Long pantryId)
+    getPantryByUserID(@PathVariable Long userID)
     {
-        return pantryService.getPantryByPantryID(pantryId);
+        return pantryService.getPantryByUserID(userID);
     }
 }
