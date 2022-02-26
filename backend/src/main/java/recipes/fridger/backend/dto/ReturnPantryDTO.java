@@ -1,5 +1,6 @@
 package recipes.fridger.backend.dto;
 
+import java.math.BigDecimal;
 import java.util.List;
 import recipes.fridger.backend.model.*;
 import lombok.Data;
@@ -15,9 +16,9 @@ public class ReturnPantryDTO {
 
     private Long userID;
 
-    private String ingredientID;
+    private String ingredientName;
 
-    private Float numIngredient;
+    private Double numIngredient;
 
     private String description;
 

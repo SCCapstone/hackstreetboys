@@ -91,4 +91,8 @@ public class IngredientController {
             {
         return ingredientService.getIngredients(id, name, calories, carbohydrates, protein, fat, alcohol, cost);
     }
+//    @GetMapping(path = "/{name}")
+//    public @ResponseBody Ingredient getIngredientByName(@PathVariable String name) {
+//        return ingredientService.getIngredientByName(name);
+//    }
 }
