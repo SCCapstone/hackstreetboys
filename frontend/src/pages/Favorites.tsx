@@ -34,6 +34,23 @@ interface RecipeExample{
 }
 
 function Favorites() {
+  const {id} = useParams<routePrams>();
+  // const [favorites, setFavorites ] = React.useState<[Favorite]>([{
+  //   id: 1, 
+  //   userId: 1, 
+  //   recipeId: 1
+  // }]);
+  const [favorite, setFavorite ] = React.useState<Favorite>({
+    id: 1, 
+    userId: 1, 
+    recipeId: 1
+  });
+  // useEffect(() => {
+  //   fetch(`http://localhost:8080/v1/favorites/${id}/`)
+  //   //fetch(`http://localhost:8080/v1/favorites`)
+  //   .then(response => response.json())
+  //   .then(data => setFavorite(data))
+  // }, [])
 
   const [favorites, setFavorites ] = React.useState<[Favorite]>([{
     id: 1, 
@@ -47,7 +64,7 @@ function Favorites() {
     .then(data => setFavorites(data))
   }, [])
 
-  const [recipes, setRecipe] = React.useState<[Recipe]>([{
+  const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
     author: "",
@@ -63,35 +80,37 @@ function Favorites() {
     tags: "",
     ingredientIds: "", 
     rating: 0
-  }])
-  // const { id } = useParams<routePrams>();
-  // useEffect(() => {
-  //   //fetch(`http://localhost:8080/v1/recipe/${id}`)
-  //   fetch(`http://localhost:8080/v1/recipe/${id}`)
-  //     .then(response => response.json())
-  //     .then(data => setRecipe(data))
-  // }, [id])
-  // console.log(recipes);
+  })
 
   useEffect(() => {
-    fetch('http://localhost:8080/v1/recipe/')
-    .then(res => res.json())
-    .then(data => setRecipe(data))
-  }, [])
+    //fetch(`http://localhost:8080/v1/recipe/${id}`)
+    fetch(`http://localhost:8080/v1/recipe/`)
+      .then(response => response.json())
+      .then(data => setRecipe(data))
+  }, [id])
+  console.log(recipe);
 
   
-  const [ user, setUser ] = React.useState<User>({
-    id: 1,
-    type: 'NORMAL',
-    email: 'seonghopark@gmail.com',
-    password: 'this probably shoudn\'t be here',
-    name: 'Seongho Park',
-    bio: `Hi.`,
-    dob: 'Mar. 20, 1987',
-    height_in: 85,
-    weight_lb: 600,
-    favorites: ""
-  });
+
+  // useEffect(() => {
+  //   fetch('http://localhost:8080/v1/recipe/')
+  //   .then(res => res.json())
+  //   .then(data => setRecipe(data))
+  // }, [])
+
+  
+  // const [ user, setUser ] = React.useState<User>({
+  //   id: 1,
+  //   type: 'NORMAL',
+  //   email: 'seonghopark@gmail.com',
+  //   password: 'this probably shoudn\'t be here',
+  //   name: 'Seongho Park',
+  //   bio: `Hi.`,
+  //   dob: 'Mar. 20, 1987',
+  //   height_in: 85,
+  //   weight_lb: 600,
+  //   favorites: ""
+  // });
   
 
   //const favRecipes = recipes.sort(() => Math.random() - Math.random()).find(() => true);
@@ -109,22 +128,24 @@ function Favorites() {
                     {user.favorites ? ("" + user.favorites) : "Favorites unavailable"}
                     <br />
                   </p> */}
-
+                  <IonCard>
                   <IonRow>
                       {favorites.map(favorite =>
                         <IonCol sizeXs="12" sizeSm="6" key={favorite.id}>
-                         <Link to={`/favorite/${favorite.id}`}>
+                         <Link to={`/recipe/${favorite.recipeId}`}>
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 
-                              <IonCardTitle>{favorite.id}</IonCardTitle>
-                              <IonCardSubtitle>Recipe: {favorite.recipeId}</IonCardSubtitle>
+                              <IonCardTitle>Favorited recipe #{favorite.id}</IonCardTitle>
+                              <IonCardSubtitle>Recipe ID: {favorite.recipeId}</IonCardSubtitle>
+                              <IonCardSubtitle></IonCardSubtitle>
                             </IonCardHeader>
                           </IonCard>
                           </Link>
                         </IonCol>
                       )}
                     </IonRow>
+                    </IonCard>
             </IonContent>
           </IonPage>
         </IonApp>

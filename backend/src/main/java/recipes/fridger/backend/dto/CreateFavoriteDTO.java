@@ -11,7 +11,9 @@ import lombok.Data;
 @NotNull
 public class CreateFavoriteDTO {
 
+    @NotNull
     private Long userId;
 
+    @NotNull
     private Long recipeId;
 }

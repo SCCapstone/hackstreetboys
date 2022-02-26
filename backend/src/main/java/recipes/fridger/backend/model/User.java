@@ -54,6 +54,6 @@ public class User {
      @Column(name = "weight_lb")
      private Double weight_lb;
 
-     @Column(name = "favorites", nullable = false)
-     private String favorites;
+//     @Column(name = "favorites", nullable = false)
+//     private String favorites;
 }

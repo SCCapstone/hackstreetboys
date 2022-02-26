@@ -66,7 +66,7 @@ export interface routePrams {
 
 function RecipePage() {
   const context = useContext(Context);
-  const [favorites, setFavorites ] = React.useState<Favorite>({
+  const [favorites, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: context.currentUser?.id, 
     recipeId: 1
@@ -75,7 +75,7 @@ function RecipePage() {
     //fetch(`http://localhost:8080/v1/reviews`)
     fetch(`http://localhost:8080/v1/reviews`)
     .then(response => response.json())
-    .then(data => setFavorites(data))
+    .then(data => setFavorite(data))
   }, [])
   
   const [reviews, setReview] = React.useState<Review>({
@@ -132,11 +132,6 @@ function RecipePage() {
   }, [id])
   console.log(recipe);
 
-  
-
-  
-  
-
   //const [favorites, setFavorites] = useState([] as Array<number>);
   const {navigate} = useContext(NavContext);
 
@@ -176,6 +171,8 @@ useEffect(() => {
 const fav = async () => {
   addFav();
   removeFav();
+  //history.push(`/favorites/recipe/${id}`);
+  //navigate('/favorites');
 }
 
 const addFav = async () => {
@@ -198,6 +195,7 @@ const addFav = async () => {
       if(res.status == 200){
         console.log("Status is "+res.status);
         navigate('/favorites');
+        //history.push(`/favorites/recipe/${id}`);
       }
 
       
@@ -221,7 +219,7 @@ const removeFav = async () => {
     //   "recipeId":recipe.id
     // }
     const res = await axios.delete(
-      `http://localhost:8080/v1/favorites/${recipe.id}`,
+      `http://localhost:8080/v1/favorites/recipe/${recipe.id}`,
       config
       ).then(res=> {
       console.log("Removed from favorites by" + recipe.id);
@@ -265,13 +263,10 @@ const complaintLink = () => {
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
                 <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
                
-                  {/* <Link to="/favorites"> */}
-                    {/* <IonFab vertical="bottom" horizontal="end" slot="fixed"> */}
-                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
+                          {/* <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} > */}
+                          <IonButton onClick={() => { fav() }} >
                             <IonIcon icon={heart} />
                           </IonButton>
-                      {/* </IonFab> */}
-                  {/* </Link> */}
 
                 <IonCardContent>
                   <h1>{recipe.title}</h1>
