@@ -67,7 +67,12 @@ public class ReviewController {
     }
     @GetMapping(path = "/")
     public @ResponseBody Iterable<Review>
-    getReviews(@RequestParam(required = false) Long id){
-        return reviewService.getReviews(id);
+    getReviews(@RequestParam(required = false) Long id,
+               @RequestParam(required = false) Long authorId,
+               @RequestParam(required = false) Long recipeId,
+               @RequestParam(required = false) Integer rating,
+               @RequestParam(required = false) String feedback)
+        {
+        return reviewService.getReviews(id, authorId, recipeId, rating, feedback);
     }
 }

@@ -32,6 +32,7 @@ import { useContext } from 'react';
 import {Context, useGlobalContext} from '../components/Context';
 
 import History from '../History';
+import Favorites from './Favorites';
 
 import axios, {AxiosError} from 'axios';
 
@@ -59,7 +60,8 @@ function Users() {
           off our shoulders, spending time with family and friends would become easier.`,
     dob: '1987-03-20T05:00:00.000+00:00',
     height_in: 85, // Perhaps these shouldn't be publicly displayed?
-    weight_lb: 600 // Perhaps these shouldn't be publicly displayed?
+    weight_lb: 600, // Perhaps these shouldn't be publicly displayed?
+    favorites: "none yet"
   });
 
   const { id } = useParams<routeParams>();

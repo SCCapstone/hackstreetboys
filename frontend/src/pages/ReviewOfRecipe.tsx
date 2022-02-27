@@ -11,35 +11,33 @@ import {
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import React, { useEffect } from 'react';
-import { Goal } from '../Goal';
+import { Review } from '../models/Review'
 import Header from "../components/Header";
 
-interface GoalExample {
-  goal: Goal,
+interface ReviewExample {
+  review: Review,
 }
 export interface routePrams {
   id: string;
 }
-function GoalPage(this: any) {
-  const [goal, setGoal] = React.useState<Goal>({
+function SpecifiedRecipe(this: any) {
+  const [review, setReview] = React.useState<Review>({
     id: 1,
-    endGoal: "Lose",
-    calories: 500,
-    carbohydrates: 500,
-    protein: 300,
-    fat: 250,
-    currentWeight: 400.0,
-    goalWeight: 180.0,
-    userId: 1
+    rating: 0,
+    feedback: "",
+    authorId: 0,
+    recipeId: 0
   });
+  
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
+    fetch(`https://api.fridger.recipes/v1/review/${id}/`)
+    //fetch(`https://api.fridger.recipes/v1/review/${id}`)
       .then(response => response.json())
-      .then(data => setGoal(data))
+      .then(data => setReview(data))
   }, [id])
 
-  console.log(goal);
+  console.log(review);
 
   return (
     <Router history={history}>
@@ -51,19 +49,15 @@ function GoalPage(this: any) {
             <IonContent className="ion-padding">
               <IonCard>
                 <IonCardContent>
-                <Link to="/goals">
+                <Link to="/recipes">
             <IonButton>
-              Return to Dashboard 
+              Return to Recipes 
             </IonButton>
             </Link>
-                    <h1>{goal.id}</h1>
-                    <h2>End Goal:{goal.endGoal}</h2>
-                    <h2>Calories:{goal.calories}</h2>
-                    <h2>Carbohydrates: {goal.carbohydrates}</h2>
-                    <h2>Protein: {goal.protein}</h2>
-                    <h2>Fat: {goal.fat}</h2>
-                    <h2>CurrentWeight: {goal.currentWeight}</h2>
-                    <h2>GoalWeight: {goal.goalWeight}</h2>  
+                    <h1>{review.id}</h1>
+                    <h2>Rating:{review.rating}</h2>
+                    <h2>Review:{review.feedback}</h2>
+                    <h2>By: {review.authorId}</h2> 
                 </IonCardContent>
               </IonCard>
             </IonContent>
@@ -74,4 +68,4 @@ function GoalPage(this: any) {
   );
 }
 
-export default GoalPage;
+export default SpecifiedRecipe;

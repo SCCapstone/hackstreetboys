@@ -109,10 +109,12 @@ import { Ingredient } from '../models/Ingredient';
         setValue("id", recipe.id);
         setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
+
         console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/`,
+
             body,
             config
         ).then( res =>{
