@@ -1,9 +1,17 @@
 package recipes.fridger.backend.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +32,9 @@ import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.dto.CreateUserDTO;
 import recipes.fridger.backend.dto.ReturnUserDTO;
+import recipes.fridger.backend.dto.UpdateUserDTO;
 import recipes.fridger.backend.model.Pantry;
+import recipes.fridger.backend.model.RoleEnum;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.service.PantryService;
 import recipes.fridger.backend.service.UserService;
@@ -35,6 +45,7 @@ import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
 import recipes.fridger.backend.crud.Pantries;
+import recipes.fridger.backend.crud.Roles;
 
 @RestController
 @Slf4j
@@ -80,8 +91,21 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority>  auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        User authed_user = users.findByEmail(principal.getUsername()).get();
+
+        // This shouldn't happen from the front-end
+        // Security sanity check
+        if (authed_user.getId() != id &&
+                (auths.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))))  {
+            log.warn("User with id " + authed_user.getId() + " attempted to delete user " + id + "\'s account");
+            return ResponseEntity.badRequest().body("Attempting to delete someone else's account");
+        }
+
         try {
             userService.deleteUser(id);
             log.info("Successfully deleted User #" + id);
@@ -93,11 +117,17 @@ public class UserController {
         }
     }
 
-    // TODO use ReturnUserDTO instead of User
     @GetMapping(path = "/")
-    public @ResponseBody Iterable<User>
+    public @ResponseBody Iterable<ReturnUserDTO>
     getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return userService.getUsersByIdAndEmail(id, email);
+        Iterable<User> users = userService.getUsersByIdAndEmail(id, email);
+        List<ReturnUserDTO> userDtos = new ArrayList<ReturnUserDTO>();
+        for (User u: users) {
+            ReturnUserDTO dto = new ReturnUserDTO();
+            dto.convertFromUser(u);
+            userDtos.add(dto);
+        }
+        return userDtos;
     }
 
     @GetMapping(path = "/{id}")
@@ -107,13 +137,32 @@ public class UserController {
         return toRet;
     }
 
-    // TODO update user, match token w/ username for security
-    @PreAuthorize("hasRole('USER')")
-    @PutMapping(path = "/{id}")
-    public @ResponseBody ReturnUserDTO updateUser(@PathVariable Long id) {
-        ReturnUserDTO toRet = new ReturnUserDTO();
-        toRet.convertFromUser(userService.getUser(id));
-        return toRet;
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PutMapping(path = "/")
+    public ResponseEntity<String>
+    updateUser(@RequestBody @Valid UpdateUserDTO u) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority>  auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        User authed_user = users.findByEmail(principal.getUsername()).get();
+
+        // This shouldn't happen from the front-end
+        // Security sanity check
+        if (authed_user.getId() != u.getId() &&
+                (auths.stream().anyMatch(a -> a.getAuthority().equals("ADMIN")))) {
+            log.warn("User with id " + authed_user.getId() + " attempted to modify user " + u.getId() + "\'s account");
+            return ResponseEntity.badRequest().body("Attempting to modify someone else's account");
+        }
+
+        try {
+            userService.updateUser(u.getId(),u);
+            log.info("Log:" + String.valueOf(u));
+            log.info("Successful update of user");
+            return ResponseEntity.ok("Updated User");
+
+        } catch (Exception e) {
+            log.warn("Unable to update user\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to update user\n" + e.getMessage());
+        }
     }
 
     /*

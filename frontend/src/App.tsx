@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { Router, Switch, Route, Redirect } from "react-router-dom";
 import history from './History';
 import GoalsPage from './pages/GoalsPage';
@@ -39,7 +39,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
-import Context from './components/Context';
+import {Context, ContextProvider} from './components/Context';
 import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
@@ -59,63 +59,65 @@ import myReviews from './pages/myReviews';
 //const App: React.FC = () => (
   function App () {
 
-    const [ loggedIn, setLoggedIn ] = useState(false);
-    const [ user, setUser ] = useState<User>();
-    const [ token, setToken ] = useState<string>();
-    const [ id, setId ] = useState<number>();
-    const [ isAdmin, setAdmin ] = useState<boolean>(false);
-    const [ email, setEmail ] = useState<string>();
-    const globals = {
-      loggedInState: loggedIn,
-      currentUser: user,
-      token,
-      id,
-      isAdmin,
-      email,
+    // const [ loggedIn, setLoggedIn ] = useState(false);
+    // const [ user, setUser ] = useState<User>();
+    // const [ token, setToken ] = useState<string>();
+    // const [ id, setId ] = useState<number>();
+    // const [ isAdmin, setAdmin ] = useState<boolean>(false);
+    // const [ email, setEmail ] = useState<string>();
+    // const globals = {
+    //   loggedInState: loggedIn,
+    //   currentUser: user,
+    //   token,
+    //   id,
+    //   isAdmin,
+    //   email,
 
-      setLoggedIn,
-      setUser,
-      setToken,
-      setId,
-      setAdmin,
-      setEmail
-    }
+    //   setLoggedIn,
+    //   setUser,
+    //   setToken,
+    //   setId,
+    //   setAdmin,
+    //   setEmail
+    // }
 
-    // If user was previously logged in, reload user data
-    useEffect(() => {
-      const loggedInUser = localStorage.getItem('user')
-      if (loggedInUser) {
-        console.log(loggedInUser);
-        const foundUser = JSON.parse(loggedInUser);
-        setUser(foundUser);
-        setLoggedIn(true);
+    // // If user was previously logged in, reload user data
+    // useEffect(() => {
+    //   const loggedInUser = localStorage.getItem('user')
+    //   if (loggedInUser) {
+    //     console.log(loggedInUser);
+    //     const foundUser = JSON.parse(loggedInUser);
+    //     setUser(foundUser);
+    //     setLoggedIn(true);
 
-        const savedToken = localStorage.getItem('token');
-        if (savedToken)
-          setToken(savedToken);
-        const savedId = localStorage.getItem('id');
-        if (savedId)
-          setId(+savedId);
-        const savedAdmin = Boolean(JSON.parse(localStorage.getItem('admin') || 'false'));
-        if (savedAdmin)
-          setAdmin(savedAdmin);
-        const savedEmail = localStorage.getItem('email');
-        if (savedEmail)
-          setEmail(savedEmail);
+    //     const savedToken = localStorage.getItem('token');
+    //     if (savedToken)
+    //       setToken(savedToken);
+    //     const savedId = localStorage.getItem('id');
+    //     if (savedId)
+    //       setId(+savedId);
+    //     const savedAdmin = Boolean(JSON.parse(localStorage.getItem('admin') || 'false'));
+    //     if (savedAdmin)
+    //       setAdmin(savedAdmin);
+    //     const savedEmail = localStorage.getItem('email');
+    //     if (savedEmail)
+    //       setEmail(savedEmail);
 
-        console.log(localStorage.getItem('token'))
-      }
-    }, []);
+    //     console.log(localStorage.getItem('token'))
+    //   }
+    // }, []);
+
     function UserRoute(props: any) {
       // if (user !== null && user?.type === 'NORMAL') {
-
+      const context = useContext(Context);
+      const user = context.currentUser;
       if (user !== null ) {
           return (<Route {...props} />);
       }
       return (<Redirect to={{ pathname: '/' }} />);
     }
     return (
-      <Context.Provider value={globals}>
+      <ContextProvider>
           <Router history={history}>
             <Switch>
               {/* /* <Route path="/testform" component={Basic} /> */}
@@ -184,7 +186,7 @@ import myReviews from './pages/myReviews';
               
             </Switch>
           </Router>
-      </Context.Provider>
+      </ContextProvider>
     );
 }
 export default App;

@@ -45,6 +45,7 @@ import Context from '../components/Context';
   const AdvancedRecipeSearch: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const history = useHistory()
     const { navigate } = useContext(NavContext);
+    const context = useContext(Context);
 
     const {
         handleSubmit,
@@ -84,6 +85,7 @@ import Context from '../components/Context';
         const config = {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
             },
         };
         const body = JSON.stringify(getValues());
