@@ -63,7 +63,8 @@ function SpecifiedRecipe(this: any) {
         //  console.log("Status is "+res.status);
          // history.push('/recipes');
       //  }
-  
+    }).catch( e => {
+      history.push('/login');
       });
       return res;
     }catch (e) {
