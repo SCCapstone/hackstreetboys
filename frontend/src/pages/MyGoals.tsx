@@ -76,8 +76,8 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
    
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('http://localhost:8080/v1/user/goals/')
-       fetch(`http://localhost:8080/v1/user/goals/`)
+       //fetch('https://api.fridger.recipes/v1/user/goals/')
+       fetch(`https://api.fridger.recipes/v1/user/goals/`)
        .then(response => response.json())
        .then(data => setGoals(data))
     }, [])
@@ -97,8 +97,8 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('http://localhost:8080/v1/user/goals/')
-       fetch(`http://localhost:8080/v1/user/goal/${id}/`)
+       //fetch('https://api.fridger.recipes/v1/user/goals/')
+       fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
        .then(response => response.json())
        .then(data => setGoal(data))
     }, [])
@@ -109,6 +109,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
    
   const userGoalDisplay = () => {
+      //if(context.id == goal.userId){
       return <>
        <IonGrid>
          <IonRow>
@@ -124,13 +125,13 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                    </IonCard>
                  </Link>
               </IonCol>
-        
+      
             )}
             
           </IonRow>
         </IonGrid>
       </>
-
+      //}
   }
   
     return (

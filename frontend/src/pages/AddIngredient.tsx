@@ -69,7 +69,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             };
             const body = JSON.stringify(getValues());
             const response = axios.post(
-                'http://localhost:8080/v1/ingredient/',
+                'https://api.fridger.recipes/v1/ingredient/',
                 body,
                 config
             ).then(response => {

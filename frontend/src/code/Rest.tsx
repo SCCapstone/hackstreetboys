@@ -1,5 +1,5 @@
 // Local testing BASE_URL
-const BASE_URL = 'http://localhost:8080/';
+const BASE_URL = 'https://api.fridger.recipes/';
 
 export interface RestOptions {
     method: string;

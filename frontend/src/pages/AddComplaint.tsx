@@ -74,7 +74,7 @@ import { User } from '../models/User';
             };
             const body = JSON.stringify(getValues());
             const res = axios.post(
-                'http://localhost:8080/v1/complaint/',
+                'https://api.fridger.recipes/v1/complaint/',
                 //'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/comlpaint/',
                 body,
                 config

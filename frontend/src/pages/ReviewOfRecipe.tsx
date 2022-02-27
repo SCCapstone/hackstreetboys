@@ -35,8 +35,8 @@ function SpecifiedRecipe(this: any) {
   
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`http://localhost:8080/v1/review/${id}/`)
-    //fetch(`http://localhost:8080/v1/review/${id}`)
+    fetch(`https://api.fridger.recipes/v1/review/${id}/`)
+    //fetch(`https://api.fridger.recipes/v1/review/${id}`)
       .then(response => response.json())
       .then(data => setReview(data))
   }, [id])
@@ -55,7 +55,7 @@ function SpecifiedRecipe(this: any) {
       //   "recipeId":recipe.id
       // }
       const res = await axios.delete(
-        `http://localhost:8080/v1/recipe/review/${review.id}`,
+        `https://api.fridger.recipes/v1/recipe/review/${review.id}`,
         config
         ).then(res=> {
         console.log("Removed review by" + review.id);

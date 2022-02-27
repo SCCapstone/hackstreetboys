@@ -45,7 +45,7 @@ function IngredientPage(this: any) {
 
     const {id} = useParams<routeParams>();
     useEffect(() => {
-        fetch(`http://localhost:8080/v1/ingredient/${id}`)
+        fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [id])
@@ -69,7 +69,7 @@ function IngredientPage(this: any) {
         rating: 5.0
     }]);
     useEffect(() => {
-        fetch("http://localhost:8080/v1/recipe/")
+        fetch("https://api.fridger.recipes/v1/recipe/")
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])

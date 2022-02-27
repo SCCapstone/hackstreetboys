@@ -71,7 +71,7 @@ import { Ingredient } from '../models/Ingredient';
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`http://localhost:8080/v1/recipe/${id}`)
+        fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
           .then(response => response.json())
           .then(data => setRecipe(data))
       }, [])
@@ -111,8 +111,8 @@ import { Ingredient } from '../models/Ingredient';
 
         console.log("Body" + body)
         const res = await axios.put(
-            //'http://localhost:8080/v1/recipe/',
-            `http://localhost:8080/v1/recipe/`,
+            //'https://api.fridger.recipes/v1/recipe/',
+            `https://api.fridger.recipes/v1/recipe/`,
 
             body,
             config
@@ -139,8 +139,8 @@ import { Ingredient } from '../models/Ingredient';
         };
         const body = JSON.stringify(getValues());
         const res = await axios.delete(
-            //'http://localhost:8080/v1/recipe/',
-            `http://localhost:8080/v1/recipe/${recipe.id}`,
+            //'https://api.fridger.recipes/v1/recipe/',
+            `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
             console.log("Deleted Recipe by " + recipe.id);
