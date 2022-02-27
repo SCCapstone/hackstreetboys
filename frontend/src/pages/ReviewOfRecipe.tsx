@@ -48,6 +48,7 @@ function SpecifiedRecipe(this: any) {
       const config = {
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Bearer ${context.token}`
         },
       };
       // const body = {
