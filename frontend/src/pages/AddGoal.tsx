@@ -78,6 +78,7 @@ import Context from '../components/Context';
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${context.token}`
                 },
             };
             console.log("User ID: " + context.currentUser?.id)
