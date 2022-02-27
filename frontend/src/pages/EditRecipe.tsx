@@ -103,6 +103,7 @@ import { Ingredient } from '../models/Ingredient';
         const config = {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
             },
         };
         setValue("id", recipe.id);
@@ -133,6 +134,7 @@ import { Ingredient } from '../models/Ingredient';
         const config = {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
             },
         };
         const body = JSON.stringify(getValues());

@@ -96,6 +96,7 @@ import { Goal } from '../models/Goal';
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${context.token}`
                 },
             };
             const body = JSON.stringify(getValues());
