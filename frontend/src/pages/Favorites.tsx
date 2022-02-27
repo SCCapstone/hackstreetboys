@@ -133,7 +133,8 @@ function Favorites() {
                   <IonRow>
                       {favorites.map(favorite =>
                         <IonCol sizeXs="12" sizeSm="6" key={favorite.id}>
-                         <Link to={`/recipe/${favorite.recipeId}`}>
+                         {/* <Link to={`/recipe/${favorite.recipeId}`}> */}
+                         <Link to={`/favorite/${favorite.recipeId}`}>
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 

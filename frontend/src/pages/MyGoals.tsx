@@ -60,8 +60,30 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const history = useHistory();
   const [checked, setChecked] = useState(false);
   const {id} = useParams<routePrams>();
+ 
+  const [goals, setGoals] = React.useState<[Goal]>([{
+        id: 1,
+        endGoal: "Lose",
+        calories: 500,
+        carbohydrates: 500,
+        protein: 300,
+        fat: 250,
+        currentWeight: 400.0,
+        goalWeight: 180.0,
+        userId: Number(context.currentUser?.id)
+    }]);
+   // const {id} = useParams<routeParams>();
+   
+    useEffect(() => {
+       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
+       //fetch('https://api.fridger.recipes/v1/user/goals/')
+       fetch(`https://api.fridger.recipes/v1/user/goals/`)
+       .then(response => response.json())
+       .then(data => setGoals(data))
+    }, [])
+   console.log(goals);
 
-  const [goal, setGoal] = React.useState<Goal>({
+   const [goal, setGoal] = React.useState<Goal>({
     id: 1,
     endGoal: "Lose",
     calories: 500,
@@ -81,54 +103,17 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
        .then(data => setGoal(data))
     }, [])
    console.log(goal);
- 
-  const [goals, setGoals] = React.useState<[Goal]>([{
-        id: 1,
-        endGoal: "Lose",
-        calories: 500,
-        carbohydrates: 500,
-        protein: 300,
-        fat: 250,
-        currentWeight: 400.0,
-        goalWeight: 180.0,
-        userId: Number(context.currentUser?.id)
-    }]);
-   // const {id} = useParams<routeParams>();
+
    
-   
-    useEffect(() => {
 
 
-       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('https://api.fridger.recipes/v1/user/goals/')
-       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch(`https://api.fridger.recipes/v1/user/goals/`)
-
-       //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('https://api.fridger.recipes/v1/user/goals/')
-       fetch(`https://api.fridger.recipes/v1/user/goals/`)
-       .then(response => response.json())
-       .then(data => setGoals(data))
-    }, [])
-   console.log(goals);
-   console.log(goal.userId);
-
-
-  //   const [ loggedIn, setLoggedIn ] = useState(false);
-  //   const [ user, setUser ] = useState<User>();
-  //   const globals = {
-  //   loggedInState: loggedIn,
-  //   currentUser: user,
-  //   setLoggedIn,
-  //   setUser
-  // }
    
   const userGoalDisplay = () => {
-    if(context.currentUser?.id == goal.userId) {
+      //if(context.id == goal.userId){
       return <>
        <IonGrid>
          <IonRow>
-            {goals.map(goal =>
+            {goals.map(goal => 
                <IonCol sizeXs="12" sizeSm="6" key={goal.id}>
                    <Link to={`/goal/${goal.id}`}>
                        <IonCard button routerDirection="forward">
@@ -140,11 +125,13 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                    </IonCard>
                  </Link>
               </IonCol>
+      
             )}
+            
           </IonRow>
         </IonGrid>
       </>
-    }
+      //}
   }
   
     return (

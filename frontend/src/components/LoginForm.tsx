@@ -47,7 +47,7 @@ export const LoginForm: React.FC = () => {
 
             axios.get(
             // Public API
-            `http://localhost:8080/v1/user/${response.data.id}`
+            `https://api.fridger.recipes/v1/user/${response.data.id}`
             // Local API
             // `http://localhost:8080/v1/user/${response.data.id}`
             ).then(function (response) {

@@ -72,8 +72,8 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/reviews`)
-    fetch(`https://api.fridger.recipes/v1/reviews`)
+    //fetch(`https://api.fridger.recipes/v1/favorites`)
+    fetch(`https://api.fridger.recipes/v1/favorites`)
     .then(response => response.json())
     .then(data => setFavorite(data))
   }, [])
@@ -171,8 +171,14 @@ useEffect(() => {
 // }
 
 const fav = async () => {
-  addFav();
-  removeFav();
+  if(recipe.id == favorites.recipeId) {
+    removeFav();
+  }
+  else{
+    addFav();
+  }
+  
+  
   //history.push(`/favorites/recipe/${id}`);
   //navigate('/favorites');
 }
@@ -221,14 +227,14 @@ const removeFav = async () => {
     //   "recipeId":recipe.id
     // }
     const res = await axios.delete(
-      `https://api.fridger.recipes/v1/favorites/recipe/${recipe.id}`,
+      `https://api.fridger.recipes/v1/favorites/${recipe.id}`,
       config
       ).then(res=> {
       console.log("Removed from favorites by" + recipe.id);
-      // if(res.status == 200){
-      //   console.log("Status is "+res.status);
-      //   navigate('/favorites');
-      // }
+      if(res.status == 200){
+        console.log("Status is "+res.status);
+        navigate('/favorites');
+      }
 
     });
     return res;

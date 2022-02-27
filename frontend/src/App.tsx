@@ -46,7 +46,7 @@ import Ingredient from "./pages/Ingredient";
 import MyPantry from './pages/myPantry';
 import AddGoal from './pages/AddGoal';
 import EditRecipe from './pages/EditRecipe';
-
+import ReviewOfRecipe from './pages/ReviewOfRecipe'
 //import Review from './pages/MyReviews';
 
 import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
@@ -123,6 +123,8 @@ import myReviews from './pages/myReviews';
               {/* /* <Route path="/testform" component={Basic} /> */}
               {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
               <Route path="/complaint/add" component={AddComplaint}/>
+              <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
+              <Route path="/favorite/:id" component={Recipe}/>
               <Route path="/complaint/:id" component={Complaint}/>
               <Route path="/review/add" component={AddReview}/>
               <Route path="/review/:id" component={Review}/>
