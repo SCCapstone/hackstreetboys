@@ -61,7 +61,7 @@ export const LoginForm: React.FC = () => {
                     setError(true);
                     return;
                 }
-            })           
+            })
         })
         // If an authorization error occurred display error message
         .catch(function (response) {

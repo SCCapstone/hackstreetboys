@@ -11,7 +11,6 @@ import history from '../History';
 const RegistrationForm: React.FC = () => {
     const context = useContext(Context);
 
-    // TODO
     const [pwsMatch, setPwsMatch] = useState(true);
     const [error, setError] = useState(false);
 
