@@ -1,6 +1,6 @@
-import { IonItem, IonLabel, IonInput, IonButton, IonDatetime } from "@ionic/react";
+import { IonItem, IonLabel, IonInput, IonButton, IonDatetime, IonAlert } from "@ionic/react";
 import { Link, RouteComponentProps } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 import axios, {AxiosError} from 'axios';
@@ -10,9 +10,8 @@ import history from '../History';
 
 export const EditProfileForm: React.FC = () => {
     const context = useContext(Context);
-    const user = context.currentUser;
-
-    console.log(context.id)
+    const [user, setUser] = useState(context.currentUser);
+    const [showAlert, setShowAlert] = useState(false);
 
     const [error, setError] = useState(false);
 
@@ -66,7 +65,7 @@ export const EditProfileForm: React.FC = () => {
 
                 axios.get(
                 // Public API
-                // `http://localhost:8080/v1/user/${context.id}`
+                // `http://api.fridger.recipes/v1/user/${context.id}`
                 // Local API
                 `http://localhost:8080/v1/user/${context.id}`
                 ).then(function (response) {
@@ -96,7 +95,41 @@ export const EditProfileForm: React.FC = () => {
         // return false;
     };
 
+    const onDelete = () => {
+        // event.preventDefault();
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${context.token}`
+                },
+            };
+            const body = JSON.stringify(getValues());
+            axios.delete(
+                // `https://api.fridger.recipes/v1/user/${user.id}`,
+                `http://localhost:8080/v1/user/${user.id}`,
+                config
+            ).then( res =>{
+                console.log("Deleted User by " + user.id);
+                localStorage.clear();
+                context.setLoggedIn(false);
+                context.setToken(undefined);
+                context.setId(undefined)
+                context.setAdmin(false);
+                context.setEmail(undefined);
+                context.setUser(undefined);
+            });
+            // return res;
+        } catch (e) {
+            console.error(e);
+        }
+        // alert(JSON.stringify(data, null, 2));
+    
+        return false;
+    };
+
     return (
+        <div>
         <form onSubmit={onSubmit}>
             <IonItem>
                 <IonLabel position="floating">Name</IonLabel>
@@ -163,6 +196,30 @@ export const EditProfileForm: React.FC = () => {
                 </IonButton>
             </Link>
         </form>
+
+        <IonButton  color="danger" onClick={() => setShowAlert(true)} expand="block">Delete Account</IonButton>
+        <IonAlert
+            isOpen={showAlert}
+            onDidDismiss={() => setShowAlert(false)}
+            cssClass='my-custom-class'
+            header={'Confirm Deletion?'}
+            message={'Are you sure you want to delete your account? This cannot be undone.'}
+            buttons={[
+                {
+                    text: 'Cancel',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                },
+                {
+                    text: 'Okay',
+                    handler: () => {
+                        onDelete();
+                        history.push('/');
+                    }
+                }
+            ]}
+        />
+        </div>
     );
 }
 

@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
         u.setEmail(dto.getEmail());
         u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
+        u.setBio(dto.getBio());
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
