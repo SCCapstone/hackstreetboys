@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import recipes.fridger.backend.crud.Roles;
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreateUserDTO;
+import recipes.fridger.backend.dto.UpdateUserDTO;
 import recipes.fridger.backend.model.Role;
 import recipes.fridger.backend.model.RoleEnum;
 import recipes.fridger.backend.model.User;
@@ -35,6 +36,7 @@ public class UserServiceImpl implements UserService {
         u.setEmail(dto.getEmail());
         u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
+        u.setBio(dto.getBio());
         u.setDob(dto.getDob());
         u.setHeight_in(dto.getHeight_in());
         u.setWeight_lb(dto.getWeight_lb());
@@ -67,20 +69,30 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public Iterable<User> getUsersByIdAndEmail(Long id, String email) {
-        return users.findByIdAndEmail(id, email);
+    public void updateUser(Long id, UpdateUserDTO dto) throws Exception {
+        Optional<User> optionalUser = users.findById(dto.getId().longValue());
+        if(optionalUser.isPresent()) {
+            User u = optionalUser.get();
+
+            if (dto.getName() != null)
+                u.setName(dto.getName());
+            if (dto.getBio() != null)
+                u.setBio(dto.getBio());
+            if (dto.getDob() != null)
+                u.setDob(dto.getDob());
+            if (dto.getHeight_in() != null)
+                u.setHeight_in(dto.getHeight_in());
+            if (dto.getWeight_lb() != null)
+                u.setWeight_lb(dto.getWeight_lb());
+                
+            users.save(u);
+        }
     }
 
     @Transactional
     @Override
-    public User authenticateUser(String email, String password) {
-        Optional<User> user = users.findByEmail(email);
-        if (user.isPresent()) {
-            User u = user.get();
-            if (passwordEncoder.matches(password, u.getPassword()))
-                return u;
-        }
-        return null;
+    public Iterable<User> getUsersByIdAndEmail(Long id, String email) {
+        return users.findByIdAndEmail(id, email);
     }
 
     @Transactional
