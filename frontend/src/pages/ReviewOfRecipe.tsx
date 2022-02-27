@@ -13,6 +13,9 @@ import SideBar from '../components/SideBar';
 import React, { useEffect } from 'react';
 import { Review } from '../models/Review'
 import Header from "../components/Header";
+import Context from '../components/Context';
+import {useContext} from 'react';
+import axios from "axios";
 
 interface ReviewExample {
   review: Review,
@@ -21,6 +24,7 @@ export interface routePrams {
   id: string;
 }
 function SpecifiedRecipe(this: any) {
+  const context = useContext(Context);
   const [review, setReview] = React.useState<Review>({
     id: 1,
     rating: 0,
@@ -31,13 +35,58 @@ function SpecifiedRecipe(this: any) {
   
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/${id}/`)
-    //fetch(`https://api.fridger.recipes/v1/review/${id}`)
+    fetch(`http://localhost:8080/v1/review/${id}/`)
+    //fetch(`http://localhost:8080/v1/review/${id}`)
       .then(response => response.json())
       .then(data => setReview(data))
   }, [id])
 
   console.log(review);
+
+  const onDelete = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+      // const body = {
+      //   "userId":context.currentUser?.id,
+      //   "recipeId":recipe.id
+      // }
+      const res = await axios.delete(
+        `http://localhost:8080/v1/recipe/review/${review.id}`,
+        config
+        ).then(res=> {
+        console.log("Removed review by" + review.id);
+        //if(res.status == 200){
+        //  console.log("Status is "+res.status);
+         // history.push('/recipes');
+      //  }
+  
+      });
+      return res;
+    }catch (e) {
+      console.error(e);
+  }
+  return false;
+  };
+  
+
+  const adminDelete = () => {
+    if(context.isAdmin) {
+       return <>
+       <IonButton onClick={() =>
+                onDelete()}
+               color='danger' expand='full'>
+       Delete Review
+     </IonButton>
+       </>
+     }
+     else {
+       return <></>
+     }
+   }
 
   return (
     <Router history={history}>
@@ -60,6 +109,7 @@ function SpecifiedRecipe(this: any) {
                     <h2>By: {review.authorId}</h2> 
                 </IonCardContent>
               </IonCard>
+              {adminDelete()}
             </IonContent>
           </IonPage>
         </IonApp>

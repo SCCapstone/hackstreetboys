@@ -27,7 +27,7 @@ export const LoginForm: React.FC = () => {
         const user = { email, password }
         await axios.post(
             // Public API
-            `https://api.fridger.recipes/v1/auth/login`,
+            `http://localhost:8080/v1/auth/login`,
             // Local API
             // `https://api.fridger.recipes/v1/auth/login`,
             user

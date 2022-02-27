@@ -91,7 +91,7 @@ import { User } from '../models/User';
             };
             const body = JSON.stringify(getValues());
             const res = axios.post(
-                'https://api.fridger.recipes/v1/review/',
+                'http://localhost:8080/v1/review/',
                 //'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/review/',
                 body,
                 config

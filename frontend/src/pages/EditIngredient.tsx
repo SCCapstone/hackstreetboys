@@ -65,7 +65,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
+        fetch(`http://localhost:8080/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [])
@@ -96,7 +96,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             const body = JSON.stringify(getValues());
             console.log("Body" + body)
             const response = await axios.put(
-                `https://api.fridger.recipes/v1/ingredient/`,
+                `http://localhost:8080/v1/ingredient/`,
                 body,
                 config
             ).then( response =>{
@@ -119,7 +119,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             };
 
             const response = await axios.delete(
-                `https://api.fridger.recipes/v1/ingredient/${ingredient.id}`,
+                `http://localhost:8080/v1/ingredient/${ingredient.id}`,
                 config
             ).then( response =>{
                 console.log("DELETED"+ingredient.name)

@@ -48,8 +48,8 @@ function RecipeReviews() {
   //const { id } = useParams<routePrams>();
   
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/`)
-    //fetch('https://api.fridger.recipes/v1/review/')
+    fetch(`http://localhost:8080/v1/review/`)
+    //fetch('http://localhost:8080/v1/review/')
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])

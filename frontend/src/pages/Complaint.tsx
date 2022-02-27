@@ -50,8 +50,8 @@ function ComplaintPage() {
   const { id } = useParams<routePrams>();
   
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/complaint/`)
-    fetch('https://api.fridger.recipes/v1/complaint/')
+    //fetch(`http://localhost:8080/v1/complaint/`)
+    fetch('http://localhost:8080/v1/complaint/')
     .then(response => response.json())
     .then(data => setComplaint(data))
   }, [id])

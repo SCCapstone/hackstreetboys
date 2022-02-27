@@ -46,8 +46,8 @@ function Favorites() {
     recipeId: 1
   });
   // useEffect(() => {
-  //   fetch(`https://api.fridger.recipes/v1/favorites/${id}/`)
-  //   //fetch(`https://api.fridger.recipes/v1/favorites`)
+  //   fetch(`http://localhost:8080/v1/favorites/${id}/`)
+  //   //fetch(`http://localhost:8080/v1/favorites`)
   //   .then(response => response.json())
   //   .then(data => setFavorite(data))
   // }, [])
@@ -58,8 +58,8 @@ function Favorites() {
     recipeId: 1
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
-    //fetch(`https://api.fridger.recipes/v1/favorites`)
+    fetch(`http://localhost:8080/v1/favorites/`)
+    //fetch(`http://localhost:8080/v1/favorites`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
@@ -84,8 +84,8 @@ function Favorites() {
   })
 
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
-    fetch(`https://api.fridger.recipes/v1/recipe/`)
+    //fetch(`http://localhost:8080/v1/recipe/${id}`)
+    fetch(`http://localhost:8080/v1/recipe/`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [id])
@@ -94,7 +94,7 @@ function Favorites() {
   
 
   // useEffect(() => {
-  //   fetch('https://api.fridger.recipes/v1/recipe/')
+  //   fetch('http://localhost:8080/v1/recipe/')
   //   .then(res => res.json())
   //   .then(data => setRecipe(data))
   // }, [])
@@ -133,7 +133,8 @@ function Favorites() {
                   <IonRow>
                       {favorites.map(favorite =>
                         <IonCol sizeXs="12" sizeSm="6" key={favorite.id}>
-                         <Link to={`/recipe/${favorite.recipeId}`}>
+                         {/* <Link to={`/recipe/${favorite.recipeId}`}> */}
+                         <Link to={`/favorite/${favorite.recipeId}`}>
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
 

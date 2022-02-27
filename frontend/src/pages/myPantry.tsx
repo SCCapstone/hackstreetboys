@@ -45,9 +45,7 @@ import { remove } from 'lodash';
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
 const DOMAIN = "https://api.fridger.recipes" 
-// DOMAIN options:
-// https://api.fridger.recipes  -> web server testing
-// https://api.fridger.recipes        -> mySQL + Springboot test
+
 
 const userID = 11;//TODO change this
 let refresh: number = 1;

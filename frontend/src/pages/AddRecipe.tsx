@@ -98,8 +98,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         // setValue("id",string(context.currentUser?.id);
         const body = JSON.stringify(getValues());
         const res = axios.post(
-            'https://api.fridger.recipes/v1/recipe/',
-            // 'https://api.fridger.recipes/v1/recipe/',
+            'http://localhost:8080/v1/recipe/',
+            // 'http://localhost:8080/v1/recipe/',
             body,
             config
         ).then( res =>{
@@ -125,7 +125,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
     // if(!context.currentUser){
     //     props.history.push('/login');
     // }
-    fetch("https://api.fridger.recipes/v1/ingredient/")
+    fetch("http://localhost:8080/v1/ingredient/")
         .then(response => response.json())
         .then(data => setIngredients(data))
   }, [])
