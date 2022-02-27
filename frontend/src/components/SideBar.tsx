@@ -87,12 +87,14 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
+          {context.loggedInState &&
           <IonItem button onClick={() => History.push('/editprofile')} >
           <IonIcon icon={personCircleSharp} slot="start"/>
             <IonLabel>
               Edit Profile
             </IonLabel>
           </IonItem>
+          }
 
         </IonMenuToggle>
       </IonList>

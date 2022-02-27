@@ -12,12 +12,6 @@ public class UpdateUserDTO {
     private Long id;
 
     @Size(min = 0, max = 100)
-    private String email;
-
-    @Size(min = 0, max = 100)
-    private String password;
-
-    @Size(min = 0, max = 100)
     private String name;
 
     @Size(min = 0, max = 1000)

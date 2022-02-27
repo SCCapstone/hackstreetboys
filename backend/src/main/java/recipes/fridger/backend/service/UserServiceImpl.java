@@ -64,8 +64,26 @@ public class UserServiceImpl implements UserService {
         return user.isPresent() ? user.get() : null;
     }
 
-    public void updateUser(Long id, UpdateUserDTO u) throws Exception {
-        
+    @Transactional
+    @Override
+    public void updateUser(Long id, UpdateUserDTO dto) throws Exception {
+        Optional<User> optionalUser = users.findById(dto.getId().longValue());
+        if(optionalUser.isPresent()) {
+            User u = optionalUser.get();
+
+            if (dto.getName() != null)
+                u.setName(dto.getName());
+            if (dto.getBio() != null)
+                u.setBio(dto.getBio());
+            if (dto.getDob() != null)
+                u.setDob(dto.getDob());
+            if (dto.getHeight_in() != null)
+                u.setHeight_in(dto.getHeight_in());
+            if (dto.getWeight_lb() != null)
+                u.setWeight_lb(dto.getWeight_lb());
+                
+            users.save(u);
+        }
     }
 
     @Transactional
