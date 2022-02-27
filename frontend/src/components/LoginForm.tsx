@@ -29,7 +29,7 @@ export const LoginForm: React.FC = () => {
             // Public API
             `https://api.fridger.recipes/v1/auth/login`,
             // Local API
-            // `https://api.fridger.recipes/v1/auth/login`,
+            // `http://localhost:8080/v1/auth/login`,
             user
         ).then(function (response)  {
             console.log(response.data);
