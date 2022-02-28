@@ -70,12 +70,12 @@ let refresh: number = 1;
 //   )
 // }
 
-function MyPantryNotSignedIn() {
 
-}
 function MyPantry() {
   
-  
+  const [ email, setEmail ] = useState("");
+  const [ password, setPassWord] = useState("");
+  const [ user, setUser ] = useState("");
 
   const context = useContext(Context)
   // if(context==null)
@@ -92,6 +92,12 @@ function MyPantry() {
   console.log(context)
   if(context.currentUser!=undefined) {
     thisUserID = context.currentUser!.id;
+  }
+
+  if(context!=null) {
+    setEmail(context.email!);
+    setPassWord(context.)
+
   }
 
   //Grab all ingredient for bottom section
@@ -143,7 +149,7 @@ function MyPantry() {
   
    const refreshPantry = () => {
     fetch(DOMAIN+'/v1/user/pantry/', {
-      headers: headers
+      user
     }) //pass in user id
     .then(res => {
       return res.json();
@@ -411,23 +417,23 @@ function MyPantry() {
     console.log("RECIPES");
     console.log(recipes);
   }
-  // if(!(context.currentUser && context.currentUser.id)) {
-  //   return (
-  //     <Router history={history}>
-  //       <Switch>
-  //         <IonApp>
-  //         <SideBar />
-  //           <IonPage className="ion-page" id="main-content">
-  //             <Header/>
-  //               <IonContent className="ion=page" id="main-content">
-  //               <h2>You must be signed in to use 'Your Pantry'</h2>
-  //               </IonContent>
-  //           </IonPage>
-  //         </IonApp>
-  //       </Switch>
-  //     </Router>
-  //   )
-  // } else {
+  if(!(context.currentUser && context.currentUser.id)) {
+    return (
+      <Router history={history}>
+        <Switch>
+          <IonApp>
+          <SideBar />
+            <IonPage className="ion-page" id="main-content">
+              <Header/>
+                <IonContent className="ion=page" id="main-content">
+                <h2>You must be signed in to use 'Your Pantry'</h2>
+                </IonContent>
+            </IonPage>
+          </IonApp>
+        </Switch>
+      </Router>
+    )
+  } else {
     return (
       <Router history={history}>
         <Switch>
@@ -590,6 +596,6 @@ function MyPantry() {
       </Router>
     );
   }
-//}
+}
 
 export default MyPantry;
