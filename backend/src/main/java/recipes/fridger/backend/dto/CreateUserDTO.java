@@ -32,4 +32,7 @@ public class CreateUserDTO {
 
     @DecimalMin(value = "0")
     private Double weight_lb;
+
+//    @Size(min = 0, max = 255)
+//    private String favorites;
 }

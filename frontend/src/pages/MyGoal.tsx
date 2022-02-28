@@ -29,7 +29,8 @@ function GoalPage(this: any) {
     protein: 300,
     fat: 250,
     currentWeight: 400.0,
-    goalWeight: 180.0
+    goalWeight: 180.0,
+    userId: 1
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {

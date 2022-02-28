@@ -1,5 +1,10 @@
 package recipes.fridger.backend.controller;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -9,10 +14,25 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -23,7 +43,9 @@ import recipes.fridger.backend.dto.CreatePantryDTO;
 import recipes.fridger.backend.dto.CreateUserDTO;
 import recipes.fridger.backend.mail.*;
 import recipes.fridger.backend.dto.ReturnUserDTO;
+import recipes.fridger.backend.dto.UpdateUserDTO;
 import recipes.fridger.backend.model.Pantry;
+import recipes.fridger.backend.model.RoleEnum;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.model.VerificationToken;
 import recipes.fridger.backend.service.PantryService;
@@ -35,6 +57,7 @@ import recipes.fridger.backend.dto.CreateGoalDTO;
 import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
 import recipes.fridger.backend.crud.Pantries;
+import recipes.fridger.backend.crud.Roles;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -74,16 +97,17 @@ public class UserController {
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
+
     /*
      *  USER API
      */
 
+    //no verification -> this works and is tested
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createUser(@RequestBody @Valid CreateUserDTO u) {
         try {
             userService.createUser(u);
-            emailService.sendUserVerification(u.getEmail());
             log.info("Successful creation of user");
             return ResponseEntity.ok("Created user");
         } catch (Exception e) {
@@ -93,8 +117,49 @@ public class UserController {
         }
     }
 
+    //account verification of user
+    @PostMapping("/user/registration")
+    public ModelAndView registerUserAccount(
+            @ModelAttribute("user") @Valid CreateUserDTO userDto,
+            HttpServletRequest request, Errors errors) {
+
+        try {
+            User registered = userService.registerNewUserAccount(userDto);
+            log.info("inside registerUserAccount");
+
+            String appUrl = request.getContextPath();
+            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
+                    request.getLocale(), appUrl));
+        } catch (UserAlreadyExistException uaeEx) {
+            ModelAndView mav = new ModelAndView("registration", "user", userDto);
+            mav.addObject("message", "An account for that username/email already exists.");
+            log.info("1st catch");
+            return mav;
+
+        } catch (RuntimeException ex) {
+            log.info("2nd catch");
+            return new ModelAndView("emailError", "user", userDto);
+
+        }
+
+        return new ModelAndView("successRegister", "user", userDto);
+    }
+
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @DeleteMapping(path = "/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority>  auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        User authed_user = users.findByEmail(principal.getUsername()).get();
+
+        // This shouldn't happen from the front-end
+        // Security sanity check
+        if (authed_user.getId() != id &&
+                (auths.stream().anyMatch(a -> a.getAuthority().equals("ADMIN"))))  {
+            log.warn("User with id " + authed_user.getId() + " attempted to delete user " + id + "\'s account");
+            return ResponseEntity.badRequest().body("Attempting to delete someone else's account");
+        }
+
         try {
             userService.deleteUser(id);
             log.info("Successfully deleted User #" + id);
@@ -106,11 +171,17 @@ public class UserController {
         }
     }
 
-    // TODO use ReturnUserDTO instead of User
     @GetMapping(path = "/")
-    public @ResponseBody Iterable<User>
+    public @ResponseBody Iterable<ReturnUserDTO>
     getUsers(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return userService.getUsersByIdAndEmail(id, email);
+        Iterable<User> users = userService.getUsersByIdAndEmail(id, email);
+        List<ReturnUserDTO> userDtos = new ArrayList<ReturnUserDTO>();
+        for (User u: users) {
+            ReturnUserDTO dto = new ReturnUserDTO();
+            dto.convertFromUser(u);
+            userDtos.add(dto);
+        }
+        return userDtos;
     }
 
     @GetMapping(path = "/{id}")
@@ -120,13 +191,32 @@ public class UserController {
         return toRet;
     }
 
-    // TODO update user, match token w/ username for security
-    @PreAuthorize("hasRole('USER')")
-    @PutMapping(path = "/{id}")
-    public @ResponseBody ReturnUserDTO updateUser(@PathVariable Long id) {
-        ReturnUserDTO toRet = new ReturnUserDTO();
-        toRet.convertFromUser(userService.getUser(id));
-        return toRet;
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+    @PutMapping(path = "/")
+    public ResponseEntity<String>
+    updateUser(@RequestBody @Valid UpdateUserDTO u) {
+        UserDetails principal = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Collection<? extends GrantedAuthority>  auths = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        User authed_user = users.findByEmail(principal.getUsername()).get();
+
+        // This shouldn't happen from the front-end
+        // Security sanity check
+        if (authed_user.getId() != u.getId() &&
+                (auths.stream().anyMatch(a -> a.getAuthority().equals("ADMIN")))) {
+            log.warn("User with id " + authed_user.getId() + " attempted to modify user " + u.getId() + "\'s account");
+            return ResponseEntity.badRequest().body("Attempting to modify someone else's account");
+        }
+
+        try {
+            userService.updateUser(u.getId(),u);
+            log.info("Log:" + String.valueOf(u));
+            log.info("Successful update of user");
+            return ResponseEntity.ok("Updated User");
+
+        } catch (Exception e) {
+            log.warn("Unable to update user\n" + e.getMessage());
+            return ResponseEntity.internalServerError().body("Unable to update user\n" + e.getMessage());
+        }
     }
 
     @GetMapping("/registrationConfirm")
@@ -156,27 +246,7 @@ public class UserController {
     }
 
     //@PreAuthorization("hasRole('USER') or hasRole(‘ADMIN’)")
-    @PostMapping("/user/registration")
-    public ModelAndView registerUserAccount(
-            @ModelAttribute("user") @Valid CreateUserDTO userDto,
-            HttpServletRequest request, Errors errors) {
 
-        try {
-            User registered = userService.registerNewUserAccount(userDto);
-
-            String appUrl = request.getContextPath();
-            eventPublisher.publishEvent(new OnRegistrationCompleteEvent(registered,
-                    request.getLocale(), appUrl));
-        } catch (UserAlreadyExistException uaeEx) {
-            ModelAndView mav = new ModelAndView("registration", "user", userDto);
-            mav.addObject("message", "An account for that username/email already exists.");
-            return mav;
-        } catch (RuntimeException ex) {
-            return new ModelAndView("emailError", "user", userDto);
-        }
-
-        return new ModelAndView("successRegister", "user", userDto);
-    }
 
 
 
@@ -221,9 +291,12 @@ public class UserController {
                 @RequestParam(required = false) Double protein,
                 @RequestParam(required = false) Double fat,
                 @RequestParam(required = false) Double currWeight,
-                @RequestParam(required = false) Double goalWeight)
+                @RequestParam(required = false) Double goalWeight,
+                @RequestParam(required = false) Long userId)
         {
-            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight);
+            log.info("Returning all goals");
+            return goalService.getGoals(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight, userId);
+
         }
 
 
@@ -238,11 +311,12 @@ public class UserController {
      *  PANTRY API
      */
 
-    @PostMapping(path = "/pantry") //TODO create path
+    @PostMapping(path = "/pantry")
     public ResponseEntity<String>
     createPantry(@RequestBody @Valid CreatePantryDTO p) {
         try {
             pantryService.createPantry(p);
+            log.info("Log:" + String.valueOf(p));
             log.info("Successful creation of pantry");
             return ResponseEntity.ok("Created pantry");
         } catch (Exception e) {
@@ -250,29 +324,73 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to create pantry" + e.getMessage());
         }
     }
-    @DeleteMapping(path = "/pantry/{pantryId}") //TODO create path
+    @DeleteMapping(path = "/pantry/{id}") //TODO create path
     public ResponseEntity<String>
     deletePantry(@PathVariable Long id) {
         try {
             pantryService.deletePantry(id);
             log.info("Successfully delete pantry #"+id);
-            return ResponseEntity.ok("Deleted recipe");
+            return ResponseEntity.ok("Deleted pantry");
         } catch (Exception e) {
-            log.warn("Unable to delete recipe #" +id);
+            log.warn("Unable to delete pantry" +id);
             return ResponseEntity.internalServerError().body("Unable to delete recipe");
         }
     }
+    @DeleteMapping(path = "/pantry")
+    public ResponseEntity<String> clearPantry() {
+        try {
+            pantryService.clearPantry();
+            log.info("Successfully deleted all pantry items. You wield a dangerous power!");
+            return ResponseEntity.ok("Deleted all pantry items");
+        } catch (Exception e) {
+            log.warn("Unable to clear pantry");
+            return ResponseEntity.internalServerError().body("Unable to clear pantry");
+        }
+    }
+//    // TODO We should look at restructuring/refactoring this. Duplicate of the User GET mappings
+//    @GetMapping(path = "/pantry")
+//    public @ResponseBody Pantry
+//    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
+//        return pantryService.getPantryByUserID(id);
+//    }
+    @PutMapping(path = "/pantry/{id}/increase")
+    public ResponseEntity<String>
+    incrementPantryByOne(@PathVariable Long id) {
+        try {
+            pantryService.incrementPantryByOne(id);
+            //log.info("Successfully Incremented pantry item by 1");
+            return ResponseEntity.ok("Successfully Incremented pantry item by 1");
+        } catch (Exception e) {
+            log.warn("Unable to update pantry, does it exist?");
+            return ResponseEntity.internalServerError().body("Unable to update pantry, does it exist?");
+        }
+    }
+    @PutMapping(path = "/pantry/{id}/decrease")
+    public ResponseEntity<String>
+    decrementPantryByOne(@PathVariable Long id) {
+        try {
+            pantryService.decrementPantryByOne(id);
+            //log.info("Successfully Incremented pantry item by 1");
+            return ResponseEntity.ok("Successfully Incremented pantry item by 1");
+        } catch (Exception e) {
+            log.warn("Unable to decrement item. numIngredient can not go less than 0");
+            return ResponseEntity.internalServerError().body("Unable to update pantry, does it exist?");
+        }
+    }
+
 
     @GetMapping(path = "/pantry")
-    public @ResponseBody Pantry
-    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
-        return pantryService.getPantryByID(id);
+    public @ResponseBody Iterable<Pantry>
+    getAllPantrys() {
+        log.info("Returning pantries");
+        return pantryService.getAllPantrys();
     }
 
     @GetMapping(path= "/pantry/{pantryId}")
     public @ResponseBody Pantry
-    getPantryByID(@PathVariable Long pantryId)
+    getPantryByPantryID(@PathVariable Long pantryId)
     {
-        return pantryService.getPantryByID(pantryId);
+        return pantryService.getPantryByPantryID(pantryId);
     }
 }
+

@@ -47,7 +47,7 @@ public class RegistrationListener implements
         String recipientAddress = user.getEmail();
         String subject = "Fridger Registration Confirmation";
         String confirmationUrl
-                = event.getAppUrl() + "/regitrationConfirm.html?token=" + token;
+                = event.getAppUrl() + "/registrationConfirm.html?token=" + token;
         String message = messages.getMessage("message.regSucc", null, event.getLocale());
 
         SimpleMailMessage email = new SimpleMailMessage();
@@ -58,32 +58,5 @@ public class RegistrationListener implements
         mailSender.send(email);
         log.info("Sending confirmation email to " + recipientAddress);
     }
-
-//    @GetMapping("/v1/user/regitrationConfirm")
-//    public String confirmRegistration
-//            (WebRequest request, Model model, @RequestParam("token") String token) {
-//
-//        Locale locale = request.getLocale();
-//
-//        VerificationToken verificationToken = userService.getVerificationToken(token);
-//        if (verificationToken == null) {
-//            String message = messages.getMessage("auth.message.invalidToken", null, locale);
-//            model.addAttribute("message", message);
-//            return "redirect:/badUser.html?lang=" + locale.getLanguage();
-//        }
-//
-//        User user = verificationToken.getUser();
-//        Calendar cal = Calendar.getInstance();
-//        if ((verificationToken.getExpiryDate().getTime() - cal.getTime().getTime()) <= 0) {
-//            String messageValue = messages.getMessage("auth.message.expired", null, locale)
-//            model.addAttribute("message", messageValue);
-//            return "redirect:/badUser.html?lang=" + locale.getLanguage();
-//        }
-//
-//        user.setEnabled(true);
-//        service.saveRegisteredUser(user);
-//        return "redirect:/login.html?lang=" + request.getLocale().getLanguage();
-//    }
-
 
 }

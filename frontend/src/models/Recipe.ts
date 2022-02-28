@@ -10,6 +10,7 @@ export interface Recipe{
     cookTime: number,
     yield: number,
     estimatedCost: number,
+    alcoholic: boolean,
     type: string,
     tags: string,
     ingredientIds: string,
