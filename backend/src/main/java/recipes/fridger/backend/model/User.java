@@ -21,14 +21,17 @@ public class User {
      private Long id;
 
      @ManyToMany(fetch = FetchType.LAZY)
-	@JoinTable(	name = "user_roles", 
-				joinColumns = @JoinColumn(name = "user_id"), 
-				inverseJoinColumns = @JoinColumn(name = "role_id"))
-	private Set<Role> roles = new HashSet<>();
+	 @JoinTable(	name = "user_roles",
+           joinColumns = @JoinColumn(name = "user_id"),
+           inverseJoinColumns = @JoinColumn(name = "role_id"))
+	 private Set<Role> roles = new HashSet<>();
 
      @Size(min = 0, max = 100)
      @Column(name = "email", unique = true)
      private String email;
+
+     @Column(name = "enabled")
+     private boolean enabled;
 
      @Size(min = 0, max = 100)
      @Column(name = "password")

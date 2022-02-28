@@ -64,10 +64,13 @@ public class AuthController {
     public ResponseEntity<String>
     createUser(@RequestBody @Valid CreateUserDTO u) {
         // Ensure email is unique
-        if(userService.getUserByEmail(u.getEmail()) != null)
+        log.info("attempting user create");
+        if(userService.getUserByEmail(u.getEmail()) != null) {
+            log.info("already exists user" + u.getEmail());
             return ResponseEntity.badRequest().body("Account already exists");
-        
+        }
         try {
+            log.info("halfway there to user creation");
             userService.createUser(u);
             log.info("Successful creation of user");
             return ResponseEntity.ok("Created user");
