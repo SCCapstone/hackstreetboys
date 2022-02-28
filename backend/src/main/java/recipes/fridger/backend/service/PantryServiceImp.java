@@ -42,6 +42,16 @@ public class PantryServiceImp implements PantryService {
             pantries.delete(u);
         }
     }
+
+    @Transactional
+    @Override
+    public void clearUserPantry(Long userID) {
+        List<Pantry> p = pantries.findUserPantry(userID);
+        for(Pantry pan : p) {
+            pantries.delete(pan);
+        }
+    }
+
     @Transactional
     @Override
     public void clearPantry() {
