@@ -55,41 +55,42 @@ public class UserControllerTest {
 		assertThat(userService).isNotNull();
 	}
 
-    @Test
-    public void createAndAuthUser() throws Exception {
-        User user = new User();
-        // Deprecated
-        // user.setType("NORMAL");
-        user.setEmail("seonghopark@gmail.com");
-        user.setPassword("password");
-        user.setName("Seongho Park");
-        user.setBio("I am seongho park");
+    // Endpoint removed
+    // @Test
+    // public void createAndAuthUser() throws Exception {
+    //     User user = new User();
+    //     // Deprecated
+    //     // user.setType("NORMAL");
+    //     user.setEmail("seonghopark@gmail.com");
+    //     user.setPassword("password");
+    //     user.setName("Seongho Park");
+    //     user.setBio("I am seongho park");
 
-        Calendar dob = Calendar.getInstance();
-        dob.set(Calendar.YEAR, 1990);
-        dob.set(Calendar.MONTH, Calendar.JANUARY);
-        dob.set(Calendar.DAY_OF_MONTH, 1);
+    //     Calendar dob = Calendar.getInstance();
+    //     dob.set(Calendar.YEAR, 1990);
+    //     dob.set(Calendar.MONTH, Calendar.JANUARY);
+    //     dob.set(Calendar.DAY_OF_MONTH, 1);
 
-        user.setDob(dob.getTime());
-        user.setHeight_in(72);
-        user.setWeight_lb(160.0);
+    //     user.setDob(dob.getTime());
+    //     user.setHeight_in(72);
+    //     user.setWeight_lb(160.0);
 
-        when(userService.authenticateUser("seonghopark@gmail.com", "password")).thenReturn(user);
+    //     when(userService.authenticateUser("seonghopark@gmail.com", "password")).thenReturn(user);
 
-        this.mockMvc.perform(
-            post("http://localhost:8080" + "/v1/user/")
-            .contentType(MediaType.APPLICATION_JSON)
-            .content(mapper.writeValueAsString(user))
-        ).andExpect(status().isOk());
+    //     this.mockMvc.perform(
+    //         post("http://localhost:8080" + "/v1/user/")
+    //         .contentType(MediaType.APPLICATION_JSON)
+    //         .content(mapper.writeValueAsString(user))
+    //     ).andExpect(status().isOk());
 
-        assertEquals(
-            userService.authenticateUser(
-                "seonghopark@gmail.com",
-                "password"
-            ),
-            user
-        );
-    }
+    //     assertEquals(
+    //         userService.authenticateUser(
+    //             "seonghopark@gmail.com",
+    //             "password"
+    //         ),
+    //         user
+    //     );
+    // }
     @Test
     public void createPantryItem() throws Exception {
         //Create Pantry

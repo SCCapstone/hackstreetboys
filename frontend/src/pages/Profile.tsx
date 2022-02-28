@@ -29,16 +29,22 @@ import React, { useEffect, useState } from 'react';
 import { User } from '../models/User';
 
 import { useContext } from 'react';
-import Context from '../components/Context';
+import {Context, useGlobalContext} from '../components/Context';
 
 import History from '../History';
+import Favorites from './Favorites';
+
+import axios, {AxiosError} from 'axios';
+
+import { format, parseISO, formatISO } from 'date-fns';
 
 export interface routeParams {
   id: string;
 }
 
 function Users() {
-  const context = useContext(Context);
+  //const context = useContext(Context);
+  const context = useGlobalContext();
 
   const [user, setUser] = useState<User>({
     id: 23,
@@ -52,25 +58,35 @@ function Users() {
           concern for me. However, as my wife is also busy, grocery shopping and cooking
           becomes a major chore for both of us. If we could find some way to take that burden
           off our shoulders, spending time with family and friends would become easier.`,
-    dob: 'Mar. 20, 1987',
+    dob: '1987-03-20T05:00:00.000+00:00',
     height_in: 85, // Perhaps these shouldn't be publicly displayed?
-    weight_lb: 600 // Perhaps these shouldn't be publicly displayed?
+    weight_lb: 600, // Perhaps these shouldn't be publicly displayed?
+    favorites: "none yet"
   });
-
-  // const email = 'smith@gmail.com';
-  // const password = 'password';
 
   const { id } = useParams<routeParams>();
 
   useEffect(() => {
-    if(context.currentUser){
-      setUser(context.currentUser);
-    } else if(id) {
-      fetch(`https://api.fridger.recipes/v1/user/${id}`)
-        .then(response => response.json())
-        .then(data => setUser(data))
+    console.log(context)
+    console.log(context.id)
+    if(id) {
+      // axios.get(`https://api.fridger.recipes/v1/user/${id}`)
+      axios.get(`http://localhost:8080/v1/user/${id}`)
+      .then(res => {
+          setUser(res.data);
+      })
+      .catch (e => {
+        console.log(e)
+        history.push('/404')
+      })
+    } else if (context.id) {
+      // axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
+      axios.get(`http://localhost:8080/v1/user/${context.id}`)
+        .then(res => {
+            setUser(res.data);
+        })
     } else {
-      History.push('/login');
+      History.push('/');
     }
   }, [])
 
@@ -97,7 +113,7 @@ function Users() {
                   <IonCard>
                     <IonCardContent>
                       <b>Email:</b> {user.email} <br/>
-                      <b>Date of Birth:</b> {user.dob} <br/>
+                      <b>Date of Birth:</b> {format(parseISO(formatISO(new Date(user.dob))), 'MMM d, y')} <br/>
                       <b>Height:</b> {Math.floor(user.height_in / 12)} ft. {user.height_in % 12} in. <br/>
                       <b>Weight:</b> {user.weight_lb} lbs.
                     </IonCardContent>

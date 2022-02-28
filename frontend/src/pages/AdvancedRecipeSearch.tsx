@@ -45,6 +45,7 @@ import Context from '../components/Context';
   const AdvancedRecipeSearch: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const history = useHistory()
     const { navigate } = useContext(NavContext);
+    const context = useContext(Context);
 
     const {
         handleSubmit,
@@ -84,13 +85,14 @@ import Context from '../components/Context';
         const config = {
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${context.token}`
             },
         };
         const body = JSON.stringify(getValues());
         console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
-            'http://localhost:8080/v1/recipe/',
+            'https://api.fridger.recipes/v1/recipe/',
             body,
             config
         ).then( res =>{
