@@ -445,7 +445,11 @@ function MyPantry() {
             <IonPage className="ion-page" id="main-content">
               <Header/>
               <h2>PANTRY</h2>
-              <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton> 
+              <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton>
+              <Link to="/ingredients"><IonButton expand='full'>
+                  Manage available ingredients
+                </IonButton>
+              </Link> 
                     <IonContent 
                       className="ion-padding"
                     > 
