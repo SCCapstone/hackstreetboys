@@ -46,9 +46,8 @@ import { remove } from 'lodash';
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
 const DOMAIN = "https://api.fridger.recipes" 
+// const DOMAIN = "http://localhost:8080"
 
-
-const userID = 11;//TODO change this
 let refresh: number = 1;
 
 // function delay(ms: number) {
@@ -75,27 +74,22 @@ function MyPantry() {
   const [ password, setPassWord] = useState("");
   const [ user, setUser ] = useState("");
 
+  
   const context = useContext(Context)
-  // if(context==null)
-  //   return (
-  //     <h2>user is not signed in</h2>
-  //   );
+
+  const config = {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${context.token}`
+    },
+};
   
   let thisUserID =0;
-
-  const headers = {
-    'Authorization':`Bearer ${context.token}`
-  }
 
   console.log(context)
   if(context.currentUser!=undefined) {
     thisUserID = context.currentUser!.id;
-  }
-
-  if(context!=null) {
-    setEmail(context.email!);
-    setPassWord(context.)
-
+    console.log("USERID: " + thisUserID);
   }
 
   //Grab all ingredient for bottom section
@@ -146,9 +140,9 @@ function MyPantry() {
   //   +thisUserID.toString()
   
    const refreshPantry = () => {
-    fetch(DOMAIN+'/v1/user/pantry/', {
-      user
-    }) //pass in user id
+    fetch(DOMAIN+'/v1/user/pantry/',
+      config
+    ) //pass in user id
     .then(res => {
       return res.json();
     })
@@ -258,13 +252,20 @@ function MyPantry() {
     //if pantry includes the item
     if(containsPantryItem(newPan,pan)) {
       console.log(newPan);
-      axios.put(DOMAIN+'/v1/user/pantry/'+newPan.id+'/increase')
+      axios.put(DOMAIN+'/v1/user/pantry/increase/'+newPan.id,
+      config
+      )
         .then(response => 
           {console.log(response);}
       );
           //console.log(response);)
     } else { //If Pantry does not include item
-      axios.post(DOMAIN+'/v1/user/pantry/', newPan).then(res => {
+      axios.post(
+        DOMAIN+'/v1/user/pantry/', 
+        newPan, 
+        config
+        )
+        .then(res => {
         console.log("Status: ", res.status);
         console.log("Data:", res.data);
       }).catch(error => {
@@ -278,8 +279,10 @@ function MyPantry() {
   //Clear the pantry
   const clearPantry = () => {
     refreshPantry();
-    axios.delete(DOMAIN+'/v1/user/pantry/'+thisUserID);
     console.log("Clearing Pantry");
+    axios.delete(
+      DOMAIN+'/v1/user/pantry/clear-pantry/'+context.currentUser!.id,
+      config);
     refresh = refresh+1; //this causes useeffect to reload
   }
 
@@ -291,13 +294,15 @@ function MyPantry() {
     if(containsPantryItem(removePan,pan)) {
       console.log(removePan);
       if(removePan.numIngredient>1) {
-        axios.put(DOMAIN+'/v1/user/pantry/'+removePan.id+'/decrease')
+        axios.put(DOMAIN+'/v1/user/pantry/decrease'+removePan.id,
+        config)
           .then(response => 
           {console.log(response);}
          );
       } 
       else { //pan.numIngredient == 1
-        axios.delete(DOMAIN+'/v1/user/pantry/'+removePan.id)
+        axios.delete(DOMAIN+'/v1/user/pantry/'+removePan.id,
+        config)
         .then(response => 
           {console.log(response);}
          );

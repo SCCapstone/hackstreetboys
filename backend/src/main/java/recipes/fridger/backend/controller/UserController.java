@@ -266,8 +266,8 @@ public class UserController {
         }
     }
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @DeleteMapping(path = "/pantry/{userID}")
-    public ResponseEntity<String> clearUserPantry(Long userID) {
+    @DeleteMapping(path = "/pantry/clear-pantry/{userID}")
+    public ResponseEntity<String> clearUserPantry(@PathVariable Long userID) {
         try {
             pantryService.clearUserPantry(userID);
             log.info("Successfully deleted all pantry items. You wield a dangerous power!");
@@ -283,8 +283,8 @@ public class UserController {
 //    getUserPantry(@RequestParam(required = false) Long id, @RequestParam(required = false) String email) {
 //        return pantryService.getPantryByUserID(id);
 //    }
-    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping(path = "/pantry/{id}/increase")
+    //@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PutMapping(path = "/pantry/increase/{id}")
     public ResponseEntity<String>
     incrementPantryByOne(@PathVariable Long id) {
         try {
@@ -297,7 +297,7 @@ public class UserController {
         }
     }
     @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
-    @PutMapping(path = "/pantry/{id}/decrease")
+    @PutMapping(path = "/pantry/decrease/{id}")
     public ResponseEntity<String>
     decrementPantryByOne(@PathVariable Long id) {
         try {
