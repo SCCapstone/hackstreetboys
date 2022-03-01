@@ -17,7 +17,7 @@ public class JwtUtils {
     private String secret;
 
     @Value("${recipes.fridger.jwtExpirationMs}")
-    private int expiration;
+    private long expiration;
 
     public String generateJwtToken(Authentication authentication) {
         UserDetailsImpl userPrincipal = (UserDetailsImpl) authentication.getPrincipal();
