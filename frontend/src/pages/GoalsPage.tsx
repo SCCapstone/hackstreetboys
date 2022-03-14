@@ -22,8 +22,9 @@ import {
     IonIcon,
     IonLabel,
     IonHeader,
+    IonTitle,
   } from '@ionic/react';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
@@ -36,8 +37,10 @@ import ItemList from '../components/ItemList';
 import Calories from '../components/Calories';
 import {Recipe} from '../models/Recipe';
 import { thumbsUp } from 'ionicons/icons';
-const GoalsPage = () => {
+import Context from '../components/Context';
 
+const GoalsPage = () => {
+  const context = useContext(Context);
   const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
     id: 1,
     title: "",
@@ -102,7 +105,7 @@ const GoalsPage = () => {
     <IonPage className="ion-page" id="main-content">
      <Header/>
       <IonContent className="ion-padding">
-        <h1>Welcome to your dashboard, Seongho!</h1>
+        <h1>Welcome to your dashboard, {context.currentUser && context.currentUser.name}!</h1>
         <Link to="/mygoals"><IonButton>
               My Goals 
             </IonButton>
@@ -133,7 +136,7 @@ const GoalsPage = () => {
 
             {/* random recipe */}
             <IonCard>
-            <h1 align-iems='center'>A recipe that may interest you:</h1>
+            <IonTitle align-iems='center'>A recipe that may interest you:</IonTitle>
                       <IonRow>
                       {randRecipes &&
                         <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
