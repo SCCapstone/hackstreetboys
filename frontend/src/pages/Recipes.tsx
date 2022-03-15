@@ -163,7 +163,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             )).map(recipe =>
                            <Link to={`/recipe/${recipe.id}`}>
                           <IonCard button routerDirection="forward">
-                          <img src="https://picsum.photos/1500/800" alt="ion"/>
+                          <img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>

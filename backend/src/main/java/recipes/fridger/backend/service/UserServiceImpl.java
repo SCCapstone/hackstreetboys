@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         u.setEmail(dto.getEmail());
         sendVerificationEmail(dto);
 
-        //u.setEnabled(false); //make the account not true until user registers with email
+        u.setEnabled(true); //make the account not true until user registers with email
         u.setPassword(passwordEncoder.encode(dto.getPassword()));
         u.setName(dto.getName());
         u.setBio(dto.getBio());
