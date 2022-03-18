@@ -150,11 +150,6 @@ const GoalsPage = () => {
                             <IonCardContent>
                               <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
-
-                              <Link to = {"/recipes"}>
-                    
-                              </Link>
-
                             </IonCardContent>
                           </IonCard>
                           </Link>
