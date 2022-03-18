@@ -161,7 +161,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                                 recipe.rating >= ratingRange.lower && recipe.rating <= ratingRange.upper &&
                                 recipe.estimatedCost >= costRange.lower && recipe.estimatedCost <= costRange.upper
                             )).map(recipe =>
-                           <Link to={`/recipe/${recipe.id}`}>
+                           <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                           <IonCard button routerDirection="forward">
                           <img src="https://picsum.photos/1500/800" alt="ion"/>
                             <IonCardHeader>
@@ -171,17 +171,14 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {recipe.totalTime}m</IonLabel>
-
-                              <Link to = {"/recipes"}>
-                              <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                              {/* <IonFab vertical="bottom" horizontal="end" slot="fixed">
                               <Link to = {`/recipe/${recipe.id}`}>
                                 <IonButton >
-                                   See more {/* <IonIcon icon={thumbsUp} /> */}
+                                   See more
                                 </IonButton>
                                 </Link>
                               </IonFab>
-                              </Link>
-
+                              </Link> */}
                             </IonCardContent>
                           </IonCard>
                           </Link>

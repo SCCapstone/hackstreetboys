@@ -72,7 +72,7 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites`)
+    fetch(`https://api.fridger.recipes/v1/favorites/`)
     .then(response => response.json())
     .then(data => setFavorite(data))
   }, [])
@@ -85,7 +85,7 @@ function RecipePage() {
     recipeId: 0
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/reviews`)
+    fetch(`https://api.fridger.recipes/v1/review/`)
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
@@ -98,7 +98,7 @@ function RecipePage() {
     complaintId: 0
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/complaints`)
+    fetch(`https://api.fridger.recipes/v1/complaint/`)
     .then(response => response.json())
     .then(data => setComplaints(data))
   }, [])

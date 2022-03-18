@@ -42,7 +42,6 @@ import { User } from '../models/User';
                 const context = useContext(Context);
                 const {navigate} = useContext(NavContext);
                 const history = useHistory();
-                const [checked, setChecked] = useState(false);
                 const {
                     control,
                     register,
@@ -101,7 +100,7 @@ return (
 
        <IonContent className="ion-padding">
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
-        <IonItem>
+                <IonItem>
                     <IonLabel position="floating" >Please rate the severity of your complaint.</IonLabel>
                     <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("severity",e.target.value)} />
                 </IonItem>
@@ -111,10 +110,9 @@ return (
                     <IonInput name="feedback" required onIonInput={(e: any) => setValue("reason",e.target.value)} />
                 </IonItem>
                 
-                <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Complaint</IonButton>
+                <IonButton className="ion-margin-top" color='primary' type="submit" slot="start" >Submit Complaint</IonButton>
 
                 <Link to={"/recipes"}>
-                   
                     <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
                 </Link>
             </form>

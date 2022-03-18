@@ -125,16 +125,15 @@ function Favorites() {
               <h1>A log of all your favorite recipes!</h1>
                   <IonCard>
                   <IonRow>
-                      {favorites.map(favorite =>
-                        <IonCol sizeXs="12" sizeSm="6" key={favorite.id}>
+                      {favorites.map(favoriteKey =>
+                        <IonCol sizeXs="12" sizeSm="6" key={favoriteKey.id}>
                          {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
                           <IonCard>
                             <IonCardHeader>
-
-                              <IonCardTitle>Favorited recipe #{favorite.id}</IonCardTitle>
-                              <IonCardSubtitle>Recipe ID: {favorite.recipeId}</IonCardSubtitle>
+                              <IonCardTitle>Favorited recipe #{favoriteKey.id}</IonCardTitle>
+                              <IonCardSubtitle>Recipe ID: {favoriteKey.recipeId}</IonCardSubtitle>
                               <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton>
-                              <Link to={`/favorite/${favorite.recipeId}`}>
+                              <Link to={`/favorite/${favoriteKey.recipeId}`}>
                               <IonButton>See More</IonButton>
                               </Link>
                             </IonCardHeader>
