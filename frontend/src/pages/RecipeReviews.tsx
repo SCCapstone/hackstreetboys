@@ -41,6 +41,7 @@ function RecipeReviews() {
     rating: 0,
     feedback: "",
     authorId: 0,
+    authorName: "",
     recipeId: 0
   }]);
 

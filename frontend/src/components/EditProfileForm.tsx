@@ -54,7 +54,7 @@ export const EditProfileForm: React.FC = () => {
             const body = JSON.stringify(getValues());
             axios.put(
                 `https://api.fridger.recipes/v1/user/`,
-                // `http://localhost:8080/v1/user/`,
+                // `https://api.fridger.recipes/v1/user/`,
                 body,
                 config
             ).then( res => {
@@ -67,7 +67,7 @@ export const EditProfileForm: React.FC = () => {
                 // Public API
                 `http://api.fridger.recipes/v1/user/${context.id}`
                 // Local API
-                // `http://localhost:8080/v1/user/${context.id}`
+                // `https://api.fridger.recipes/v1/user/${context.id}`
                 ).then(function (response) {
                     const user_ret = response.data;
                     if (user_ret) {
@@ -107,7 +107,7 @@ export const EditProfileForm: React.FC = () => {
             const body = JSON.stringify(getValues());
             axios.delete(
                 `https://api.fridger.recipes/v1/user/${user.id}`,
-                // `http://localhost:8080/v1/user/${user.id}`,
+                // `https://api.fridger.recipes/v1/user/${user.id}`,
                 config
             ).then( res =>{
                 console.log("Deleted User by " + user.id);

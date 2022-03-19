@@ -13,6 +13,8 @@ public class ReturnReviewDTO {
 
     private Long authorId;
 
+    private String authorName;
+
     private Long recipeId;
 
     private Integer rating;

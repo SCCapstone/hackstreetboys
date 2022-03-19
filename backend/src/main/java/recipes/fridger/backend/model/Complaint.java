@@ -30,6 +30,9 @@ public class Complaint {
     @Column(name = "authorId")
     private Long authorId;
 
+    @Column(name = "authorName")
+    private String authorName;
+
     @Min(0)
     @Column(name = "complaintId")
     private Long complaintId;

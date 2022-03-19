@@ -26,6 +26,9 @@ public class Report {
     @Column(name = "reportBy")
     private Long reportBy;
 
+    @Column(name = "authorName")
+    private String authorName;
+
     @Size(min = 0, max = 1000)
     @Column(name = "reportBody", nullable = false)
     private String reportBody;

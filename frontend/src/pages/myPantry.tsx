@@ -46,7 +46,7 @@ import { remove } from 'lodash';
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
 const DOMAIN = "https://api.fridger.recipes" 
-// const DOMAIN = "http://localhost:8080"
+// const DOMAIN = "https://api.fridger.recipes"
 
 let refresh: number = 1;
 
@@ -80,7 +80,7 @@ function MyPantry() {
   const config = {
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${context.token}`
+        'authorization': `Bearer ${context.token}`
     },
 };
   
@@ -114,7 +114,8 @@ function MyPantry() {
   const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
     title: "Biscuits and Jam",
-    author: "Quinn Biscuit",
+    author: 0,
+    authorName: "",
     description: "What do you think? It's biscuits dummy.",
     body: "Well, here's the sauce.",
     imgSrc: "",

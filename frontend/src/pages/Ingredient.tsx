@@ -53,7 +53,8 @@ function IngredientPage(this: any) {
       const [recipes, setRecipes] = React.useState<[Recipe]>([{
         id: 1,
         title: "",
-        author: "",
+        author: 0,
+        authorName: "",
         description: "",
         body: "",
         imgSrc: "",
@@ -181,7 +182,7 @@ function IngredientPage(this: any) {
 
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>
-                                                                    <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                                                                    <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                                                                 </IonCardHeader>
 
                                                                 <IonCardContent>

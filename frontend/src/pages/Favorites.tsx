@@ -65,7 +65,8 @@ function Favorites() {
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
-    author: "",
+    author: 0,
+    authorName: "",
     description: "",
     body: "",
     imgSrc: "",

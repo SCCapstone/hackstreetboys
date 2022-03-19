@@ -53,7 +53,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
   } = useForm({
     defaultValues: {
         title: "",
-        id: context.currentUser?.id,
+        id: 0,
+        author: context.currentUser?.id,
         description: "",
         body: "",
         prepTime: 0,
@@ -97,6 +98,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         };
         console.log("User ID: " + context.currentUser?.id)
         // setValue("id",string(context.currentUser?.id);
+        setValue("author", (context.currentUser?.id  ? (context.currentUser?.id) : 0))
         const body = JSON.stringify(getValues());
         const res = axios.post(
             'https://api.fridger.recipes/v1/recipe/',
@@ -152,7 +154,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 <IonItem>
                     <IonLabel>Ingredients</IonLabel>
                     {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
-                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',String(e.detail.value))}>
+                    <IonSelect name="type" multiple={true} aria-require={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',String(e.detail.value))}>
                    {/* TODO: Add Searching Through Modal */}
                    {ingredients.map(ingredient => 
                         <IonSelectOption key={ingredient.id} value={Number(ingredient.id)}>{ingredient.name}</IonSelectOption>
@@ -182,7 +184,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>
-                    <IonInput name="estimatedCost" onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
+                    <IonInput name="estimatedCost" required onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>Is it alcoholic (21+)</IonLabel>
@@ -191,7 +193,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 <IonItem>
                     <IonLabel>Type</IonLabel>
                     {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
-                    <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',String(e.detail.value))}>
+                    <IonSelect name="type" multiple={true} aria-require={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('type',String(e.detail.value))}>
                     <IonSelectOption value="american">American</IonSelectOption>
                         <IonSelectOption value="mexican">Mexican</IonSelectOption>
                         <IonSelectOption value="chinese">Chinese</IonSelectOption>
@@ -203,13 +205,14 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Tags (seperated by commas)</IonLabel>
-                    <IonInput name="tags" onIonInput={(e: any) => setValue("tags",e.target.value)} />
+                    <IonInput name="tags" required onIonInput={(e: any) => setValue("tags",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>I agree that this recipe follows our <a href="/tos">Terms of Service</a></IonLabel>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
                 </IonItem>
-                <IonButton className="ion-margin-top" disabled={!checked}
+                {/* TODO: Make it so the dropdowns are REQUIRED. */}
+                <IonButton className="ion-margin-top" disabled={(!checked)}
                         color='primary' type="submit" 
                         //onClick={async () =>{
                         //     await onSubmit();

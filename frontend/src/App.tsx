@@ -126,14 +126,15 @@ import myReviews from './pages/myReviews';
               <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
               <Route path="/favorite/:id" component={Recipe}/>
               <Route path="/complaint/:id" component={Complaint}/>
-              <Route path="/review/add" component={AddReview}/>
               <Route path="/review/:id" component={Review}/>
               <Route path="/recipe/add" component={AddRecipe} />
+
               <Route path="/recipe/edit/:id" component={EditRecipe} />
               {/* /* <Route path="/testform" component={Basic} /> */}.
               <UserRoute path="/recipe/search" component={AdvancedRecipeSearch} />
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
+              <UserRoute path="/recipe/:id/review" component={AddReview}/>
               <UserRoute path="/ingredient/add" component={AddIngredient} />
               <UserRoute path="/goals" component={GoalsPage} />
               <UserRoute path="/mypantry" component={MyPantry} />

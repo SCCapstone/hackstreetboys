@@ -14,8 +14,8 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
     @Size(min = 0, max = 255)
     private String title;
 
-    @Size(min = 0, max = 100)
-    private String author;
+    @Min(1)
+    private long author;
 
     @Size(min = 0, max = 500)
     private String description;

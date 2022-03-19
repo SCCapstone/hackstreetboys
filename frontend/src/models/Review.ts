@@ -1,7 +1,8 @@
 export interface Review{
-    id: number;
-    authorId: number;
-    recipeId: number;
-    rating: number;
+    id: number,
+    authorId: number,
+    authorName: string,
+    recipeId: number,
+    rating: number,
     feedback: string;
 }

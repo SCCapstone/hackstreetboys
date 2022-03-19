@@ -33,6 +33,7 @@ import Header from '../components/Header';
 import { State } from 'ionicons/dist/types/stencil-public-runtime';
 import { open } from 'fs';
 import Context from '../components/Context';
+import RecipeBanner from '../assets/fridger_banner.png'
 
 interface RecipeProps {
   recipe: Recipe,
@@ -45,7 +46,8 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
     title: "Biscuits and Jam",
-    author: "Quinn Biscuit",
+    author: 0,
+    authorName: "Quinn Biscuit",
     description: "What do you think? It's biscuits dummy.",
     body: "Well, here's the sauce.",
     imgSrc: "",
@@ -163,7 +165,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             )).map(recipe =>
                            <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                           <IonCard button routerDirection="forward">
-                          <img src="https://picsum.photos/1500/800" alt="ion"/>
+                          <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>

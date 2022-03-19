@@ -12,7 +12,7 @@ import lombok.Data;
 public class CreateComplaintDTO {
 
     private Long authorId;
-
+    private String authorName;
     private Long complaintId;
 
     @Min(0)

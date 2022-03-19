@@ -33,7 +33,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @PreAuthorize("hasRole('USER')")
+//    @PreAuthorize("hasRole('USER')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createReview(@RequestBody @Valid CreateReviewDTO r) {

@@ -29,7 +29,11 @@ import { User } from '../models/User';
     interface ReviewExample {
         review: Review,
       }
+      export interface routePrams {
+        id: string;
+      }
             const AddReview: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+                const { id } = useParams<routePrams>();
                 const [ loggedIn, setLoggedIn ] = useState(false);
                 const [ user, setUser ] = useState<User>();
                 const globals = {
@@ -68,9 +72,8 @@ import { User } from '../models/User';
                     formState: { errors }
                 } = useForm({
                     defaultValues: {
-                        id: context.currentUser?.id,
-                        authorId: 0,
-                        recipeId: 0,
+                        authorId: context.currentUser?.id,
+                        recipeId: id,
                         rating: 0,
                         feedback: "",
                     }

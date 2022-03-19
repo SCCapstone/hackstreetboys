@@ -49,9 +49,10 @@ import { Ingredient } from '../models/Ingredient';
     const [checked, setChecked] = useState(false);
 
     const [recipe, setRecipe] = React.useState<Recipe>({
-        id: 1,
         title: "",
-        author: "",
+        id: 0,
+        author: 0,
+        authorName: '',
         description: "",
         body: "",
         imgSrc: "",
@@ -107,14 +108,13 @@ import { Ingredient } from '../models/Ingredient';
             },
         };
         setValue("id", recipe.id);
+        setValue("author", (context.currentUser?.id  ? ((context.currentUser?.id)) : 0))
         setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
-
         console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/`,
-
             body,
             config
         ).then( res =>{
@@ -136,7 +136,6 @@ import { Ingredient } from '../models/Ingredient';
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${context.token}`
             },
         };
         const body = JSON.stringify(getValues());

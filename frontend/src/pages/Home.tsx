@@ -34,7 +34,8 @@ function Home() {
     const [recipes, setRecipes] = React.useState<[Recipe]>([{
       id: 1,
       title: "Biscuits and Jam",
-      author: "Quinn Biscuit",
+      author: 0,
+      authorName: "Quinn Biscuit",
       description: "What do you think? It's biscuits dummy.",
       body: "Well, here's the sauce.",
       imgSrc: "",
@@ -69,17 +70,17 @@ function Home() {
         <h1>Latest Recipes</h1>
         <IonGrid>
                     <IonRow>
-                    {recipes.slice(recipes.length-5,recipes.length-1).map(recipe =>
+                    {recipes.slice(-4).map(recipe =>
                         <IonCol sizeXs="6" sizeSm="6" key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
                           <img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
-                              <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br/>
+                              <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {recipe.totalTime}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
