@@ -57,6 +57,10 @@ function Home() {
         .then(response => response.json())
         .then(data => setRecipes(data))
     }, [])
+
+    useEffect(() => {
+      document.title = "Fridger Dashbooard";
+    }, []);
     return (
         <Router history={history}>
             <Switch>

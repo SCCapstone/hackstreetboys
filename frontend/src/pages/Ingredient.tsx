@@ -74,7 +74,9 @@ function IngredientPage(this: any) {
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])
-
+    useEffect(() => {
+        document.title = ingredient.name;
+      }, [ingredient.name]);
     function chooseSome() {
         // HOW MANY RECIPES TO SELECT
         const wantedNumber = 3;

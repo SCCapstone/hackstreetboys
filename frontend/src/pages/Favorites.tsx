@@ -88,7 +88,9 @@ function Favorites() {
       .then(data => setRecipe(data))
   }, [id])
   console.log(recipe);
-
+  useEffect(() => {
+    document.title = "Favorites";
+  }, []);
   const removeFav = async () => {
     try {
       const config = {

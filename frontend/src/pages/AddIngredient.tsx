@@ -1,4 +1,4 @@
-import React, {useContext, useState, useCallback} from 'react';
+import React, {useContext, useState, useCallback, useEffect} from 'react';
 
 import {
     IonApp,
@@ -55,7 +55,6 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             imgSrc: ""
         }
     });
-
     // console.log(errors);
     // console.log(getValues());
 
@@ -84,8 +83,11 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             console.error(e);
         }
         return false;
+        
     }
-
+    useEffect(() => {
+        document.title = "Add Recipe";
+      }, []);
 
     return (
         <Router history={history}>

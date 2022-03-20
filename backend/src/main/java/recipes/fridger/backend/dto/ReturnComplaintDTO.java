@@ -13,7 +13,7 @@ public class ReturnComplaintDTO {
 
     private Long authorId;
 
-    private Long complaintId;
+    private Long recipeId;
 
     private Integer severity;
 

@@ -136,7 +136,9 @@ function MyPantry() {
       .then(data => setRecipes(data))
   }, [])
 
-
+  useEffect(() => {
+    document.title = "My Pantry";
+  }, []);
   //This will refresh pantry with current user 
   //   +thisUserID.toString()
   

@@ -76,7 +76,9 @@ import { Ingredient } from '../models/Ingredient';
           .then(response => response.json())
           .then(data => setRecipe(data))
       }, [])
-
+      useEffect(() => {
+        document.title = "Edit Recipe";
+      }, []);
   const {
     handleSubmit,
     control,

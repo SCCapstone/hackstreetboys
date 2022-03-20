@@ -33,7 +33,9 @@ function SpecifiedRecipe(this: any) {
     authorName: "",
     recipeId: 0
   });
-  
+  useEffect(() => {
+    document.title = "Review Recipe";
+  }, []);
   const { id } = useParams<routePrams>();
   useEffect(() => {
     fetch(`https://api.fridger.recipes/v1/review/${id}/`)

@@ -54,6 +54,10 @@ function RecipeReviews() {
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
+
+  useEffect(() => {
+    document.title = "Recipe Reviews";
+  }, []);
   console.log(reviews);
     return (
         <Router history={history}>

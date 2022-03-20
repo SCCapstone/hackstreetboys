@@ -113,7 +113,9 @@ import { User } from '../models/User';
         }
         return false;
       }
-
+      useEffect(() => {
+        document.title = "Add Review";
+      }, []);
      
       return (
 

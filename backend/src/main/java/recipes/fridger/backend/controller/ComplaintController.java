@@ -67,10 +67,10 @@ public class ComplaintController {
     public @ResponseBody Iterable<Complaint>
     getComplaint(@RequestParam(required = false) Long id,
                @RequestParam(required = false) Long authorId,
-               @RequestParam(required = false) Long complaintId,
+                 @RequestParam(required = false) Long recipeId,
                @RequestParam(required = false) Integer severity,
                @RequestParam(required = false) String reason)
     {
-        return complaintService.getComplaints(id, authorId, complaintId, severity, reason);
+        return complaintService.getComplaints(id, authorId, recipeId, severity, reason);
     }
 }

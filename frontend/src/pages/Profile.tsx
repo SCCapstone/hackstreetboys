@@ -89,7 +89,9 @@ function Users() {
       History.push('/');
     }
   }, [])
-
+  useEffect(() => {
+    document.title = "Profile";
+  }, []);
   return (
     <Router history={history}>
       <Switch>

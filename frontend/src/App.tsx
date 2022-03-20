@@ -6,7 +6,6 @@ import Recipes from './pages/Recipes';
 import Ingredients from './pages/Ingredients';
 import myPantry from './pages/myPantry';
 import Favorites from './pages/Favorites';
-import Preferences from './pages/Preferences';
 import Home from './pages/Home';
 import MyGoals from './pages/MyGoals';
 import Profile from './pages/Profile';
@@ -49,7 +48,6 @@ import EditRecipe from './pages/EditRecipe';
 import ReviewOfRecipe from './pages/ReviewOfRecipe'
 //import Review from './pages/MyReviews';
 
-import AdvancedRecipeSearch from './pages/AdvancedRecipeSearch';
 import EditIngredient from "./pages/EditIngredient";
 
 // import Basic from './components/Basic'
@@ -122,7 +120,7 @@ import myReviews from './pages/myReviews';
             <Switch>
               {/* /* <Route path="/testform" component={Basic} /> */}
               {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
-              <Route path="/complaint/add" component={AddComplaint}/>
+              <Route path="/recipe/:id/complaint" component={AddComplaint}/>
               <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
               <Route path="/favorite/:id" component={Recipe}/>
               <Route path="/complaint/:id" component={Complaint}/>
@@ -131,7 +129,6 @@ import myReviews from './pages/myReviews';
 
               <Route path="/recipe/edit/:id" component={EditRecipe} />
               {/* /* <Route path="/testform" component={Basic} /> */}.
-              <UserRoute path="/recipe/search" component={AdvancedRecipeSearch} />
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
               <UserRoute path="/recipe/:id/review" component={AddReview}/>
@@ -140,7 +137,6 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/mypantry" component={MyPantry} />
               <UserRoute path="/myreviews" component={myReviews} />
               <UserRoute path="/favorites" component={Favorites} />
-              <UserRoute path="/preferences" component={Preferences} />
               <UserRoute path="/mygoals/add" component={AddGoal} />
               <UserRoute path="/mygoals" component={MyGoals} />
               <UserRoute path="/goal/:id" component={Goal} />
@@ -161,7 +157,6 @@ import myReviews from './pages/myReviews';
               <Route path="/myreviews" component={myReviews} />
               <Route path="/favorites/recipe/:id" component={Favorites} />
               <Route path="/favorites" component={Favorites} />
-              <Route path="/preferences" component={Preferences} />
               <Route path="/mygoals/add" component={AddGoal} />
               <Route path="/mygoals" component={MyGoals} />
               <Route path="/goal/:id" component={Goal} />

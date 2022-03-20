@@ -1,5 +1,5 @@
 import './MyGoals.css';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import history from '../History';
 import {
   IonApp,
@@ -109,6 +109,9 @@ import Context from '../components/Context';
         }
         return false;
       }
+      useEffect(() => {
+        document.title = "Add Goal";
+      }, []);
       return (
 
     <Router history={history}>

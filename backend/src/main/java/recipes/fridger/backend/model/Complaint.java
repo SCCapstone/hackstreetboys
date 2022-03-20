@@ -34,11 +34,11 @@ public class Complaint {
     private String authorName;
 
     @Min(0)
-    @Column(name = "complaintId")
-    private Long complaintId;
+    @Column(name = "recipeId")
+    private Long recipeId;
 
-    @Max(5)
-    @Min(0)
+    @Max(3)
+    @Min(1)
     @Column(name = "severity", nullable = false)
     private Integer severity;
 

@@ -132,6 +132,9 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         .then(response => response.json())
         .then(data => setIngredients(data))
   }, [])
+  useEffect(() => {
+    document.title = "Add Recipe";
+  }, []);
   return (
     <Router history={history}>
     <Switch>

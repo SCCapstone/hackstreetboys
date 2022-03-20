@@ -65,8 +65,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
   const context = useContext(Context);
 
   useEffect(() => {
-
-
+    document.title="Recipes";
  //fetch("https://api.fridger.recipes/v1/recipe/")
  fetch('https://api.fridger.recipes/v1/recipe/')
 

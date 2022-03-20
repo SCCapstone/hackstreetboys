@@ -19,21 +19,23 @@ import {
   IonRow,
   NavContext,
   IonGrid,
+  IonFab,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart } from 'ionicons/icons';
+import { add, heart, pencilSharp } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
 import { Review } from '../models/Review';
 import {Favorite} from '../models/Favorite';
 import axios from 'axios';
 import {Complaint} from '../models/Complaint';
+import { userInfo } from 'os';
 
 interface ComplaintExample {
   complaint: Complaint;
@@ -190,6 +192,10 @@ const addFav = async () => {
 }
 return false;
 };
+useEffect(() => {
+  document.title = recipe.title;
+}, [recipe.title]);
+
 
 const removeFav = async () => {
   try {
@@ -363,7 +369,11 @@ const complaintLink = () => {
                   </IonCard>
             </IonContent>
 
-
+            {(recipe.author === context.currentUser?.id || (context.isAdmin)) ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
+                  <IonFabButton routerLink={`/recipe/edit/${recipe.id}`}>
+                      <IonIcon icon={pencilSharp} />
+                    </IonFabButton>
+                  </IonFab> : ""}
           </IonPage>
         </IonApp>
       </Switch>

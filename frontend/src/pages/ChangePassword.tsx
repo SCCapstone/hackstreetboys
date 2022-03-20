@@ -23,6 +23,9 @@ import React, { useEffect, useState } from 'react';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 
 function Login() {
+    useEffect(() => {
+        document.title = "Change Password";
+      }, []);
     return (
         <Router history={history}>
             <Switch>

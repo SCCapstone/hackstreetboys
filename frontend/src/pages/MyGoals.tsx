@@ -105,7 +105,9 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
    console.log(goal);
 
    
-
+   useEffect(() => {
+    document.title = "My Goals";
+  }, []);
 
    
   const userGoalDisplay = () => {

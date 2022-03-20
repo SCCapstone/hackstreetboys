@@ -12,31 +12,20 @@ import {
     IonRow,
     IonCol,
     IonCard,
-    IonInput,
-    IonAlert,
-    useIonAlert,
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonFab,
-    IonIcon,
     IonLabel,
-    IonHeader,
     IonTitle,
   } from '@ionic/react';
 import React, {useState, useEffect, useContext} from 'react';
-import { Router, Switch, Route, Link } from "react-router-dom";
+import { Router, Switch, Link } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 
 import Header from '../components/Header';
-import CaloriesCounter from '../components/CaloriesCounter';
-import DeleteCalories from '../components/DeleteCalories';
-import CalorieInput from '../components/CalorieInput';
-import ItemList from '../components/ItemList';
 import Calories from '../components/Calories';
 import {Recipe} from '../models/Recipe';
-import { thumbsUp } from 'ionicons/icons';
 import Context from '../components/Context';
 
 const GoalsPage = () => {
@@ -70,7 +59,9 @@ const GoalsPage = () => {
   const[itemName, setItemName] = useState("");
   const[calories, setCalories] = useState(0);
   const[openModel, setOpenModel] = useState(false);
-
+  useEffect(() => {
+    document.title = "Goals";
+  }, []);
   const addItemHandler = () => {
     console.log(itemName);
     console.log(calories);

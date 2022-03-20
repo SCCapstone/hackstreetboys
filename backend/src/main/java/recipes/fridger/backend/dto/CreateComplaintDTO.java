@@ -13,10 +13,9 @@ public class CreateComplaintDTO {
 
     private Long authorId;
     private String authorName;
-    private Long complaintId;
-
+    private Long recipeId;
     @Min(0)
-    @Max(5)
+    @Max(3)
     private Integer severity;
 
     @Size(min = 0, max = 10000)
