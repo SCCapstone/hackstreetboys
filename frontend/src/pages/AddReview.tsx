@@ -130,7 +130,7 @@ import { User } from '../models/User';
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
         <IonItem>
                     <IonLabel position="floating" >What would you rate this recipe?</IonLabel>
-                    <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
+                    <IonInput type="number" name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>

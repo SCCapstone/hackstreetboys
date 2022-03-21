@@ -167,7 +167,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>

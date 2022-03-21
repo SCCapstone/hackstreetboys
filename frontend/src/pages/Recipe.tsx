@@ -28,7 +28,7 @@ import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart, pencilSharp } from 'ionicons/icons';
+import { add, heart, pencilSharp, logoFacebook } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
 import { Review } from '../models/Review';
@@ -36,7 +36,58 @@ import {Favorite} from '../models/Favorite';
 import axios from 'axios';
 import {Complaint} from '../models/Complaint';
 import { userInfo } from 'os';
-
+import {
+  FacebookShareCount,
+  PinterestShareCount,
+  VKShareCount,
+  OKShareCount,
+  RedditShareCount,
+  TumblrShareCount,
+  HatenaShareCount,
+  FacebookShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  VKShareButton,
+  OKShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  RedditShareButton,
+  EmailShareButton,
+  TumblrShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  ViberShareButton,
+  WorkplaceShareButton,
+  LineShareButton,
+  WeiboShareButton,
+  PocketShareButton,
+  InstapaperShareButton,
+  HatenaShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  VKIcon,
+  OKIcon,
+  TelegramIcon,
+  WhatsappIcon,
+  RedditIcon,
+  TumblrIcon,
+  MailruIcon,
+  EmailIcon,
+  LivejournalIcon,
+  ViberIcon,
+  WorkplaceIcon,
+  LineIcon,
+  PocketIcon,
+  InstapaperIcon,
+  WeiboIcon,
+  HatenaIcon
+} from "react-share";
+import { Ingredient } from '../models/Ingredient';
 interface ComplaintExample {
   complaint: Complaint;
 }
@@ -196,6 +247,22 @@ useEffect(() => {
   document.title = recipe.title;
 }, [recipe.title]);
 
+const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+  id: 1,
+  name: "",
+  calories: 0,
+  carbohydrates: 0,
+  protein: 0,
+  fat: 0,
+  alcohol: false,
+  cost: 0.0,
+  imgSrc: ""
+}]);
+useEffect(() => {
+  fetch("https://api.fridger.recipes/v1/ingredient/")
+      .then(response => response.json())
+      .then(data => setIngredients(data))
+}, [])
 
 const removeFav = async () => {
   try {
@@ -239,6 +306,7 @@ const complaintLink = () => {
     return <></>
   }
 }
+let shareUrl = `https://fridger.recipes/recipe/${id}`
   return (
 
     <Router history={history}>
@@ -251,15 +319,109 @@ const complaintLink = () => {
               {complaintLink()}
               <IonCard>
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
-                <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover' }} />
-
-
-
+                <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
-                <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
+          <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
+          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
                           {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} />
-                          </IonButton><h1>{recipe.title}</h1>
+                            <IonIcon icon={heart} /></IonButton>
+          <FacebookShareButton
+            url={"https://fridger.recipes/"+recipe.id}
+            quote={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <FacebookIcon size={40} round />
+          </FacebookShareButton>
+
+          <FacebookMessengerShareButton
+            url={shareUrl}
+            appId="641532566054417"
+            className="Demo__some-network__share-button"
+          >
+            <FacebookMessengerIcon size={40} round />
+          </FacebookMessengerShareButton>
+
+          <TwitterShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TwitterIcon size={40} round />
+          </TwitterShareButton>
+
+          <TelegramShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TelegramIcon size={40} round />
+          </TelegramShareButton>
+
+          <WhatsappShareButton
+            url={shareUrl}
+            title={recipe.title}
+            separator=":: "
+            className="Demo__some-network__share-button"
+          >
+            <WhatsappIcon size={40} round />
+          </WhatsappShareButton>
+
+          <LinkedinShareButton url={shareUrl} className="Demo__some-network__share-button">
+            <LinkedinIcon size={40} round />
+          </LinkedinShareButton>
+
+          <PinterestShareButton
+            url={String(window.location)}
+            media={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <PinterestIcon size={40} round />
+          </PinterestShareButton>
+
+          <VKShareButton
+            url={shareUrl}
+            image={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <VKIcon size={40} round />
+          </VKShareButton>
+
+          <RedditShareButton
+            url={shareUrl}
+            title={recipe.title}
+            windowWidth={660}
+            windowHeight={460}
+            className="Demo__some-network__share-button"
+          >
+            <RedditIcon size={40} round />
+          </RedditShareButton>
+          <TumblrShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TumblrIcon size={40} round />
+          </TumblrShareButton>
+
+          <EmailShareButton
+            url={shareUrl}
+            subject={recipe.title}
+            body="body"
+            className="Demo__some-network__share-button"
+          >
+            <EmailIcon size={40} round />
+          </EmailShareButton>
+
+          <WeiboShareButton
+            url={shareUrl}
+            title={recipe.title}
+            image={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <WeiboIcon size={40} round />
+          </WeiboShareButton>
+      </div>
+                  <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
                   <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
@@ -272,10 +434,13 @@ const complaintLink = () => {
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
-                  <p>
-                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
-                    <br />
-                  </p>
+                  {ingredients.filter(ingredient => (
+                      recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
+                      <p>
+                        - <a href={`../ingredient/${ingredient.id}`}>{ingredient.name}</a>
+                      </p>
+                  ))}
+                  <br/>
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
@@ -368,7 +533,7 @@ const complaintLink = () => {
                   </IonCardContent>
                   </IonCard>
             </IonContent>
-
+                  
             {(recipe.author === context.currentUser?.id || (context.isAdmin)) ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
                   <IonFabButton routerLink={`/recipe/edit/${recipe.id}`}>
                       <IonIcon icon={pencilSharp} />

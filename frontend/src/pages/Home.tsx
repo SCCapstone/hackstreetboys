@@ -59,7 +59,7 @@ function Home() {
     }, [])
 
     useEffect(() => {
-      document.title = "Fridger Dashbooard";
+      document.title = "Fridger Dashboard";
     }, []);
     return (
         <Router history={history}>
