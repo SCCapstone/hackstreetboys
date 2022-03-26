@@ -108,6 +108,8 @@ export interface routePrams {
 function FavoritePage() {
   const context = useContext(Context);
   const { id } = useParams<routePrams>();
+
+
   const [favorite, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: context.currentUser?.id, 
@@ -118,17 +120,6 @@ function FavoritePage() {
     .then(response => response.json())
     .then(data => setFavorite(data))
   }, [id])
-
-  const [favorites, setFavorites ] = React.useState<[Favorite]>([{
-    id: 1, 
-    userId: context.currentUser?.id, 
-    recipeId: 1
-  }]);
-  useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
-    .then(response => response.json())
-    .then(data => setFavorites(data))
-  }, [])
 
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
@@ -151,11 +142,27 @@ function FavoritePage() {
   });
   
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${recipe.id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
-  }, [id])
+  }, [favorite.recipeId])
   console.log(recipe);
+
+
+  
+
+  const [favorites, setFavorites ] = React.useState<[Favorite]>([{
+    id: 1, 
+    userId: context.currentUser?.id, 
+    recipeId: 1
+  }]);
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    .then(response => response.json())
+    .then(data => setFavorites(data))
+  }, [])
+
+  
 
 
   const [reviews, setReview] = React.useState<[Review]>([{
