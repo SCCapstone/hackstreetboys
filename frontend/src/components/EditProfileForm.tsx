@@ -65,7 +65,7 @@ export const EditProfileForm: React.FC = () => {
 
                 axios.get(
                 // Public API
-                `http://api.fridger.recipes/v1/user/${context.id}`
+                `https://api.fridger.recipes/v1/user/${context.id}`
                 // Local API
                 // `https://api.fridger.recipes/v1/user/${context.id}`
                 ).then(function (response) {

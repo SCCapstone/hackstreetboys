@@ -66,9 +66,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
   useEffect(() => {
     document.title="Recipes";
- //fetch("https://api.fridger.recipes/v1/recipe/")
  fetch('https://api.fridger.recipes/v1/recipe/')
-
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
@@ -165,6 +163,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                            <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                           <IonCard button routerDirection="forward">
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
+
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>

@@ -70,7 +70,6 @@ function Users() {
     console.log(context)
     console.log(context.id)
     if(id) {
-      // axios.get(`https://api.fridger.recipes/v1/user/${id}`)
       axios.get(`https://api.fridger.recipes/v1/user/${id}`)
       .then(res => {
           setUser(res.data);
@@ -80,7 +79,6 @@ function Users() {
         history.push('/404')
       })
     } else if (context.id) {
-      // axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
       axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
         .then(res => {
             setUser(res.data);
