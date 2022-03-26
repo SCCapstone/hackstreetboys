@@ -223,16 +223,44 @@ const fav = async () => {
 
 }
 
+const checkFav = async () => {
+  var i = 0;
+  var alreadyFav = false;
+  //console.log(favorites.length);
+  
+   while( i< favorites.length) {
+     console.log(i);
+     console.log("Recipe ID: " + recipe.id);
+     //console.log(favorites[i].recipeId);
+    //if((recipe.id == favorites[i].recipeId)) {
+      if((recipe.id == favorites[i].recipeId)) {
+        alreadyFav = true;
+        console.log("already in favs");
+        break;
+    }
+    else{
+      i++;
+    }
+    // else{
+    //   alreadyFav = false;
+    //   break;
+    // }
+   }
+  if(alreadyFav == false) {
+    addFav();
+    console.log("not in favs");
+  }
+
+  if(alreadyFav == true) {
+    console.log("found in favs");
+   }
+ 
+
+}
+
 //create delete fav before testing this!!!!!!!!!!!!!!!!!!!!!!
 const addFav = async () => {
-  var i = 0;
-  for( i;(i<= favorites.length && favorites[i].userId==context.currentUser); i++) {
-    if(favorites[i].recipeId == recipe.id) {
-      break;
-    }
-  }
   
-   // else {
   try {
     const config = {
       headers: {
@@ -261,13 +289,15 @@ const addFav = async () => {
     console.error(e);
 }
 return false;
-    //}
-  //}
+   
 };
 
 useEffect(() => {
   document.title = recipe.title;
 }, [recipe.title]);
+
+
+
 
 const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
   id: 1,
@@ -347,7 +377,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                 <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
-          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
+          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
                           {/* <IonButton onClick={() => { fav() }} > */}
                             <IonIcon icon={heart} /></IonButton>
           <FacebookShareButton
