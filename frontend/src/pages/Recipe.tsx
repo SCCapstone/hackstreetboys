@@ -20,6 +20,7 @@ import {
   NavContext,
   IonGrid,
   IonFab,
+  IonAlert,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -212,27 +213,13 @@ useEffect(() => {
 }, [])
 
 
-const fav = async () => {
-  if(recipe.id == favorite.recipeId) {
-    removeFav();
-  }
-  else{
-    addFav();
-  }
-  
-
-}
 
 const checkFav = async () => {
   var i = 0;
-  var alreadyFav = false;
-  //console.log(favorites.length);
-  
+  var alreadyFav = false;  
    while( i< favorites.length) {
      console.log(i);
      console.log("Recipe ID: " + recipe.id);
-     //console.log(favorites[i].recipeId);
-    //if((recipe.id == favorites[i].recipeId)) {
       if((recipe.id == favorites[i].recipeId)) {
         alreadyFav = true;
         console.log("already in favs");
@@ -241,10 +228,7 @@ const checkFav = async () => {
     else{
       i++;
     }
-    // else{
-    //   alreadyFav = false;
-    //   break;
-    // }
+    
    }
   if(alreadyFav == false) {
     addFav();
@@ -253,12 +237,12 @@ const checkFav = async () => {
 
   if(alreadyFav == true) {
     console.log("found in favs");
+    history.push("/favorites");
    }
  
 
 }
 
-//create delete fav before testing this!!!!!!!!!!!!!!!!!!!!!!
 const addFav = async () => {
   
   try {
@@ -295,8 +279,6 @@ return false;
 useEffect(() => {
   document.title = recipe.title;
 }, [recipe.title]);
-
-
 
 
 const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
@@ -377,7 +359,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                 <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
-          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
+          <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
                           {/* <IonButton onClick={() => { fav() }} > */}
                             <IonIcon icon={heart} /></IonButton>
           <FacebookShareButton
