@@ -48,7 +48,7 @@ function ComplaintPage() {
 
   
   const { id } = useParams<routePrams>();
-  
+
   useEffect(() => {
     //fetch(`https://api.fridger.recipes/v1/complaint/`)
     fetch('https://api.fridger.recipes/v1/complaint/')
@@ -56,6 +56,10 @@ function ComplaintPage() {
     .then(data => setComplaint(data))
   }, [id])
   console.log(complaints);
+
+  useEffect(() => {
+    document.title = "Complaints";
+  }, []);
     return (
         <Router history={history}>
             <Switch>

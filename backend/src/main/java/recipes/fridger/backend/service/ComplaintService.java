@@ -7,6 +7,6 @@ public interface ComplaintService {
     public void createComplaint(CreateComplaintDTO dto);
     public void deleteComplaint(Long id);
     public Complaint getComplaint(Long id);
-    public Iterable<Complaint> getComplaints(Long id, Long authorId, Long complaintId, Integer severity, String reason);
+    public Iterable<Complaint> getComplaints(Long id, Long authorId, Long recipeId, Integer severity, String reason);
 
 }

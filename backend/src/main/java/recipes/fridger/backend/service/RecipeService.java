@@ -10,9 +10,8 @@ public interface RecipeService {
     public void createRecipe(CreateRecipeDTO dto);
     public void deleteRecipe(Long id);
     public void updateRecipe(Long id, UpdateRecipeDTO r) throws Exception;
-
     public Recipe getRecipe(Long id);
     public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title);
-    Object recipeByTitleAndAuthor(String title, String author);
+    Object recipeByTitleAndAuthor(String title, Integer author);
 
 }

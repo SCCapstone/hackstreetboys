@@ -59,7 +59,9 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         cost: 0.0,
         imgSrc: ""
     });
-
+    useEffect(() => {
+        document.title = "Edit Ingredient";
+      }, []);
     const { id } = useParams<routePrams>();
     useEffect(() => {
         // if(!context.currentUser){

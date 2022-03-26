@@ -107,9 +107,9 @@ public class RecipeController {
     {
         return recipeService.getRecipes(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
     }
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(ValidationException.class)
-    String exceptionHandler(ValidationException e) {
-        return e.getMessage();
-    }
+//    @ResponseStatus(HttpStatus.BAD_REQUEST)
+//    @ExceptionHandler(ValidationException.class)
+//    String exceptionHandler(ValidationException e) {
+//        return e.getMessage();
+//    }
 }

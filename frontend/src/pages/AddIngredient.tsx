@@ -1,4 +1,4 @@
-import React, {useContext, useState, useCallback} from 'react';
+import React, {useContext, useState, useCallback, useEffect} from 'react';
 
 import {
     IonApp,
@@ -55,7 +55,6 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             imgSrc: ""
         }
     });
-
     // console.log(errors);
     // console.log(getValues());
 
@@ -84,8 +83,11 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             console.error(e);
         }
         return false;
+        
     }
-
+    useEffect(() => {
+        document.title = "Add Recipe";
+      }, []);
 
     return (
         <Router history={history}>
@@ -111,27 +113,27 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
                                 <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient'); history.go(0)}} >
                                     <IonItem>
                                         <IonLabel position="floating">What is this ingredient called?</IonLabel>
-                                        <IonInput name="name" required onIonInput={(e: any) => setValue("name",e.target.value)}/>
+                                        <IonInput type="text" name="name" required onIonInput={(e: any) => setValue("name",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">How many <b>calories</b> per serving?</IonLabel>
-                                        <IonInput name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)}/>
+                                        <IonInput type="number" name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">How many grams of <b>carbohydrates</b> per serving?</IonLabel>
-                                        <IonInput name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)}/>
+                                        <IonInput type="number" name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">How many grams of <b>protein</b> per serving?</IonLabel>
-                                        <IonInput name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)}/>
+                                        <IonInput type="number" name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">How many grams of <b>fat</b> per serving?</IonLabel>
-                                        <IonInput name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)}/>
+                                        <IonInput type="number" name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">How much does this item cost per serving?</IonLabel>
-                                        <IonInput name="cost" required onIonInput={(e: any) => setValue("cost",e.target.value)}/>
+                                        <IonInput type="number" name="cost" required onIonInput={(e: any) => setValue("cost",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>

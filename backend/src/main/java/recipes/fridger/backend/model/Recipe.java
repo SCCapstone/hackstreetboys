@@ -32,9 +32,11 @@ public class Recipe {
     @Column(name = "title", nullable = true)
     private String title;
 
-    @Size(min = 0, max = 100)
-    @Column(name = "author", nullable = true)
-    private String author;
+    @Column(name = "author", nullable = false)
+    private long author;
+
+    @Column(name = "authorName", nullable = false)
+    private String authorName;
 
     @Size(min = 0, max = 500)
     @Column(name = "description", nullable = true)

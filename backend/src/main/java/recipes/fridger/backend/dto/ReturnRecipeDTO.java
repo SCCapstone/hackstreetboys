@@ -13,7 +13,9 @@ public class ReturnRecipeDTO {
 
     private String title;
 
-    private String author;
+    private Long author;
+
+    private String authorName;
 
     private String description;
 
@@ -40,4 +42,5 @@ public class ReturnRecipeDTO {
     private String tags;
 
     private Double rating;
+
 }

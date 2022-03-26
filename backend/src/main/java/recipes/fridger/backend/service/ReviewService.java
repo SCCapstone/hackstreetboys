@@ -8,5 +8,5 @@ public interface ReviewService {
     public void deleteReview(Long id);
     public Review getReview(Long id);
     public Iterable<Review> getReviews(Long id, Long authorId, Long recipeId, Integer rating, String feedback);
-
+//    public Double getAverageRating(Long recipeId);
 }

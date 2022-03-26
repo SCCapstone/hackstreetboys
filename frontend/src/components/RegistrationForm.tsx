@@ -48,10 +48,10 @@ const RegistrationForm: React.FC = () => {
             const body = JSON.stringify(getValues());
             axios.post(
                 `https://api.fridger.recipes/v1/auth/register`,
-                // `http://localhost:8080/v1/auth/register`,
+                // `https://api.fridger.recipes/v1/auth/register`,
 
                 //sending test
-                // 'http://localhost:8080/v1/user/user/registration',
+                // 'https://api.fridger.recipes/v1/user/user/registration',
                 body,
                 config
             ).then( res => {

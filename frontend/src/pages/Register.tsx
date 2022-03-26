@@ -23,6 +23,9 @@ import React, { useEffect, useState } from 'react';
 import RegistrationForm from '../components/RegistrationForm';
 
 function Register() {
+    useEffect(() => {
+        document.title = "Register";
+      }, []);
 return (
     <Router history={history}>
         <Switch>

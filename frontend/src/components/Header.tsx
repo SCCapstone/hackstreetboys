@@ -1,6 +1,6 @@
 import { IonHeader, IonToolbar, IonButtons, IonMenuToggle, IonButton, IonIcon, IonTitle, IonBackButton } from "@ionic/react";
 import { Link } from 'react-router-dom';
-import { menuOutline } from "ionicons/icons";
+import menu from "../assets/menu.svg";
 
 import LogInOrProfileLink from './LogInOrProfileLink';
 
@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
   <IonButtons slot="start">
     <IonMenuToggle>
       <IonButton>
-        <IonIcon icon={menuOutline} slot="start" />
+        <IonIcon icon={menu} slot="start" />
       </IonButton>
     </IonMenuToggle>
     <IonBackButton/>
