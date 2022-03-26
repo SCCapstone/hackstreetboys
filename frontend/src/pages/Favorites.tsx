@@ -135,9 +135,9 @@ function Favorites() {
                             <IonCardHeader>
                               <IonCardTitle>Favorited recipe #{favoriteKey.id}</IonCardTitle>
                               <IonCardSubtitle>Recipe ID: {favoriteKey.recipeId}</IonCardSubtitle>
-                              <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton>
+                              {/* <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton> */}
                               <Link to={`/favorite/${favoriteKey.id}`}>
-                              <IonButton>See More</IonButton>
+                              <IonButton>View/edit</IonButton>
                               </Link>
                             </IonCardHeader>
                           </IonCard>
