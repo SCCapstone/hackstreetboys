@@ -100,10 +100,10 @@ function Favorites() {
       };
      
       const res = await axios.delete(
-        `https://api.fridger.recipes/v1/favorites/${recipe.id}`,
+        `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
         config
         ).then(res=> {
-        console.log("Removed from favorites by" + recipe.id);
+        console.log("Removed from favorites by" + favorite.id);
         if(res.status == 200){
           console.log("Status is "+res.status);
           navigate('/favorites');
@@ -136,7 +136,7 @@ function Favorites() {
                               <IonCardTitle>Favorited recipe #{favoriteKey.id}</IonCardTitle>
                               <IonCardSubtitle>Recipe ID: {favoriteKey.recipeId}</IonCardSubtitle>
                               <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton>
-                              <Link to={`/favorite/${favoriteKey.recipeId}`}>
+                              <Link to={`/favorite/${favoriteKey.id}`}>
                               <IonButton>See More</IonButton>
                               </Link>
                             </IonCardHeader>

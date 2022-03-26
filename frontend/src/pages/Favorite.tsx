@@ -105,18 +105,19 @@ export interface routePrams {
   id: string;
 }
 
-function RecipePage() {
+function FavoritePage() {
   const context = useContext(Context);
+  const { id } = useParams<routePrams>();
   const [favorite, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: context.currentUser?.id, 
     recipeId: 1
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    fetch(`https://api.fridger.recipes/v1/favorites/${id}`)
     .then(response => response.json())
     .then(data => setFavorite(data))
-  }, [])
+  }, [id])
 
   const [favorites, setFavorites ] = React.useState<[Favorite]>([{
     id: 1, 
@@ -148,9 +149,9 @@ function RecipePage() {
     ingredientIds: "",
     rating: 0
   });
-  const { id } = useParams<routePrams>();
+  
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${recipe.id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [id])
@@ -211,64 +212,6 @@ useEffect(() => {
   .then(data => setAllRecipes(data))
 }, [])
 
-
-const fav = async () => {
-  if(recipe.id == favorite.recipeId) {
-    removeFav();
-  }
-  else{
-    addFav();
-  }
-  
-
-}
-
-//create delete fav before testing this!!!!!!!!!!!!!!!!!!!!!!
-const addFav = async () => {
-  var i = 0;
-  for( i;(i<= favorites.length && favorites[i].userId==context.currentUser); i++) {
-    if(favorites[i].recipeId == recipe.id) {
-      break;
-    }
-  }
-  
-   // else {
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = {
-      "userId":context.currentUser?.id,
-      "recipeId":recipe.id
-    }
-    const res = await axios.post(
-      'https://api.fridger.recipes/v1/favorites/',
-      body,
-      config
-    ).then(res=> {
-      console.log("Resulting data" + res.data);
-      if(res.status == 200){
-        console.log("Status is "+res.status);
-        navigate('/favorites');
-        //history.push(`/favorites/recipe/${id}`);
-      }
-
-    });
-    return res;
-  }catch (e) {
-    console.error(e);
-}
-return false;
-    //}
-  //}
-};
-
-useEffect(() => {
-  document.title = recipe.title;
-}, [recipe.title]);
-
 const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
   id: 1,
   name: "",
@@ -287,19 +230,20 @@ useEffect(() => {
 }, [])
 
 
-
 const removeFav = async () => {
   console.log('clicked delete');
+  console.log(favorite);
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    // const body = {
-    //   "userId":context.currentUser?.id,
-    //   "recipeId":recipe.id
-    // }
+    const body = {
+      "userId":context.currentUser?.id,
+      "recipeId":recipe.id,
+      "favoriteId":favorite.id
+    }
     const res = await axios.delete(
       `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
       config
@@ -347,9 +291,9 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                 <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
-          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
-                          {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} /></IonButton>
+            <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( removeFav() )}} >     
+            Remove from favorites</IonButton>      
+
           <FacebookShareButton
             url={"https://fridger.recipes/"+recipe.id}
             quote={recipe.title}
@@ -571,4 +515,4 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
   );
 }
 
-export default RecipePage;
+export default FavoritePage;
