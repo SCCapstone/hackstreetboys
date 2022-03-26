@@ -23,6 +23,8 @@ import {Recipe} from "../models/Recipe";
 import { routePrams } from './MyGoal';
 import {Favorite} from '../models/Favorite';
 import axios from 'axios';
+import Context from '../components/Context';
+import { toNumber } from 'lodash';
 
 interface FavoriteExample {
   favorite: Favorite;
@@ -39,6 +41,7 @@ interface RecipeExample{
 function Favorites() {
   const {id} = useParams<routePrams>();
   const {navigate} = useContext(NavContext);
+  const context = useContext(Context);
   const [favorite, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: 1, 
@@ -83,14 +86,18 @@ function Favorites() {
   })
 
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${fav.id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
-  }, [id])
+  }, [favorite.recipeId])
+
   console.log(recipe);
   useEffect(() => {
     document.title = "Favorites";
   }, []);
+
+
+
   const removeFav = async () => {
     try {
       const config = {
@@ -117,6 +124,59 @@ function Favorites() {
   return false;
   };
 
+
+  const seeFavorites = () => {
+    console.log(favorites.length);
+    var i = 0;
+    while( i< favorites.length) {
+    if(context.id == favorites[i].userId) {
+      return (
+        <>
+      <h1>A log of all your favorite recipes!</h1>
+      <IonCard>
+      <IonRow>
+          {favorites.map(favoriteKey =>
+            <IonCol sizeXs="12" sizeSm="6" key={favoriteKey.id}>
+             {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Recipe ID: {favoriteKey.recipeId}</IonCardTitle>
+                  <IonCardSubtitle>Fav ID: {favoriteKey.id}</IonCardSubtitle>
+                  {/* <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton> */}
+                  <Link to={`/favorite/${favoriteKey.id}`}>
+                  <IonButton>View/edit</IonButton>
+                  </Link>
+                </IonCardHeader>
+              </IonCard>
+              {/* </Link> */}
+            </IonCol>
+          )}
+        </IonRow>
+        </IonCard>
+        </>
+      );
+    }
+
+    else if (!context.loggedInState){
+      return (
+      <>
+        <IonCardHeader>Please log in to see your favorties. </IonCardHeader>
+      </>
+      );
+    }
+
+    else {
+      return (
+        <>
+          <IonCardHeader>Please add a recipe to your favorites in order to see them!</IonCardHeader>
+        </>
+      )
+      
+    }
+  }
+    
+  }
+
   return (
     <Router history={history}>
       <Switch>
@@ -125,27 +185,7 @@ function Favorites() {
           <IonPage className="ion-page" id="main-content">
             <Header />
             <IonContent className="ion-padding">
-              <h1>A log of all your favorite recipes!</h1>
-                  <IonCard>
-                  <IonRow>
-                      {favorites.map(favoriteKey =>
-                        <IonCol sizeXs="12" sizeSm="6" key={favoriteKey.id}>
-                         {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
-                          <IonCard>
-                            <IonCardHeader>
-                              <IonCardTitle>Favorited recipe #{favoriteKey.id}</IonCardTitle>
-                              <IonCardSubtitle>Recipe ID: {favoriteKey.recipeId}</IonCardSubtitle>
-                              {/* <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton> */}
-                              <Link to={`/favorite/${favoriteKey.id}`}>
-                              <IonButton>View/edit</IonButton>
-                              </Link>
-                            </IonCardHeader>
-                          </IonCard>
-                          {/* </Link> */}
-                        </IonCol>
-                      )}
-                    </IonRow>
-                    </IonCard>
+             {seeFavorites()}
             </IonContent>
           </IonPage>
         </IonApp>
