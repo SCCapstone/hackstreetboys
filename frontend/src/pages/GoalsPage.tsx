@@ -2,6 +2,7 @@ import './GoalsPage.css';
 import Chart from '../components/Chart'
 import LineChart from '../components/LineChart'
 import PieChart from '../components/PieChartFilterable';
+import EditableChart from '../components/EditableChart';
 import {
     IonApp,
     IonContent,
@@ -149,26 +150,31 @@ const GoalsPage = () => {
             </IonButton>
             </Link>
             <Calories/>
+            <IonCard>
+              <IonCardContent>
+              <EditableChart></EditableChart>
+              </IonCardContent>
+            </IonCard>
             <IonCardContent >
               <IonGrid>
                 <IonRow>
                   <IonCol size-xs="12" size-md="6">
-                    <IonCard>
+                    {/* <IonCard>
                       <Chart ></Chart>
-                    </IonCard>
+                    </IonCard> */}
                   </IonCol>
                   <IonCol size-xs="12" size-md="6">
-                    <IonCard>
+                    {/* <IonCard>
                     <LineChart ></LineChart>
-                    </IonCard>
+                    </IonCard> */}
                   </IonCol>
                 </IonRow>
               </IonGrid>
             </IonCardContent>
             <IonCard >
-            <IonCardContent>
+            {/* <IonCardContent>
               <PieChart ></PieChart>
-            </IonCardContent>
+            </IonCardContent> */}
             </IonCard>
           
             {randomRecipe()}
