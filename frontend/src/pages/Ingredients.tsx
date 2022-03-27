@@ -118,7 +118,7 @@ function Ingredients() {
                                             <IonItem>
                                                 <IonLabel>Calories</IonLabel>
                                                 {/*<IonRange dualKnobs={true} min={caloriesLower} max={caloriesUpper} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => caloriesRange.upper===1000 && caloriesRange.lower===0 ? setCaloriesRange({lower: caloriesLower, upper: caloriesUpper}) : setCaloriesRange(e.detail.value as any)}>*/}
-                                                <IonRange dualKnobs={true} min={caloriesLower} max={caloriesUpper} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => setCaloriesRange(e.detail.value as any)}>
+                                                <IonRange dualKnobs={true} min={caloriesLower} max={caloriesUpper} value={caloriesRange} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => setCaloriesRange(e.detail.value as any)}>
                                                     <IonLabel slot="start" >{caloriesLower}</IonLabel>
                                                     <IonLabel slot="end">{caloriesUpper}</IonLabel>
                                                 </IonRange>
@@ -126,7 +126,7 @@ function Ingredients() {
 
                                             <IonItem>
                                                 <IonLabel>Carbohydrates</IonLabel>
-                                                <IonRange dualKnobs={true} min={carbohydratesLower} max={carbohydratesUpper} color="secondary" pin={true} onIonChange={e => setCarbohydratesRange(e.detail.value as any)}>
+                                                <IonRange dualKnobs={true} min={carbohydratesLower} max={carbohydratesUpper} value={carbohydratesRange} color="secondary" pin={true} onIonChange={e => setCarbohydratesRange(e.detail.value as any)}>
                                                     <IonLabel slot="start" >{carbohydratesLower}</IonLabel>
                                                     <IonLabel slot="end">{carbohydratesUpper}</IonLabel>
                                                 </IonRange>
@@ -134,7 +134,7 @@ function Ingredients() {
 
                                             <IonItem>
                                                 <IonLabel>Protein</IonLabel>
-                                                <IonRange dualKnobs={true} min={proteinLower} max={proteinUpper} color="secondary" pin={true} onIonChange={e => setProteinRange(e.detail.value as any)}>
+                                                <IonRange dualKnobs={true} min={proteinLower} max={proteinUpper} value={proteinRange} color="secondary" pin={true} onIonChange={e => setProteinRange(e.detail.value as any)}>
                                                     <IonLabel slot="start" >{proteinLower}</IonLabel>
                                                     <IonLabel slot="end">{proteinUpper}</IonLabel>
                                                 </IonRange>
@@ -142,7 +142,7 @@ function Ingredients() {
 
                                             <IonItem>
                                                 <IonLabel>Fat</IonLabel>
-                                                <IonRange dualKnobs={true} min={fatLower} max={fatUpper} color="secondary" pin={true} onIonChange={e => setFatRange(e.detail.value as any)}>
+                                                <IonRange dualKnobs={true} min={fatLower} max={fatUpper} value={fatRange} color="secondary" pin={true} onIonChange={e => setFatRange(e.detail.value as any)}>
                                                     <IonLabel slot="start" >{fatLower}</IonLabel>
                                                     <IonLabel slot="end">{fatUpper}</IonLabel>
                                                 </IonRange>
@@ -150,7 +150,7 @@ function Ingredients() {
 
                                             <IonItem>
                                                 <IonLabel>Cost</IonLabel>
-                                                <IonRange dualKnobs={true} min={costLower} max={costUpper} color="secondary" pin={true} onIonChange={e => setCostRange(e.detail.value as any)}>
+                                                <IonRange dualKnobs={true} min={costLower} max={costUpper} value={costRange} color="secondary" pin={true} onIonChange={e => setCostRange(e.detail.value as any)}>
                                                     <IonLabel slot="start" >{costLower}</IonLabel>
                                                     <IonLabel slot="end">{costUpper}</IonLabel>
                                                 </IonRange>

@@ -46,6 +46,7 @@ import axios from 'axios';
 import { config } from 'process';
 import { useForm } from 'react-hook-form';
 import {Complaint} from '../models/Complaint';
+import {Ingredient} from "../models/Ingredient";
 
 interface ComplaintExample {
   complaint: Complaint;
@@ -170,6 +171,23 @@ useEffect(() => {
 //   history.push('/favorites');
 // }
 
+  const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+    id: 1,
+    name: "",
+    calories: 0,
+    carbohydrates: 0,
+    protein: 0,
+    fat: 0,
+    alcohol: false,
+    cost: 0.0,
+    imgSrc: ""
+  }]);
+  useEffect(() => {
+    fetch("https://api.fridger.recipes/v1/ingredient/")
+        .then(response => response.json())
+        .then(data => setIngredients(data))
+  }, [])
+
 const fav = async () => {
   if(recipe.id == favorites.recipeId) {
     removeFav();
@@ -281,7 +299,7 @@ const complaintLink = () => {
                   <h2>{recipe.description}</h2>
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
                   <h2>By: <a href="">{recipe.author}</a></h2>
-                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
+                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"}{recipe.estimatedCost}</h3>
                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
 
                 </IonCardContent>
@@ -291,7 +309,11 @@ const complaintLink = () => {
                 <IonCardContent>
                   <h2>Ingredients </h2>
                   <p>
-                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
+                    {ingredients.filter(ingredient => (
+                        recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(filteredIngredient => (
+                            <p>- {filteredIngredient.name}</p>
+                        )
+                    )}
                     <br />
                   </p>
                   <h2>Instructions</h2>
