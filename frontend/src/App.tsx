@@ -17,6 +17,7 @@ import ChangePassword from './pages/ChangePassword';
 import AddReview from './pages/AddReview';
 import AddComplaint from './pages/AddComplaint';
 import Complaint from './pages/Complaint';
+import Favorite from './pages/Favorite';
 //import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -122,7 +123,8 @@ import myReviews from './pages/myReviews';
               {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
               <Route path="/recipe/:id/complaint" component={AddComplaint}/>
               <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
-              <Route path="/favorite/:id" component={Recipe}/>
+              {/* <Route path="/favorite/:id" component={Recipe}/> */}
+              <Route path="/favorite/:id" component={Favorite}/>
               <Route path="/complaint/:id" component={Complaint}/>
               <Route path="/review/:id" component={Review}/>
               <Route path="/recipe/add" component={AddRecipe} />
