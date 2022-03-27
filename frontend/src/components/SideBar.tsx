@@ -80,12 +80,12 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/preferences')} >
+          {/* <IonItem button onClick={() => History.push('/preferences')} >
           <IonIcon icon={cogSharp} slot="start"/>
             <IonLabel>
               My Preferences
             </IonLabel>
-          </IonItem>
+          </IonItem> */}
 
           {context.loggedInState &&
           <IonItem button onClick={() => History.push('/editprofile')} >

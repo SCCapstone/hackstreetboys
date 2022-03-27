@@ -17,9 +17,13 @@ import { Router, Switch, Route } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
+import { useEffect } from 'react';
 
 
-function myReviews() {
+function MyReviews() {
+  useEffect(() => {
+    document.title = "My Reviews";
+  }, []);
     return (
         <Router history={history}>
             <Switch>
@@ -48,4 +52,4 @@ function myReviews() {
     );
 }
 
-export default myReviews;
+export default MyReviews;

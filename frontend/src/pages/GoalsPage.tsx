@@ -12,36 +12,29 @@ import {
     IonRow,
     IonCol,
     IonCard,
-    IonInput,
-    IonAlert,
-    useIonAlert,
     IonCardHeader,
     IonCardSubtitle,
     IonCardTitle,
-    IonFab,
-    IonIcon,
     IonLabel,
-    IonHeader,
+    IonTitle,
   } from '@ionic/react';
-import React, {useState, useEffect} from 'react';
-import { Router, Switch, Route, Link } from "react-router-dom";
+import React, {useState, useEffect, useContext} from 'react';
+import { Router, Switch, Link } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
 
 import Header from '../components/Header';
-import CaloriesCounter from '../components/CaloriesCounter';
-import DeleteCalories from '../components/DeleteCalories';
-import CalorieInput from '../components/CalorieInput';
-import ItemList from '../components/ItemList';
 import Calories from '../components/Calories';
 import {Recipe} from '../models/Recipe';
-import { thumbsUp } from 'ionicons/icons';
-const GoalsPage = () => {
+import Context from '../components/Context';
 
+const GoalsPage = () => {
+  const context = useContext(Context);
   const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
     id: 1,
     title: "",
-    author: "",
+    author: 0,
+    authorName: "",
     description: "",
     body: "",
     imgSrc: "",
@@ -66,7 +59,9 @@ const GoalsPage = () => {
   const[itemName, setItemName] = useState("");
   const[calories, setCalories] = useState(0);
   const[openModel, setOpenModel] = useState(false);
-
+  useEffect(() => {
+    document.title = "Goals";
+  }, []);
   const addItemHandler = () => {
     console.log(itemName);
     console.log(calories);
@@ -102,7 +97,7 @@ const GoalsPage = () => {
     <IonPage className="ion-page" id="main-content">
      <Header/>
       <IonContent className="ion-padding">
-        <h1>Welcome to your dashboard, Seongho!</h1>
+        <h1>Welcome to your dashboard, {context.currentUser && context.currentUser.name}!</h1>
         <Link to="/mygoals"><IonButton>
               My Goals 
             </IonButton>
@@ -133,7 +128,7 @@ const GoalsPage = () => {
 
             {/* random recipe */}
             <IonCard>
-            <h1 align-iems='center'>A recipe that may interest you:</h1>
+            <IonTitle align-iems='center'>A recipe that may interest you:</IonTitle>
                       <IonRow>
                       {randRecipes &&
                         <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
@@ -147,11 +142,6 @@ const GoalsPage = () => {
                             <IonCardContent>
                               <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
-
-                              <Link to = {"/recipes"}>
-                    
-                              </Link>
-
                             </IonCardContent>
                           </IonCard>
                           </Link>

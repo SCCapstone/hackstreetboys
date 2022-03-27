@@ -1,6 +1,6 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "research",
+	"appId": "www.fridger.recipes",
+	"appName": "fridger",
 	"webDir": "build",
 	"bundledWebRuntime": false
 }

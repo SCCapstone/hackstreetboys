@@ -3,19 +3,27 @@ package recipes.fridger.backend.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import recipes.fridger.backend.crud.Recipes;
+import recipes.fridger.backend.crud.Reviews;
+import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.dto.CreateRecipeDTO;
 import recipes.fridger.backend.dto.UpdateRecipeDTO;
 import recipes.fridger.backend.model.Recipe;
+import recipes.fridger.backend.model.User;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
-public class RecipeServiceImpl implements RecipeService{
+public class RecipeServiceImpl implements RecipeService {
 
     @Autowired
     private Recipes recipes;
+    @Autowired
+    private Users users;
+    @Autowired
+    private Reviews reviews;
     @Transactional
     @Override
     public void createRecipe(CreateRecipeDTO dto) {
@@ -31,10 +39,10 @@ public class RecipeServiceImpl implements RecipeService{
         r.setYield(dto.getYield());
         r.setEstimatedCost(dto.getEstimatedCost());
         r.setType(dto.getType());
+        r.setRating(0.0);
         //We have not established the alcohol feature yet.
         r.setAlcoholic(dto.getAlcoholic());
         //Fake values for ratings testing...
-        r.setRating(ThreadLocalRandom.current().nextDouble(0, 5));
         //dto.getAlcoholic()
         r.setTags(dto.getTags());
         r.setIngredientIds(dto.getIngredientIds());
@@ -104,22 +112,39 @@ public class RecipeServiceImpl implements RecipeService{
     @Transactional
     @Override
     public Recipe getRecipe(Long id) {
-        Optional<Recipe> recipe = recipes.findById(id);
-        if (recipe.isPresent()) {
-            return recipe.get();
+        Optional<Recipe> optionalRecipe = recipes.findById(id);
+        if (optionalRecipe.isPresent()) {
+            Recipe r = optionalRecipe.get();
+//            Optional<Double> rating = Optional.ofNullable(reviews.getAverageRating(id));
+            Double average = reviews.getAverageRating(id);
+            r.setRating(average!=null ? average : 0.0);
+            r.setTotalTime(r.getCookTime() + r.getPrepTime());
+            System.out.println("individual " + id + " has a rating of " + average);
+            recipes.save(r);
+            return r;
         }
         return null;
     }
 
     @Transactional
     @Override
-    public Recipe recipeByTitleAndAuthor(String title, String author) {
+    public Recipe recipeByTitleAndAuthor(String title, Integer author) {
         return recipes.findByTitleAndAuthor(title, author);
     }
 
     @Transactional
     @Override
     public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title) {
-        return recipes.find(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
+        List<Recipe> recipesList = recipes.find(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
+        for(Recipe r : recipesList){
+            Double average = reviews.getAverageRating(r.getId());
+            r.setRating(average!=null ? average : 0.0);
+            r.setAuthorName((users.findById(r.getAuthor()).get().getName() != null ? users.findById(r.getAuthor()).get().getName() : "NaN"));
+            r.setTotalTime(r.getPrepTime() + r.getCookTime());
+            recipes.save(r);
+            System.out.println(id + " has a rating of " + average);
+        }
+        return recipesList;
+
     }
 }

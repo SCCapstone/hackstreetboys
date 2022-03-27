@@ -76,6 +76,9 @@ function Ingredients() {
             .then(response => response.json())
             .then(data => setIngredients(data))
     }, [])
+    useEffect(() => {
+        document.title = "Ingredients";
+      }, []);
 
     let caloriesLower = Math.min.apply(Math, ingredients.map(function(i) { return i.calories;}));
     let caloriesUpper = Math.max.apply(Math, ingredients.map(function(i) { return i.calories;}));

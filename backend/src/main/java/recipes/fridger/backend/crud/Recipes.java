@@ -19,5 +19,5 @@ public interface Recipes extends CrudRepository<Recipe, Long> {
 
     @Query("select r from Recipe r where (:title is null or r.title = :title) and "
             + "(:author is null or r.author = :author) ORDER BY r.title DESC")
-            Recipe findByTitleAndAuthor(String title, String author);
+            Recipe findByTitleAndAuthor(String title, Integer author);
 }

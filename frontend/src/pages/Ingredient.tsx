@@ -53,7 +53,8 @@ function IngredientPage(this: any) {
       const [recipes, setRecipes] = React.useState<[Recipe]>([{
         id: 1,
         title: "",
-        author: "",
+        author: 0,
+        authorName: "",
         description: "",
         body: "",
         imgSrc: "",
@@ -73,7 +74,9 @@ function IngredientPage(this: any) {
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])
-
+    useEffect(() => {
+        document.title = ingredient.name;
+      }, [ingredient.name]);
     function chooseSome() {
         // HOW MANY RECIPES TO SELECT
         const wantedNumber = 3;
@@ -181,7 +184,7 @@ function IngredientPage(this: any) {
 
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>
-                                                                    <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
+                                                                    <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                                                                 </IonCardHeader>
 
                                                                 <IonCardContent>

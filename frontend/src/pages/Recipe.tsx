@@ -1,16 +1,11 @@
 import './Recipe.css';
-import { Router, Switch, Route, useParams } from "react-router-dom";
+import { Router, Switch, useParams } from "react-router-dom";
 import history from '../History';
 import { Link } from 'react-router-dom';
 import {
   IonApp,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonContent,
-  IonMenuToggle,
   IonPage,
-  IonButtons,
   IonButton,
   IonIcon,
   IonCol,
@@ -21,32 +16,78 @@ import {
   IonCardContent,
   IonBadge,
   IonFabButton,
-  IonFab,
-  IonLabel,
   IonRow,
   NavContext,
+  IonGrid,
+  IonFab,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import { constructOutline, menuOutline, navigate } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart, thumbsUp } from 'ionicons/icons';
-import Favorites from './Favorites';
+import { add, heart, pencilSharp, logoFacebook } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
-import App from '../App';
-import { User } from '../models/User';
 import { Review } from '../models/Review';
 import {Favorite} from '../models/Favorite';
 import axios from 'axios';
-import { config } from 'process';
-import { useForm } from 'react-hook-form';
 import {Complaint} from '../models/Complaint';
-
+import { userInfo } from 'os';
+import {
+  FacebookShareCount,
+  PinterestShareCount,
+  VKShareCount,
+  OKShareCount,
+  RedditShareCount,
+  TumblrShareCount,
+  HatenaShareCount,
+  FacebookShareButton,
+  FacebookMessengerShareButton,
+  FacebookMessengerIcon,
+  LinkedinShareButton,
+  TwitterShareButton,
+  PinterestShareButton,
+  VKShareButton,
+  OKShareButton,
+  TelegramShareButton,
+  WhatsappShareButton,
+  RedditShareButton,
+  EmailShareButton,
+  TumblrShareButton,
+  LivejournalShareButton,
+  MailruShareButton,
+  ViberShareButton,
+  WorkplaceShareButton,
+  LineShareButton,
+  WeiboShareButton,
+  PocketShareButton,
+  InstapaperShareButton,
+  HatenaShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  VKIcon,
+  OKIcon,
+  TelegramIcon,
+  WhatsappIcon,
+  RedditIcon,
+  TumblrIcon,
+  MailruIcon,
+  EmailIcon,
+  LivejournalIcon,
+  ViberIcon,
+  WorkplaceIcon,
+  LineIcon,
+  PocketIcon,
+  InstapaperIcon,
+  WeiboIcon,
+  HatenaIcon
+} from "react-share";
+import { Ingredient } from '../models/Ingredient';
 interface ComplaintExample {
   complaint: Complaint;
 }
@@ -72,44 +113,16 @@ function RecipePage() {
     recipeId: 1
   });
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/favorites`)
-    fetch(`https://api.fridger.recipes/v1/favorites`)
+    fetch(`https://api.fridger.recipes/v1/favorites/`)
     .then(response => response.json())
     .then(data => setFavorite(data))
-  }, [])
-
-  const [reviews, setReview] = React.useState<Review>({
-    id: 1,
-    rating: 0,
-    feedback: "none yet",
-    authorId: 0,
-    recipeId: 0
-  });
-  useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/reviews`)
-    //fetch(`https://api.fridger.recipes/v1/reviews`)
-    .then(response => response.json())
-    .then(data => setReview(data))
-  }, [])
-
-  const [complaints, setComplaints] = React.useState<Complaint>({
-    id: 1,
-    severity: 0,
-    reason: "none yet",
-    authorId: 0,
-    complaintId: 0
-  });
-  useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/complaints`)
-    //fetch(`https://api.fridger.recipes/v1/complaints`)
-    .then(response => response.json())
-    .then(data => setComplaints(data))
   }, [])
 
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
-    author: "",
+    author: 0,
+    authorName: "",
     description: "",
     body: "",
     imgSrc: "",
@@ -126,21 +139,47 @@ function RecipePage() {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
     fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [id])
   console.log(recipe);
 
-  //const [favorites, setFavorites] = useState([] as Array<number>);
-  const {navigate} = useContext(NavContext);
 
+  const [reviews, setReview] = React.useState<[Review]>([{
+    id: 1,
+    rating: 0,
+    feedback: "none yet",
+    authorId: 0,
+    authorName: "",
+    recipeId: 0
+  }]);
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/review/?recipeId=${id}`)
+    .then(response => response.json())
+    .then(data => setReview(data))
+  }, [])
+  console.log(recipe.id);
+console.log(reviews);
+  const [complaints, setComplaints] = React.useState<Complaint>({
+    id: 1,
+    severity: 0,
+    reason: "none yet",
+    authorId: 0,
+    complaintId: 0
+  });
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/complaint/`)
+    .then(response => response.json())
+    .then(data => setComplaints(data))
+  }, [])
+  const {navigate} = useContext(NavContext);
 
 const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
   id: 1,
   title: "",
-  author: "",
+  author: 0,
+  authorName: "",
   description: "",
   body: "",
   imgSrc: "",
@@ -161,14 +200,6 @@ useEffect(() => {
   .then(data => setAllRecipes(data))
 }, [])
 
-//const favs = recipes.find(() => true);
-
-// const addFav = (recipe: any) => {
-
-//   favorites.userId = context.currentUser?.id;
-//   favorites.recipeId = recipe.id;
-//   history.push('/favorites');
-// }
 
 const fav = async () => {
   if(recipe.id == favorites.recipeId) {
@@ -178,9 +209,7 @@ const fav = async () => {
     addFav();
   }
   
-  
-  //history.push(`/favorites/recipe/${id}`);
-  //navigate('/favorites');
+
 }
 
 const addFav = async () => {
@@ -214,6 +243,26 @@ const addFav = async () => {
 }
 return false;
 };
+useEffect(() => {
+  document.title = recipe.title;
+}, [recipe.title]);
+
+const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
+  id: 1,
+  name: "",
+  calories: 0,
+  carbohydrates: 0,
+  protein: 0,
+  fat: 0,
+  alcohol: false,
+  cost: 0.0,
+  imgSrc: ""
+}]);
+useEffect(() => {
+  fetch("https://api.fridger.recipes/v1/ingredient/")
+      .then(response => response.json())
+      .then(data => setIngredients(data))
+}, [])
 
 const removeFav = async () => {
   try {
@@ -257,6 +306,7 @@ const complaintLink = () => {
     return <></>
   }
 }
+let shareUrl = `https://fridger.recipes/recipe/${id}`
   return (
 
     <Router history={history}>
@@ -269,18 +319,112 @@ const complaintLink = () => {
               {complaintLink()}
               <IonCard>
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
-                <img src={RecipeBanner} alt="Recipe Image" style={{ width: '100%', objectFit: 'cover' }} />
-
-                          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
-                          {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} />
-                          </IonButton>
-
+                <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
+          <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
+          <IonButton onClick={() => {if(!context.loggedInState) history.push('/register'); else ( fav() )}} >
+                          {/* <IonButton onClick={() => { fav() }} > */}
+                            <IonIcon icon={heart} /></IonButton>
+          <FacebookShareButton
+            url={"https://fridger.recipes/"+recipe.id}
+            quote={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <FacebookIcon size={40} round />
+          </FacebookShareButton>
+
+          <FacebookMessengerShareButton
+            url={shareUrl}
+            appId="641532566054417"
+            className="Demo__some-network__share-button"
+          >
+            <FacebookMessengerIcon size={40} round />
+          </FacebookMessengerShareButton>
+
+          <TwitterShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TwitterIcon size={40} round />
+          </TwitterShareButton>
+
+          <TelegramShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TelegramIcon size={40} round />
+          </TelegramShareButton>
+
+          <WhatsappShareButton
+            url={shareUrl}
+            title={recipe.title}
+            separator=":: "
+            className="Demo__some-network__share-button"
+          >
+            <WhatsappIcon size={40} round />
+          </WhatsappShareButton>
+
+          <LinkedinShareButton url={shareUrl} className="Demo__some-network__share-button">
+            <LinkedinIcon size={40} round />
+          </LinkedinShareButton>
+
+          <PinterestShareButton
+            url={String(window.location)}
+            media={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <PinterestIcon size={40} round />
+          </PinterestShareButton>
+
+          <VKShareButton
+            url={shareUrl}
+            image={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <VKIcon size={40} round />
+          </VKShareButton>
+
+          <RedditShareButton
+            url={shareUrl}
+            title={recipe.title}
+            windowWidth={660}
+            windowHeight={460}
+            className="Demo__some-network__share-button"
+          >
+            <RedditIcon size={40} round />
+          </RedditShareButton>
+          <TumblrShareButton
+            url={shareUrl}
+            title={recipe.title}
+            className="Demo__some-network__share-button"
+          >
+            <TumblrIcon size={40} round />
+          </TumblrShareButton>
+
+          <EmailShareButton
+            url={shareUrl}
+            subject={recipe.title}
+            body="body"
+            className="Demo__some-network__share-button"
+          >
+            <EmailIcon size={40} round />
+          </EmailShareButton>
+
+          <WeiboShareButton
+            url={shareUrl}
+            title={recipe.title}
+            image={recipe.imgSrc}
+            className="Demo__some-network__share-button"
+          >
+            <WeiboIcon size={40} round />
+          </WeiboShareButton>
+      </div>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
-                  <h2>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</h2>
-                  <h2>By: <a href="">{recipe.author}</a></h2>
+                  <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
+                  <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
 
@@ -290,10 +434,13 @@ const complaintLink = () => {
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
-                  <p>
-                    {recipe.ingredientIds ? ("" + recipe.ingredientIds) : "Ingredients unavailable"}
-                    <br />
-                  </p>
+                  {ingredients.filter(ingredient => (
+                      recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
+                      <p>
+                        - <a href={`../ingredient/${ingredient.id}`}>{ingredient.name}</a>
+                      </p>
+                  ))}
+                  <br/>
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
@@ -328,6 +475,24 @@ const complaintLink = () => {
               <IonCard>
                   <IonCardContent>
                     {/* <Link to={`/review/${recipe.id}`}><IonButton> */}
+
+                    <IonGrid>
+         <IonRow>
+            {reviews.slice(-4).map(review => 
+               <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+                   <Link to={`/review/${review.id}`}>
+                       <IonCard button routerDirection="forward">
+                         <IonCardHeader>
+                           <IonCardTitle>{review.feedback}</IonCardTitle>
+                         <IonCardSubtitle>Rating: {review.rating}<br/>By: {review.authorName}</IonCardSubtitle>
+                      </IonCardHeader>
+                   </IonCard>
+                 </Link>
+              </IonCol>
+            )}
+            
+          </IonRow>
+        </IonGrid>
                     <Link to={`/review/${recipe.id}`}><IonButton>
               Click to see Reviews about all recipes
             </IonButton>
@@ -337,7 +502,7 @@ const complaintLink = () => {
             <IonCard>
               <IonCardContent>
             <h2>Add a review:</h2>
-                <Link to={`/review/add`}>
+                <Link to={`/recipe/${recipe.id}/review`}>
                     <IonFabButton >
                       <IonIcon icon={add} />
                     </IonFabButton>
@@ -368,8 +533,12 @@ const complaintLink = () => {
                   </IonCardContent>
                   </IonCard>
             </IonContent>
-
-
+                  
+            {(recipe.author === context.currentUser?.id || (context.isAdmin)) ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
+                  <IonFabButton routerLink={`/recipe/edit/${recipe.id}`}>
+                      <IonIcon icon={pencilSharp} />
+                    </IonFabButton>
+                  </IonFab> : ""}
           </IonPage>
         </IonApp>
       </Switch>

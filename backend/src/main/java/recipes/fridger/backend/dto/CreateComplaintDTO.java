@@ -12,11 +12,10 @@ import lombok.Data;
 public class CreateComplaintDTO {
 
     private Long authorId;
-
-    private Long complaintId;
-
+    private String authorName;
+    private Long recipeId;
     @Min(0)
-    @Max(5)
+    @Max(3)
     private Integer severity;
 
     @Size(min = 0, max = 10000)
