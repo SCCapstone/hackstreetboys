@@ -33,6 +33,9 @@ public class User {
      @Column(name = "enabled")
      private boolean enabled;
 
+     @Column(name = "verification_code", length = 64)
+     private String verificationCode;
+
      @Size(min = 0, max = 100)
      @Column(name = "password")
      private String password;
