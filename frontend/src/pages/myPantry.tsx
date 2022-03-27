@@ -152,9 +152,9 @@ function MyPantry() {
   //   +thisUserID.toString()
   
    const refreshPantry = () => {
-    // fetch(DOMAIN+'/v1/user/pantry/getUserPantry/'+context.currentUser!.id
-    // , config)
-    fetch(DOMAIN+'/v1/user/pantry',config)
+    fetch(DOMAIN+'/v1/user/pantry/getUserPantry/'+context.currentUser!.id
+    , config)
+    // fetch(DOMAIN+'/v1/user/pantry',config)
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
     console.log("Refreshing Pantry")
