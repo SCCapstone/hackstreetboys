@@ -52,6 +52,10 @@ public class AuthController {
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO>
     authenticateUser(@RequestBody CreateAuthRequestDTO u) {
+        //TODO add
+        // if(user.getEnabled()==false)
+        //          -->don't allow
+
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(u.getEmail(), u.getPassword()));
 
