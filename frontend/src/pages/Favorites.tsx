@@ -1,7 +1,7 @@
 import './Favorites.css';
-
 import {
   IonApp,
+  IonButton,
   IonCard,
   IonCardHeader,
   IonCardSubtitle,
@@ -10,6 +10,7 @@ import {
   IonContent,
   IonPage,
   IonRow,
+  NavContext,
 } from '@ionic/react';
 
 import { Link, Router, Switch, useParams } from "react-router-dom";
@@ -17,14 +18,18 @@ import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
 import { User } from '../models/User';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {Recipe} from "../models/Recipe";
 import { routePrams } from './MyGoal';
 import {Favorite} from '../models/Favorite';
+import axios from 'axios';
+import Context from '../components/Context';
+import { toNumber } from 'lodash';
 
 interface FavoriteExample {
   favorite: Favorite;
 }
+
 interface UserProps {
   user: User;
 }
@@ -35,22 +40,19 @@ interface RecipeExample{
 
 function Favorites() {
   const {id} = useParams<routePrams>();
-  // const [favorites, setFavorites ] = React.useState<[Favorite]>([{
-  //   id: 1, 
-  //   userId: 1, 
-  //   recipeId: 1
-  // }]);
+  const {navigate} = useContext(NavContext);
+  const context = useContext(Context);
   const [favorite, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: 1, 
     recipeId: 1
   });
-  // useEffect(() => {
-  //   fetch(`https://api.fridger.recipes/v1/favorites/${id}/`)
-  //   //fetch(`https://api.fridger.recipes/v1/favorites`)
-  //   .then(response => response.json())
-  //   .then(data => setFavorite(data))
-  // }, [])
+
+  const [fav, setFav ] = React.useState<Favorite>({
+    id: 1, 
+    userId: 1, 
+    recipeId: 1
+  });
 
   const [favorites, setFavorites ] = React.useState<[Favorite]>([{
     id: 1, 
@@ -58,8 +60,7 @@ function Favorites() {
     recipeId: 1
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
-    //fetch(`https://api.fridger.recipes/v1/favorites`)
+     fetch(`https://api.fridger.recipes/v1/favorites/`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
@@ -67,7 +68,8 @@ function Favorites() {
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
     title: "",
-    author: "",
+    author: 0,
+    authorName: "",
     description: "",
     body: "",
     imgSrc: "",
@@ -84,37 +86,96 @@ function Favorites() {
   })
 
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
-    fetch(`https://api.fridger.recipes/v1/recipe/`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
-  }, [id])
+  }, [favorite.recipeId])
+
   console.log(recipe);
+  useEffect(() => {
+    document.title = "Favorites";
+  }, []);
 
+
+
+  const removeFav = async () => {
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+     
+      const res = await axios.delete(
+        `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
+        config
+        ).then(res=> {
+        console.log("Removed from favorites by" + favorite.id);
+        if(res.status == 200){
+          console.log("Status is "+res.status);
+          navigate('/favorites');
+        }
   
+      });
+      return res;
+    }catch (e) {
+      console.error(e);
+  }
+  return false;
+  };
 
-  // useEffect(() => {
-  //   fetch('https://api.fridger.recipes/v1/recipe/')
-  //   .then(res => res.json())
-  //   .then(data => setRecipe(data))
-  // }, [])
 
-  
-  // const [ user, setUser ] = React.useState<User>({
-  //   id: 1,
-  //   type: 'NORMAL',
-  //   email: 'seonghopark@gmail.com',
-  //   password: 'this probably shoudn\'t be here',
-  //   name: 'Seongho Park',
-  //   bio: `Hi.`,
-  //   dob: 'Mar. 20, 1987',
-  //   height_in: 85,
-  //   weight_lb: 600,
-  //   favorites: ""
-  // });
-  
+  const seeFavorites = () => {
+    console.log(favorites.length);
+    var i = 0;
+    while( i< favorites.length) {
+    if(context.id == favorites[i].userId) {
+      return (
+        <>
+      <h1>A log of all your favorite recipes!</h1>
+      <IonCard>
+      <IonRow>
+          {favorites.map(favoriteKey =>
+            <IonCol sizeXs="12" sizeSm="6" key={favoriteKey.id}>
+             {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
+              <IonCard>
+                <IonCardHeader>
+                  <IonCardTitle>Recipe ID: {favoriteKey.recipeId}</IonCardTitle>
+                  <IonCardSubtitle>Fav ID: {favoriteKey.id}</IonCardSubtitle>
+                  {/* <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton> */}
+                  <Link to={`/favorite/${favoriteKey.id}`}>
+                  <IonButton>View/edit</IonButton>
+                  </Link>
+                </IonCardHeader>
+              </IonCard>
+              {/* </Link> */}
+            </IonCol>
+          )}
+        </IonRow>
+        </IonCard>
+        </>
+      );
+    }
 
-  //const favRecipes = recipes.sort(() => Math.random() - Math.random()).find(() => true);
+    else if (!context.loggedInState){
+      return (
+      <>
+        <IonCardHeader>Please log in to see your favorties. </IonCardHeader>
+      </>
+      );
+    }
+
+    else {
+      return (
+        <>
+          <IonCardHeader>Please add a recipe to your favorites in order to see them!</IonCardHeader>
+        </>
+      )
+      
+    }
+  }
+    
+  }
 
   return (
     <Router history={history}>
@@ -124,30 +185,7 @@ function Favorites() {
           <IonPage className="ion-page" id="main-content">
             <Header />
             <IonContent className="ion-padding">
-              <h1>A log of all your favorite recipes!</h1>
-                    {/* <p>
-                    {user.favorites ? ("" + user.favorites) : "Favorites unavailable"}
-                    <br />
-                  </p> */}
-                  <IonCard>
-                  <IonRow>
-                      {favorites.map(favorite =>
-                        <IonCol sizeXs="12" sizeSm="6" key={favorite.id}>
-                         {/* <Link to={`/recipe/${favorite.recipeId}`}> */}
-                         <Link to={`/favorite/${favorite.recipeId}`}>
-                          <IonCard button routerDirection="forward">
-                            <IonCardHeader>
-
-                              <IonCardTitle>Favorited recipe #{favorite.id}</IonCardTitle>
-                              <IonCardSubtitle>Recipe ID: {favorite.recipeId}</IonCardSubtitle>
-                              <IonCardSubtitle></IonCardSubtitle>
-                            </IonCardHeader>
-                          </IonCard>
-                          </Link>
-                        </IonCol>
-                      )}
-                    </IonRow>
-                    </IonCard>
+             {seeFavorites()}
             </IonContent>
           </IonPage>
         </IonApp>

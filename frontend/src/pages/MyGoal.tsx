@@ -11,7 +11,7 @@ import {
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
 import React, { useEffect } from 'react';
-import { Goal } from '../Goal';
+import { Goal } from '../models/Goal';
 import Header from "../components/Header";
 
 interface GoalExample {
@@ -40,7 +40,9 @@ function GoalPage(this: any) {
   }, [id])
 
   console.log(goal);
-
+  useEffect(() => {
+    document.title = "My Goal";
+  }, []);
   return (
     <Router history={history}>
       <Switch>

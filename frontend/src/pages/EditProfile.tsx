@@ -23,6 +23,9 @@ import React, { useEffect, useState } from 'react';
 import EditProfileForm from '../components/EditProfileForm';
 
 function EditProfile() {
+    useEffect(() => {
+        document.title = "Edit Profile";
+      }, []);
     return (
         <Router history={history}>
             <Switch>

@@ -23,6 +23,9 @@ import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 
 function Login() {
+    useEffect(() => {
+        document.title = "Login";
+      }, []);
     return (
         <Router history={history}>
             <Switch>

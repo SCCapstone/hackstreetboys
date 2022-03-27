@@ -13,4 +13,7 @@ public interface Reviews extends CrudRepository<Review, Long> {
                 "(:rating is NULL or r.rating = :rating) AND " +
                 "(:feedback is NULL or r.feedback = :feedback)")
     List<Review> find(Long id, Long authorId, Long recipeId, Integer rating, String feedback);
+
+    @Query("select AVG(r.rating) from Review r where r.recipeId = :recipeId")
+    Double getAverageRating(Long recipeId);
 }

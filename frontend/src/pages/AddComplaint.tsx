@@ -26,10 +26,14 @@ import { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';    
 import Context from '../components/Context';
 import { User } from '../models/User';
-    interface ComplaintExample {
-        complaint: Complaint,
+      export interface routePrams {
+        id: string;
+      }
+      export interface routePrams {
+        id: string;
       }
             const AddComplaint: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
+                const { id } = useParams<routePrams>();
                 const [ loggedIn, setLoggedIn ] = useState(false);
                 const [ user, setUser ] = useState<User>();
                 const globals = {
@@ -42,7 +46,6 @@ import { User } from '../models/User';
                 const context = useContext(Context);
                 const {navigate} = useContext(NavContext);
                 const history = useHistory();
-                const [checked, setChecked] = useState(false);
                 const {
                     control,
                     register,
@@ -52,9 +55,8 @@ import { User } from '../models/User';
                     formState: { errors }
                 } = useForm({
                     defaultValues: {
-                        id: context.currentUser?.id,
-                        authorId: 0,
-                        complaintId: 0,
+                        authorId: context.currentUser?.id,
+                        recipeId: 0,
                         severity: 0,
                         reason: "",
                     }
@@ -89,7 +91,10 @@ import { User } from '../models/User';
         }
         return false;
       }
-
+      useEffect(() => {
+        document.title = "Add Complaint";
+      }, []);
+      
 return (
 
     <Router history={history}>
@@ -101,20 +106,30 @@ return (
 
        <IonContent className="ion-padding">
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
-        <IonItem>
-                    <IonLabel position="floating" >Please rate the severity of your complaint.</IonLabel>
-                    <IonInput name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("severity",e.target.value)} />
+
+         <IonItem>
+                    <IonLabel>Severity</IonLabel>
+                    {/* <IonSelect name="type" multiple={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('ingredientIds',JSON.stringify(e.detail.value).replaceAll("[","").replaceAll("]","").replaceAll('\"',""))}> */}
+                    <IonSelect name="type" multiple={false} aria-require={true} cancelText="Cancel" okText="Okay" onIonChange={e => setValue('severity',e.detail.value)}>
+                   {/* TODO: Add Searching Through Modal */}
+                        <IonSelectOption value={1}>Low</IonSelectOption>
+                        <IonSelectOption value={2}>Medium</IonSelectOption>
+                        <IonSelectOption value={3}>High</IonSelectOption>
+                    </IonSelect>
                 </IonItem>
+                {/* <IonItem>
+                    <IonLabel position="floating" >Please rate the severity of your complaint.</IonLabel>
+                    <IonInput name="rating" placeholder="Please enter a whole number" required onIonInput={(e: any) => setValue("severity",e.target.value)} />
+                </IonItem> */}
                 
                 <IonItem>
                     <IonLabel position="floating">Please tell us your reasoning for this complaint:</IonLabel>
                     <IonInput name="feedback" required onIonInput={(e: any) => setValue("reason",e.target.value)} />
                 </IonItem>
                 
-                <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Complaint</IonButton>
+                <IonButton className="ion-margin-top" color='primary' type="submit" slot="start" >Submit Complaint</IonButton>
 
                 <Link to={"/recipes"}>
-                   
                     <IonButton className="ion-margin-top" color="danger">Cancel</IonButton>
                 </Link>
             </form>

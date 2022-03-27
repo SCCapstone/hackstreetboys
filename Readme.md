@@ -1,6 +1,6 @@
 ![alt text](https://github.com/SCCapstone/hackstreetboys/blob/main/Documentation/branding/banner.png?raw=true)
 # Fridger
-Fridger is a progressive web application for anyone who likes to cook. Users can create, review, and share their food creations with others in the community. This innovative platform will include features such as integrated sharing functionality, recipe reviews, and a recipe matching function that uses the ingredients that you put into your online pantry and your personal preferences to curate the perfect list of recipes to fit your tastes. We’d also like to implement multi-user experiences for guests, verified users, and administrators allowing for OAuth and 2-Factor authentication.
+Fridger is a progressive web application for anyone who likes to cook. Users can create, review, and share their food creations with others in the community. This innovative platform will include features such as integrated sharing functionality, recipe reviews, and a recipe matching function that uses the ingredients that you put into your online pantry and your personal preferences to curate the perfect list of recipes to fit your tastes. Fridger has its own recipe rating and review system which makes it easy to see what's popular! Our goal tracking platform is perfect for those who are trying to meet their health objectives through what they eat. Try Fridger today!
 ## External Requirements
 In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
@@ -14,8 +14,10 @@ To install React and other front-end dependencies: \
 IDE: VSCode\
 MySQL Community Server and MySQL Workbench/CLI, if using local machine for backend.
 ## Style
-When we build this project, we will rely on this React/JSX style guide from Airbnb to keep our code consistent: 
+When we build this project, we will rely on this React style guide from Airbnb to keep our code consistent: 
 <https://github.com/airbnb/javascript/tree/master/react>
+And for TypeScript:
+https://google.github.io/styleguide/tsguide.html
 ## Setup
 Clone this repo.\
 To use backend locally, install MySQL Community Server and MySQL Workbench/CLI; defaulting running on `localhost:8080`\
@@ -29,7 +31,10 @@ and to run Spring Boot use \
 # Deployment
 To make a production build of the React JS/Ionic frontend, we will use the command \
 `ionic build` \
-which will produce static HTML files. For the backend, we will use the command \
+which will produce static HTML files. 
+Then run the deployment command\
+`gcloud app deploy`\
+For the backend, we will use the command \
 `mvn clean package appengine:deploy -P cloud-gcp` \
 after configuring Google Cloud Platform in the application.properties file, updating relevant manifests, and following the setup commands outlined at https://www.baeldung.com/spring-boot-google-app-engine. The backend will be in a JAR or WAR file to be deployed after configuring Google App Engine to run Java.
 # Testing

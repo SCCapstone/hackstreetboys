@@ -46,7 +46,7 @@ public class RecipeControllerTest {
     //Setup Test Data
     Recipes recipes;
     String title = "Recipe X192918";
-    String author = "Author of X192918";
+    Integer author = 0;
     String description = "Description of X192918";
     String body = "Body of X192918";
     String imgSrc = "cdn.x1929918.internal";

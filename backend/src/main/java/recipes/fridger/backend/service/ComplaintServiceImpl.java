@@ -18,7 +18,7 @@ public class ComplaintServiceImpl implements ComplaintService{
     public void createComplaint(CreateComplaintDTO dto) {
         Complaint c = new Complaint();
         c.setAuthorId(dto.getAuthorId());
-        c.setComplaintId(dto.getComplaintId());
+        c.setRecipeId(dto.getRecipeId());
         c.setReason(dto.getReason());
         c.setSeverity(dto.getSeverity());
         complaints.save(c);
@@ -43,8 +43,8 @@ public class ComplaintServiceImpl implements ComplaintService{
     }
 
     @Transactional
-    public Iterable<Complaint> getComplaints(Long id, Long authorId, Long complaintId, Integer severity, String reason ) {
-        return complaints.find(id, authorId, complaintId, severity, reason);
+    public Iterable<Complaint> getComplaints(Long id, Long authorId, Long recipeId, Integer severity, String reason ) {
+        return complaints.find(id, authorId, recipeId, severity, reason);
     }
 
 }

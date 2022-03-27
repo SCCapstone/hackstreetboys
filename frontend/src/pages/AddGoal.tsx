@@ -1,5 +1,5 @@
 import './MyGoals.css';
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import history from '../History';
 import {
   IonApp,
@@ -109,6 +109,9 @@ import Context from '../components/Context';
         }
         return false;
       }
+      useEffect(() => {
+        document.title = "Add Goal";
+      }, []);
       return (
 
     <Router history={history}>
@@ -130,28 +133,28 @@ import Context from '../components/Context';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating" >How many calories do you consume per day?</IonLabel>
-                    <IonInput name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
+                    <IonInput type="number" name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>
                     <IonLabel position="floating">How many carbohydrates do you consume per day?</IonLabel>
-                    <IonInput name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)} />
+                    <IonInput type="number" name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">How much protein do you consume per day?</IonLabel>
-                    <IonInput name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)} />
+                    <IonInput type="number" name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">How much fat do you consume per day?</IonLabel>
-                    <IonInput name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)} />
+                    <IonInput type="number" name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your current weight?</IonLabel>
-                    <IonInput name="currentWeight" required onIonInput={(e: any) => setValue("currentWeight",e.target.value)} />
+                    <IonInput type="number" name="currentWeight" required onIonInput={(e: any) => setValue("currentWeight",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your goal weight?</IonLabel>
-                    <IonInput name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
+                    <IonInput type="number" name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
                 </IonItem>
                 
                 {/* <Link to ="/mygoals/"> */}
