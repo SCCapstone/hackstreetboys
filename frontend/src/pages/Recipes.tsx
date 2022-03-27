@@ -119,7 +119,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                                 <IonItem>
                                     <IonLabel>Total Time</IonLabel>
                                     {/*<IonRange dualKnobs={true} min={caloriesLower} max={caloriesUpper} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => caloriesRange.upper===1000 && caloriesRange.lower===0 ? setCaloriesRange({lower: caloriesLower, upper: caloriesUpper}) : setCaloriesRange(e.detail.value as any)}>*/}
-                                    <IonRange dualKnobs={true} min={totalTimeLower} max={totalTimeUpper} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => setTotalTimeRange(e.detail.value as any)}>
+                                    <IonRange dualKnobs={true} min={totalTimeLower} max={totalTimeUpper} value={totalTimeRange} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => setTotalTimeRange(e.detail.value as any)}>
                                         <IonLabel slot="start" >{totalTimeLower}</IonLabel>
                                         <IonLabel slot="end">{totalTimeUpper}</IonLabel>
                                     </IonRange>
@@ -127,7 +127,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
                                 <IonItem>
                                     <IonLabel>Servings Yield</IonLabel>
-                                    <IonRange dualKnobs={true} min={yieldLower} max={yieldUpper} color="secondary" pin={true} onIonChange={e => setYieldRange(e.detail.value as any)}>
+                                    <IonRange dualKnobs={true} min={yieldLower} max={yieldUpper} value={yieldRange} color="secondary" pin={true} onIonChange={e => setYieldRange(e.detail.value as any)}>
                                         <IonLabel slot="start" >{yieldLower}</IonLabel>
                                         <IonLabel slot="end">{yieldUpper}</IonLabel>
                                     </IonRange>
@@ -135,7 +135,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
                                 <IonItem>
                                     <IonLabel>Cost</IonLabel>
-                                    <IonRange dualKnobs={true} min={costLower} max={costUpper} color="secondary" pin={true} onIonChange={e => setCostRange(e.detail.value as any)}>
+                                    <IonRange dualKnobs={true} min={costLower} max={costUpper} value={costRange} color="secondary" pin={true} onIonChange={e => setCostRange(e.detail.value as any)}>
                                         <IonLabel slot="start" >{costLower}</IonLabel>
                                         <IonLabel slot="end">{costUpper}</IonLabel>
                                     </IonRange>
@@ -143,7 +143,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
                                 <IonItem>
                                     <IonLabel>Rating</IonLabel>
-                                    <IonRange dualKnobs={true} min={ratingLower} max={ratingUpper} color="secondary" pin={true} onIonChange={e => setRatingRange(e.detail.value as any)}>
+                                    <IonRange dualKnobs={true} min={ratingLower} max={ratingUpper} value={ratingRange} color="secondary" pin={true} onIonChange={e => setRatingRange(e.detail.value as any)}>
                                         <IonLabel slot="start" >{ratingLower.toFixed(1)}</IonLabel>
                                         <IonLabel slot="end">{ratingUpper.toFixed(1)}</IonLabel>
                                     </IonRange>
