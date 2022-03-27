@@ -452,8 +452,8 @@ function MyPantry() {
       <Router history={history}>
         <Switch>
           <IonApp>
-
               <SideBar/>
+              <IonPage className="ion-page" id="main-content">
               <Header/>
               <IonContent className="ion-padding">
               <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>{context.currentUser.name}'s Pantry!</h1></IonText>
@@ -565,6 +565,7 @@ function MyPantry() {
                     </IonRow>
                   </IonGrid>
                 </IonContent>
+                </IonPage>
               </IonApp>
         </Switch>
       </Router>
