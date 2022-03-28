@@ -15,13 +15,17 @@ import {
 import React, {useState, useEffect} from 'react';
 import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
-import CaloriesCounter from '../components/CaloriesCounter';
-import DeleteCalories from '../components/DeleteCalories';
-import CalorieInput from '../components/CalorieInput';
-import ItemList from '../components/ItemList';
+import CaloriesCounter from './CaloriesCounter';
+import DeleteCalories from './DeleteCalories';
+import CalorieInput from './CalorieInput';
+import ItemList from './ItemList';
 import axios from 'axios';
+import Calorie from '../models/Calorie';
 
 const Calories = () => {
+
+
+
     const[items, setItems] = useState([]);
     const[itemName, setItemName] = useState("");
     const[calories, setCalories] = useState();
@@ -46,9 +50,9 @@ const Calories = () => {
       }else {
           setItems(newItems);
          
-            //  const article = { title: 'React PUT Request' };
-            //  axios.put('https://api.fridger.recipes/v1/user/mygoals/')
-            // .then(response => this.setState({ updatedAt: response.data.updatedAt }));
+             const article = { title: 'React PUT Request' };
+             axios.put('https://api.fridger.recipes/v1/calories/')
+            .then(response => this.setState({ updatedAt: response.data.updatedAt }));
         }
 
       setItemName();
@@ -57,6 +61,8 @@ const Calories = () => {
     };
 
     const deleteItemHandler = (id) => {
+
+      
         
         const oldItems = [...items];
         const newItems = oldItems.filter((item)=>item.id !==id);
