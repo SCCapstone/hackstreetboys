@@ -20,6 +20,8 @@ import recipes.fridger.backend.dto.CreateCaloriesDTO;
 import recipes.fridger.backend.service.CaloriesService;
 import recipes.fridger.backend.model.Calorie;
 
+import java.util.Date;
+
 @Controller
 @Slf4j
 @ResponseBody
@@ -36,7 +38,7 @@ public class CaloriesController {
 
         try {
             caloriesService.createCalorie(c);
-            log.info("Successful creation of calories");
+            log.info("Successful creation of calories item");
             log.info(String.valueOf(c));
             return ResponseEntity.ok("Created calories");
         } catch (Exception e) {
@@ -65,9 +67,10 @@ public class CaloriesController {
     getCalories(@RequestParam(required = false) Long id,
                    @RequestParam(required = false) Long userId,
                    @RequestParam(required = false) String title,
-                    @RequestParam(required = false) Long calorieCount)
+                    @RequestParam(required = false) Long calorieCount,
+                    @RequestParam(required = false) Date dateAdded)
     {
-        return caloriesService.getCalories(id, userId, title, calorieCount);
+        return caloriesService.getCalories(id, userId, title, calorieCount, dateAdded);
     }
 
 }

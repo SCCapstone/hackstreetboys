@@ -8,6 +8,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.*;
+import java.util.Date;
+
 @Data
 public class ReturnCaloriesDTO {
 
@@ -18,4 +20,6 @@ public class ReturnCaloriesDTO {
     private String title;
 
     private Long calorieCount;
+
+    private Date dateAdded;
 }

@@ -1,9 +1,6 @@
 package recipes.fridger.backend.controller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -44,23 +41,17 @@ import recipes.fridger.backend.dto.CreateUserDTO;
 import recipes.fridger.backend.mail.*;
 import recipes.fridger.backend.dto.ReturnUserDTO;
 import recipes.fridger.backend.dto.UpdateUserDTO;
-import recipes.fridger.backend.model.Pantry;
-import recipes.fridger.backend.model.RoleEnum;
-import recipes.fridger.backend.model.User;
-import recipes.fridger.backend.model.VerificationToken;
+import recipes.fridger.backend.model.*;
+import recipes.fridger.backend.service.CaloriesService;
 import recipes.fridger.backend.service.PantryService;
 import recipes.fridger.backend.service.UserService;
 
 import recipes.fridger.backend.crud.Goals;
 import recipes.fridger.backend.dto.CreateAuthRequestDTO;
 import recipes.fridger.backend.dto.CreateGoalDTO;
-import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.service.GoalService;
 import recipes.fridger.backend.crud.Pantries;
 import recipes.fridger.backend.crud.Roles;
-
-import java.util.Calendar;
-import java.util.Locale;
 
 @RestController
 @Slf4j
@@ -97,7 +88,8 @@ public class UserController {
     @Autowired
     ApplicationEventPublisher eventPublisher;
 
-
+    @Autowired
+    private CaloriesService caloriesService;
     /*
      *  USER API
      */
@@ -412,5 +404,10 @@ public class UserController {
     {
         return pantryService.getPantryByUserID(userID);
     }
-}
 
+
+    @GetMapping(path = "/calories/{userId}")
+    public @ResponseBody Iterable<Calorie>
+    getCaloriesByUserId(@PathVariable Long userId) {
+        return caloriesService.getCaloriesByUserId(userId);}
+}

@@ -9,6 +9,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
+import java.util.Date;
+
 
 import lombok.Data;
 
@@ -28,6 +30,9 @@ public class Calorie {
 
     @Column(name = "calorieCount", nullable = false)
     private Long calorieCount;
+
+    @Column(name = "dateAdded", nullable = false)
+    private Date dateAdded;
 }
 
 

@@ -19,4 +19,5 @@ public class CreateCaloriesDTO {
 
     @NotNull
     private Long calorieCount;
+
 }
