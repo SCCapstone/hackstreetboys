@@ -213,7 +213,6 @@ useEffect(() => {
 }, [])
 
 
-
 const checkFav = async () => {
   var i = 0;
   var alreadyFav = false;  
@@ -460,10 +459,13 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
       </div>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
+
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
                   <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
-                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
-                  <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
+                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} {recipe.estimatedCost}</h3>
+
+                  <h3>Total Time: {recipe.totalTime} mins ({recipe.prepTime > 0 ? "Prep Time: " + recipe.prepTime : ""}{recipe.prepTime > 0 && recipe.cookTime > 0 ? " + ": ""}{recipe.cookTime > 0 ? "Cook Time: " + recipe.cookTime : ""})</h3>
+                  <h3>Yield: {recipe.yield} servings</h3>
 
                 </IonCardContent>
 
@@ -471,6 +473,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
+
                   {ingredients.filter(ingredient => (
                       recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
                       <p>
@@ -478,6 +481,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                       </p>
                   ))}
                   <br/>
+
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
