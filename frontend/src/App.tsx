@@ -18,6 +18,7 @@ import AddReview from './pages/AddReview';
 import AddComplaint from './pages/AddComplaint';
 import Complaint from './pages/Complaint';
 import Favorite from './pages/Favorite';
+import Loading from './pages/Loading';
 //import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -107,13 +108,16 @@ import myReviews from './pages/myReviews';
     // }, []);
 
     function UserRoute(props: any) {
-      // if (user !== null && user?.type === 'NORMAL') {
+      // static contextType = Context;
       const context = useContext(Context);
       const user = context.currentUser;
-      if (user !== null ) {
+      if (context.loading) {
+          return (<Route {...props} component={Loading } />);
+      }
+      if (user !== undefined ) {
           return (<Route {...props} />);
       }
-      return (<Redirect to={{ pathname: '/' }} />);
+      return (<Redirect to={{ pathname: '/login' }} />);
     }
     return (
       <ContextProvider>
@@ -130,7 +134,8 @@ import myReviews from './pages/myReviews';
               <Route path="/recipe/add" component={AddRecipe} />
 
               <Route path="/recipe/edit/:id" component={EditRecipe} />
-              {/* /* <Route path="/testform" component={Basic} /> */}.
+              {/* /* <Route path="/testform" component={Basic} /> */}
+
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
               <UserRoute path="/recipe/:id/review" component={AddReview}/>
@@ -143,6 +148,8 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/mygoals" component={MyGoals} />
               <UserRoute path="/goal/:id" component={Goal} />
               <UserRoute path="/profile/:id?" component={Profile} />
+              <UserRoute path="/editprofile" component={EditProfile} />
+
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
@@ -166,7 +173,6 @@ import myReviews from './pages/myReviews';
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/editprofile" component={EditProfile} />
-              <UserRoute path="/editprofile" component={EditProfile} />
               <Route path="/changepassword" component={ChangePassword} />
               <Route path="/" component={Home} />
     

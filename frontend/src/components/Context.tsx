@@ -10,6 +10,7 @@ interface GlobalsType {
   id: number | undefined,
   isAdmin: boolean,
   email: string | undefined,
+  loading: boolean,
 
   setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>,
   setUser: React.Dispatch<React.SetStateAction<User | undefined>>,
@@ -17,6 +18,7 @@ interface GlobalsType {
   setId: React.Dispatch<React.SetStateAction<number | undefined>>,
   setAdmin: React.Dispatch<React.SetStateAction<boolean>>,
   setEmail: React.Dispatch<React.SetStateAction<string | undefined>>
+  setLoading: React.Dispatch<React.SetStateAction<boolean>>
 };
 const Context = React.createContext<GlobalsType>(undefined!);
 
@@ -27,6 +29,7 @@ const ContextProvider = ({ children }: any) => {
   const [ id, setId ] = useState<number>();
   const [ isAdmin, setAdmin ] = useState<boolean>(false);
   const [ email, setEmail ] = useState<string>();
+  const [ loading, setLoading ] = useState<boolean>(true);
 
   const globals = {
       loggedInState: loggedIn,
@@ -35,19 +38,20 @@ const ContextProvider = ({ children }: any) => {
       id,
       isAdmin,
       email,
+      loading,
 
       setLoggedIn,
       setUser,
       setToken,
       setId,
       setAdmin,
-      setEmail
+      setEmail,
+      setLoading
     }
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user')
     if (loggedInUser) {
-      console.log(loggedInUser);
       const foundUser = JSON.parse(loggedInUser);
       globals.setUser(foundUser);
       globals.setLoggedIn(true);
@@ -65,11 +69,9 @@ const ContextProvider = ({ children }: any) => {
       if (savedEmail)
         globals.setEmail(savedEmail);
 
-      console.log(localStorage.getItem('token'))
+      globals.setLoading(false);
     }
   }, []);
-
-  console.log(globals);
 
   return (
     <Context.Provider value={globals}>
