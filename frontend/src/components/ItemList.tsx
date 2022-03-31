@@ -7,7 +7,7 @@ const ItemList = ({items, deleteItemHandler}: any) => {
     
     return (
         <div>
-            {items.map((item: any, index: any)=>(
+            {items?.map((item: any, index: any)=>(
                 <div key={index}>
                     <IonCard>
                         <IonCardContent>{`${item.itemName}: ${item.calories}`}
