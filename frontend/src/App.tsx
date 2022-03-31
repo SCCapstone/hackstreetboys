@@ -18,6 +18,7 @@ import AddReview from './pages/AddReview';
 import AddComplaint from './pages/AddComplaint';
 import Complaint from './pages/Complaint';
 import Favorite from './pages/Favorite';
+import Loading from './pages/Loading';
 //import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -39,7 +40,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
-import {Context, ContextProvider} from './components/Context';
+import {Context, ContextProvider, useGlobalContext} from './components/Context';
 import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
@@ -58,63 +59,19 @@ import myReviews from './pages/myReviews';
 //const App: React.FC = () => (
   function App () {
 
-    // const [ loggedIn, setLoggedIn ] = useState(false);
-    // const [ user, setUser ] = useState<User>();
-    // const [ token, setToken ] = useState<string>();
-    // const [ id, setId ] = useState<number>();
-    // const [ isAdmin, setAdmin ] = useState<boolean>(false);
-    // const [ email, setEmail ] = useState<string>();
-    // const globals = {
-    //   loggedInState: loggedIn,
-    //   currentUser: user,
-    //   token,
-    //   id,
-    //   isAdmin,
-    //   email,
-
-    //   setLoggedIn,
-    //   setUser,
-    //   setToken,
-    //   setId,
-    //   setAdmin,
-    //   setEmail
-    // }
-
-    // // If user was previously logged in, reload user data
-    // useEffect(() => {
-    //   const loggedInUser = localStorage.getItem('user')
-    //   if (loggedInUser) {
-    //     console.log(loggedInUser);
-    //     const foundUser = JSON.parse(loggedInUser);
-    //     setUser(foundUser);
-    //     setLoggedIn(true);
-
-    //     const savedToken = localStorage.getItem('token');
-    //     if (savedToken)
-    //       setToken(savedToken);
-    //     const savedId = localStorage.getItem('id');
-    //     if (savedId)
-    //       setId(+savedId);
-    //     const savedAdmin = Boolean(JSON.parse(localStorage.getItem('admin') || 'false'));
-    //     if (savedAdmin)
-    //       setAdmin(savedAdmin);
-    //     const savedEmail = localStorage.getItem('email');
-    //     if (savedEmail)
-    //       setEmail(savedEmail);
-
-    //     console.log(localStorage.getItem('token'))
-    //   }
-    // }, []);
-
     function UserRoute(props: any) {
-      // if (user !== null && user?.type === 'NORMAL') {
-      const context = useContext(Context);
+      const context = useGlobalContext();
       const user = context.currentUser;
-      if (user !== null ) {
-          return (<Route {...props} />);
-      }
-      return (<Redirect to={{ pathname: '/' }} />);
-    }
+
+      return (
+        (context.loading)?
+          <Loading /> :
+        (context.currentUser !== undefined)?
+          <Route {...props} /> :
+
+        <Redirect to={{ pathname: '/login' }} />
+      );
+  }
     return (
       <ContextProvider>
           <Router history={history}>
@@ -130,7 +87,8 @@ import myReviews from './pages/myReviews';
               <Route path="/recipe/add" component={AddRecipe} />
 
               <Route path="/recipe/edit/:id" component={EditRecipe} />
-              {/* /* <Route path="/testform" component={Basic} /> */}.
+              {/* /* <Route path="/testform" component={Basic} /> */}
+
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
               <UserRoute path="/recipe/:id/review" component={AddReview}/>
@@ -143,6 +101,8 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/mygoals" component={MyGoals} />
               <UserRoute path="/goal/:id" component={Goal} />
               <UserRoute path="/profile/:id?" component={Profile} />
+              <UserRoute path="/editprofile" component={EditProfile} />
+
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
@@ -166,7 +126,6 @@ import myReviews from './pages/myReviews';
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/editprofile" component={EditProfile} />
-              <UserRoute path="/editprofile" component={EditProfile} />
               <Route path="/changepassword" component={ChangePassword} />
               <Route path="/" component={Home} />
     
