@@ -137,7 +137,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
                                     </IonItem>
                                     <IonItem>
                                         <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>
-                                        <IonInput name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
+                                        <IonInput name="imgSrc" onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
                                     </IonItem>
                                     <IonItem lines="none">
                                         <IonLabel>Does this ingredient contain alcohol?</IonLabel>

@@ -215,7 +215,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
                 </IonItem>
                 {/* TODO: Make it so the dropdowns are REQUIRED. */}
-                <IonButton className="ion-margin-top" disabled={(!checked)}
+                <IonButton className="ion-margin-top" disabled={(!checked) || getValues().ingredientIds === ""}
                         color='primary' type="submit" 
                         //onClick={async () =>{
                         //     await onSubmit();
