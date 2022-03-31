@@ -52,10 +52,13 @@ function Users() {
   const { id } = useParams<routeParams>();
 
   useEffect(() => {
+    let unmounted = false;
+    
     if(id) {
       axios.get(`https://api.fridger.recipes/v1/user/${id}`)
       .then(res => {
-          setUser(res.data);
+          if(!unmounted)
+            setUser(res.data);
       })
       .catch (e => {
         console.log(e)
@@ -64,20 +67,26 @@ function Users() {
     } else if (context.id) {
       axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
         .then(res => {
+          if(!unmounted)
             setUser(res.data);
         })
     }
-  }, [context.loading])
+
+    return () => { unmounted = true };
+  }, [context, id])
 
   useEffect(() => {
     document.title = "Profile";
   }, []);
 
-  if (context.loading || user === undefined) {
-    return <Loading />
-  }
+  // console.log(user)
+  // console.log(context.loading)
+  // console.log(context.loading || user === undefined)
 
   return (
+    (context.loading || user === undefined)?
+      <Loading /> :
+
     <Router history={history}>
       <Switch>
         <IonApp>

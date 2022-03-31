@@ -40,7 +40,7 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import AddRecipe from "./pages/AddRecipe";
 import Recipe from "./pages/Recipe";
-import {Context, ContextProvider} from './components/Context';
+import {Context, ContextProvider, useGlobalContext} from './components/Context';
 import { User } from './models/User';
 import AddIngredient from "./pages/AddIngredient";
 import Ingredient from "./pages/Ingredient";
@@ -59,66 +59,19 @@ import myReviews from './pages/myReviews';
 //const App: React.FC = () => (
   function App () {
 
-    // const [ loggedIn, setLoggedIn ] = useState(false);
-    // const [ user, setUser ] = useState<User>();
-    // const [ token, setToken ] = useState<string>();
-    // const [ id, setId ] = useState<number>();
-    // const [ isAdmin, setAdmin ] = useState<boolean>(false);
-    // const [ email, setEmail ] = useState<string>();
-    // const globals = {
-    //   loggedInState: loggedIn,
-    //   currentUser: user,
-    //   token,
-    //   id,
-    //   isAdmin,
-    //   email,
-
-    //   setLoggedIn,
-    //   setUser,
-    //   setToken,
-    //   setId,
-    //   setAdmin,
-    //   setEmail
-    // }
-
-    // // If user was previously logged in, reload user data
-    // useEffect(() => {
-    //   const loggedInUser = localStorage.getItem('user')
-    //   if (loggedInUser) {
-    //     console.log(loggedInUser);
-    //     const foundUser = JSON.parse(loggedInUser);
-    //     setUser(foundUser);
-    //     setLoggedIn(true);
-
-    //     const savedToken = localStorage.getItem('token');
-    //     if (savedToken)
-    //       setToken(savedToken);
-    //     const savedId = localStorage.getItem('id');
-    //     if (savedId)
-    //       setId(+savedId);
-    //     const savedAdmin = Boolean(JSON.parse(localStorage.getItem('admin') || 'false'));
-    //     if (savedAdmin)
-    //       setAdmin(savedAdmin);
-    //     const savedEmail = localStorage.getItem('email');
-    //     if (savedEmail)
-    //       setEmail(savedEmail);
-
-    //     console.log(localStorage.getItem('token'))
-    //   }
-    // }, []);
-
     function UserRoute(props: any) {
-      // static contextType = Context;
-      const context = useContext(Context);
+      const context = useGlobalContext();
       const user = context.currentUser;
-      if (context.loading) {
-          return (<Route {...props} component={Loading } />);
-      }
-      if (user !== undefined ) {
-          return (<Route {...props} />);
-      }
-      return (<Redirect to={{ pathname: '/login' }} />);
-    }
+
+      return (
+        (context.loading)?
+          <Loading /> :
+        (context.currentUser !== undefined)?
+          <Route {...props} /> :
+
+        <Redirect to={{ pathname: '/login' }} />
+      );
+  }
     return (
       <ContextProvider>
           <Router history={history}>

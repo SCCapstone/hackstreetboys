@@ -68,9 +68,8 @@ const ContextProvider = ({ children }: any) => {
       const savedEmail = localStorage.getItem('email');
       if (savedEmail)
         globals.setEmail(savedEmail);
-
-      globals.setLoading(false);
     }
+      globals.setLoading(false);
   }, []);
 
   return (
