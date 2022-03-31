@@ -10,7 +10,6 @@ import { IonButton } from "@ionic/react";
         ["Time", "Time Spent Walking"],
         [0, 0],
       ];
-      
       var options = {
         title: "Daily Walking Progress",
         hAxis: { title: "Time (hrs)", minValue: 0, maxValue: 15 },
@@ -21,6 +20,20 @@ import { IonButton } from "@ionic/react";
   const [chartEditor, setChartEditor] = useState<GoogleChartEditor>();
   const [chartWrapper, setChartWrapper] = useState<GoogleChartWrapper>();
   const [google, setGoogle] = useState<GoogleViz>();
+  const [values, setValues] = useState<(string[] | number[])[]>(data);
+      // setValues(data);
+
+  const addValue = (x:number) => {
+      let valueCopy = values;
+      valueCopy.push([x,5]);
+      // console.log(valueCopy);
+      setValues(valueCopy);
+      console.log("state values: ")
+      console.log(values);
+      // chartEditor?.getChartWrapper().draw;
+      // setValues(valueCopy);
+  }
+
   const onEditClick = () => {
     if (!chartWrapper || !google || !chartEditor) {
       return;
@@ -43,29 +56,25 @@ import { IonButton } from "@ionic/react";
     
   };
 
-  var hour = new Date().getHours();
-
 
   function addQuarter() {
-    console.log('in add quarter');
-    data.push([hour,0.25])
-    console.log(data);
-    renderChart();
+    // console.log('in add quarter');
+    addValue(.25);
+
   }
 
   function addHalf() {
-    console.log('in add half');
-    data.push([hour,0.5])
-    console.log(data);
-    renderChart();
-
+    // console.log('in add half');
+    // data.push([hour,0.5])
+    addValue(0.5);
    }
 
    function addOne() {
-    console.log('in add hour');
-    data.push([hour,1])
-    console.log(data);
-    renderChart();
+    // console.log('in add hour');
+    addValue(1);
+    // data.push([hour,1])
+    // console.log(data);
+    // renderChart();
 
    }
 
@@ -79,7 +88,7 @@ return (
         chartType="ScatterChart"
         width="80%"
         height="400px"
-        data={data}
+        data={values}
         options={options}
         chartPackages={["corechart", "controls", "charteditor"]}
         getChartEditor={({ chartEditor, chartWrapper, google }) => {
@@ -104,7 +113,7 @@ return (
             chartType="ScatterChart"
             width="80%"
             height="400px"
-            data={data}
+            data={values}
             options={options}
             chartPackages={["corechart", "controls", "charteditor"]}
             getChartEditor={({ chartEditor, chartWrapper, google }) => {
