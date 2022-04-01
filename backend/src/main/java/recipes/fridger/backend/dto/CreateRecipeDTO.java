@@ -23,7 +23,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
     @Size(min = 0, max = 100000)
     private String body;
 
-    @Size(min = 0, max = 500)
+    @Size(min = 0)
     private String imgSrc;
 
     @Min(0)

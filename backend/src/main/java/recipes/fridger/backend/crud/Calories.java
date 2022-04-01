@@ -14,8 +14,9 @@ public interface Calories extends CrudRepository<Calorie, Long> {
             "(:userId is NULL or c.userId = :userId) AND " +
             "(:title is NULL or c.title = :title) AND " +
             "(:calorieCount is NULL or c.calorieCount = :calorieCount) AND " +
-            "(:dateAdded is NULL or c.dateAdded :dateAdded)")
+            "(:dateAdded is NULL or c.dateAdded = :dateAdded)")
     List<Calorie> find(Long id, Long userId, String title, Long calorieCount, Date dateAdded);
+
     @Query("SELECT c FROM Calorie c WHERE (c.userId = :userId) AND (c.dateAdded >= now - 1)")
     List<Calorie> findFromLastDay(Long userId);
 }

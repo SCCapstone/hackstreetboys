@@ -57,7 +57,7 @@ public class Ingredient {
     @Column(name = "cost", nullable = true)
     private Double cost;
 
-    @Size(min = 0, max = 1000)
+    @Size(min = 0)
     @Column(name = "imgSrc", nullable = true)
     private String imgSrc;
 }
