@@ -406,7 +406,7 @@ public class UserController {
 
     //@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping(path= "/pantry/getUserPantry/{userID}")
+    @GetMapping(path= "/pantry/{userID}")
     public @ResponseBody Pantry
     getPantryByUserID(@PathVariable Long userID)
     {
