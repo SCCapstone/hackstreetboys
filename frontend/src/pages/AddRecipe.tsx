@@ -194,7 +194,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Image URL</IonLabel>
-                    <IonTextarea name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
+                    <IonInput type="url" name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>

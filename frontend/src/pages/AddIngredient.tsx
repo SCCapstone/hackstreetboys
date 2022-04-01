@@ -136,9 +136,12 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
                                         <IonInput type="number" name="cost" required onIonInput={(e: any) => setValue("cost",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
-                                        <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>
-                                        <IonInput name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)}/>
-                                    </IonItem>
+                    <p>For legal and technical constraints, we do not host images. Use a service like <a href="https://postimages.org/">To Upload</a></p>
+                </IonItem>
+                <IonItem>
+                    <IonLabel position="floating">Ingredient Image URL</IonLabel>
+                    <IonInput type="url" name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
+                </IonItem>
                                     <IonItem lines="none">
                                         <IonLabel>Does this ingredient contain alcohol?</IonLabel>
                                         <IonCheckbox color="secondary" name="alcohol" checked={getValues("alcohol")} slot="start" onIonChange={(e: any) => setValue('alcohol',e.detail.checked)}/>
