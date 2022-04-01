@@ -3,12 +3,7 @@ package recipes.fridger.backend.model;
 import java.util.Date;
 import java.util.Optional;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +37,7 @@ public class Recipe {
     @Column(name = "description", nullable = true)
     private String description;
 
-    @Size(min = 0, max = 500)
+    @Lob
     @Column(name = "img_src", nullable = true)
     private String imgSrc;
 

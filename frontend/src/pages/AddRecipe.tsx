@@ -86,8 +86,9 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
    *
    * @param data
    */
-  const onSubmit = () => {
+  const onSubmit = (e: any) => {
     // preventDefault()
+    e.preventDefault();
     console.log("updatedValues" + getValues());
     try {
         const config = {
@@ -99,6 +100,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         console.log("User ID: " + context.currentUser?.id)
         // setValue("id",string(context.currentUser?.id);
         setValue("author", (context.currentUser?.id  ? (context.currentUser?.id) : 0))
+        console.log("double takero")
+        console.log(getValues('imgSrc'));
         const body = JSON.stringify(getValues());
         const res = axios.post(
             'https://api.fridger.recipes/v1/recipe/',
@@ -135,6 +138,23 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
   useEffect(() => {
     document.title = "Add Recipe";
   }, []);
+
+//   const file2Base64 = (file:File):Promise<string> => {
+//     return new Promise<string> ((resolve,reject)=> {
+//          const reader = new FileReader();
+//          reader.readAsDataURL(file);
+//          reader.onload = () => resolve(reader.result?.toString() || '');
+//          reader.onerror = error => reject(error);
+//      })
+//     }
+
+// const  fileSetBase64FunFunctionOperation = async (file:File) => {
+//     if(file.size>0){
+//         let base64Intern = await file2Base64(file);
+//         setValue("imgSrc", base64Intern)
+//         console.log(getValues('imgSrc'));
+// }
+// }
   return (
     <Router history={history}>
     <Switch>
@@ -144,7 +164,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
 <Header/>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
-        <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} >
+           <h1>To add a recipe, fill out all form items</h1>
+        <form onSubmit={async (e) =>{await onSubmit(e); props.history.push('/recipes'); history.go(0)}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
                     <IonInput type="text" name="title" required onIonInput={(e: any) => setValue("title",e.target.value)}
@@ -169,9 +190,11 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonTextarea name="instructions" required onIonInput={(e: any) => setValue("body",e.target.value)} />
                 </IonItem>
                 <IonItem>
-                    <IonLabel position="floating">Image</IonLabel>
-                    {/* MAKE THIS A FILE POND */}
-                    <IonTextarea name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
+                    <p>For legal and technical constraints, we do not host images. Use a service like <a href="https://postimages.org/">To Upload</a></p>
+                </IonItem>
+                <IonItem>
+                    <IonLabel position="floating">Image URL</IonLabel>
+                    <IonInput type="url" name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
@@ -214,6 +237,9 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonLabel>I agree that this recipe follows our <a href="/tos">Terms of Service</a></IonLabel>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
                 </IonItem>
+                {/* <label htmlFor="imgSrc">Choose a recipe picture:</label> */}
+            {/* <input type="file" id="imgSrc" name="imgSrc" accept="image/png, image/jpeg" onChange={(e) => fileSetBase64FunFunctionOperation(e.currentTarget.files![0])}/> */}
+
                 {/* TODO: Make it so the dropdowns are REQUIRED. */}
                 <IonButton className="ion-margin-top" disabled={(!checked)}
                         color='primary' type="submit" 
