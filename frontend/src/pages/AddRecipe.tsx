@@ -139,24 +139,22 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
     document.title = "Add Recipe";
   }, []);
 
-  const file2Base64 = (file:File):Promise<string> => {
-    return new Promise<string> ((resolve,reject)=> {
-         const reader = new FileReader();
-         reader.readAsDataURL(file);
-         reader.onload = () => resolve(reader.result?.toString() || '');
-         reader.onerror = error => reject(error);
-     })
-    }
+//   const file2Base64 = (file:File):Promise<string> => {
+//     return new Promise<string> ((resolve,reject)=> {
+//          const reader = new FileReader();
+//          reader.readAsDataURL(file);
+//          reader.onload = () => resolve(reader.result?.toString() || '');
+//          reader.onerror = error => reject(error);
+//      })
+//     }
 
-const  fileSetBase64FunFunctionOperation = async (file:File) => {
-    if(file.size>0){
-        console.log("WE OPENED THE VORTEX")
-        let base64Intern = await file2Base64(file);
-        setValue("imgSrc", base64Intern)
-        console.log("WE HIT TERMINAL")
-        console.log(getValues('imgSrc'));
-}
-}
+// const  fileSetBase64FunFunctionOperation = async (file:File) => {
+//     if(file.size>0){
+//         let base64Intern = await file2Base64(file);
+//         setValue("imgSrc", base64Intern)
+//         console.log(getValues('imgSrc'));
+// }
+// }
   return (
     <Router history={history}>
     <Switch>
@@ -166,6 +164,7 @@ const  fileSetBase64FunFunctionOperation = async (file:File) => {
 <Header/>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
+           <h1>To add a recipe, fill out all form items</h1>
         <form onSubmit={async (e) =>{await onSubmit(e); props.history.push('/recipes'); history.go(0)}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
@@ -190,10 +189,13 @@ const  fileSetBase64FunFunctionOperation = async (file:File) => {
                     <IonLabel position="floating">Instructions</IonLabel>
                     <IonTextarea name="instructions" required onIonInput={(e: any) => setValue("body",e.target.value)} />
                 </IonItem>
-                {/* <IonItem>
-                    <IonLabel position="floating">Image</IonLabel>
+                <IonItem>
+                    <p>For legal and technical constraints, we do not host images. Use a service like <a href="https://postimages.org/">To Upload</a></p>
+                </IonItem>
+                <IonItem>
+                    <IonLabel position="floating">Image URL</IonLabel>
                     <IonTextarea name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
-                </IonItem> */}
+                </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
                     <IonInput type="number" name="prepTime" required onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
@@ -235,8 +237,8 @@ const  fileSetBase64FunFunctionOperation = async (file:File) => {
                     <IonLabel>I agree that this recipe follows our <a href="/tos">Terms of Service</a></IonLabel>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
                 </IonItem>
-                <label htmlFor="imgSrc">Choose a profile picture:</label>
-            <input type="file" id="imgSrc" name="imgSrc" accept="image/png, image/jpeg" onChange={(e) => fileSetBase64FunFunctionOperation(e.currentTarget.files![0])}/>
+                {/* <label htmlFor="imgSrc">Choose a recipe picture:</label> */}
+            {/* <input type="file" id="imgSrc" name="imgSrc" accept="image/png, image/jpeg" onChange={(e) => fileSetBase64FunFunctionOperation(e.currentTarget.files![0])}/> */}
 
                 {/* TODO: Make it so the dropdowns are REQUIRED. */}
                 <IonButton className="ion-margin-top" disabled={(!checked)}
