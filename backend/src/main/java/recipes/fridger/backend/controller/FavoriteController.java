@@ -38,6 +38,7 @@ public class FavoriteController {
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createFavorite(@RequestBody @Valid CreateFavoriteDTO f) {
+
         try {
             favoritesService.createFavorite(f);
             log.info("Successful creation of favorite");
@@ -72,4 +73,5 @@ public class FavoriteController {
     {
         return favoritesService.getFavorites(id, userId, recipeId);
     }
+
 }
