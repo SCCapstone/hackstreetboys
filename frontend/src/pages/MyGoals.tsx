@@ -111,7 +111,9 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
    
   const userGoalDisplay = () => {
-      //if(context.id == goal.userId){
+    var i = 0;
+    while(i < goals.length) {
+      if(context.id == goals[i].userId){
       return <>
        <IonGrid>
          <IonRow>
@@ -133,7 +135,13 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
           </IonRow>
         </IonGrid>
       </>
-      //}
+      
+      }
+      else {
+        i++;
+      }
+    }
+    
   }
   
     return (

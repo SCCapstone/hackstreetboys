@@ -10,7 +10,6 @@ import history from '../History';
 
 export const EditProfileForm: React.FC = () => {
     const context = useContext(Context);
-    const [user, setUser] = useState(context.currentUser);
     const [showAlert, setShowAlert] = useState(false);
 
     const [error, setError] = useState(false);
@@ -25,21 +24,16 @@ export const EditProfileForm: React.FC = () => {
     } = useForm({
         defaultValues: {
             id: context.id,
-            name: user?.name,
-            bio: user?.bio,
-            dob: user?.dob,
-            height_in: user?.height_in,
-            weight_lb: user?.weight_lb
+            name: context.currentUser?.name,
+            bio: context.currentUser?.bio,
+            dob: context.currentUser?.dob,
+            height_in: context.currentUser?.height_in,
+            weight_lb: context.currentUser?.weight_lb
         }
     });
 
     console.log(errors);
     console.log(getValues());
-
-    if (user === undefined) {
-        history.push('/');
-        return null;
-    }
 
     const onSubmit = (event: any) => {
         event.preventDefault();
@@ -106,11 +100,11 @@ export const EditProfileForm: React.FC = () => {
             };
             const body = JSON.stringify(getValues());
             axios.delete(
-                `https://api.fridger.recipes/v1/user/${user.id}`,
-                // `https://api.fridger.recipes/v1/user/${user.id}`,
+                `https://api.fridger.recipes/v1/user/${context.currentUser?.id}`,
+                // `https://api.fridger.recipes/v1/user/${context.currentUser?.id}`,
                 config
             ).then( res =>{
-                console.log("Deleted User by " + user.id);
+                console.log("Deleted User by " + context.currentUser?.id);
                 localStorage.clear();
                 context.setLoggedIn(false);
                 context.setToken(undefined);
@@ -136,7 +130,7 @@ export const EditProfileForm: React.FC = () => {
                 <IonInput
                     type= "text"
                     name="name"
-                    value={user.name}
+                    value={context.currentUser?.name}
                     onIonInput={(e: any) => setValue("name",e.target.value)}
                     required
                 />
@@ -146,7 +140,7 @@ export const EditProfileForm: React.FC = () => {
                 <IonInput
                     type= "text"
                     name="bio"
-                    value={user.bio}
+                    value={context.currentUser?.bio}
                     onIonInput={(e: any) => setValue("bio", e.target.value)}
                 />
             </IonItem>
@@ -157,7 +151,7 @@ export const EditProfileForm: React.FC = () => {
                     placeholder="Select Date"
                     name="dob"
                     mode="md"
-                    value={user.dob}
+                    value={context.currentUser?.dob}
                     onIonChange={(e: any) => setValue("dob", e.detail.value)}>
                 </IonDatetime>
             </IonItem>
@@ -166,7 +160,7 @@ export const EditProfileForm: React.FC = () => {
                 <IonInput
                     type= "number"
                     name="height_in"
-                    value={user.height_in}
+                    value={context.currentUser?.height_in}
                     onIonInput={(e: any) => setValue("height_in", e.target.value)}
                     required
                 />
@@ -176,7 +170,7 @@ export const EditProfileForm: React.FC = () => {
                 <IonInput
                     type= "number"
                     name="weight_lb"
-                    value={user.weight_lb}
+                    value={context.currentUser?.weight_lb}
                     onIonInput={(e: any) => setValue("weight_lb", e.target.value)}
                     required
                 />

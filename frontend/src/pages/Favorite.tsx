@@ -20,7 +20,6 @@ import {
   NavContext,
   IonGrid,
   IonFab,
-  IonAlert,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
@@ -106,29 +105,21 @@ export interface routePrams {
   id: string;
 }
 
-function RecipePage() {
+function FavoritePage() {
   const context = useContext(Context);
+  const { id } = useParams<routePrams>();
+
+
   const [favorite, setFavorite ] = React.useState<Favorite>({
     id: 1, 
     userId: context.currentUser?.id, 
     recipeId: 1
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    fetch(`https://api.fridger.recipes/v1/favorites/${id}`)
     .then(response => response.json())
     .then(data => setFavorite(data))
-  }, [])
-
-  const [favorites, setFavorites ] = React.useState<[Favorite]>([{
-    id: 1, 
-    userId: context.currentUser?.id, 
-    recipeId: 1
-  }]);
-  useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
-    .then(response => response.json())
-    .then(data => setFavorites(data))
-  }, [])
+  }, [id])
 
   const [recipe, setRecipe] = React.useState<Recipe>({
     id: 1,
@@ -149,13 +140,29 @@ function RecipePage() {
     ingredientIds: "",
     rating: 0
   });
-  const { id } = useParams<routePrams>();
+  
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
-  }, [id])
+  }, [favorite.recipeId])
   console.log(recipe);
+
+
+  
+
+  const [favorites, setFavorites ] = React.useState<[Favorite]>([{
+    id: 1, 
+    userId: context.currentUser?.id, 
+    recipeId: 1
+  }]);
+  useEffect(() => {
+    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    .then(response => response.json())
+    .then(data => setFavorites(data))
+  }, [])
+
+  
 
 
   const [reviews, setReview] = React.useState<[Review]>([{
@@ -212,74 +219,6 @@ useEffect(() => {
   .then(data => setAllRecipes(data))
 }, [])
 
-
-const checkFav = async () => {
-  var i = 0;
-  var alreadyFav = false;  
-   while( i< favorites.length) {
-     console.log(i);
-     console.log("Recipe ID: " + recipe.id);
-      if((recipe.id == favorites[i].recipeId)) {
-        alreadyFav = true;
-        console.log("already in favs");
-        break;
-    }
-    else{
-      i++;
-    }
-    
-   }
-  if(alreadyFav == false) {
-    addFav();
-    console.log("not in favs");
-  }
-
-  if(alreadyFav == true) {
-    console.log("found in favs");
-    history.push("/favorites");
-   }
- 
-
-}
-
-const addFav = async () => {
-  
-  try {
-    const config = {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-    const body = {
-      "userId":context.currentUser?.id,
-      "recipeId":recipe.id
-    }
-    const res = await axios.post(
-      'https://api.fridger.recipes/v1/favorites/',
-      body,
-      config
-    ).then(res=> {
-      console.log("Resulting data" + res.data);
-      if(res.status == 200){
-        console.log("Status is "+res.status);
-        navigate('/favorites');
-        //history.push(`/favorites/recipe/${id}`);
-      }
-
-    });
-    return res;
-  }catch (e) {
-    console.error(e);
-}
-return false;
-   
-};
-
-useEffect(() => {
-  document.title = recipe.title;
-}, [recipe.title]);
-
-
 const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
   id: 1,
   name: "",
@@ -298,19 +237,20 @@ useEffect(() => {
 }, [])
 
 
-
 const removeFav = async () => {
   console.log('clicked delete');
+  console.log(favorite);
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    // const body = {
-    //   "userId":context.currentUser?.id,
-    //   "recipeId":recipe.id
-    // }
+    const body = {
+      "userId":context.currentUser?.id,
+      "recipeId":recipe.id,
+      "favoriteId":favorite.id
+    }
     const res = await axios.delete(
       `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
       config
@@ -358,9 +298,9 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                 <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
-          <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
-                          {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} /></IonButton>
+            <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( removeFav() )}} >     
+            Remove from favorites</IonButton>      
+
           <FacebookShareButton
             url={"https://fridger.recipes/"+recipe.id}
             quote={recipe.title}
@@ -459,13 +399,10 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
       </div>
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
-
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
                   <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
-                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} {recipe.estimatedCost}</h3>
-
-                  <h3>Total Time: {recipe.totalTime} mins ({recipe.prepTime > 0 ? "Prep Time: " + recipe.prepTime : ""}{recipe.prepTime > 0 && recipe.cookTime > 0 ? " + ": ""}{recipe.cookTime > 0 ? "Cook Time: " + recipe.cookTime : ""})</h3>
-                  <h3>Yield: {recipe.yield} servings</h3>
+                  <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
+                  <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
 
                 </IonCardContent>
 
@@ -473,7 +410,6 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
               <IonCard>
                 <IonCardContent>
                   <h2>Ingredients </h2>
-
                   {ingredients.filter(ingredient => (
                       recipe.ingredientIds.split(",").includes(ingredient.id.toString()))).map(ingredient => (
                       <p>
@@ -481,7 +417,6 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                       </p>
                   ))}
                   <br/>
-
                   <h2>Instructions</h2>
                   <p>
                     {recipe.body}
@@ -587,4 +522,4 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
   );
 }
 
-export default RecipePage;
+export default FavoritePage;

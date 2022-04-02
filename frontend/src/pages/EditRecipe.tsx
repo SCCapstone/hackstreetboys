@@ -205,11 +205,6 @@ import { Ingredient } from '../models/Ingredient';
                     <IonTextarea name="instructions" required value={recipe.body} onIonInput={(e: any) => setValue("body",e.target.value)} />
                 </IonItem>
                 <IonItem>
-                    <IonLabel position="floating">Image</IonLabel>
-                    {/* MAKE THIS A FILE POND */}
-                    <IonTextarea name="imgSrc" required value={recipe.imgSrc} onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
-                </IonItem>
-                <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
                     <IonInput name="prepTime" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
                 </IonItem>

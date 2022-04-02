@@ -24,6 +24,7 @@ import {
 import '../theme/variables.css';
 import Header from '../components/Header'
 import SideBar from '../components/SideBar';
+import Loading from '../pages/Loading';
 import { menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { User } from '../models/User';
@@ -46,33 +47,18 @@ function Users() {
   //const context = useContext(Context);
   const context = useGlobalContext();
 
-  const [user, setUser] = useState<User>({
-    id: 23,
-    email: 'seonghopark@gmail.com',
-    name: 'Seongho Park',
-    bio: `Hi, I'm Seongho Park, a recent MIT doctoral candidate, and now magnet high-school
-          mathematics teacher. I'm new to teaching, but I now understand that spending time
-          on work outside of school hours is par for the course. However, this leaves me with
-          little free time during the week, so I've been looking for a way to streamline my
-          daily tasks. I'm a married man in a double-income household, so money isn't a main
-          concern for me. However, as my wife is also busy, grocery shopping and cooking
-          becomes a major chore for both of us. If we could find some way to take that burden
-          off our shoulders, spending time with family and friends would become easier.`,
-    dob: '1987-03-20T05:00:00.000+00:00',
-    height_in: 85, // Perhaps these shouldn't be publicly displayed?
-    weight_lb: 600, // Perhaps these shouldn't be publicly displayed?
-    favorites: "none yet"
-  });
+  const [user, setUser] = useState<User>();
 
   const { id } = useParams<routeParams>();
 
   useEffect(() => {
-    console.log(context)
-    console.log(context.id)
+    let unmounted = false;
+    
     if(id) {
       axios.get(`https://api.fridger.recipes/v1/user/${id}`)
       .then(res => {
-          setUser(res.data);
+          if(!unmounted)
+            setUser(res.data);
       })
       .catch (e => {
         console.log(e)
@@ -81,16 +67,26 @@ function Users() {
     } else if (context.id) {
       axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
         .then(res => {
+          if(!unmounted)
             setUser(res.data);
         })
-    } else {
-      History.push('/');
     }
-  }, [])
+
+    return () => { unmounted = true };
+  }, [context, id])
+
   useEffect(() => {
     document.title = "Profile";
   }, []);
+
+  // console.log(user)
+  // console.log(context.loading)
+  // console.log(context.loading || user === undefined)
+
   return (
+    (context.loading || user === undefined)?
+      <Loading /> :
+
     <Router history={history}>
       <Switch>
         <IonApp>

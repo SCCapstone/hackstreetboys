@@ -119,7 +119,7 @@ public class RecipeServiceImpl implements RecipeService {
             Double average = reviews.getAverageRating(id);
             r.setRating(average!=null ? average : 0.0);
             r.setTotalTime(r.getCookTime() + r.getPrepTime());
-            System.out.println("individual " + id + " has a rating of " + average);
+//            System.out.println("individual " + id + " has a rating of " + average);
             recipes.save(r);
             return r;
         }
@@ -142,7 +142,7 @@ public class RecipeServiceImpl implements RecipeService {
             r.setAuthorName((users.findById(r.getAuthor()).get().getName() != null ? users.findById(r.getAuthor()).get().getName() : "NaN"));
             r.setTotalTime(r.getPrepTime() + r.getCookTime());
             recipes.save(r);
-            System.out.println(id + " has a rating of " + average);
+//            System.out.println(id + " has a rating of " + average);
         }
         return recipesList;
 

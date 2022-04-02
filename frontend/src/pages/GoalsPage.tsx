@@ -86,6 +86,52 @@ const GoalsPage = () => {
     setCalories(0);
 
   };
+
+ const randomRecipe = ()  => {
+    if(recipes.length >= 3) {
+      return (
+        <>
+        <IonCard>
+        <IonTitle align-iems='center'>A recipe that may interest you:</IonTitle>
+        <IonRow>
+        { 
+          randRecipes &&
+          <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
+             {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
+             <Link to={`/recipe/${randRecipes.id}`}>
+            <IonCard button routerDirection="forward">
+              <IonCardHeader>
+                <IonCardTitle>{randRecipes.title}</IonCardTitle>
+                <IonCardSubtitle>By {randRecipes.author ? (randRecipes.author) : "Anonymous"}</IonCardSubtitle>
+              </IonCardHeader>
+              <IonCardContent>
+                <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
+                <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
+              </IonCardContent>
+            </IonCard>
+            </Link>
+          </IonCol>
+        }
+        </IonRow>
+        </IonCard>
+
+        </>
+      );
+    }
+    else{
+      return (
+        <>
+          <IonCol sizeXs="16" sizeSm="4" >
+            <IonCard>
+              <IonCardSubtitle>
+                  Please help us by adding some recipes!
+                </IonCardSubtitle>
+            </IonCard>
+          </IonCol>
+        </>
+      );
+    }
+ }
   
   const randRecipes = recipes.sort(() => Math.random() - Math.random()).find(() => true);
 
@@ -125,30 +171,7 @@ const GoalsPage = () => {
             </IonCardContent>
             </IonCard>
           
-
-            {/* random recipe */}
-            <IonCard>
-            <IonTitle align-iems='center'>A recipe that may interest you:</IonTitle>
-                      <IonRow>
-                      {randRecipes &&
-                        <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
-                           {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
-                           <Link to={`/recipe/${randRecipes.id}`}>
-                          <IonCard button routerDirection="forward">
-                            <IonCardHeader>
-                              <IonCardTitle>{randRecipes.title}</IonCardTitle>
-                              <IonCardSubtitle>By {randRecipes.author ? (randRecipes.author) : "Anonymous"}</IonCardSubtitle>
-                            </IonCardHeader>
-                            <IonCardContent>
-                              <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
-                            </IonCardContent>
-                          </IonCard>
-                          </Link>
-                        </IonCol>
-                      }
-                    </IonRow>
-                    </IonCard>
+            {randomRecipe()}
 
           </IonContent> 
     </IonPage>
