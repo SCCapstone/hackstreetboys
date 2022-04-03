@@ -398,8 +398,8 @@ public class UserController {
 
     //@PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping(path= "/pantry/all/{userID}")
-    public @ResponseBody Pantry
+    @GetMapping(path= "/pantry/{userID}")
+    public @ResponseBody Iterable<Pantry>
     getPantryByUserID(@PathVariable Long userID)
     {
         return pantryService.getPantryByUserID(userID);

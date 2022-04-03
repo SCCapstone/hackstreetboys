@@ -152,7 +152,7 @@ function MyPantry() {
   //   +thisUserID.toString()
   
    const refreshPantry = () => {
-    fetch(DOMAIN+'/v1/user/pantry/all/'+context.currentUser!.id
+    fetch(DOMAIN+'/v1/user/pantry/'+context.currentUser!.id
     ,config)
     // fetch(DOMAIN+'/v1/user/pantry',config)
     .then(res => res.json())
