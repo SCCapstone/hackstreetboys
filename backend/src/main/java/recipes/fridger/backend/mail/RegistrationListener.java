@@ -45,7 +45,7 @@ public class RegistrationListener implements
         userService.createVerificationToken(user, token);
 
         String recipientAddress = user.getEmail();
-        String subject = "Fridger Registration Confirmation";
+        String subject = "Fridger New Account Confirmation";
         String confirmationUrl
                 = event.getAppUrl() + "/registrationConfirm.html?token=" + token;
         String message = messages.getMessage("message.regSucc", null, event.getLocale());

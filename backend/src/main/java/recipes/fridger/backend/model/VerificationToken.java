@@ -26,9 +26,9 @@ public class VerificationToken {
     public VerificationToken() { //default contructor
 
     }
-    public VerificationToken(User u, String tokn) {
+    public VerificationToken(User u, String tok) {
         user = u;
-        token = tokn;
+        token = tok;
     }
 
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
