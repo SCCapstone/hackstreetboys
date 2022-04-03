@@ -2,6 +2,7 @@ import './GoalsPage.css';
 import Chart from '../components/Chart'
 import LineChart from '../components/LineChart'
 import PieChart from '../components/PieChartFilterable';
+import EditableChart from '../components/EditableChart';
 import {
     IonApp,
     IonContent,
@@ -22,7 +23,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { Router, Switch, Link } from "react-router-dom";
 import history from '../History';
 import SideBar from '../components/SideBar';
-
+import Exercise from '../components/Exercise';
 import Header from '../components/Header';
 import Calories from '../components/Calories';
 import {Recipe} from '../models/Recipe';
@@ -143,32 +144,38 @@ const GoalsPage = () => {
     <IonPage className="ion-page" id="main-content">
      <Header/>
       <IonContent className="ion-padding">
-        <h1>Welcome to your dashboard, {context.currentUser && context.currentUser.name}!</h1>
+        <h1>Welcome to your dashboard {context.currentUser && context.currentUser.name}!</h1>
         <Link to="/mygoals"><IonButton>
               My Goals 
             </IonButton>
             </Link>
             <Calories/>
+            <Exercise/>
+            {/* <IonCard>
+              <IonCardContent>
+              <EditableChart></EditableChart>
+              </IonCardContent>
+            </IonCard> */}
             <IonCardContent >
               <IonGrid>
                 <IonRow>
                   <IonCol size-xs="12" size-md="6">
-                    <IonCard>
+                    {/* <IonCard>
                       <Chart ></Chart>
-                    </IonCard>
+                    </IonCard> */}
                   </IonCol>
                   <IonCol size-xs="12" size-md="6">
-                    <IonCard>
+                    {/* <IonCard>
                     <LineChart ></LineChart>
-                    </IonCard>
+                    </IonCard> */}
                   </IonCol>
                 </IonRow>
               </IonGrid>
             </IonCardContent>
             <IonCard >
-            <IonCardContent>
+            {/* <IonCardContent>
               <PieChart ></PieChart>
-            </IonCardContent>
+            </IonCardContent> */}
             </IonCard>
           
             {randomRecipe()}
