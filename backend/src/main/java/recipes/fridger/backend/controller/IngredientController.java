@@ -31,6 +31,19 @@ public class IngredientController {
     @Autowired
     private IngredientService ingredientService;
 
+    //@PreAuthorize("hasRole('USER')")
+    @PostMapping(path = "/massIngredients")
+    public ResponseEntity<String>
+    populateIngredients(@RequestBody CreateIngredientDTO[] bigIngredient) {
+
+        for(int i=0;i<bigIngredient.length;i++) {
+            log.info(bigIngredient[i].toString());
+            createIngredient(bigIngredient[i]); //i hope this works?
+        }
+
+        return ResponseEntity.ok("Populated Ingredients");
+    }
+
     @PreAuthorize("hasRole('USER')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
