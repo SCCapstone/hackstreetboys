@@ -51,8 +51,8 @@ import { remove } from 'lodash';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
-const DOMAIN = "https://api.fridger.recipes" 
-// const DOMAIN = "http://localhost:8080"
+// const DOMAIN = "https://api.fridger.recipes" 
+const DOMAIN = "http://localhost:8080"
 
 let refresh: number = 1;
 
@@ -152,8 +152,8 @@ function MyPantry() {
   //   +thisUserID.toString()
   
    const refreshPantry = () => {
-    fetch(DOMAIN+'/v1/user/pantry/'+context.currentUser!.id
-    , config)
+    fetch(DOMAIN+'/v1/user/pantry/all/'+context.currentUser!.id
+    ,config)
     // fetch(DOMAIN+'/v1/user/pantry',config)
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
@@ -167,7 +167,7 @@ function MyPantry() {
   const [pan, setPantry] = React.useState<[Pantry]>([{ 
     id: 99,
     userID: 2,
-    ingredientName: "99",
+    ingredientName: "this shouldn't show up",
     numIngredient: 3,
     description: "This is a description of the food"
   }]);
