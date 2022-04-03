@@ -38,7 +38,7 @@ public class IngredientController {
 
         for(int i=0;i<bigIngredient.length;i++) {
             log.info(bigIngredient[i].toString());
-            createIngredient(bigIngredient[i]); //i hope this works?
+            createIngredient(bigIngredient[i]); //Add a big chunk of ingredients together
         }
 
         return ResponseEntity.ok("Populated Ingredients");
