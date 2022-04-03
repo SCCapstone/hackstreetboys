@@ -101,7 +101,7 @@ public class UserControllerTest {
         pantryTest1.setNumIngredient(3.0);
         pantryTest1.setDescription("this is a banana for monkeys");
 
-        when(pantryService.getPantryByUserID(123L)).thenReturn(pantryTest1);
+        when(pantryService.getSinglePantryByUser(123L)).thenReturn(pantryTest1);
 
         this.mockMvc.perform(
                 post("http://localhost:8080" + "/v1/user/pantry")
@@ -136,8 +136,8 @@ public class UserControllerTest {
         pantries.add(pantryTest1);
         pantries.add(pantryTest2);
 
-        when(pantryService.getPantryByUserID(123L)).thenReturn(pantryTest1);
-        when(pantryService.getPantryByUserID(256L)).thenReturn(pantryTest2);
+        when(pantryService.getSinglePantryByUser(123L)).thenReturn(pantryTest1);
+        when(pantryService.getSinglePantryByUser(256L)).thenReturn(pantryTest2);
         doReturn(pantries).when(pantryService).getAllPantrys();
 //        when(pantryService.getAllPantrys()).thenReturn(pantries);
 

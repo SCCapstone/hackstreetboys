@@ -153,7 +153,7 @@ function MyPantry() {
   
    const refreshPantry = () => {
     fetch(DOMAIN+'/v1/user/pantry/'+context.currentUser!.id
-    , config)
+    ,config)
     // fetch(DOMAIN+'/v1/user/pantry',config)
     .then(res => res.json())
     .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
@@ -167,7 +167,7 @@ function MyPantry() {
   const [pan, setPantry] = React.useState<[Pantry]>([{ 
     id: 99,
     userID: 2,
-    ingredientName: "99",
+    ingredientName: "this shouldn't show up",
     numIngredient: 3,
     description: "This is a description of the food"
   }]);
