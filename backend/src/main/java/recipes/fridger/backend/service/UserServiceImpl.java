@@ -106,8 +106,10 @@ public class UserServiceImpl implements UserService {
         log.info("RegisterNewAccountRAN!");
 
         //Send Verification Email To that user
-        String siteURL = Utility.getSiteURL(request); //get site for verification email
+        //String siteURL = Utility.getSiteURL(request); //get site for verification email
         //createVerificationToken(u, UUID.randomUUID().toString());
+        //TODO CHANGE BEFORE GOING LIVE
+        String siteURL="https://fridger.recipes";
         sendVerificationEmail(u,siteURL);
         log.info("Sent email to "+u.getEmail());
 
@@ -117,7 +119,6 @@ public class UserServiceImpl implements UserService {
 
     public void sendVerificationEmail(User user, String siteURL)
             throws MessagingException, UnsupportedEncodingException {
-        SimpleMailMessage email = new SimpleMailMessage();
 
         String subject = "Fridger: Email Verification";
         String senderName = "Fridger team";
@@ -126,10 +127,10 @@ public class UserServiceImpl implements UserService {
                 "for signing up with us! But before you can do that, we need you to " +
                 "confirm your email for us! Go ahead and click the link below!";
 
-        String verifyURL = siteURL + "/verify?token=" + user.getVerificationCode(); //pass verification token for  user
+        String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode(); //pass verification token for  user
 
         mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
-        mailContent += "<p>Thank you<br>The Fridger Team</p>";
+        mailContent += "<p>Thank you,<br>The Fridger Team</p>";
 
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
@@ -156,6 +157,14 @@ public class UserServiceImpl implements UserService {
             return true;
         }
 
+    }
+
+    //This method will see if the user is enabled yet
+    public boolean isEnabled(String email) {
+        Optional<User> u = users.findByEmail(email);
+        if(!u.isPresent())
+            return false;
+        return u.get().isEnabled();
     }
 
     public void testSendEmail(CreateUserDTO dto) {

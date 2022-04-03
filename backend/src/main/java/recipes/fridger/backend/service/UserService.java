@@ -15,6 +15,7 @@ public interface UserService {
     public User getUser(Long id);
     public void updateUser(Long id, UpdateUserDTO u) throws Exception;
     public boolean emailExistsPub(String email);
+    public boolean isEnabled(String email);
     public Iterable<User> getUsersByIdAndEmail(Long id, String email);
     public Iterable<User> getUsers(Long userId);
     public void testSendEmail(CreateUserDTO dto);

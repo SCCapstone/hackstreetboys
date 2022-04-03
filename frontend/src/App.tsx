@@ -19,6 +19,8 @@ import AddComplaint from './pages/AddComplaint';
 import Complaint from './pages/Complaint';
 import Favorite from './pages/Favorite';
 import Loading from './pages/Loading';
+
+import Verify from './pages/Verify';
 //import Recipe from './pages/Recipe';
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -103,6 +105,7 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/profile/:id?" component={Profile} />
               <UserRoute path="/editprofile" component={EditProfile} />
 
+              <Route path="/verify" component={Verify} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
               <Route path="/recipes" component={Recipes} />
