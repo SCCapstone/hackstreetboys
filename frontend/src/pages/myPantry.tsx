@@ -51,8 +51,8 @@ import { remove } from 'lodash';
 
 let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
 
-// const DOMAIN = "https://api.fridger.recipes" 
-const DOMAIN = "http://localhost:8080"
+const DOMAIN = "https://api.fridger.recipes" 
+// const DOMAIN = "http://localhost:8080"
 
 let refresh: number = 1;
 
