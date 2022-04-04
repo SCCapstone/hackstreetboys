@@ -1,29 +1,29 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
-  IonApp,
-  IonIcon,
-  IonLabel,
-  IonDatetime,
-  IonBackButton,
-  IonButtons,
-  IonButton,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonPage,
-  IonRange,
-  IonItem,
-  IonInput,
-  IonRadioGroup,
-  IonListHeader,
-  IonRadio,
-  IonCheckbox,
-  IonSelect,
-  IonSelectOption,
-  IonToggle,
-  IonText,
-  IonTextarea
+    IonApp,
+    IonIcon,
+    IonLabel,
+    IonDatetime,
+    IonBackButton,
+    IonButtons,
+    IonButton,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonPage,
+    IonRange,
+    IonItem,
+    IonInput,
+    IonRadioGroup,
+    IonListHeader,
+    IonRadio,
+    IonCheckbox,
+    IonSelect,
+    IonSelectOption,
+    IonToggle,
+    IonText,
+    IonTextarea
 } from '@ionic/react';
 import { useForm, Controller } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
@@ -215,12 +215,12 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
                 </IonItem>
                 {/* TODO: Make it so the dropdowns are REQUIRED. */}
-                <IonButton className="ion-margin-top" disabled={(!checked) || getValues().ingredientIds === ""}
-                        color='primary' type="submit" 
+                <IonButton className="ion-margin-top" disabled={(!checked || getValues().ingredientIds === "")}
+                           color='primary' type="submit"
                         //onClick={async () =>{
                         //     await onSubmit();
                         // }}
-                        expand='full'>
+                           expand='full'>
                             Submit Recipe
                 </IonButton>
                 <Link to="/recipes/">
