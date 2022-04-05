@@ -566,7 +566,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                   </IonCardContent>
                   <IonCardContent>
             <h2>Submit a Complaint:</h2>
-                <Link to={`/complaint/add`}>
+                <Link to={`/recipe/${recipe.id}/complaint`}>
                     <IonFabButton >
                       <IonIcon icon={add} />
                     </IonFabButton>

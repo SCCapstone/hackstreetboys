@@ -70,11 +70,13 @@ function Home() {
       userId: Number(context.currentUser?.id)
   }]);
  // const {id} = useParams<routeParams>();
- 
+ let forcedID = context.currentUser?.id ? context.currentUser?.id : 1;
   useEffect(() => {
      //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
      //fetch('https://api.fridger.recipes/v1/user/goals/')
-     fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id}`)
+    //  fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id}`)
+     fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${forcedID}`)
+
      .then(response => response.json())
      .then(data => setGoals(data))
   }, [])
@@ -86,7 +88,8 @@ function Home() {
   recipeId: 1
 }]);
 useEffect(() => {
-   fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id}`)
+  //  fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id}`)
+    fetch(`https://api.fridger.recipes/v1/favorites/?userId=${forcedID}`)
   .then(response => response.json())
   .then(data => setFavorites(data))
 }, [])
@@ -145,7 +148,7 @@ useEffect(() => {
                     </IonRow>
                   </IonGrid>
                   <h1>Your Goals</h1>
-                  {goals.length > 0 ? (
+                  {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
                     {goals.slice(-4).map(goal =>
@@ -166,7 +169,7 @@ useEffect(() => {
                     </IonGrid>): 
                     (<h2>Add some goals <Link to="/goals">here</Link></h2>)}
                   <h1>Your Favorites</h1>
-                  {goals.length > 0 ? (
+                  {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
                     {favorites.slice(-4).map(fav =>

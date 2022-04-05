@@ -30,7 +30,7 @@ public class Recipe {
     @Column(name = "author", nullable = false)
     private long author;
 
-    @Column(name = "authorName", nullable = false)
+    @Column(name = "authorName", nullable = true)
     private String authorName;
 
     @Size(min = 0, max = 500)
@@ -38,7 +38,7 @@ public class Recipe {
     private String description;
 
     @Lob
-    @Column(name = "img_src", nullable = true)
+    @Column(name = "img_src", nullable = false)
     private String imgSrc;
 
     @Size(min = 0, max = 100000)
