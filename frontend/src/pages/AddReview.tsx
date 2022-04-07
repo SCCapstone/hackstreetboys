@@ -129,8 +129,8 @@ import { User } from '../models/User';
        <IonContent className="ion-padding">
          <form onSubmit={async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} > 
         <IonItem>
-                    <IonLabel position="floating" >What would you rate this recipe?</IonLabel>
-                    <IonInput type="number" name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={(e: any) => setValue("rating",e.target.value)} />
+                    <IonLabel position="floating" >What would you rate this recipe (0-5)?</IonLabel>
+                    <IonInput type="number" name="rating" placeholder="Please enter a whole number 1-5" required onIonInput={((e: any) => {(setValue("rating",e.target.value)); setChecked((getValues("rating") >= 0 && getValues("rating") <= 5))})}  />
                 </IonItem>
                 
                 <IonItem>
@@ -139,7 +139,7 @@ import { User } from '../models/User';
                 </IonItem>
                 {/* {(e: any) => setValue("authorId", e.context.currentUser?.id)} */}
                 
-                <IonButton className="ion-margin-top" disabled={checked} color='primary' type="submit" slot="start" >Submit Review</IonButton>
+                <IonButton className="ion-margin-top" disabled={!checked} color='primary' type="submit" slot="start" >Submit Review</IonButton>
        
                 {/* <IonButton className="ion-margin-top" disabled={!checked}
                         

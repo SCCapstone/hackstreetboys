@@ -121,7 +121,7 @@ function RecipePage() {
 
   const [favorites, setFavorites ] = React.useState<[Favorite]>([{
     id: 1, 
-    userId: context.currentUser?.id, 
+    userId: context.currentUser?.id ? context.currentUser?.id : 0, 
     recipeId: 1
   }]);
   useEffect(() => {
@@ -214,33 +214,12 @@ useEffect(() => {
 
 
 const checkFav = async () => {
-  var i = 0;
-  var alreadyFav = false;  
-   while( i< favorites.length) {
-     console.log(i);
-     console.log("Recipe ID: " + recipe.id);
-      if((recipe.id == favorites[i].recipeId)) {
-        alreadyFav = true;
-        console.log("already in favs");
-        break;
-    }
-    else{
-      i++;
-    }
-    
+  (favorites.filter(recipe => (
+    favorite.recipeId == Number(id) &&
+    favorite.userId == context.currentUser?.id
+)).length === 0) ? addFav(): removeFav()
    }
-  if(alreadyFav == false) {
-    addFav();
-    console.log("not in favs");
-  }
 
-  if(alreadyFav == true) {
-    console.log("found in favs");
-    history.push("/favorites");
-   }
- 
-
-}
 
 const addFav = async () => {
   
@@ -248,12 +227,14 @@ const addFav = async () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${context.token}`
       },
     };
     const body = {
-      "userId":context.currentUser?.id,
-      "recipeId":recipe.id
+      "userId": context.currentUser?.id,
+      "recipeId": recipe.id
     }
+    console.log("trigger")
     const res = await axios.post(
       'https://api.fridger.recipes/v1/favorites/',
       body,
@@ -297,20 +278,20 @@ useEffect(() => {
       .then(data => setIngredients(data))
 }, [])
 
-
-
 const removeFav = async () => {
   console.log('clicked delete');
+  console.log(favorite);
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    // const body = {
-    //   "userId":context.currentUser?.id,
-    //   "recipeId":recipe.id
-    // }
+    const body = {
+      "userId":context.currentUser?.id,
+      "recipeId":recipe.id,
+      "favoriteId":favorite.id
+    }
     const res = await axios.delete(
       `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
       config

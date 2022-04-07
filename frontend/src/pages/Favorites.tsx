@@ -3,11 +3,13 @@ import {
   IonApp,
   IonButton,
   IonCard,
+  IonCardContent,
   IonCardHeader,
   IonCardSubtitle,
   IonCardTitle,
   IonCol,
   IonContent,
+  IonLabel,
   IonPage,
   IonRow,
   NavContext,
@@ -60,7 +62,7 @@ function Favorites() {
     recipeId: 1
   }]);
   useEffect(() => {
-     fetch(`https://api.fridger.recipes/v1/favorites/`)
+     fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
@@ -91,11 +93,37 @@ function Favorites() {
       .then(data => setRecipe(data))
   }, [favorite.recipeId])
 
+  
   console.log(recipe);
   useEffect(() => {
     document.title = "Favorites";
   }, []);
 
+  const [recipes, setRecipes] = React.useState<[Recipe]>([{
+    id: 1,
+    title: "Biscuits and Jam",
+    author: 0,
+    authorName: "Quinn Biscuit",
+    description: "What do you think? It's biscuits dummy.",
+    body: "Well, here's the sauce.",
+    imgSrc: "",
+    totalTime: 55,
+    prepTime: 15,
+    cookTime: 40,
+    yield: 10,
+    estimatedCost: 69.42,
+    alcoholic: false,
+    type: "food",
+    tags: "test,string",
+    ingredientIds: "2929, 29292",
+    rating: 4.2
+  }]);
+
+  useEffect(() => {
+ fetch('https://api.fridger.recipes/v1/recipe/')
+      .then(response => response.json())
+      .then(data => setRecipes(data))
+  }, [])
 
 
   const removeFav = async () => {
@@ -126,56 +154,41 @@ function Favorites() {
 
 
   const seeFavorites = () => {
-    console.log(favorites.length);
-    var i = 0;
-    while( i< favorites.length) {
-    if(context.id == favorites[i].userId) {
       return (
-        <>
+      (context.currentUser) ? (
+          <>
       <h1>A log of all your favorite recipes!</h1>
       <IonCard>
       <IonRow>
-          {favorites.map(favoriteKey =>
-            <IonCol sizeXs="12" sizeSm="6" key={favoriteKey.id}>
-             {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
-              <IonCard>
-                <IonCardHeader>
-                  <IonCardTitle>Recipe ID: {favoriteKey.recipeId}</IonCardTitle>
-                  <IonCardSubtitle>Fav ID: {favoriteKey.id}</IonCardSubtitle>
-                  {/* <IonButton color='danger' onClick={() => removeFav()}>DELETE</IonButton> */}
-                  <Link to={`/favorite/${favoriteKey.id}`}>
-                  <IonButton>View/edit</IonButton>
-                  </Link>
-                </IonCardHeader>
-              </IonCard>
+          {favorites.map(fav =>
+                        <IonCol sizeLg="3" sizeSm='1' key={fav.id}>
+                        {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
+                        <IonCard button routerDirection="forward" routerLink={`/favorite/${fav.id}`}>
+                          <img src={recipes.find(rec => rec.id === fav.recipeId)?.imgSrc ? recipes.find(rec => rec.id === fav.recipeId)?.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
+                            <IonCardHeader>
+                              <IonCardTitle>{recipes.find(rec => rec.id === fav.recipeId)?.title}</IonCardTitle>
+                              <IonCardSubtitle>By {recipes.find(rec => rec.id === fav.recipeId)?.authorName ? (recipes.find(rec => rec.id === fav.recipeId)?.authorName) : "Anonymous"}</IonCardSubtitle>
+                            </IonCardHeader>
+                            <IonCardContent>
+                              <IonLabel>{recipes.find(rec => rec.id === fav.recipeId)?.rating ? ("Rating: " + recipes.find(rec => rec.id === fav.recipeId)?.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
+                              <IonLabel>Time: {recipes.find(rec => rec.id === fav.recipeId)?.totalTime}m</IonLabel>
+                            </IonCardContent>
+                          </IonCard>
               {/* </Link> */}
             </IonCol>
           )}
         </IonRow>
         </IonCard>
-        </>
-      );
-    }
-
-    else if (!context.loggedInState){
-      return (
-      <>
-        <IonCardHeader>Please log in to see your favorties. </IonCardHeader>
-      </>
-      );
-    }
-
-    else {
-      return (
-        <>
-          <IonCardHeader>Please add a recipe to your favorites in order to see them!</IonCardHeader>
-        </>
-      )
+        </>)
+     :
+       ( <>
+        <IonCardHeader>Add a favorite by <Link to="/recipes">checking out our recipes</Link></IonCardHeader>
+      </>)
       
-    }
+      )
+
   }
     
-  }
 
   return (
     <Router history={history}>
