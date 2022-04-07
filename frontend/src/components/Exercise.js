@@ -90,6 +90,7 @@ const Exercise = () => {
               <IonCard color='primary'>
               <IonCardContent >
                 <h1 align-iems='center'>Personal Exercise Logger!</h1>
+                <h2 align-iems='center'> Please enter the name of your exercise activity and the amount of time you exercised for, in minutes!</h2>
                 <ExerciseCounter total={total}/>
                 <DeleteExercise deleteAllHandler={deleteAllHandler}/>
                 {/* <IonCard color="light"> */}
