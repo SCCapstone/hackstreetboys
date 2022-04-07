@@ -168,8 +168,8 @@ useEffect(() => {
                     </IonRow>
                     </IonGrid>):
                   (context.currentUser !== undefined ?
-                    (<h2>You don't have any goals yet! Go <Link to="/goals">add some!</Link></h2>)
-                    :(<h2><Link to="/login">Login </Link> to see your goals!</h2>))}
+                    (<p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>)
+                    :(<p><Link to="/login">Login </Link> to see your goals!</p>))}
                     
                   <h1>Your Favorites</h1>
                   {(goals.length > 0 && context.currentUser !== undefined)? (
@@ -193,8 +193,8 @@ useEffect(() => {
                     </IonRow>
                   </IonGrid>) : 
                   (context.currentUser !== undefined ?
-                (<h2>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></h2>)
-                :(<h2><Link to="/login">Login </Link> to see your favorites!</h2>))}
+                (<p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>)
+                :(<p><Link to="/login">Login </Link> to see your favorites!</p>))}
       </IonContent>
     </IonPage>
   </IonApp>

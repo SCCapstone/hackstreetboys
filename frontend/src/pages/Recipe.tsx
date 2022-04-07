@@ -29,7 +29,7 @@ import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart, pencilSharp, logoFacebook } from 'ionicons/icons';
+import { add, heart, pencilSharp, logoFacebook, warningOutline } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
 import { Review } from '../models/Review';
@@ -314,7 +314,7 @@ const complaintLink = () => {
  if(context.isAdmin) {
     return <>
     <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
-    Click to see Reviews about all recipes
+    See complaints about this recipe.
   </IonButton>
   </Link>
     </>
@@ -497,11 +497,11 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
               <IonCard>
                   <IonCardContent>
                     {/* <Link to={`/review/${recipe.id}`}><IonButton> */}
-
+                    <h2>Reviews</h2>
                     <IonGrid>
          <IonRow>
             {reviews.slice(-4).map(review => 
-               <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+               <IonCol sizeLg="3" sizeSm='1'  key={review.id}>
                    <Link to={`/review/${review.id}`}>
                        <IonCard button routerDirection="forward">
                          <IonCardHeader>
@@ -515,42 +515,24 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
             
           </IonRow>
         </IonGrid>
-                    <Link to={`/review/${recipe.id}`}><IonButton>
-              Click to see Reviews about all recipes
-            </IonButton>
-            </Link>
-            </IonCardContent>
-            </IonCard>
-            <IonCard>
-              <IonCardContent>
-            <h2>Add a review:</h2>
-                <Link to={`/recipe/${recipe.id}/review`}>
-                    <IonFabButton >
+                   <div style={{display: 'flex'}}> 
+            <Link to={`/recipe/${recipe.id}/review`}>
+            <IonFabButton style={{marginRight: '25px'}}>
                       <IonIcon icon={add} />
                     </IonFabButton>
                   </Link>
-
-
-                  {/* {reviews.map(review =>
-                        <IonCol sizeXs="12" sizeSm="6" key={review.id}>
-                         <Link to={`/review/${review.id}`}>
-                          <IonCard button routerDirection="forward">
-                            <IonCardHeader>
-                              <IonCardTitle>{review.id}</IonCardTitle>
-                              <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
-                            </IonCardHeader>
-                          </IonCard>
-                          </Link>
-                        </IonCol>
-                      )} */}
-
-                  </IonCardContent>
+                  <Link to={`/review/${recipe.id}`}><IonButton>
+              See all reviews about this recipe
+            </IonButton></Link>
+            </div>
+            </IonCardContent>
+            </IonCard>
+            <IonCard>
                   <IonCardContent>
-            <h2>Submit a Complaint:</h2>
                 <Link to={`/recipe/${recipe.id}/complaint`}>
-                    <IonFabButton >
-                      <IonIcon icon={add} />
-                    </IonFabButton>
+                    <IonButton color="danger" >
+                      <IonIcon icon={warningOutline} style={{marginRight: '5px'}} />Report this recipe
+                    </IonButton>
                   </Link>
                   </IonCardContent>
                   </IonCard>
