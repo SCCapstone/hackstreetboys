@@ -108,9 +108,8 @@ function SpecifiedRecipe(this: any) {
               Return to Recipes 
             </IonButton>
             </Link>
-                    <h1>{review.id}</h1>
+                    <h1>Review:{review.feedback}</h1>
                     <h2>Rating:{review.rating}</h2>
-                    <h2>Review:{review.feedback}</h2>
                     <h2>By: {review.authorId}</h2> 
                 </IonCardContent>
               </IonCard>
