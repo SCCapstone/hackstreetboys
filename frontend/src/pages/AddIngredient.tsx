@@ -59,7 +59,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
     // console.log(getValues());
 
     const onSubmit = () => {
-        console.log("Initial: " + getValues());
+        // console.log("Initial: " + getValues());
         try {
             const config = {
                 headers: {

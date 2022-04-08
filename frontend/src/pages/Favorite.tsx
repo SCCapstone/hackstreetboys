@@ -146,7 +146,7 @@ function FavoritePage() {
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [favorite.recipeId])
-  console.log(recipe);
+  // console.log(recipe);
 
 
   
@@ -178,7 +178,7 @@ function FavoritePage() {
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
-  console.log(recipe.id);
+  // console.log(recipe.id);
 console.log(reviews);
   const [complaints, setComplaints] = React.useState<Complaint>({
     id: 1,
@@ -238,8 +238,8 @@ useEffect(() => {
 
 
 const removeFav = async () => {
-  console.log('clicked delete');
-  console.log(favorite);
+  // console.log('clicked delete');
+  // console.log(favorite);
   try {
     const config = {
       headers: {
@@ -255,7 +255,7 @@ const removeFav = async () => {
       `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
       config
       ).then(res=> {
-      console.log("Removed from favorites by" + favorite.id);
+      // console.log("Removed from favorites by" + favorite.id);
       if(res.status == 200){
         console.log("Status is "+res.status);
         navigate('/favorites');

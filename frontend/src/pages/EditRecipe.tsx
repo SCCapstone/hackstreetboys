@@ -91,9 +91,9 @@ import { Ingredient } from '../models/Ingredient';
        ...recipe
     }
   });
-  console.log("2-16-2022")
-  console.log(errors);
-  console.log(getValues());
+//   console.log("2-16-2022")
+//   console.log(errors);
+//   console.log(getValues());
 
   /**
    *
@@ -101,7 +101,7 @@ import { Ingredient } from '../models/Ingredient';
    */
   const onSubmit = async () => {
     // preventDefault()
-    console.log("updatedValues" + getValues());
+    // console.log("updatedValues" + getValues());
     try {
         const config = {
             headers: {
@@ -113,14 +113,14 @@ import { Ingredient } from '../models/Ingredient';
         setValue("author", (context.currentUser?.id  ? ((context.currentUser?.id)) : 0))
         setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
-        console.log("Body" + body)
+        // console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/`,
             body,
             config
         ).then( res =>{
-            console.log("Resulting data" + res.data);
+            // console.log("Resulting data" + res.data);
             // navigate("/recipes");
         });
         return res;
@@ -146,7 +146,7 @@ import { Ingredient } from '../models/Ingredient';
             `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
-            console.log("Deleted Recipe by " + recipe.id);
+            // console.log("Deleted Recipe by " + recipe.id);
             // navigate("/recipes");
         });
         return res;
