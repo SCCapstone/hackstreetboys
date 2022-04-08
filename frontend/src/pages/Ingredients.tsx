@@ -204,7 +204,7 @@ function Ingredients() {
                             <Link to="/ingredient/add">
                                 <IonFab vertical="bottom" horizontal="end" slot="fixed">
                                     <IonFabButton>
-                                        <IonIcon icon={add} />
+                                        <IonIcon icon={add} alt-text="add"/>
                                     </IonFabButton>
                                 </IonFab>
                             </Link>
