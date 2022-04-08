@@ -341,7 +341,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
           <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
                           {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} /></IonButton>
+                            <IonIcon icon={heart} alt-text="add" /></IonButton>
           <FacebookShareButton
             url={"https://fridger.recipes/"+recipe.id}
             quote={recipe.title}
@@ -540,7 +540,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                   
             {(recipe.author === context.currentUser?.id || (context.isAdmin)) ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
                   <IonFabButton routerLink={`/recipe/edit/${recipe.id}`}>
-                      <IonIcon icon={pencilSharp} />
+                      <IonIcon icon={pencilSharp} alt-text="edit" />
                     </IonFabButton>
                   </IonFab> : ""}
           </IonPage>
