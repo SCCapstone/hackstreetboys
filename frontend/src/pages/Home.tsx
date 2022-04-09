@@ -35,11 +35,11 @@ function Home() {
 
     const [recipes, setRecipes] = React.useState<[Recipe]>([{
       id: 1,
-      title: "Biscuits and Jam",
+      title: "Loading...",
       author: 0,
-      authorName: "Quinn Biscuit",
-      description: "What do you think? It's biscuits dummy.",
-      body: "Well, here's the sauce.",
+      authorName: "Loading...",
+      description: "Loading...",
+      body: "Loading...",
       imgSrc: "",
       totalTime: 55,
       prepTime: 15,
@@ -48,9 +48,9 @@ function Home() {
       estimatedCost: 69.42,
       alcoholic: false,
       type: "food",
-      tags: "test,string",
-      ingredientIds: "2929, 29292",
-      rating: 4.2
+      tags: "loading,loading",
+      ingredientIds: "0",
+      rating: 0
     }]);
   
     useEffect(() => {
@@ -107,6 +107,7 @@ useEffect(() => {
       <IonContent className="ion-padding">
         <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
         <h1>Latest Recipes</h1>
+        {(recipes.length) ? (
         <IonGrid>
                     <IonRow>
                     {recipes.slice(-4).map(recipe =>
@@ -127,10 +128,15 @@ useEffect(() => {
                       )}
                     </IonRow>
                   </IonGrid>
+                  ):(
+        <p>No recipes in our system!</p>)
+                    }
         <h1>Highest Rated Recipes</h1>
+        {(recipes.length) ? (
+
         <IonGrid>
                     <IonRow>
-                    {recipes.sort((a,b) => b.rating - a.rating).slice(-4).map(recipe =>
+                    {recipes.sort((a,b) => b.rating - a.rating).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
@@ -148,6 +154,9 @@ useEffect(() => {
                       )}
                     </IonRow>
                   </IonGrid>
+        ):(
+        <p>No recipes in our system!</p>)
+                    }
                   <h1>Your Goals</h1>
                   {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
@@ -170,7 +179,7 @@ useEffect(() => {
                     </IonGrid>):
                   (context.currentUser !== undefined ?
                     (<p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>)
-                    :(<p><Link to="/login">Login </Link> to see your goals!</p>))}
+                    :(<p><Link to="/login">Login</Link> to see your goals!</p>))}
                     
                   <h1>Your Favorites</h1>
                   {(goals.length > 0 && context.currentUser !== undefined)? (
@@ -195,7 +204,7 @@ useEffect(() => {
                   </IonGrid>) : 
                   (context.currentUser !== undefined ?
                 (<p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>)
-                :(<p><Link to="/login">Login </Link> to see your favorites!</p>))}
+                :(<p><Link to="/login">Login</Link> to see your favorites!</p>))}
       </IonContent>
     </IonPage>
   </IonApp>

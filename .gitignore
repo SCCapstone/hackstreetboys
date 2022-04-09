@@ -365,3 +365,5 @@ backend/src/main/resources/application.properties
 *.properties
 backend/src/main/resources/application.properties
 *.properties
+*.json
+backend/src/main/resources/fridger-341507-27a47160f1d4.json
