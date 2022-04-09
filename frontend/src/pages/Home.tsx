@@ -110,7 +110,7 @@ useEffect(() => {
         {(recipes.length) ? (
         <IonGrid>
                     <IonRow>
-                    {recipes.slice(-4).map(recipe =>
+                    {recipes.sort((a,b) => b.id - a.id).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
