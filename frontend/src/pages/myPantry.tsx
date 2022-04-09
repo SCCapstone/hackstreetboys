@@ -30,7 +30,7 @@ import {
     IonTitle,
     IonToolbar,
   } from '@ionic/react';
-
+  import RecipeBanner from '../assets/fridger_banner.png'
 import { removeCircle } from 'ionicons/icons';
 import { addCircle } from 'ionicons/icons';
 import { Link, Router, Switch, useParams } from "react-router-dom";
@@ -544,6 +544,7 @@ function MyPantry() {
                               return (
                                 <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                                   <IonCard button routerDirection='forward'>
+                                  <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                                     <IonCardHeader>
                                       <IonCardTitle>{recipe.title}</IonCardTitle>
                                       <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
