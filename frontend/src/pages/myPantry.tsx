@@ -468,10 +468,13 @@ function MyPantry() {
                           
                               }>Clear Pantry</IonButton>
                             <IonAlert isOpen={clearPantryAlert}
-                              message="Are you sure that you want to clear your pantry?<br/>
-                                      All of the itmes in your pantry will be deleted."
+                              message="
+                              <center>
+                              Are you sure that you want to clear your pantry?<br/>
+                              All of the items in your pantry will be deleted.
+                              </center>"
                               onDidDismiss={() => setClearPantryAlert(false)}
-                              buttons = {['CANCEL',{ text: 'CLEAR PANTRY', handler: (d) => clearPantry()}]}
+                              buttons = {['CANCEL',{ cssClass: 'cancelButton', text: 'CLEAR PANTRY',handler: (d) => clearPantry()}]}
                               />
                           </IonItem>
                           {pan.map(myPan =>
