@@ -70,11 +70,13 @@ function Home() {
       userId: Number(context.currentUser?.id)
   }]);
  // const {id} = useParams<routeParams>();
- 
+ let forcedID = context.currentUser?.id ? context.currentUser?.id : 1;
   useEffect(() => {
      //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
      //fetch('https://api.fridger.recipes/v1/user/goals/')
-     fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id}`)
+    //  fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id}`)
+     fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${forcedID}`)
+
      .then(response => response.json())
      .then(data => setGoals(data))
   }, [])
@@ -86,7 +88,8 @@ function Home() {
   recipeId: 1
 }]);
 useEffect(() => {
-   fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id}`)
+  //  fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id}`)
+    fetch(`https://api.fridger.recipes/v1/favorites/?userId=${forcedID}`)
   .then(response => response.json())
   .then(data => setFavorites(data))
 }, [])
@@ -145,7 +148,7 @@ useEffect(() => {
                     </IonRow>
                   </IonGrid>
                   <h1>Your Goals</h1>
-                  {goals.length > 0 ? (
+                  {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
                     {goals.slice(-4).map(goal =>
@@ -163,30 +166,35 @@ useEffect(() => {
                         </IonCol>
                       )}
                     </IonRow>
-                    </IonGrid>): 
-                    (<h2>Add some goals <Link to="/goals">here</Link></h2>)}
+                    </IonGrid>):
+                  (context.currentUser !== undefined ?
+                    (<p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>)
+                    :(<p><Link to="/login">Login </Link> to see your goals!</p>))}
+                    
                   <h1>Your Favorites</h1>
-                  {goals.length > 0 ? (
+                  {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
                     {favorites.slice(-4).map(fav =>
                         <IonCol sizeLg="3" sizeSm='1' key={fav.id}>
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${fav.recipeId}`}>
-                          <img src={recipes.find(id => fav.recipeId)?.imgSrc ? recipes.find(id => fav.recipeId)?.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
+                          <img src={recipes.find(rec => rec.id === fav.recipeId)?.imgSrc ? recipes.find(rec => rec.id === fav.recipeId)?.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
                             <IonCardHeader>
-                              <IonCardTitle>{recipes.find(id => fav.recipeId)?.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipes.find(id => fav.recipeId)?.authorName ? (recipes.find(id => fav.recipeId)?.authorName) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardTitle>{recipes.find(rec => rec.id === fav.recipeId)?.title}</IonCardTitle>
+                              <IonCardSubtitle>By {recipes.find(rec => rec.id === fav.recipeId)?.authorName ? (recipes.find(rec => rec.id === fav.recipeId)?.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
-                              <IonLabel>{recipes.find(id => fav.recipeId)?.rating ? ("Rating: " + recipes.find(id => fav.recipeId)?.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipes.find(id => fav.recipeId)?.totalTime}m</IonLabel>
+                              <IonLabel>{recipes.find(rec => rec.id === fav.recipeId)?.rating ? ("Rating: " + recipes.find(rec => rec.id === fav.recipeId)?.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
+                              <IonLabel>Time: {recipes.find(rec => rec.id === fav.recipeId)?.totalTime}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
                         </IonCol>
                       )}
                     </IonRow>
                   </IonGrid>) : 
-                (<h2>Add some favorites <Link to="/favorites">here</Link></h2>)}
+                  (context.currentUser !== undefined ?
+                (<p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>)
+                :(<p><Link to="/login">Login </Link> to see your favorites!</p>))}
       </IonContent>
     </IonPage>
   </IonApp>

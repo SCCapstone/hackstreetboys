@@ -93,17 +93,19 @@ const GoalsPage = () => {
       return (
         <>
         <IonCard>
-        <IonTitle align-iems='center'>A recipe that may interest you:</IonTitle>
+        <IonCardContent>
+        <h1>A recipe that may interest you</h1>
         <IonRow>
         { 
           randRecipes &&
-          <IonCol sizeXs="16" sizeSm="4" key={randRecipes.id}>
+          <IonCol sizeLg="3" sizeSm='1' key={randRecipes.id}>
              {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
              <Link to={`/recipe/${randRecipes.id}`}>
             <IonCard button routerDirection="forward">
+            <img src={randRecipes.imgSrc} alt="ion"/>
               <IonCardHeader>
                 <IonCardTitle>{randRecipes.title}</IonCardTitle>
-                <IonCardSubtitle>By {randRecipes.author ? (randRecipes.author) : "Anonymous"}</IonCardSubtitle>
+                <IonCardSubtitle>By {randRecipes.authorName ? (randRecipes.authorName) : "Anonymous"}</IonCardSubtitle>
               </IonCardHeader>
               <IonCardContent>
                 <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
@@ -114,6 +116,7 @@ const GoalsPage = () => {
           </IonCol>
         }
         </IonRow>
+       </IonCardContent>
         </IonCard>
 
         </>

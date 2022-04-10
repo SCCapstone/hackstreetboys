@@ -189,7 +189,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                   </IonGrid>
                   {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
                   <IonFabButton routerLink={`/recipe/add`}>
-                      <IonIcon icon={add} />
+                      <IonIcon icon={add} alt-text="add"/>
                     </IonFabButton>
                   </IonFab> : ""}
             </IonContent>

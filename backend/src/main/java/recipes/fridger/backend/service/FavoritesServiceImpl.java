@@ -18,10 +18,16 @@ public class FavoritesServiceImpl implements FavoritesService{
 
     @Override
     public void createFavorite(CreateFavoriteDTO dto) {
-        Favorite f = new Favorite();
-        f.setUserId(dto.getUserId());
-        f.setRecipeId(dto.getRecipeId());
-        favorites.save(f);
+        Optional<Favorite> favoriteTest = checkIfExists(dto.getUserId(),dto.getRecipeId());
+        if (favoriteTest.isEmpty()) {
+            Favorite f = new Favorite();
+            f.setUserId(dto.getUserId());
+            f.setRecipeId(dto.getRecipeId());
+            favorites.save(f);
+        }
+        else{
+            System.out.println("A duplicate favorite was attempted. UserID: " + dto.getUserId() + " | RecipeId: " + dto.getRecipeId());
+        }
     }
 
     @Transactional
@@ -46,4 +52,10 @@ public class FavoritesServiceImpl implements FavoritesService{
     public Iterable<Favorite> getFavorites(Long id, Long userId, Long recipeId) {
         return favorites.find(id, userId, recipeId);
     }
+
+    @Transactional
+    @Override
+    public Optional<Favorite> checkIfExists(Long userId, Long recipeId) {
+        return favorites.findByUserIdAndRecipeId(userId, recipeId);
+        }
 }

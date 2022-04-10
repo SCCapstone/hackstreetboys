@@ -29,8 +29,8 @@ import React from 'react';
 import { verify } from 'crypto';
 import axios from 'axios';
 
-// const DOMAIN = "https://api.fridger.recipes" 
-const DOMAIN = "http://localhost:8080/"
+const DOMAIN = "https://api.fridger.recipes/" 
+// const DOMAIN = "http://localhost:8080/"
 
 //This is the page the email verifiction will send you to
 function Verify() {

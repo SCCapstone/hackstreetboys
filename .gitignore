@@ -361,3 +361,7 @@ backend/src/main/resources/application.properties
 *.properties
 *.properties
 backend/src/main/resources/application.properties
+backend/src/main/resources/application.properties
+*.properties
+backend/src/main/resources/application.properties
+*.properties

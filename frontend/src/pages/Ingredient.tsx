@@ -180,7 +180,7 @@ function IngredientPage(this: any) {
                                                         <Link to={`/recipe/${recipe.id}`}>
                                                             <IonCard button routerDirection="forward">
                                                                 {/*<img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="recipePhoto"/>*/}
-                                                                <img src={"https://picsum.photos/1500/800"} alt="recipePhoto"/>
+                                                                <img src={recipe.imgSrc} alt="recipePhoto"/>
 
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>

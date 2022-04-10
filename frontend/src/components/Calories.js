@@ -79,6 +79,7 @@ const Calories = () => {
               <IonCard color='primary'>
               <IonCardContent >
                 <h1 align-iems='center'>Here is your personal Calorie Tracker!</h1>
+                <h2 align-iems='center'> Please enter the name of your food item and its number of calories!</h2>
                 <CaloriesCounter total={total}/>
                 <DeleteCalories deleteAllHandler={deleteAllHandler}/>
                 <CalorieInput addItemHandler = {addItemHandler} itemName = {itemName} calories = {calories}

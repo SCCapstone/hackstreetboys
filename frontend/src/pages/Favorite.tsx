@@ -400,7 +400,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                   <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
-                  <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
+                  <h2>By: {recipe.authorName ? recipe.authorName : "anon"}</h2>
                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} ({recipe.estimatedCost})</h3>
                   <h3>Total Time: {recipe.totalTime} (Prep Time: {recipe.prepTime} + Cook Time: {recipe.cookTime}) makes {recipe.yield}</h3>
 

@@ -86,9 +86,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
    *
    * @param data
    */
-  const onSubmit = (e: any) => {
+  const onSubmit = () => {
     // preventDefault()
-    e.preventDefault();
     console.log("updatedValues" + getValues());
     try {
         const config = {
@@ -103,6 +102,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         console.log("double takero")
         console.log(getValues('imgSrc'));
         const body = JSON.stringify(getValues());
+        console.log("Values" + body)
         const res = axios.post(
             'https://api.fridger.recipes/v1/recipe/',
             // 'https://api.fridger.recipes/v1/recipe/',
@@ -165,7 +165,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
            <h1>To add a recipe, fill out all form items</h1>
-        <form onSubmit={async (e) =>{await onSubmit(e); props.history.push('/recipes'); history.go(0)}} >
+        <form onSubmit={ async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
                     <IonInput type="text" name="title" required onIonInput={(e: any) => setValue("title",e.target.value)}
@@ -230,7 +230,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     </IonSelect>
                 </IonItem>
                 <IonItem>
-                    <IonLabel position="floating">Tags (seperated by commas)</IonLabel>
+                    <IonLabel position="floating">Tags (separated by commas)</IonLabel>
                     <IonInput name="tags" required onIonInput={(e: any) => setValue("tags",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
@@ -241,12 +241,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
             {/* <input type="file" id="imgSrc" name="imgSrc" accept="image/png, image/jpeg" onChange={(e) => fileSetBase64FunFunctionOperation(e.currentTarget.files![0])}/> */}
 
                 {/* TODO: Make it so the dropdowns are REQUIRED. */}
-                <IonButton className="ion-margin-top" disabled={(!checked)}
-                        color='primary' type="submit" 
-                        //onClick={async () =>{
-                        //     await onSubmit();
-                        // }}
-                        expand='full'>
+                <IonButton className="ion-margin-top" disabled={(!checked || getValues().ingredientIds === "" || getValues().tags === "")} color='primary' type="submit" expand='full'>
                             Submit Recipe
                 </IonButton>
                 <Link to="/recipes/">

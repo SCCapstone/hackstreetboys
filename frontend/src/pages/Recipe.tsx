@@ -29,7 +29,7 @@ import React, { useEffect, useState } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart, pencilSharp, logoFacebook } from 'ionicons/icons';
+import { add, heart, pencilSharp, logoFacebook, warningOutline } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
 import { Review } from '../models/Review';
@@ -121,7 +121,7 @@ function RecipePage() {
 
   const [favorites, setFavorites ] = React.useState<[Favorite]>([{
     id: 1, 
-    userId: context.currentUser?.id, 
+    userId: context.currentUser?.id ? context.currentUser?.id : 0, 
     recipeId: 1
   }]);
   useEffect(() => {
@@ -214,33 +214,12 @@ useEffect(() => {
 
 
 const checkFav = async () => {
-  var i = 0;
-  var alreadyFav = false;  
-   while( i< favorites.length) {
-     console.log(i);
-     console.log("Recipe ID: " + recipe.id);
-      if((recipe.id == favorites[i].recipeId)) {
-        alreadyFav = true;
-        console.log("already in favs");
-        break;
-    }
-    else{
-      i++;
-    }
-    
+  (favorites.filter(recipe => (
+    favorite.recipeId == Number(id) &&
+    favorite.userId == context.currentUser?.id
+)).length === 0) ? addFav(): removeFav()
    }
-  if(alreadyFav == false) {
-    addFav();
-    console.log("not in favs");
-  }
 
-  if(alreadyFav == true) {
-    console.log("found in favs");
-    history.push("/favorites");
-   }
- 
-
-}
 
 const addFav = async () => {
   
@@ -248,12 +227,14 @@ const addFav = async () => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${context.token}`
       },
     };
     const body = {
-      "userId":context.currentUser?.id,
-      "recipeId":recipe.id
+      "userId": context.currentUser?.id,
+      "recipeId": recipe.id
     }
+    console.log("trigger")
     const res = await axios.post(
       'https://api.fridger.recipes/v1/favorites/',
       body,
@@ -297,20 +278,20 @@ useEffect(() => {
       .then(data => setIngredients(data))
 }, [])
 
-
-
 const removeFav = async () => {
   console.log('clicked delete');
+  console.log(favorite);
   try {
     const config = {
       headers: {
         'Content-Type': 'application/json',
       },
     };
-    // const body = {
-    //   "userId":context.currentUser?.id,
-    //   "recipeId":recipe.id
-    // }
+    const body = {
+      "userId":context.currentUser?.id,
+      "recipeId":recipe.id,
+      "favoriteId":favorite.id
+    }
     const res = await axios.delete(
       `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
       config
@@ -333,7 +314,7 @@ const complaintLink = () => {
  if(context.isAdmin) {
     return <>
     <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
-    Click to see Reviews about all recipes
+    See complaints about this recipe.
   </IonButton>
   </Link>
     </>
@@ -360,7 +341,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
           <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( checkFav() )}} >
                           {/* <IonButton onClick={() => { fav() }} > */}
-                            <IonIcon icon={heart} /></IonButton>
+                            <IonIcon icon={heart} alt-text="add" /></IonButton>
           <FacebookShareButton
             url={"https://fridger.recipes/"+recipe.id}
             quote={recipe.title}
@@ -461,7 +442,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                   <h2>{recipe.description}</h2>
 
                   <h2>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</h2>
-                  <h2>By: <a href="">{recipe.authorName ? recipe.authorName : "anon"}</a></h2>
+                  <h2>By: {recipe.authorName ? recipe.authorName : "anon"}</h2>
                   <h3>Price: {recipe.estimatedCost > 100 ? "$$$" : recipe.estimatedCost > 50 ? "$$" : "$"} {recipe.estimatedCost}</h3>
 
                   <h3>Total Time: {recipe.totalTime} mins ({recipe.prepTime > 0 ? "Prep Time: " + recipe.prepTime : ""}{recipe.prepTime > 0 && recipe.cookTime > 0 ? " + ": ""}{recipe.cookTime > 0 ? "Cook Time: " + recipe.cookTime : ""})</h3>
@@ -516,11 +497,11 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
               <IonCard>
                   <IonCardContent>
                     {/* <Link to={`/review/${recipe.id}`}><IonButton> */}
-
+                    <h2>Reviews</h2>
                     <IonGrid>
          <IonRow>
             {reviews.slice(-4).map(review => 
-               <IonCol sizeXs="12" sizeSm="6" key={review.id}>
+               <IonCol sizeLg="3" sizeSm='1'  key={review.id}>
                    <Link to={`/review/${review.id}`}>
                        <IonCard button routerDirection="forward">
                          <IonCardHeader>
@@ -534,42 +515,24 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
             
           </IonRow>
         </IonGrid>
-                    <Link to={`/review/${recipe.id}`}><IonButton>
-              Click to see Reviews about all recipes
-            </IonButton>
-            </Link>
-            </IonCardContent>
-            </IonCard>
-            <IonCard>
-              <IonCardContent>
-            <h2>Add a review:</h2>
-                <Link to={`/recipe/${recipe.id}/review`}>
-                    <IonFabButton >
+                   <div style={{display: 'flex'}}> 
+            <Link to={`/recipe/${recipe.id}/review`}>
+            <IonFabButton style={{marginRight: '25px'}}>
                       <IonIcon icon={add} />
                     </IonFabButton>
                   </Link>
-
-
-                  {/* {reviews.map(review =>
-                        <IonCol sizeXs="12" sizeSm="6" key={review.id}>
-                         <Link to={`/review/${review.id}`}>
-                          <IonCard button routerDirection="forward">
-                            <IonCardHeader>
-                              <IonCardTitle>{review.id}</IonCardTitle>
-                              <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
-                            </IonCardHeader>
-                          </IonCard>
-                          </Link>
-                        </IonCol>
-                      )} */}
-
-                  </IonCardContent>
+                  <Link to={`/review/${recipe.id}`}><IonButton>
+              See all reviews about this recipe
+            </IonButton></Link>
+            </div>
+            </IonCardContent>
+            </IonCard>
+            <IonCard>
                   <IonCardContent>
-            <h2>Submit a Complaint:</h2>
-                <Link to={`/complaint/add`}>
-                    <IonFabButton >
-                      <IonIcon icon={add} />
-                    </IonFabButton>
+                <Link to={`/recipe/${recipe.id}/complaint`}>
+                    <IonButton color="danger" >
+                      <IonIcon icon={warningOutline} style={{marginRight: '5px'}} />Report this recipe
+                    </IonButton>
                   </Link>
                   </IonCardContent>
                   </IonCard>
@@ -577,7 +540,7 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                   
             {(recipe.author === context.currentUser?.id || (context.isAdmin)) ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
                   <IonFabButton routerLink={`/recipe/edit/${recipe.id}`}>
-                      <IonIcon icon={pencilSharp} />
+                      <IonIcon icon={pencilSharp} alt-text="edit" />
                     </IonFabButton>
                   </IonFab> : ""}
           </IonPage>
