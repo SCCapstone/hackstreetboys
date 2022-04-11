@@ -1,35 +1,36 @@
 import './myPantry.css';
 
 import {
-    IonApp,
-    IonAvatar,
-    IonButton,
-    IonButtons,
-    IonCard,
-    IonCardContent,
-    IonCardHeader,
-    IonCardSubtitle,
-    IonCardTitle,
-    IonCol,
-    IonContent,
-    IonFab,
-    IonGrid,
-    IonHeader,
-    IonIcon,
-    IonImg,
-    IonItem,
-    IonLabel,
-    IonList,
-    IonListHeader,
-    IonMenuToggle,
-    IonPage,
-    IonPopover,
-    IonRow,
-    IonSplitPane,
-    IonText,
-    IonTitle,
-    IonToolbar,
-  } from '@ionic/react';
+  IonAlert,
+  IonApp,
+  IonAvatar,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonFab,
+  IonGrid,
+  IonHeader,
+  IonIcon,
+  IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonListHeader,
+  IonMenuToggle,
+  IonPage,
+  IonPopover,
+  IonRow,
+  IonSplitPane,
+  IonText,
+  IonTitle,
+  IonToolbar,
+} from '@ionic/react';
 
 import { removeCircle } from 'ionicons/icons';
 import { addCircle } from 'ionicons/icons';
@@ -49,7 +50,7 @@ import { stringify } from 'querystring';
 import RecipePage from './Recipe';
 import { remove } from 'lodash';
 
-let fruits2 = [["apple","2"],["banana","3"],["orange","4"]];
+let fruits2 = [["apple", "2"], ["banana", "3"], ["orange", "4"]];
 
 const DOMAIN = "https://api.fridger.recipes"
 // const DOMAIN = "http://localhost:8080"
@@ -76,25 +77,25 @@ let refresh: number = 1;
 
 
 function MyPantry() {
-  
-  const [ email, setEmail ] = useState("");
-  const [ password, setPassWord] = useState("");
-  const [ user, setUser ] = useState("");
 
-  
+  const [email, setEmail] = useState("");
+  const [password, setPassWord] = useState("");
+  const [user, setUser] = useState("");
+  const [clearPantryAlert, setClearPantryAlert] = useState(false);
+
   const context = useContext(Context)
 
   const config = {
     headers: {
-        'Content-Type': 'application/json',
-        'authorization': `Bearer ${context.token}`
+      'Content-Type': 'application/json',
+      'authorization': `Bearer ${context.token}`
     },
-};
-  
-  let thisUserID =0;
+  };
+
+  let thisUserID = 0;
 
   console.log(context)
-  if(context.currentUser!=undefined) {
+  if (context.currentUser != undefined) {
     thisUserID = context.currentUser!.id;
     console.log("USERID: " + thisUserID);
   }
@@ -104,7 +105,7 @@ function MyPantry() {
   //Grab all ingredient for bottom section
   const [ingredientArray, setAllIngredients] = React.useState<[Ingredient]>([{
     id: 1,
-    name: "",
+    name: "Loading Ingredients...",
     calories: 0,
     carbohydrates: 0,
     protein: 0,
@@ -114,15 +115,15 @@ function MyPantry() {
     imgSrc: ""
   }]);
   useEffect(() => {
-      fetch(DOMAIN+'/v1/ingredient/')
-          .then(ingResp => ingResp.json())
-          .then(ingData => setAllIngredients(ingData))
+    fetch(DOMAIN + '/v1/ingredient/')
+      .then(ingResp => ingResp.json())
+      .then(ingData => setAllIngredients(ingData))
   }, []) //i only want this to refresh at start or when ingredientArray changes
 
   //Grab all recipes for the current ingredients
   const [recipes, setRecipes] = React.useState<[Recipe]>([{
     id: 1,
-    title: "Biscuits and Jam",
+    title: "Loading Recipes...",
     author: 0,
     authorName: "",
     description: "What do you think? It's biscuits dummy.",
@@ -140,23 +141,23 @@ function MyPantry() {
     rating: 4.2
   }]);
   useEffect(() => {
-    fetch(DOMAIN+"/v1/recipe/")
+    fetch(DOMAIN + "/v1/recipe/")
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
 
-  useEffect(() => {
-    document.title = "My Pantry";
-  }, []);
+  // useEffect(() => {
+  //   document.title = "My Pantry";
+  // }, []);
   //This will refresh pantry with current user 
   //   +thisUserID.toString()
-  
-   const refreshPantry = () => {
-    fetch(DOMAIN+'/v1/user/pantry/'+context.currentUser!.id
-    ,config)
-    // fetch(DOMAIN+'/v1/user/pantry',config)
-    .then(res => res.json())
-    .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
+
+  const refreshPantry = () => {
+    fetch(DOMAIN + '/v1/user/pantry/' + context.currentUser!.id
+      , config)
+      // fetch(DOMAIN+'/v1/user/pantry',config)
+      .then(res => res.json())
+      .then(data => setPantry(data)) //set pantry is the method that updates and calls and changes pantry
     console.log("Refreshing Pantry")
     console.log(pan);
     //refresh = refresh+1;
@@ -164,12 +165,12 @@ function MyPantry() {
 
   //Grab pantry at start
   //This will reload EVERY time setPantry is called
-  const [pan, setPantry] = React.useState<[Pantry]>([{ 
-    id: 99,
-    userID: 2,
-    ingredientName: "this shouldn't show up",
-    numIngredient: 3,
-    description: "This is a description of the food"
+  const [pan, setPantry] = React.useState<[Pantry]>([{
+    id: 0,
+    userID: 0,
+    ingredientName: "Loading Pantry Items...",
+    numIngredient: 0,
+    description: ""
   }]);
   useEffect(() => { //doesn't pull and log right at the start!
     console.log("HELLO");
@@ -181,13 +182,13 @@ function MyPantry() {
     //   .then(ingResp => ingResp.json())
     //   .then(ingData => setAllIngredients(ingData))
   }, [refresh])
-  
+
   //Base Ingredient to be edited to add to pantry
 
   //IngredientToPantry
   const givePantryVersionFromName = (ingPanName: string) => {
-    for(let i=0;i<pan.length;i++) {
-      if(pan[i].ingredientName === ingPanName) {
+    for (let i = 0; i < pan.length; i++) {
+      if (pan[i].ingredientName === ingPanName) {
         console.log("FOUND ITEM in pantry")
         return pan[i];
       }
@@ -202,18 +203,11 @@ function MyPantry() {
     }
 
   }
-  const [currPan, setCurrPan] = useState<Pantry>({
-    id: 3,
-    userID: 1,
-    ingredientName: "REFRESHING RANDY",
-    numIngredient: 1,
-    description: "This is a test of the food"
-  })
 
   //PantryToIngredient
   const giveIngredientVersionFromName = (ingPanName: string) => {
-    for(let i=0;i<ingredientArray.length;i++) {
-      if(ingredientArray[i].name === ingPanName) {
+    for (let i = 0; i < ingredientArray.length; i++) {
+      if (ingredientArray[i].name === ingPanName) {
         return ingredientArray[i];
       }
     }
@@ -230,11 +224,11 @@ function MyPantry() {
     cost: 1000.0,
     imgSrc: ""
   })
-  
+
   const canMakeRecipe = (recipeIng: string[]) => {
     let panIngredientIDS = pantryIngredientIDs();
-    for(let i=0;i<recipeIng.length;i++) {
-      if(!panIngredientIDS.includes(recipeIng[i]))
+    for (let i = 0; i < recipeIng.length; i++) {
+      if (!panIngredientIDS.includes(recipeIng[i]))
         return false;
     }
     return true;
@@ -243,13 +237,12 @@ function MyPantry() {
   //This method will populate all ingredientIDs in Pantry
   const pantryIngredientIDs = () => {
     let panIngredientIDS: string[] = [];
-    pan.map(panItem =>
-      {
-        if(giveIngredientVersionFromName(panItem.ingredientName)!=null) {
-          var tempIngID: string = ((giveIngredientVersionFromName(panItem.ingredientName))!.id).toString(); //! = strict null check
-          panIngredientIDS.push(tempIngID) //this will hold the ingredient IDs from Pantry.
-        }
+    pan.map(panItem => {
+      if (giveIngredientVersionFromName(panItem.ingredientName) != null) {
+        var tempIngID: string = ((giveIngredientVersionFromName(panItem.ingredientName))!.id).toString(); //! = strict null check
+        panIngredientIDS.push(tempIngID) //this will hold the ingredient IDs from Pantry.
       }
+    }
     )
     // console.log("panIngredientIDS: ");
     // console.log(panIngredientIDS);
@@ -261,32 +254,31 @@ function MyPantry() {
     console.log(newPan);
     refreshPantry();
     //if pantry includes the item
-    if(containsPantryItem(newPan,pan)) {
-      console.log("Incrementing by 1 "+newPan.ingredientName)
+    if (containsPantryItem(newPan, pan)) {
+      console.log("Incrementing by 1 " + newPan.ingredientName)
       console.log(newPan);
-      axios.put(DOMAIN+'/v1/user/pantry/increase/'+newPan.id,
-      config
-      )
-        .then(response => 
-          {console.log(response);}
-      );
-          //console.log(response);)
-    } else { //If Pantry does not include item
-      console.log("Adding Fresh "+newPan.ingredientName)
-      axios.post(
-        DOMAIN+'/v1/user/pantry/', 
-        newPan, 
+      axios.put(DOMAIN + '/v1/user/pantry/increase/' + newPan.id,
         config
-        )
+      )
+        .then(response => { console.log(response); }
+        );
+      //console.log(response);)
+    } else { //If Pantry does not include item
+      console.log("Adding Fresh " + newPan.ingredientName)
+      axios.post(
+        DOMAIN + '/v1/user/pantry/',
+        newPan,
+        config
+      )
         .then(res => {
-        console.log("Status: ", res.status);
-        console.log("Data:", res.data);
-      }).catch(error => {
-        console.error('Something went wrong!', error);
-        console.error(newPan);
-      });
+          console.log("Status: ", res.status);
+          console.log("Data:", res.data);
+        }).catch(error => {
+          console.error('Something went wrong!', error);
+          console.error(newPan);
+        });
     }
-    refresh = refresh+1; //this causes useeffect to reload
+    refresh = refresh + 1; //this causes useeffect to reload
   }
 
   //Clear the pantry
@@ -294,9 +286,9 @@ function MyPantry() {
     refreshPantry();
     console.log("Clearing Pantry");
     axios.delete(
-      DOMAIN+'/v1/user/pantry/clear-pantry/'+context.currentUser!.id,
+      DOMAIN + '/v1/user/pantry/clear-pantry/' + context.currentUser!.id,
       config);
-    refresh = refresh+1; //this causes useeffect to reload
+    refresh = refresh + 1; //this causes useeffect to reload
   }
 
   //Remove an item from pantry
@@ -304,44 +296,42 @@ function MyPantry() {
     console.log(removePan);
     refreshPantry();
     //if pantry includes the item
-    if(containsPantryItem(removePan,pan)) {
+    if (containsPantryItem(removePan, pan)) {
       console.log(removePan);
-      if(removePan.numIngredient>1) {
-        axios.put(DOMAIN+'/v1/user/pantry/decrease/'+removePan.id, config)
-          .then(response => 
-          {console.log(response);}
-         );
-      } 
-      else { //pan.numIngredient == 1
-        axios.delete(DOMAIN+'/v1/user/pantry/'+removePan.id,
-        config)
-        .then(response => 
-          {console.log(response);}
-         );
+      if (removePan.numIngredient > 1) {
+        axios.put(DOMAIN + '/v1/user/pantry/decrease/' + removePan.id, config)
+          .then(response => { console.log(response); }
+          );
       }
-      
-          //console.log(response);)
-      
+      else { //pan.numIngredient == 1
+        axios.delete(DOMAIN + '/v1/user/pantry/' + removePan.id,
+          config)
+          .then(response => { console.log(response); }
+          );
+      }
+
+      //console.log(response);)
+
     } else { //If Pantry does not include item
       console.log("Item does not exist. Can not delete a non-existent item");
     }
-    refresh = refresh+1; //this causes useeffect to reload
+    refresh = refresh + 1; //this causes useeffect to reload
   }
-    
+
   //This will check to see if the name of the ingredient is already in pantry
   const containsPantryItem = (panItem: Pantry, pantry: [Pantry]) => {
-    for(let i=0;i<pantry.length;i++) {
-      if(pantry[i].ingredientName === panItem.ingredientName) {
+    for (let i = 0; i < pantry.length; i++) {
+      if (pantry[i].ingredientName === panItem.ingredientName) {
         return true; //in pantry
-      }  
+      }
     }
     return false; //not in pantry
   }
 
   //Grab ingredient!
   const setIngFromPantry = (pantryName: String) => {
-    for(let i=0;i<ingredientArray.length;i++) {
-      if(ingredientArray[i].name === pantryName) {
+    for (let i = 0; i < ingredientArray.length; i++) {
+      if (ingredientArray[i].name === pantryName) {
         //setCurrIng(ingredientArray[i]);
       }
     }
@@ -349,56 +339,56 @@ function MyPantry() {
 
   //Grab ingredient stats for mapping
   const ingredientStatsImgSrc = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].imgSrc;
       }
     }
     return "";
   }
   const ingredientStatsAlcohol = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].alcohol;
       }
     }
     return "";
   }
   const ingredientStatsCalories = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].calories;
       }
     }
     return "";
   }
-  const ingredientStatsCarbs= (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+  const ingredientStatsCarbs = (pantryName: string, ingArray: [Ingredient]) => {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].carbohydrates;
       }
     }
     return "";
   }
   const ingredientStatsProtein = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].protein;
       }
     }
     return "";
   }
   const ingredientStatsFat = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].fat;
       }
     }
     return "";
   }
   const ingredientStatsCost = (pantryName: string, ingArray: [Ingredient]) => {
-    for(let i=0;i<ingArray.length;i++) {
-      if(ingArray[i].name === pantryName) {
+    for (let i = 0; i < ingArray.length; i++) {
+      if (ingArray[i].name === pantryName) {
         return ingArray[i].cost;
       }
     }
@@ -418,31 +408,31 @@ function MyPantry() {
   // console.log(ingredient)
 
   //Ingredient popup
-  const [showPop, setPop] = useState<{open: boolean, event: Event | undefined}>({
+  const [showPop, setPop] = useState<{ open: boolean, event: Event | undefined }>({
     open: false,
     event: undefined
   });
 
-  const [showAddIngredient, setAddIngredient] = useState<{open: boolean, event: Event | undefined}>({
+  const [showAddIngredient, setAddIngredient] = useState<{ open: boolean, event: Event | undefined }>({
     open: false,
     event: undefined
   });
-  
+
   const logRecipes = () => {
     console.log("RECIPES");
     console.log(recipes);
   }
-  if(!(context.currentUser && context.currentUser.id)) {
+  if (!(context.currentUser && context.currentUser.id)) {
     return (
       <Router history={history}>
         <Switch>
           <IonApp>
-          <SideBar />
+            <SideBar />
             <IonPage className="ion-page" id="main-content">
-              <Header/>
-                <IonContent className="ion=page" id="main-content">
+              <Header />
+              <IonContent className="ion=page" id="main-content">
                 <h2>You must be signed in to use 'Your Pantry'</h2>
-                </IonContent>
+              </IonContent>
             </IonPage>
           </IonApp>
         </Switch>
@@ -453,46 +443,62 @@ function MyPantry() {
       <Router history={history}>
         <Switch>
           <IonApp>
-              <SideBar/>
-              <IonPage className="ion-page" id="main-content">
-              <Header/>
+            <SideBar />
+            <IonPage className="ion-page" id="main-content">
+              <Header />
               <IonContent className="ion-padding">
-              <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>{context.currentUser.name}'s Pantry!</h1></IonText>
-              
+                <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>{context.currentUser.name}'s Pantry!</h1></IonText>
+
                 {/* <IonPage id="main-content"> */}
-                  {/* <IonSplitPane when="sm" contentId="right"> */}
-                  <IonGrid>
-                    {/* Start Of Left Section */}
-                    <IonRow>
-                      <IonCol>
-                      <h1>Your Ingredients are stored here</h1>
-                      
-                      <IonList>
-                        <IonItem>
-                          PANTRY ITEMS
-                          <IonButton slot="end" color="warning" onClick={(e) => 
-                                clearPantry()}>Clear Pantry</IonButton>
-                        </IonItem>
-                        {pan.map(myPan =>
-                          <IonItem key={myPan.id}> 
-                            {setIngFromPantry(myPan.ingredientName)}
-                            <IonAvatar slot="start">
-                              <img src={ingredientStatsImgSrc(myPan.ingredientName,ingredientArray)}></img>
-                            </IonAvatar>
-                            <IonLabel>
-                              <h2>{myPan.ingredientName}</h2>
-                            </IonLabel>
-                            <IonIcon icon={removeCircle} color="danger" size="large" slot="end" onClick={(e) => {
-                                removeFromPantry(myPan)}}>
-                            </IonIcon>
-                            <IonLabel slot="end">
-                              <h2>Servings: {myPan.numIngredient}</h2>
-                            </IonLabel>
-                            <IonIcon icon={addCircle} color="success" size="large" slot="end" onClick={(e) => {
-                                addToPantry(myPan)}}>
-                            </IonIcon>
-                            {/* <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton> */}
-                            {/* <IonPopover
+                {/* <IonSplitPane when="sm" contentId="right"> */}
+                <IonGrid>
+                  {/* Start Of Left Section */}
+                  <IonRow>
+                    <IonCol>
+                      <IonContent>
+                        <div> 
+                        <h1>Your Ingredients are stored here</h1>
+                        </div>
+
+                        <IonList>
+                          <IonItem>
+                            PANTRY ITEMS
+                            <IonButton slot="end" color="warning" onClick={(e) => 
+                              setClearPantryAlert(true)
+                          
+                              }>Clear Pantry</IonButton>
+                            <IonAlert isOpen={clearPantryAlert}
+                              message="
+                              <center>
+                              Are you sure that you want to clear your pantry?<br/>
+                              All of the items in your pantry will be deleted.
+                              </center>"
+                              onDidDismiss={() => setClearPantryAlert(false)}
+                              buttons = {['CANCEL',{ cssClass: 'cancelButton', text: 'CLEAR PANTRY',handler: (d) => clearPantry()}]}
+                              />
+                          </IonItem>
+                          {pan.map(myPan =>
+                            <IonItem key={myPan.id}>
+                              {setIngFromPantry(myPan.ingredientName)}
+                              <IonAvatar slot="start">
+                                <img src={ingredientStatsImgSrc(myPan.ingredientName, ingredientArray)}></img>
+                              </IonAvatar>
+                              <IonLabel>
+                                <h2>{myPan.ingredientName}</h2>
+                              </IonLabel>
+                              <IonIcon icon={removeCircle} color="danger" size="large" slot="end" onClick={(e) => {
+                                removeFromPantry(myPan)
+                              }}>
+                              </IonIcon>
+                              <IonLabel slot="end">
+                                <h2>Servings: {myPan.numIngredient}</h2>
+                              </IonLabel>
+                              <IonIcon icon={addCircle} color="success" size="large" slot="end" onClick={(e) => {
+                                addToPantry(myPan)
+                              }}>
+                              </IonIcon>
+                              {/* <IonButton onClick={(e) => setPop({open: true, event: e.nativeEvent})}>{myPan.ingredientName} Facts</IonButton> */}
+                              {/* <IonPopover
                               isOpen={showPop.open}
                               event={showPop.event}
                               onDidDismiss={e => setPop({open: false, event: undefined})}
@@ -508,66 +514,67 @@ function MyPantry() {
                                 <IonItem>Estimated Cost: ${ingredientStatsCost(myPan.ingredientName,ingredientArray)}</IonItem>
                               </IonList>
                             </IonPopover> */}
-                          </IonItem>
-                        )}
-                        </IonList>                     
-                      </IonCol>
-                      <IonCol>
-                        <div>
-                          <h2>Add Some Ingredients to your pantry!</h2>
-                        </div>
-                        <IonList>
-                          {ingredientArray.map(ing => 
-                            <IonItem key={ing.id}>
-                              <IonAvatar slot="start">
-                                <img src={ing.imgSrc}></img>
-                              </IonAvatar>
-                              <IonLabel>
-                                <h2>{ing.name}</h2>
-                              </IonLabel>
-                              <IonButton color="success" onClick={(e) => {
-                                  console.log("button clicks")
-                                  console.log(givePantryVersionFromName(ing.name))
-                                  addToPantry(givePantryVersionFromName(ing.name))
-                                }
-                              }>
-                              ADD {ing.name}</IonButton>
                             </IonItem>
                           )}
                         </IonList>
-                      </IonCol>
-                      <IonCol>
-                        <h2>You Can Make these recipes with your ingredients!</h2>
-                        {recipes.map(recipe => {
-                            let ids = recipe.ingredientIds.split(",")
-                            if(canMakeRecipe(ids)) {
-                              return (
-                                <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
-                                  <IonCard button routerDirection='forward'>
-                                    <IonCardHeader>
-                                      <IonCardTitle>{recipe.title}</IonCardTitle>
-                                      <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
-                                    </IonCardHeader>
-                                    <IonCardContent>
-                                      <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                                      <IonLabel>Time: {recipe.totalTime}m</IonLabel>
-                                      <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                                      <Link to = {`/recipe/${recipe.id}`}>
-                                      </Link>
-                                      </IonFab>
-                                    </IonCardContent>
-                                  </IonCard>
-                                </Link>
-                              )
+                      </IonContent>
+                    </IonCol>
+                    <IonCol>
+                      <div>
+                        <h2>Add Some Ingredients to your pantry!</h2>
+                      </div>
+                      <IonList>
+                        {ingredientArray.map(ing =>
+                          <IonItem key={ing.id}>
+                            <IonAvatar slot="start">
+                              <img src={ing.imgSrc}></img>
+                            </IonAvatar>
+                            <IonLabel>
+                              <h2>{ing.name}</h2>
+                            </IonLabel>
+                            <IonButton color="success" onClick={(e) => {
+                              console.log("button clicks")
+                              console.log(givePantryVersionFromName(ing.name))
+                              addToPantry(givePantryVersionFromName(ing.name))
                             }
-                          }
+                            }>
+                              ADD {ing.name}</IonButton>
+                          </IonItem>
                         )}
-                      </IonCol>
-                    </IonRow>
-                  </IonGrid>
-                </IonContent>
-                </IonPage>
-              </IonApp>
+                      </IonList>
+                    </IonCol>
+                    <IonCol>
+                      <h2>You Can Make these recipes with your ingredients!</h2>
+                      {recipes.map(recipe => {
+                        let ids = recipe.ingredientIds.split(",")
+                        if (canMakeRecipe(ids)) {
+                          return (
+                            <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
+                              <IonCard button routerDirection='forward'>
+                                <IonCardHeader>
+                                  <IonCardTitle>{recipe.title}</IonCardTitle>
+                                  <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
+                                </IonCardHeader>
+                                <IonCardContent>
+                                  <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br />
+                                  <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+                                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                                    <Link to={`/recipe/${recipe.id}`}>
+                                    </Link>
+                                  </IonFab>
+                                </IonCardContent>
+                              </IonCard>
+                            </Link>
+                          )
+                        }
+                      }
+                      )}
+                    </IonCol>
+                  </IonRow>
+                </IonGrid>
+              </IonContent>
+            </IonPage>
+          </IonApp>
         </Switch>
       </Router>
     );
@@ -577,115 +584,3 @@ function MyPantry() {
 export default MyPantry;
 
 
-
-
-
-                    {/* <h1>Welcome to your pantry, {context.currentUser.name}! Here you can see what ingredients you have!</h1>
-                    <IonButton onClick={(e) => clearPantry()}>CLEAR PANTRY</IonButton>
-                    <Link to="/ingredients"><IonButton expand='full'>
-                        Manage available ingredients
-                      </IonButton>
-                    </Link> 
-                          
-                          <h2>Add Ingredients To Your Pantry</h2>
-                          <IonContent className="ion-padding">
-                            <IonList>
-                              {ingredientArray.map(ing => 
-                                <IonItem key={ing.id}>
-                                  <IonAvatar slot="start">
-                                    <img src={ing.imgSrc}></img>
-                                  </IonAvatar>
-                                  <IonLabel>
-                                    <h2>{ing.name}</h2>
-                                  </IonLabel>
-                                  {/* <IonButton onClick={(e) => setAddIngredient({open: true, event: e.nativeEvent})}>
-                                    Add 1 {ing.name}
-                                  </IonButton> */}
-                                  {/* <IonButton onClick={(e) => setNewPantry({id: 3,
-                                    userID: 3,
-                                    ingredientName: "3",
-                                    numIngredient: 3,
-                                    description: "3"})}>
-                                    Add 1 {ing.name}
-                                  </IonButton> */}
-                                  {/* <IonButton onClick={(e) => {
-                                      console.log("button clicks")
-                                      console.log(givePantryVersionFromName(ing.name))
-                                      addToPantry(givePantryVersionFromName(ing.name))
-                                    }
-                                  }>
-                                  ADD {ing.name}</IonButton>
-                                </IonItem>
-                              )}
-                            </IonList>
-                          </IonContent>
-                          <h2>All Recipes</h2>
-                          <IonContent className="ion-padding">
-                            <IonList>
-                            {recipes.map(recipe => 
-                                  <IonItem key={recipe.id}>
-                                    <IonAvatar slot="start">
-                                      <img src={recipe.imgSrc}></img>
-                                    </IonAvatar>
-                                    <IonLabel>
-                                      <h2>{recipe.title}</h2>
-                                    </IonLabel>
-                                  </IonItem>
-                                )}
-                            </IonList>
-                          </IonContent>
-                          <IonContent>
-                            <h2>You Can Make these recipes with your ingredients!</h2>
-                            <IonList>
-                              {recipes.map(rec => {
-                                  let ids = rec.ingredientIds.split(",")
-                                  if(canMakeRecipe(ids)) {
-                                    return (
-                                      <IonItem key={rec.id}>
-                                        <IonAvatar slot="start">
-                                          <img src={rec.imgSrc}></img>
-                                        </IonAvatar>
-                                        <IonLabel>
-                                          <h2>{rec.title}</h2>
-                                        </IonLabel>
-                                      </IonItem>
-                                    )
-                                  }
-                                }
-                              )}
-                            </IonList> */}
-                              {/* <IonRow>
-                                {recipes.map(recipe => { //map each recipe
-                                  if (recipe.ingredientIds != null) {
-                                    let recipeIDs = recipe.ingredientIds.split(","); //get string o
-                                    let panIDS = pantryIngredientIDs()
-                                    console.log("panIDS")
-                                    console.log(panIDS)
-                                    panIDS.map(panID => {
-                                      if(recipeIDs.includes(panID.toString())) {
-                                        <IonCol sizeXs="20" sizeSm="4" key={recipe.id}>
-                                          <Link to={`/recipe/${recipe.id}`}>
-                                            <IonCard button routerDirection="forward">
-                                              <img src="" alt="ion" />
-
-                                              <IonCardHeader>
-                                                <IonCardTitle>{recipe.title}</IonCardTitle>
-                                                <IonCardSubtitle>By {recipe.author ? (recipe.author) : "Anonymous"}</IonCardSubtitle>
-                                              </IonCardHeader>
-
-                                              <IonCardContent>
-                                                <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating) : "No rating"}</IonLabel><br />
-                                                <IonLabel>Time: {recipe.totalTime}m</IonLabel>
-                                              </IonCardContent>
-                                            </IonCard>
-                                          </Link>
-                                        </IonCol>
-                                      }
-                                    })
-                                  }
-                                })}
-                              </IonRow> */}
-                            
-                    {/* </IonContent>* */}
-              
- 
