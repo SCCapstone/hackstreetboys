@@ -1,6 +1,7 @@
 import './myPantry.css';
 
 import {
+  IonAlert,
     IonApp,
     IonAvatar,
     IonButton,
