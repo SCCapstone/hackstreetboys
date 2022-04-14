@@ -151,6 +151,7 @@ export const EditProfileForm: React.FC = () => {
                     placeholder="Select Date"
                     name="dob"
                     mode="md"
+                    min="1922" max="2009"
                     value={context.currentUser?.dob}
                     onIonChange={(e: any) => setValue("dob", e.detail.value)}>
                 </IonDatetime>

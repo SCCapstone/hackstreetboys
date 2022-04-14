@@ -214,7 +214,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Yields</IonLabel>
-                    <IonInput type="number" min="1" max="100"  name="yield" required onIonInput={(e: any) => setValue("yield",e.target.value)} />
+                    <IonInput type="number" min="1" max="100" name="yield" required onIonInput={(e: any) => setValue("yield",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>

@@ -129,6 +129,7 @@ const RegistrationForm: React.FC = () => {
                     placeholder="Select Date"
                     name="dob"
                     mode="md"
+                    min="1922" max="2009"
                     onIonChange={(e: any) => setValue("dob", e.detail.value)}>
                 </IonDatetime>
             </IonItem>
