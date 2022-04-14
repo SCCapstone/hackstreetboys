@@ -28,14 +28,16 @@ export const LogInOrProfileLink: React.FC = () => {
                 <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
             </IonAvatar></IonItem>
         </Link>
-        <IonButton onClick={() => LogOut()} slot="end">
+        <IonButton color='danger' onClick={() => LogOut()} slot="end">
             Log Out
         </IonButton>
         </>
     }
 
     return (
-        <Link slot="end" to="/register"><IonTitle>Register/Log In</IonTitle></Link>
+        <IonButton color='secondary' routerLink={`/register`} slot="end">
+        Log In
+    </IonButton>
     );
 }
 export default LogInOrProfileLink;
