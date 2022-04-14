@@ -58,6 +58,7 @@ import EditIngredient from "./pages/EditIngredient";
 import Review from './pages/RecipeReviews';
 import SpecificReview from './pages/ReviewOfRecipe';
 import myReviews from './pages/myReviews';
+import GuestDashboard from './pages/GuestDashboard';
 //const App: React.FC = () => (
   function App () {
 
@@ -73,6 +74,18 @@ import myReviews from './pages/myReviews';
 
         <Redirect to={{ pathname: '/login' }} />
       );
+    }
+      function HomeRoute(props: any) {
+        const context = useGlobalContext();
+        const user = context.currentUser;
+        return (
+          (context.loading)?
+            <Loading /> :
+          (context.currentUser !== undefined)?
+            <Route {...props} /> :
+  
+          <Redirect to={{ pathname: '/guest' }} />
+        );
   }
     return (
       <ContextProvider>
@@ -111,7 +124,6 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/goal/:id" component={Goal} />
               <UserRoute path="/editprofile" component={EditProfile} />
               <UserRoute path="/myreviews" component={myReviews} />
-
               <Route path="/verify" component={Verify} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
@@ -125,7 +137,8 @@ import myReviews from './pages/myReviews';
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/changepassword" component={ChangePassword} />
-              <Route path="/" component={Home} />
+              <Route path="/guest" component={GuestDashboard} />
+              <HomeRoute path="/" component={Home} />
             </Switch>
           </Router>
       </ContextProvider>
