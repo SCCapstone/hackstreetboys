@@ -206,19 +206,19 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
-                    <IonInput type="number" name="prepTime" required onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
+                    <IonInput type="number" min="1" max="1000" name="prepTime" required onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Cook Time</IonLabel>
-                    <IonInput type="number" name="cookTime" required onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
+                    <IonInput type="number" min="1" max="1000" name="cookTime" required onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Yields</IonLabel>
-                    <IonInput type="number" name="yield" required onIonInput={(e: any) => setValue("yield",e.target.value)} />
+                    <IonInput type="number" min="1" max="100"  name="yield" required onIonInput={(e: any) => setValue("yield",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>
-                    <IonInput type="number" name="estimatedCost" required onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="estimatedCost" required onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>Is it alcoholic (21+)</IonLabel>

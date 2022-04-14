@@ -206,19 +206,19 @@ import { Ingredient } from '../models/Ingredient';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
-                    <IonInput name="prepTime" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
+                    <IonInput name="prepTime" min="1" max="1000" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Cook Time</IonLabel>
-                    <IonInput name="cookTime" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
+                    <IonInput name="cookTime" min="1" max="1000" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Yields</IonLabel>
-                    <IonInput name="yield" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
+                    <IonInput name="yield" min="1" max="100" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>
-                    <IonInput name="estimatedCost" required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
+                    <IonInput name="estimatedCost" min="1" max="5000"  required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>Is it alcoholic (21+)</IonLabel>
