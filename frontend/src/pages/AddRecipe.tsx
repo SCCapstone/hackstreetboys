@@ -43,6 +43,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
     const { navigate } = useContext(NavContext);
     const history = useHistory();
     const [checked, setChecked] = useState(false);
+
+    //Form controls and default values that will be loaded over upon fetch
   const {
     handleSubmit,
     control,
@@ -68,6 +70,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         ingredientIds: "",
     }
   });
+  //Dummy ingredient
   const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
     id: 1,
     name: "",
@@ -89,6 +92,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
   const onSubmit = () => {
     // preventDefault()
     console.log("updatedValues" + getValues());
+    //Post applciation JSON from form values along with the context token. Set the context ids and then post.
     try {
         const config = {
             headers: {
@@ -131,10 +135,12 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
     // if(!context.currentUser){
     //     props.history.push('/login');
     // }
+    //set ingredients
     fetch("https://api.fridger.recipes/v1/ingredient/")
         .then(response => response.json())
         .then(data => setIngredients(data))
   }, [])
+  //set title
   useEffect(() => {
     document.title = "Add Recipe";
   }, []);
@@ -165,6 +171,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
 {/* TODO: Remove Paramters From URL, this was achievable under the buttom, but form validation wasn't being checked.*/}
        <IonContent className="ion-padding">
            <h1>To add a recipe, fill out all form items</h1>
+           {/* Upon submission the form will frigger the post method, then move to recipes and force a refresh of that page. */}
+           {/* The set value function sets the user values in the form objects */}
         <form onSubmit={ async () =>{onSubmit(); props.history.push('/recipes'); history.go(0)}} >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
@@ -233,6 +241,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                     <IonLabel position="floating">Tags (separated by commas)</IonLabel>
                     <IonInput name="tags" required onIonInput={(e: any) => setValue("tags",e.target.value)} />
                 </IonItem>
+                {/* TOS compliance check */}
                 <IonItem lines="none">
                     <IonLabel>I agree that this recipe follows our <a href="/tos">Terms of Service</a></IonLabel>
                     <IonCheckbox name="agree" checked={checked} onIonChange={e => setChecked(e.detail.checked)} slot="start" />
@@ -240,7 +249,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
                 {/* <label htmlFor="imgSrc">Choose a recipe picture:</label> */}
             {/* <input type="file" id="imgSrc" name="imgSrc" accept="image/png, image/jpeg" onChange={(e) => fileSetBase64FunFunctionOperation(e.currentTarget.files![0])}/> */}
 
-                {/* TODO: Make it so the dropdowns are REQUIRED. */}
+                {/* Check that there are values in ingredients and tags as ionic does not natively support drop down requirements */}
                 <IonButton className="ion-margin-top" disabled={(!checked || getValues().ingredientIds === "" || getValues().tags === "")} color='primary' type="submit" expand='full'>
                             Submit Recipe
                 </IonButton>

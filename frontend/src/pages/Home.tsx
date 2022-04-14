@@ -31,8 +31,7 @@ import RecipeBanner from '../assets/fridger_banner.png'
 
 function Home() {
     const context = useContext(Context);
-    const [ searchText, setSearchText ] = useState("");
-
+  //Dummy loading value
     const [recipes, setRecipes] = React.useState<[Recipe]>([{
       id: 1,
       title: "Loading...",
@@ -54,11 +53,12 @@ function Home() {
     }]);
   
     useEffect(() => {
-  
+  //set recipes off of our recipe api endpoint
    fetch(`https://api.fridger.recipes/v1/recipe/`)
         .then(response => response.json())
         .then(data => setRecipes(data))
     }, [])
+    //set dummy goal
     const [goals, setGoals] = React.useState<[Goal]>([{
       id: 1,
       endGoal: "Lose",
@@ -71,13 +71,11 @@ function Home() {
       userId: Number(context.currentUser?.id)
   }]);
  // const {id} = useParams<routeParams>();
+ //Context workaround to ensure content will always be loaded so slicing errors do not occur
  let forcedID = context.currentUser?.id ? context.currentUser?.id : 1;
   useEffect(() => {
-     //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-     //fetch('https://api.fridger.recipes/v1/user/goals/')
-    //  fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id}`)
+    //fetch our goals from a userID query
      fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${forcedID}`)
-
      .then(response => response.json())
      .then(data => setGoals(data))
   }, [])
@@ -89,12 +87,13 @@ function Home() {
   recipeId: 1
 }]);
 useEffect(() => {
-  //  fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id}`)
+    //fetch our favorites from a userID query  
     fetch(`https://api.fridger.recipes/v1/favorites/?userId=${forcedID}`)
   .then(response => response.json())
   .then(data => setFavorites(data))
 }, [])
     useEffect(() => {
+      //set document title
       document.title = "Fridger Dashboard";
     }, []);
     return (
@@ -107,9 +106,11 @@ useEffect(() => {
       <IonContent className="ion-padding">
         <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
         <h1>Latest Recipes</h1>
+        {/* If recipes exist... Display them */}
         {(recipes.length) ? (
         <IonGrid>
                     <IonRow>
+                      {/* Finds the last four ids (latest entries) in the array and then displays them */}
                     {recipes.sort((a,b) => b.id - a.id).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
@@ -132,10 +133,11 @@ useEffect(() => {
         <p>No recipes in our system!</p>)
                     }
         <h1>Highest Rated Recipes</h1>
+                {/* If recipes exist... Display them */}
         {(recipes.length) ? (
-
         <IonGrid>
                     <IonRow>
+                    {/* Finds the top four rated recipes in the array and then displays them */}
                     {recipes.sort((a,b) => b.rating - a.rating).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
@@ -161,6 +163,7 @@ useEffect(() => {
                   {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
+                      {/* Finds the latest four goals from the user context */}
                     {goals.slice(-4).map(goal =>
                         <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
                           <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
@@ -177,6 +180,7 @@ useEffect(() => {
                       )}
                     </IonRow>
                     </IonGrid>):
+                    // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined ?
                     (<p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>)
                     :(<p><Link to="/login">Login</Link> to see your goals!</p>))}
@@ -185,6 +189,7 @@ useEffect(() => {
                   {(goals.length > 0 && context.currentUser !== undefined)? (
                   <IonGrid>
                     <IonRow>
+                      {/* Finds the four latest favorite recipes and then queries the favorite recipe id from our recipe list */}
                     {favorites.slice(-4).map(fav =>
                         <IonCol sizeLg="3" sizeSm='1' key={fav.id}>
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${fav.recipeId}`}>
@@ -202,6 +207,7 @@ useEffect(() => {
                       )}
                     </IonRow>
                   </IonGrid>) : 
+                  // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined ?
                 (<p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>)
                 :(<p><Link to="/login">Login</Link> to see your favorites!</p>))}

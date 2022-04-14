@@ -102,7 +102,7 @@ const GoalsPage = () => {
              {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
              <Link to={`/recipe/${randRecipes.id}`}>
             <IonCard button routerDirection="forward">
-            <img src={randRecipes.imgSrc} alt="ion"/>
+            <img src={randRecipes.imgSrc} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
               <IonCardHeader>
                 <IonCardTitle>{randRecipes.title}</IonCardTitle>
                 <IonCardSubtitle>By {randRecipes.authorName ? (randRecipes.authorName) : "Anonymous"}</IonCardSubtitle>

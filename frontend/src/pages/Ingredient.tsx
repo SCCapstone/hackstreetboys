@@ -152,7 +152,7 @@ function IngredientPage(this: any) {
                                     <IonBadge style={{padding:"5px"}} color={ingredient.alcohol ? 'danger' : 'secondary'}>{ingredient.alcohol ? "Alcoholic" : !ingredient.alcohol ? "Not Alcoholic" : ""}</IonBadge>
                                 </IonCardContent>
                                 <IonCardContent>
-                                    {context.currentUser ?
+                                    {context.isAdmin ?
                                         <Link to={`/ingredient/edit/${id}`}>
                                             <IonBadge style={{paddingLeft:"25px", paddingRight:"25px", padding:"10px"}} color="success">
                                                 Edit {ingredient.name}
