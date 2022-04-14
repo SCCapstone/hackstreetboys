@@ -142,7 +142,7 @@ useEffect(() => {
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
-                          <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
+                          <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt={recipe.title}/>
                             <IonCardHeader>
                               <IonCardTitle>{recipe.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>

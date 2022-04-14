@@ -17,8 +17,7 @@ import {Ingredient} from '../models/Ingredient';
 import Header from '../components/Header';
 import {Recipe} from "../models/Recipe";
 import Context from '../components/Context';
-
-import {some} from "lodash";
+import RecipeBanner from '../assets/fridger_banner.png'
 
 interface IngredientProps {
     ingredient: Ingredient,
@@ -180,7 +179,7 @@ function IngredientPage(this: any) {
                                                         <Link to={`/recipe/${recipe.id}`}>
                                                             <IonCard button routerDirection="forward">
                                                                 {/*<img src={recipe.imgSrc ? recipe.imgSrc : "https://picsum.photos/1500/800"} alt="recipePhoto"/>*/}
-                                                                <img src={recipe.imgSrc} alt="recipePhoto"/>
+                                                                <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt={recipe.title}/>
 
                                                                 <IonCardHeader>
                                                                     <IonCardTitle>{recipe.title}</IonCardTitle>

@@ -551,6 +551,7 @@ function MyPantry() {
                           return (
                             <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                               <IonCard button routerDirection='forward'>
+                              <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt={recipe.title}/>
                                 <IonCardHeader>
                                   <IonCardTitle>{recipe.title}</IonCardTitle>
                                   <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
