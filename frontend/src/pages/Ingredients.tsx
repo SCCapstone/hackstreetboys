@@ -201,13 +201,11 @@ function Ingredients() {
 
                                 </IonRow>
                             </IonGrid>
-                            <Link to="/ingredient/add">
-                                <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                                    <IonFabButton>
-                                        <IonIcon icon={add} alt-text="add"/>
-                                    </IonFabButton>
-                                </IonFab>
-                            </Link>
+                            {context.currentUser ? <IonFab vertical="bottom" horizontal="end" slot="fixed" >
+                  <IonFabButton routerLink={`/ingredient/add`}>
+                      <IonIcon icon={add} alt-text="add"/>
+                    </IonFabButton>
+                  </IonFab> : ""}
                         </IonContent>
                     </IonPage>
                 </IonApp>

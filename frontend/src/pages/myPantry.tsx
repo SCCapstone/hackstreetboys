@@ -2,36 +2,36 @@ import './myPantry.css';
 
 import {
   IonAlert,
-  IonApp,
-  IonAvatar,
-  IonButton,
-  IonButtons,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCardSubtitle,
-  IonCardTitle,
-  IonCol,
-  IonContent,
-  IonFab,
-  IonGrid,
-  IonHeader,
-  IonIcon,
-  IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonListHeader,
-  IonMenuToggle,
-  IonPage,
-  IonPopover,
-  IonRow,
-  IonSplitPane,
-  IonText,
-  IonTitle,
-  IonToolbar,
-} from '@ionic/react';
-
+    IonApp,
+    IonAvatar,
+    IonButton,
+    IonButtons,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCol,
+    IonContent,
+    IonFab,
+    IonGrid,
+    IonHeader,
+    IonIcon,
+    IonImg,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonListHeader,
+    IonMenuToggle,
+    IonPage,
+    IonPopover,
+    IonRow,
+    IonSplitPane,
+    IonText,
+    IonTitle,
+    IonToolbar,
+  } from '@ionic/react';
+  import RecipeBanner from '../assets/fridger_banner.png'
 import { removeCircle } from 'ionicons/icons';
 import { addCircle } from 'ionicons/icons';
 import { Link, Router, Switch, useParams } from "react-router-dom";
@@ -149,7 +149,7 @@ function MyPantry() {
   // useEffect(() => {
   //   document.title = "My Pantry";
   // }, []);
-  //This will refresh pantry with current user 
+  //This will refresh pantry with current user
   //   +thisUserID.toString()
 
   const refreshPantry = () => {
@@ -456,16 +456,16 @@ function MyPantry() {
                   <IonRow>
                     <IonCol>
                       <IonContent>
-                        <div> 
+                        <div>
                         <h1>Your Ingredients are stored here</h1>
                         </div>
 
                         <IonList>
                           <IonItem>
                             PANTRY ITEMS
-                            <IonButton slot="end" color="warning" onClick={(e) => 
+                            <IonButton slot="end" color="warning" onClick={(e) =>
                               setClearPantryAlert(true)
-                          
+
                               }>Clear Pantry</IonButton>
                             <IonAlert isOpen={clearPantryAlert}
                               message="
@@ -551,6 +551,7 @@ function MyPantry() {
                           return (
                             <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
                               <IonCard button routerDirection='forward'>
+                              <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt={recipe.title}/>
                                 <IonCardHeader>
                                   <IonCardTitle>{recipe.title}</IonCardTitle>
                                   <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
@@ -582,5 +583,3 @@ function MyPantry() {
 }
 
 export default MyPantry;
-
-

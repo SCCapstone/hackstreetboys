@@ -281,6 +281,9 @@ useEffect(() => {
 const removeFav = async () => {
   console.log('clicked delete');
   console.log(favorite);
+  if(favorites[0].recipeId==Number(id)){
+    
+  }
   try {
     const config = {
       headers: {

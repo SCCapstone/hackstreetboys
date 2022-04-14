@@ -102,13 +102,13 @@ const GoalsPage = () => {
              {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
              <Link to={`/recipe/${randRecipes.id}`}>
             <IonCard button routerDirection="forward">
-            <img src={randRecipes.imgSrc} alt="ion"/>
+            <img src={randRecipes.imgSrc} style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt={randRecipes.title}/>
               <IonCardHeader>
                 <IonCardTitle>{randRecipes.title}</IonCardTitle>
                 <IonCardSubtitle>By {randRecipes.authorName ? (randRecipes.authorName) : "Anonymous"}</IonCardSubtitle>
               </IonCardHeader>
               <IonCardContent>
-                <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
+              <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating.toFixed(1)) : "No rating"}</IonLabel><br />
                 <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
               </IonCardContent>
             </IonCard>

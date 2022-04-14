@@ -2,6 +2,7 @@ import './Home.css';
 
 import {
     IonApp,
+    IonButton,
     IonCard,
     IonCardContent,
     IonCardHeader,
@@ -29,7 +30,7 @@ import { Favorite } from '../models/Favorite';
 import RecipeBanner from '../assets/fridger_banner.png'
 
 
-function Home() {
+function GuestDashboard() {
     const context = useContext(Context);
   //Dummy loading value
     const [recipes, setRecipes] = React.useState<[Recipe]>([{
@@ -59,39 +60,6 @@ function Home() {
         .then(data => setRecipes(data))
     }, [])
     //set dummy goal
-    const [goals, setGoals] = React.useState<[Goal]>([{
-      id: 1,
-      endGoal: "Lose",
-      calories: 500,
-      carbohydrates: 500,
-      protein: 300,
-      fat: 250,
-      currentWeight: 400.0,
-      goalWeight: 180.0,
-      userId: Number(context.currentUser?.id)
-  }]);
- // const {id} = useParams<routeParams>();
- //Context workaround to ensure content will always be loaded so slicing errors do not occur
- let forcedID = context.currentUser?.id ? context.currentUser?.id : 1;
-  useEffect(() => {
-    //fetch our goals from a userID query
-     fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${forcedID}`)
-     .then(response => response.json())
-     .then(data => setGoals(data))
-  }, [])
- console.log(goals);
-
- const [favorites, setFavorites ] = React.useState<[Favorite]>([{
-  id: 1, 
-  userId: 1, 
-  recipeId: 1
-}]);
-useEffect(() => {
-    //fetch our favorites from a userID query  
-    fetch(`https://api.fridger.recipes/v1/favorites/?userId=${forcedID}`)
-  .then(response => response.json())
-  .then(data => setFavorites(data))
-}, [])
     useEffect(() => {
       //set document title
       document.title = "Fridger Dashboard";
@@ -104,7 +72,7 @@ useEffect(() => {
     <IonPage className="ion-page" id="main-content">
       <Header/>
       <IonContent className="ion-padding">
-        <h1>Welcome{context.currentUser && ' back, ' + context.currentUser.name}!</h1>
+        <h1>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
         <h1>Latest Recipes</h1>
         {/* If recipes exist... Display them */}
         {(recipes.length) ? (
@@ -159,58 +127,11 @@ useEffect(() => {
         ):(
         <p>No recipes in our system!</p>)
                     }
-                  <h1>Your Goals</h1>
-                  {(goals.length > 0 && context.currentUser !== undefined)? (
-                  <IonGrid>
-                    <IonRow>
-                      {/* Finds the latest four goals from the user context */}
-                    {goals.slice(-4).map(goal =>
-                        <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
-                          <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
-                            <IonCardHeader>
-                              <IonCardTitle>{goal.endGoal}</IonCardTitle>
-                              <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
-                            </IonCardHeader>
-                            <IonCardContent>
-                              <IonLabel>Calories {goal.calories} | Carbs {goal.carbohydrates}</IonLabel><br/>
-                              <IonLabel>Fat: {goal.fat} | Protein {goal.protein}</IonLabel>
-                            </IonCardContent>
-                          </IonCard>
-                        </IonCol>
-                      )}
-                    </IonRow>
-                    </IonGrid>):
-                    // If user context does not exist -- display login or add some
-                  (context.currentUser !== undefined ?
-                    (<p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>)
-                    :(<p><Link to="/login">Login</Link> to see your goals!</p>))}
-                    
-                  <h1>Your Favorites</h1>
-                  {(goals.length > 0 && context.currentUser !== undefined)? (
-                  <IonGrid>
-                    <IonRow>
-                      {/* Finds the four latest favorite recipes and then queries the favorite recipe id from our recipe list */}
-                    {favorites.slice(-4).map(fav =>
-                        <IonCol sizeLg="3" sizeSm='1' key={fav.id}>
-                          <IonCard button routerDirection="forward" routerLink={`/recipe/${fav.recipeId}`}>
-                          <img src={recipes.find(rec => rec.id === fav.recipeId)?.imgSrc ? recipes.find(rec => rec.id === fav.recipeId)?.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion" />
-                            <IonCardHeader>
-                              <IonCardTitle>{recipes.find(rec => rec.id === fav.recipeId)?.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipes.find(rec => rec.id === fav.recipeId)?.authorName ? (recipes.find(rec => rec.id === fav.recipeId)?.authorName) : "Anonymous"}</IonCardSubtitle>
-                            </IonCardHeader>
-                            <IonCardContent>
-                              <IonLabel>{recipes.find(rec => rec.id === fav.recipeId)?.rating ? ("Rating: " + recipes.find(rec => rec.id === fav.recipeId)?.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipes.find(rec => rec.id === fav.recipeId)?.totalTime}m</IonLabel>
-                            </IonCardContent>
-                          </IonCard>
-                        </IonCol>
-                      )}
-                    </IonRow>
-                  </IonGrid>) : 
-                  // If user context does not exist -- display login or add some
-                  (context.currentUser !== undefined ?
-                (<p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>)
-                :(<p><Link to="/login">Login</Link> to see your favorites!</p>))}
+                  <h1>Register to get more out of Fridger!</h1>
+                  <p>There's so many benefits to registering with Fridger! Add your favorite recipes, add and track your health goals, and review recipes! Join the Fridger family today!</p>
+                  <IonButton className="ion-margin-top" color='primary' onClick={()=>history.push("/register")} expand='full'>
+                            Join Fridger
+                </IonButton>
       </IonContent>
     </IonPage>
   </IonApp>
@@ -219,4 +140,4 @@ useEffect(() => {
     );
 }
 
-export default Home;
+export default GuestDashboard;

@@ -91,9 +91,9 @@ import { Ingredient } from '../models/Ingredient';
        ...recipe
     }
   });
-  console.log("2-16-2022")
-  console.log(errors);
-  console.log(getValues());
+//   console.log("2-16-2022")
+//   console.log(errors);
+//   console.log(getValues());
 
   /**
    *
@@ -101,7 +101,7 @@ import { Ingredient } from '../models/Ingredient';
    */
   const onSubmit = async () => {
     // preventDefault()
-    console.log("updatedValues" + getValues());
+    // console.log("updatedValues" + getValues());
     try {
         const config = {
             headers: {
@@ -113,14 +113,14 @@ import { Ingredient } from '../models/Ingredient';
         setValue("author", (context.currentUser?.id  ? ((context.currentUser?.id)) : 0))
         setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
-        console.log("Body" + body)
+        // console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/`,
             body,
             config
         ).then( res =>{
-            console.log("Resulting data" + res.data);
+            // console.log("Resulting data" + res.data);
             // navigate("/recipes");
         });
         return res;
@@ -146,7 +146,7 @@ import { Ingredient } from '../models/Ingredient';
             `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
-            console.log("Deleted Recipe by " + recipe.id);
+            // console.log("Deleted Recipe by " + recipe.id);
             // navigate("/recipes");
         });
         return res;
@@ -206,19 +206,19 @@ import { Ingredient } from '../models/Ingredient';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
-                    <IonInput name="prepTime" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
+                    <IonInput name="prepTime" min="1" max="1000" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Cook Time</IonLabel>
-                    <IonInput name="cookTime" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
+                    <IonInput name="cookTime" min="1" max="1000" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Yields</IonLabel>
-                    <IonInput name="yield" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
+                    <IonInput name="yield" min="1" max="100" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>
-                    <IonInput name="estimatedCost" required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
+                    <IonInput name="estimatedCost" min="1" max="5000"  required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>Is it alcoholic (21+)</IonLabel>
