@@ -108,7 +108,7 @@ const GoalsPage = () => {
                 <IonCardSubtitle>By {randRecipes.authorName ? (randRecipes.authorName) : "Anonymous"}</IonCardSubtitle>
               </IonCardHeader>
               <IonCardContent>
-                <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating) : "No rating"}</IonLabel><br/>
+              <IonLabel>{randRecipes.rating ? ("Rating: " + randRecipes.rating.toFixed(1)) : "No rating"}</IonLabel><br />
                 <IonLabel>Time: {randRecipes.totalTime}m</IonLabel>
               </IonCardContent>
             </IonCard>
