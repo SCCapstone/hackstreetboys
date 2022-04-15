@@ -54,7 +54,9 @@ function Home() {
       rating: 0
     }]);
 
+    //set goals
     const [goals, setGoals] = React.useState<[Goal]>([] as unknown as [Goal]);
+    //set favorites
     const [favorites, setFavorites ] = React.useState<[Favorite]>([] as unknown as [Favorite]);
 
     /* ### Effects ### */

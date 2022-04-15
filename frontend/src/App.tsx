@@ -58,7 +58,6 @@ import EditIngredient from "./pages/EditIngredient";
 import Review from './pages/RecipeReviews';
 import SpecificReview from './pages/ReviewOfRecipe';
 import myReviews from './pages/myReviews';
-import GuestDashboard from './pages/GuestDashboard';
 //const App: React.FC = () => (
   function App () {
 
