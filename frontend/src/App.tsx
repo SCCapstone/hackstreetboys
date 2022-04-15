@@ -75,18 +75,6 @@ import GuestDashboard from './pages/GuestDashboard';
         <Redirect to={{ pathname: '/login' }} />
       );
     }
-      function HomeRoute(props: any) {
-        const context = useGlobalContext();
-        const user = context.currentUser;
-        return (
-          (context.loading)?
-            <Loading /> :
-          (context.currentUser !== undefined)?
-            <Route {...props} /> :
-  
-          <Redirect to={{ pathname: '/guest' }} />
-        );
-  }
     return (
       <ContextProvider>
           <Router history={history}>
@@ -138,7 +126,7 @@ import GuestDashboard from './pages/GuestDashboard';
               <Route path="/register" component={Register} />
               <Route path="/changepassword" component={ChangePassword} />
               <Route path="/guest" component={GuestDashboard} />
-              <HomeRoute path="/" component={Home} />
+              <Route path="/" component={Home} />
             </Switch>
           </Router>
       </ContextProvider>

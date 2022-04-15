@@ -35,6 +35,7 @@ function Login() {
                         <Header />
                         <IonContent className="ion-padding">
                             <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Login</h1></IonText>
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Don't have an account? <Link to="/register">Register</Link></h2></IonText>
                             <LoginForm/>
                     </IonContent>
                 </IonPage>
