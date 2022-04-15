@@ -58,9 +58,8 @@ function GoalPage(this: any) {
               Return to Dashboard 
             </IonButton>
             </Link>
-                    <h1>{goal.id}</h1>
-                    <h2>End Goal:{goal.endGoal}</h2>
-                    <h2>Calories:{goal.calories}</h2>
+                    <h1>End Goal: {goal.endGoal}</h1>
+                    <h2>Calories: {goal.calories}</h2>
                     <h2>Carbohydrates: {goal.carbohydrates}</h2>
                     <h2>Protein: {goal.protein}</h2>
                     <h2>Fat: {goal.fat}</h2>

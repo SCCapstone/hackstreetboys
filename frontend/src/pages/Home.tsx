@@ -54,7 +54,9 @@ function Home() {
       rating: 0
     }]);
 
+    //set goals
     const [goals, setGoals] = React.useState<[Goal]>([] as unknown as [Goal]);
+    //set favorites
     const [favorites, setFavorites ] = React.useState<[Favorite]>([] as unknown as [Favorite]);
 
     /* ### Effects ### */
@@ -140,7 +142,7 @@ function Home() {
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+                              <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
                         </IonCol>
@@ -167,7 +169,7 @@ function Home() {
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+                              <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
                         </IonCol>

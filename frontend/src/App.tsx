@@ -58,7 +58,6 @@ import EditIngredient from "./pages/EditIngredient";
 import Review from './pages/RecipeReviews';
 import SpecificReview from './pages/ReviewOfRecipe';
 import myReviews from './pages/myReviews';
-import GuestDashboard from './pages/GuestDashboard';
 //const App: React.FC = () => (
   function App () {
 
@@ -79,39 +78,27 @@ import GuestDashboard from './pages/GuestDashboard';
       <ContextProvider>
           <Router history={history}>
             <Switch>
-              {/* /* <Route path="/testform" component={Basic} /> */}
-              {/* <Route path="/recipe/:id/addreview" component={AddReview} /> */}
+              {/* Routes are for everyone... UserRoutes are for logged in users */}
               <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
               <Route path="/favorite/:id" component={Favorite}/>
               <Route path="/complaint/:id" component={Complaint}/>
               <Route path="/review/:id" component={Review}/>
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
+              <UserRoute path="/recipe/:id/complaint" component={AddComplaint}/>
               <UserRoute path="/recipe/:id/review" component={AddReview}/>
               <UserRoute path="/ingredient/add" component={AddIngredient} />
-              <UserRoute path="/recipe/:id/complaint" component={AddComplaint}/>
-              <UserRoute path="/goals" component={GoalsPage} />
-              <UserRoute path="/mypantry" component={MyPantry} />
-              <UserRoute path="/myreviews" component={myReviews} />
-              <UserRoute path="/favorites" component={Favorites} />
-              <UserRoute path="/mygoals/add" component={AddGoal} />
-              <UserRoute path="/mygoals" component={MyGoals} />
-              <UserRoute path="/goal/:id" component={Goal} />
-              <UserRoute path="/profile/:id?" component={Profile} />
-              <UserRoute path="/editprofile" component={EditProfile} />
-              <UserRoute path="/ingredient/add" component={AddIngredient} />
               <UserRoute path="/ingredient/edit/:id" component={EditIngredient} />
-              <UserRoute path="/mygoals/add" component={AddGoal} />
               <UserRoute path="/goals" component={GoalsPage} />
               <UserRoute path="/mypantry" component={MyPantry} />
               <UserRoute path="/myreviews" component={myReviews} />
               <UserRoute path="/favorites/recipe/:id" component={Favorites} />
               <UserRoute path="/favorites" component={Favorites} />
+              <UserRoute path="/goal/:id" component={Goal} />
+              <UserRoute path="/profile/:id?" component={Profile} />
+              <UserRoute path="/editprofile" component={EditProfile} />
               <UserRoute path="/mygoals/add" component={AddGoal} />
               <UserRoute path="/mygoals" component={MyGoals} />
-              <UserRoute path="/goal/:id" component={Goal} />
-              <UserRoute path="/editprofile" component={EditProfile} />
-              <UserRoute path="/myreviews" component={myReviews} />
               <Route path="/verify" component={Verify} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
@@ -125,7 +112,6 @@ import GuestDashboard from './pages/GuestDashboard';
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/changepassword" component={ChangePassword} />
-              <Route path="/guest" component={GuestDashboard} />
               <Route path="/" component={Home} />
             </Switch>
           </Router>

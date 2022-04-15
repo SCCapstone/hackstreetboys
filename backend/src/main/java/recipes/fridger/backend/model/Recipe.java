@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "recipes")
+//fields for the recipe with the id being automatically generated.
 public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

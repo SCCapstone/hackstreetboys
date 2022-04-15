@@ -170,7 +170,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipe.totalTime}m</IonLabel>
+                              <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>
                               {/* <IonFab vertical="bottom" horizontal="end" slot="fixed">
                               <Link to = {`/recipe/${recipe.id}`}>
                                 <IonButton >

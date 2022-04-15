@@ -19,74 +19,38 @@ import {
   IonRow,
   NavContext,
   IonGrid,
-  IonFab,
 } from '@ionic/react';
 /* Theme variables */
 import '../theme/variables.css';
 import SideBar from '../components/SideBar';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
 import Header from '../components/Header';
-import { add, heart, pencilSharp, logoFacebook, warningOutline } from 'ionicons/icons';
+import { add, heartDislikeOutline, warningOutline, openOutline } from 'ionicons/icons';
 import { useContext } from 'react';
 import Context from '../components/Context';
 import { Review } from '../models/Review';
 import {Favorite} from '../models/Favorite';
 import axios from 'axios';
 import {Complaint} from '../models/Complaint';
-import { userInfo } from 'os';
 import {
-  FacebookShareCount,
-  PinterestShareCount,
-  VKShareCount,
-  OKShareCount,
-  RedditShareCount,
-  TumblrShareCount,
-  HatenaShareCount,
   FacebookShareButton,
   FacebookMessengerShareButton,
   FacebookMessengerIcon,
-  LinkedinShareButton,
   TwitterShareButton,
   PinterestShareButton,
-  VKShareButton,
-  OKShareButton,
   TelegramShareButton,
   WhatsappShareButton,
   RedditShareButton,
   EmailShareButton,
-  TumblrShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  ViberShareButton,
-  WorkplaceShareButton,
-  LineShareButton,
-  WeiboShareButton,
-  PocketShareButton,
-  InstapaperShareButton,
-  HatenaShareButton,
   FacebookIcon,
   TwitterIcon,
-  LinkedinIcon,
   PinterestIcon,
-  VKIcon,
-  OKIcon,
   TelegramIcon,
   WhatsappIcon,
   RedditIcon,
-  TumblrIcon,
-  MailruIcon,
-  EmailIcon,
-  LivejournalIcon,
-  ViberIcon,
-  WorkplaceIcon,
-  LineIcon,
-  PocketIcon,
-  InstapaperIcon,
-  WeiboIcon,
-  HatenaIcon
-} from "react-share";
+  EmailIcon} from "react-share";
 import { Ingredient } from '../models/Ingredient';
 interface ComplaintExample {
   complaint: Complaint;
@@ -269,19 +233,6 @@ const removeFav = async () => {
 return false;
 };
 
-const complaintLink = () => {
- if(context.isAdmin) {
-    return <>
-    <Link to={`/complaint/${complaints.complaintId}`}><IonButton color='danger' expand='full'>
-    Click to see Reviews about all recipes
-  </IonButton>
-  </Link>
-    </>
-  }
-  else {
-    return <></>
-  }
-}
 let shareUrl = `https://fridger.recipes/recipe/${id}`
   return (
 
@@ -292,110 +243,81 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
           <IonPage className="ion-page" id="main-content">
             <Header />
             <IonContent className="ion-padding">
-              {complaintLink()}
               <IonCard>
                 {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
                 <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner} alt="Recipe Image" style={{ width: '100%', maxHeight:'400px', objectFit: 'cover'}} />
                 <IonCardContent>
           <div className="Demo__container" style={{paddingBottom: '1px', display: 'flex'}}>
             <IonButton color = 'danger' onClick={() => {if(!context.loggedInState) history.push('/register'); else ( removeFav() )}} >     
-            Remove from favorites</IonButton>      
+            <IonIcon icon={heartDislikeOutline}/></IonButton>      
 
-          <FacebookShareButton
-            url={"https://fridger.recipes/"+recipe.id}
-            quote={recipe.title}
-            className="Demo__some-network__share-button"
-          >
-            <FacebookIcon size={40} round />
-          </FacebookShareButton>
+            <FacebookShareButton
+                      url={"https://fridger.recipes/" + recipe.id}
+                      quote={recipe.title}
+                      className="Demo__some-network__share-button"
+                    >
+                      <FacebookIcon size={40} round />
+                    </FacebookShareButton>
 
-          <FacebookMessengerShareButton
-            url={shareUrl}
-            appId="641532566054417"
-            className="Demo__some-network__share-button"
-          >
-            <FacebookMessengerIcon size={40} round />
-          </FacebookMessengerShareButton>
+                    <FacebookMessengerShareButton
+                      url={shareUrl}
+                      appId="641532566054417"
+                      className="Demo__some-network__share-button"
+                    >
+                      <FacebookMessengerIcon size={40} round />
+                    </FacebookMessengerShareButton>
 
-          <TwitterShareButton
-            url={shareUrl}
-            title={recipe.title}
-            className="Demo__some-network__share-button"
-          >
-            <TwitterIcon size={40} round />
-          </TwitterShareButton>
+                    <TwitterShareButton
+                      url={shareUrl}
+                      title={recipe.title}
+                      className="Demo__some-network__share-button"
+                    >
+                      <TwitterIcon size={40} round />
+                    </TwitterShareButton>
 
-          <TelegramShareButton
-            url={shareUrl}
-            title={recipe.title}
-            className="Demo__some-network__share-button"
-          >
-            <TelegramIcon size={40} round />
-          </TelegramShareButton>
+                    <TelegramShareButton
+                      url={shareUrl}
+                      title={recipe.title}
+                      className="Demo__some-network__share-button"
+                    >
+                      <TelegramIcon size={40} round />
+                    </TelegramShareButton>
 
-          <WhatsappShareButton
-            url={shareUrl}
-            title={recipe.title}
-            separator=":: "
-            className="Demo__some-network__share-button"
-          >
-            <WhatsappIcon size={40} round />
-          </WhatsappShareButton>
+                    <WhatsappShareButton
+                      url={shareUrl}
+                      title={recipe.title}
+                      separator=":: "
+                      className="Demo__some-network__share-button"
+                    >
+                      <WhatsappIcon size={40} round />
+                    </WhatsappShareButton>
 
-          <LinkedinShareButton url={shareUrl} className="Demo__some-network__share-button">
-            <LinkedinIcon size={40} round />
-          </LinkedinShareButton>
+                    <PinterestShareButton
+                      url={String(window.location)}
+                      media={recipe.imgSrc}
+                      className="Demo__some-network__share-button"
+                    >
+                      <PinterestIcon size={40} round />
+                    </PinterestShareButton>
 
-          <PinterestShareButton
-            url={String(window.location)}
-            media={recipe.imgSrc}
-            className="Demo__some-network__share-button"
-          >
-            <PinterestIcon size={40} round />
-          </PinterestShareButton>
+                    <RedditShareButton
+                      url={shareUrl}
+                      title={recipe.title}
+                      windowWidth={660}
+                      windowHeight={460}
+                      className="Demo__some-network__share-button"
+                    >
+                      <RedditIcon size={40} round />
+                    </RedditShareButton>
 
-          <VKShareButton
-            url={shareUrl}
-            image={recipe.imgSrc}
-            className="Demo__some-network__share-button"
-          >
-            <VKIcon size={40} round />
-          </VKShareButton>
-
-          <RedditShareButton
-            url={shareUrl}
-            title={recipe.title}
-            windowWidth={660}
-            windowHeight={460}
-            className="Demo__some-network__share-button"
-          >
-            <RedditIcon size={40} round />
-          </RedditShareButton>
-          <TumblrShareButton
-            url={shareUrl}
-            title={recipe.title}
-            className="Demo__some-network__share-button"
-          >
-            <TumblrIcon size={40} round />
-          </TumblrShareButton>
-
-          <EmailShareButton
-            url={shareUrl}
-            subject={recipe.title}
-            body="body"
-            className="Demo__some-network__share-button"
-          >
-            <EmailIcon size={40} round />
-          </EmailShareButton>
-
-          <WeiboShareButton
-            url={shareUrl}
-            title={recipe.title}
-            image={recipe.imgSrc}
-            className="Demo__some-network__share-button"
-          >
-            <WeiboIcon size={40} round />
-          </WeiboShareButton>
+                    <EmailShareButton
+                      url={shareUrl}
+                      subject={recipe.title}
+                      body="body"
+                      className="Demo__some-network__share-button"
+                    >
+                      <EmailIcon size={40} round />
+                    </EmailShareButton>
       </div>
       <h1>{recipe.title}</h1>
                   <h2>{recipe.description}</h2>
@@ -480,9 +402,14 @@ let shareUrl = `https://fridger.recipes/recipe/${id}`
                       <IonIcon icon={add} />
                     </IonFabButton>
                   </Link>
-                  <Link to={`/review/${recipe.id}`}><IonButton>
-              See all reviews about this recipe
-            </IonButton></Link>
+                  <Link to={`/review/${recipe.id}`}>
+                    <IonButton>
+                        <IonIcon
+                          icon={openOutline}
+                          style={{ marginRight: "5px" }}
+                        />
+                        View more
+                      </IonButton></Link>
             </div>
             </IonCardContent>
             </IonCard>
