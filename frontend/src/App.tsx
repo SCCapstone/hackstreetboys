@@ -75,19 +75,6 @@ import GuestDashboard from './pages/GuestDashboard';
         <Redirect to={{ pathname: '/login' }} />
       );
     }
-    // Home route. If you aren't logged in and hit the dashboard you are sent to the guest dashboard
-      function HomeRoute(props: any) {
-        const context = useGlobalContext();
-        const user = context.currentUser;
-        return (
-          (context.loading)?
-            <Loading /> :
-          (context.currentUser !== undefined)?
-            <Route {...props} /> :
-  
-          <Redirect to={{ pathname: '/guest' }} />
-        );
-  }
     return (
       <ContextProvider>
           <Router history={history}>
@@ -126,9 +113,7 @@ import GuestDashboard from './pages/GuestDashboard';
               <Route path="/login" component={Login} />
               <Route path="/register" component={Register} />
               <Route path="/changepassword" component={ChangePassword} />
-              <Route path="/guest" component={GuestDashboard} />
-              {/* Logged in user route */}
-              <HomeRoute path="/" component={Home} />
+              <Route path="/" component={Home} />
             </Switch>
           </Router>
       </ContextProvider>
