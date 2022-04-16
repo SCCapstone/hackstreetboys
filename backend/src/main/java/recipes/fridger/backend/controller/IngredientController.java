@@ -44,7 +44,7 @@ public class IngredientController {
         return ResponseEntity.ok("Populated Ingredients");
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping(path = "/")
     public ResponseEntity<String>
     createIngredient(@RequestBody @Valid CreateIngredientDTO i) {

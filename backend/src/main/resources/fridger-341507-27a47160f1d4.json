@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "fridger-341507",
+  "private_key_id": "27a47160f1d41764770613df2b0575897fe87165",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQC0uuD0X5eU5OGy\nnrQKl+8BWfEegivY/4ESSSzEdQWEldICyLt46PcrG5eBZ46rAV/enhLu71r1T/nx\neL4lcw02FqCtpMw4sMvGnbqFfWA4vMRpvgKwZbRs2NP2J188SFb/uPrEevEyuFvD\n1NUVvH0doQrQNWyTjbaUUkvI5Gf2zk1mwsfSwtlT401Oflw4bHZdc+uB2Uc76s+R\n/tXxqdeV+sHrbBN+H1Q19ViGJBOKpBWbp191+ky+Q28oJXot+T70JEvzZNhNnxep\nXi3sa385jeeOd2RjZXFBF9xwhS3lflmD/sI2WC7vNcfH3imZ32lgiFydR3hCPRfV\nlsU8SE8rAgMBAAECggEAQhbSm1p3hmG6bQSfBv6vTlmzFDp6yVQJwYOTxNWcKnNV\nBGKeN6VNeWySFyak48DRa4l3l/tcUjeoSVajhfNQIfbdVBJfAd4Y7m0QX69M6AKT\neq2asyHF/EXAIRQdveAgPExLG11v5WHIYNDsCRJP2G1jFGds6HpaiVuczf5ETFpe\nrQxHEAD4yRa/mhYMz4J3mYMS/9yq6fxpvEs+4G5l4ue2q/AKzUbmoZP9U0Xnlti4\n3jcFkweGCIYEqzL4wwqor8GGW6i8c1au9sklShxz3WzdKKLyZcINCk67BDF5yDvF\nS7lwF1BbUYqLrS0DDBlY2Dm7MZZbyBZoRkn8XAIdtQKBgQD5HDh+FWO4tIy/sUB0\neiBrG4n4lrMXomwL09SoeHCCTu928k1O9Zan08cc59mYH3sUUY/ziP2jTtofyAbD\ns/nm5Vs/cOSMeLFHl8qdFAk+jpKpFJGbmnSwpMsPrH1Q+ARAdnS5EM3CZnSHJlMT\nZNlkB4Hfwv2kAYxybOzZMguTBQKBgQC5uoEZrwO7+ykPzvhou8SNUm6HWI7YbsIc\nxnhg/xJ1NUt8U+pDVLPZ4OOzOjrgjEbGBrc/jVQSefLZh3G/+mKwjyjdifjjxaQ8\nsybKO06zDWMZX0WCye3X+/yVyUPWZLLMN5eB+p70EZvr+/xo8YvbRp0zgwl+ISTc\n11JGQqpQbwKBgQDo/WwZAQh0COpbn/0Y8+C+TNOOneSDhnZn2YhcycjxF8MBDT8h\nSrHN5lWkw3TQwyDqsB5jOQ2BYI7CiuNIx1xEiN//Rid8+qVUwLPQlpzO1ap2WbaW\nQrBBRuBlmH7c7BuN7zzcmsrXt9vlTAMHcJui4yKllkqEyq4Bl78upZANwQKBgQCu\nbIVKBZ9QL3REsG+CjLTus/exjG26vWn3dD0heutuv/qAbJ6ZVTcC671sWMdqktL0\nruHyAVxvba+wsw8U6KU+g3Qxep4P61Fu4CER09j5Nx1Weq7hQZrpOHHiif33nuJ7\n/8l9/EzDkrYITcKjHBXofMytz+ZeWeowrNdLvNgOaQKBgBbDv4MxnHYf6fVYBpiP\n3plgCpNlyL0M64sZ9duHeawdIKwoAINqRVPeAiLvInGkg4C9h+PhDEc1tnCw0SpL\nSVYEbgcZwt6woy3CDdjIE12/WLdt6/U4WT+kM8jA5QlxIebn366OkWq4M+Oekb+0\nBDBSR/U2ouHR9zd3CyRxd2xz\n-----END PRIVATE KEY-----\n",
+  "client_email": "molotovrecipe@fridger-341507.iam.gserviceaccount.com",
+  "client_id": "116409119225830109508",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/molotovrecipe%40fridger-341507.iam.gserviceaccount.com"
+}

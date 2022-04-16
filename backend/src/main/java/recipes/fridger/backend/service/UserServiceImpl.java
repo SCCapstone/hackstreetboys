@@ -172,9 +172,9 @@ public class UserServiceImpl implements UserService {
         email.setFrom("noreplyfridger@gmail.com");
         email.setTo(dto.getEmail());
         email.setSubject("Welcome To Fridger!");
-        email.setText("Dear" + dto.getName() + ",\n" +
+        email.setText("Dear " + dto.getName() + ",\n\n" +
                 "We are excited to have you join our fridger community! Thank you " +
-                "for signing up with us!");
+                "for signing up with us!\n - The Fridger Team");
         mailSender.send(email);
         log.info("Sending confirmation email to " + dto.getEmail());
     }

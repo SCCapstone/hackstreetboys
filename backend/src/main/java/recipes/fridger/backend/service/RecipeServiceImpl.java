@@ -17,7 +17,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class RecipeServiceImpl implements RecipeService {
-
+//Autowire for recipes, users, and reviews
     @Autowired
     private Recipes recipes;
     @Autowired
@@ -26,6 +26,7 @@ public class RecipeServiceImpl implements RecipeService {
     private Reviews reviews;
     @Transactional
     @Override
+    //Takes in recipe dto and then sets all values,
     public void createRecipe(CreateRecipeDTO dto) {
         Recipe r = new Recipe();
         r.setTitle(dto.getTitle());
@@ -33,12 +34,14 @@ public class RecipeServiceImpl implements RecipeService {
         r.setDescription(dto.getDescription());
         r.setBody(dto.getBody());
         r.setImgSrc(dto.getImgSrc());
+        //totalTime is the cook+prep time
         r.setTotalTime((dto.getCookTime()+dto.getPrepTime()));
         r.setPrepTime(dto.getPrepTime());
         r.setCookTime(dto.getCookTime());
         r.setYield(dto.getYield());
         r.setEstimatedCost(dto.getEstimatedCost());
         r.setType(dto.getType());
+        //Recipe is set to 0, which in react is similar to null/undefined (will display no reviews)
         r.setRating(0.0);
         //We have not established the alcohol feature yet.
         r.setAlcoholic(dto.getAlcoholic());
@@ -46,11 +49,14 @@ public class RecipeServiceImpl implements RecipeService {
         //dto.getAlcoholic()
         r.setTags(dto.getTags());
         r.setIngredientIds(dto.getIngredientIds());
+        //save recipe
         recipes.save(r);
 //        System.out.println(r.toString());
     }
     @Transactional
     @Override
+    //Updates the recipe if it is found. Determines if nothing was changed (null), which then skips.
+    //If changes occured it will be updated
     public void updateRecipe(Long id, UpdateRecipeDTO dto) throws  Exception{
         System.out.println("Passed id: " + id);
         System.out.println("DTO ID:" + dto.getId());
@@ -94,6 +100,7 @@ public class RecipeServiceImpl implements RecipeService {
             if(dto.getYield()!=null && dto.getYield() > 0){
                 r.setYield(dto.getYield());
             }
+            //save updated recipe
             recipes.save(r);
         }
         else{
@@ -102,15 +109,18 @@ public class RecipeServiceImpl implements RecipeService {
     }
     @Transactional
     @Override
+    //Finds recipe object by id and then calls the delete passing in that recipe
     public void deleteRecipe(Long id) {
         Optional<Recipe> recipe = recipes.findById(id);
         if (recipe.isPresent()) {
             Recipe r = recipe.get();
+            //delete fetched recipe
             recipes.delete(r);
         }
     }
     @Transactional
     @Override
+    //Gets single recipe by id, calculates the average rating and the total time. If it exists..
     public Recipe getRecipe(Long id) {
         Optional<Recipe> optionalRecipe = recipes.findById(id);
         if (optionalRecipe.isPresent()) {
@@ -120,30 +130,40 @@ public class RecipeServiceImpl implements RecipeService {
             r.setRating(average!=null ? average : 0.0);
             r.setTotalTime(r.getCookTime() + r.getPrepTime());
 //            System.out.println("individual " + id + " has a rating of " + average);
+            //save recipe changes
             recipes.save(r);
+            //return single recipe
             return r;
         }
+        //return null if no recipe with that id was present
         return null;
     }
 
     @Transactional
     @Override
+    //Return all recipes that have a matching title and author
     public Recipe recipeByTitleAndAuthor(String title, Integer author) {
         return recipes.findByTitleAndAuthor(title, author);
     }
 
     @Transactional
     @Override
+    //Get all recipes that match the parameters listed
     public Iterable<Recipe> getRecipes(Long id, Integer cookTime, Integer prepTime, Double estimatedCost, Double rating, String tags, String type, String ingredientIds, String title) {
         List<Recipe> recipesList = recipes.find(id, cookTime, prepTime, estimatedCost, rating, tags, type, ingredientIds, title);
         for(Recipe r : recipesList){
+            //Calculate the most recent ratings
             Double average = reviews.getAverageRating(r.getId());
             r.setRating(average!=null ? average : 0.0);
+            //Get the most recent author name
             r.setAuthorName((users.findById(r.getAuthor()).get().getName() != null ? users.findById(r.getAuthor()).get().getName() : "NaN"));
+            //ensure total time has updated correctly.
             r.setTotalTime(r.getPrepTime() + r.getCookTime());
+            //save the recipe
             recipes.save(r);
 //            System.out.println(id + " has a rating of " + average);
         }
+        //return list of recipes
         return recipesList;
 
     }

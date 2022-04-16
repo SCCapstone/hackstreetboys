@@ -129,6 +129,7 @@ const RegistrationForm: React.FC = () => {
                     placeholder="Select Date"
                     name="dob"
                     mode="md"
+                    min="1922" max="2009"
                     onIonChange={(e: any) => setValue("dob", e.detail.value)}>
                 </IonDatetime>
             </IonItem>
@@ -137,6 +138,8 @@ const RegistrationForm: React.FC = () => {
                 <IonInput
                     type= "number"
                     name="height_in"
+                    min="25"
+                    max="107"
                     onIonInput={(e: any) => setValue("height_in", e.target.value)}
                     required
                 />
@@ -146,6 +149,8 @@ const RegistrationForm: React.FC = () => {
                 <IonInput
                     type= "number"
                     name="weight_lb"
+                    min="50"
+                    max="650"
                     onIonInput={(e: any) => setValue("weight_lb", e.target.value)}
                     required
                 />

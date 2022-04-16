@@ -7,6 +7,7 @@ import javax.validation.constraints.*;
 @Data
 @NotNull
     public class UpdateRecipeDTO {
+    //update the recipe
 
     private Long id;
 

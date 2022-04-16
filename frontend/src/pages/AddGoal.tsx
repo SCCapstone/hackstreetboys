@@ -133,28 +133,28 @@ import Context from '../components/Context';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating" >How many calories do you consume per day?</IonLabel>
-                    <IonInput type="number" name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="calories" required onIonInput={(e: any) => setValue("calories",e.target.value)} />
                 </IonItem>
                 
                 <IonItem>
                     <IonLabel position="floating">How many carbohydrates do you consume per day?</IonLabel>
-                    <IonInput type="number" name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="carbohydrates" required onIonInput={(e: any) => setValue("carbohydrates",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">How much protein do you consume per day?</IonLabel>
-                    <IonInput type="number" name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="protein" required onIonInput={(e: any) => setValue("protein",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">How much fat do you consume per day?</IonLabel>
-                    <IonInput type="number" name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="fat" required onIonInput={(e: any) => setValue("fat",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your current weight?</IonLabel>
-                    <IonInput type="number" name="currentWeight" required onIonInput={(e: any) => setValue("currentWeight",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="currentWeight" required onIonInput={(e: any) => setValue("currentWeight",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">What is your goal weight?</IonLabel>
-                    <IonInput type="number" name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
+                    <IonInput type="number" min="1" max="5000" name="goalWeight" required onIonInput={(e: any) => setValue("goalWeight",e.target.value)} />
                 </IonItem>
                 
                 {/* <Link to ="/mygoals/"> */}

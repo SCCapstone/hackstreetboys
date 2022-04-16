@@ -1,17 +1,20 @@
-import { IonButton, IonInput } from '@ionic/react';
+import { IonButton, IonInput, IonLabel } from '@ionic/react';
 import { values } from 'lodash';
 import React from 'react';
 
-const ExerciseInput = ({addItemHandler, activity, time, setActivity, setTime}: any) => {
+const ExerciseInput = ({ addItemHandler, activity, time, setActivity, setTime }: any) => {
     const onAddItemClick = () => {
         addItemHandler();
     }
 
     return (
         <div>
-            <IonInput color = 'dark' type="text" placeholder="Activity" value={activity} onIonInput={(e: any) => setActivity(e.target.value)}/>
-              <IonInput color='dark' type="number" placeholder='Time (min)'value={time} onIonInput={(e: any) => setTime(e.target.value)}/>
-              <IonButton onClick={onAddItemClick} color="dark">Add Exercise</IonButton>
+            <br />
+            <IonLabel position="floating">Activity</IonLabel>
+            <IonInput type="text" placeholder="Enter Activity" value={activity} onIonInput={(e: any) => setActivity(e.target.value)} />
+            <IonLabel position="floating">Time (min)</IonLabel>
+            <IonInput type="number" placeholder='Enter Time' value={time} onIonInput={(e: any) => setTime(e.target.value)} />
+            <IonButton onClick={onAddItemClick} color="dark">Add Exercise</IonButton>
         </div>
     );
 }

@@ -148,27 +148,27 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                             <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >
                                 <IonItem>
                                     <IonLabel position="floating">What is this ingredient called?</IonLabel>
-                                    <IonInput name="name" value={ingredient.name} onIonInput={(e: any) => setValue("name",e.target.value)}/>
+                                    <IonInput name="name" min="1" max="5000" value={ingredient.name} onIonInput={(e: any) => setValue("name",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">How many <b>calories</b> per serving?</IonLabel>
-                                    <IonInput name="calories" value={ingredient.calories} onIonInput={(e: any) => setValue("calories",e.target.value)}/>
+                                    <IonInput name="calories" min="1" max="5000" value={ingredient.calories} onIonInput={(e: any) => setValue("calories",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">How many grams of <b>carbohydrates</b> per serving?</IonLabel>
-                                    <IonInput name="carbohydrates" value={ingredient.carbohydrates} onIonInput={(e: any) => setValue("carbohydrates",e.target.value)}/>
+                                    <IonInput name="carbohydrates" min="1" max="5000" value={ingredient.carbohydrates} onIonInput={(e: any) => setValue("carbohydrates",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">How many grams of <b>protein</b> per serving?</IonLabel>
-                                    <IonInput name="protein" value={ingredient.protein} onIonInput={(e: any) => setValue("protein",e.target.value)}/>
+                                    <IonInput name="protein" min="1" max="5000" value={ingredient.protein} onIonInput={(e: any) => setValue("protein",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">How many grams of <b>fat</b> per serving?</IonLabel>
-                                    <IonInput name="fat" value={ingredient.fat} onIonInput={(e: any) => setValue("fat",e.target.value)}/>
+                                    <IonInput name="fat" min="1" max="5000" value={ingredient.fat} onIonInput={(e: any) => setValue("fat",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">How much does this item cost per serving?</IonLabel>
-                                    <IonInput name="cost" value={ingredient.cost} onIonInput={(e: any) => setValue("cost",e.target.value)}/>
+                                    <IonInput name="cost" min="1" max="5000" value={ingredient.cost} onIonInput={(e: any) => setValue("cost",e.target.value)}/>
                                 </IonItem>
                                 <IonItem>
                                     <IonLabel position="floating">Please provide a link to a picture of this new ingredient.</IonLabel>

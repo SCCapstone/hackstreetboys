@@ -11,7 +11,7 @@ export const Header: React.FC = () => {
   <IonButtons slot="start">
     <IonMenuToggle>
       <IonButton>
-        <IonIcon icon={menu} slot="start" />
+        <IonIcon icon={menu} slot="start" alt-text="menu" />
       </IonButton>
     </IonMenuToggle>
     <IonBackButton/>

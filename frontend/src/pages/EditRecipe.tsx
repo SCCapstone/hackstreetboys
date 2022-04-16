@@ -91,9 +91,9 @@ import { Ingredient } from '../models/Ingredient';
        ...recipe
     }
   });
-  console.log("2-16-2022")
-  console.log(errors);
-  console.log(getValues());
+//   console.log("2-16-2022")
+//   console.log(errors);
+//   console.log(getValues());
 
   /**
    *
@@ -101,7 +101,7 @@ import { Ingredient } from '../models/Ingredient';
    */
   const onSubmit = async () => {
     // preventDefault()
-    console.log("updatedValues" + getValues());
+    // console.log("updatedValues" + getValues());
     try {
         const config = {
             headers: {
@@ -109,18 +109,21 @@ import { Ingredient } from '../models/Ingredient';
                 'Authorization': `Bearer ${context.token}`
             },
         };
+        //set recipe id that is being passed from the edit path
         setValue("id", recipe.id);
+        //set authorid to the context
         setValue("author", (context.currentUser?.id  ? ((context.currentUser?.id)) : 0))
+        //ensure that ingredients are being listed
         setValue("ingredientIds", recipe.ingredientIds);
         const body = JSON.stringify(getValues());
-        console.log("Body" + body)
+        // console.log("Body" + body)
         const res = await axios.put(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/`,
             body,
             config
         ).then( res =>{
-            console.log("Resulting data" + res.data);
+            // console.log("Resulting data" + res.data);
             // navigate("/recipes");
         });
         return res;
@@ -131,7 +134,7 @@ import { Ingredient } from '../models/Ingredient';
    
     return false;
   };
-
+//Allows a delete request
   const onDelete = async () => {
     // preventDefault()
     try {
@@ -141,12 +144,13 @@ import { Ingredient } from '../models/Ingredient';
             },
         };
         const body = JSON.stringify(getValues());
+        //delete by ID on the backend.
         const res = await axios.delete(
             //'https://api.fridger.recipes/v1/recipe/',
             `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
-            console.log("Deleted Recipe by " + recipe.id);
+            // console.log("Deleted Recipe by " + recipe.id);
             // navigate("/recipes");
         });
         return res;
@@ -157,6 +161,7 @@ import { Ingredient } from '../models/Ingredient';
    
     return false;
   };
+  //confirmation alert modal
   const [showAlert, setShowAlert] = useState(false);
   return (
     <Router history={history}>
@@ -166,7 +171,9 @@ import { Ingredient } from '../models/Ingredient';
 <IonPage className="ion-page" id="main-content">
 <Header/>
 <IonContent className="ion-padding">
+  {/* Delete recipe modal button */}
  <IonButton  color="danger" onClick={() => setShowAlert(true)} expand="block">Delete Recipe</IonButton>
+{/* Delete recipe modal item. Pressing okay will delete the recipe and redirect back to recipes */}
  <IonAlert
           isOpen={showAlert}
           onDidDismiss={() => setShowAlert(false)}
@@ -189,7 +196,7 @@ import { Ingredient } from '../models/Ingredient';
             }
           ]}
         /> 
-
+  {/* Form values are populated from the get request, on change the local form state will be changed and then the backend will check the changes.. */}
        <form onSubmit={async () =>{onSubmit();  props.history.push(`/recipe/${id}`); history.go(0)} } >
                 <IonItem>
                     <IonLabel position="floating" >Title</IonLabel>
@@ -206,19 +213,19 @@ import { Ingredient } from '../models/Ingredient';
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Prep Time</IonLabel>
-                    <IonInput name="prepTime" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
+                    <IonInput name="prepTime" min="1" max="1000" required value={recipe.prepTime} onIonInput={(e: any) => setValue("prepTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Cook Time</IonLabel>
-                    <IonInput name="cookTime" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
+                    <IonInput name="cookTime" min="1" max="1000" required value={recipe.cookTime} onIonInput={(e: any) => setValue("cookTime",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Yields</IonLabel>
-                    <IonInput name="yield" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
+                    <IonInput name="yield" min="1" max="100" required value={recipe.yield} onIonInput={(e: any) => setValue("yield",e.target.value)} />
                 </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Estimated Cost</IonLabel>
-                    <IonInput name="estimatedCost" required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
+                    <IonInput name="estimatedCost" min="1" max="5000"  required value={recipe.estimatedCost} onIonInput={(e: any) => setValue("estimatedCost",e.target.value)} />
                 </IonItem>
                 <IonItem lines="none">
                     <IonLabel>Is it alcoholic (21+)</IonLabel>
@@ -255,6 +262,7 @@ import { Ingredient } from '../models/Ingredient';
                 <IonItem>
                     <IonLabel>By pressing edit, you agree that this update still meets our Terms of Service agreement</IonLabel>
                 </IonItem>
+                {/* Submit edit recipe button */}
                 <IonButton className="ion-margin-top"
                         color='primary' type="submit" 
                         //onClick={async () =>{

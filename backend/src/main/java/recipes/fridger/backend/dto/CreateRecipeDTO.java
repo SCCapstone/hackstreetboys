@@ -9,6 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Data
 @NotNull
+//Creates a recipe
     public class CreateRecipeDTO {
 
     @Size(min = 0, max = 255)

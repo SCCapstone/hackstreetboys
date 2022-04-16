@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 import recipes.fridger.backend.model.Recipe;
 
 public interface Recipes extends CrudRepository<Recipe, Long> {
+    //Query that can filter from the optionals, returns a list of the recipes that meet the passed in values
     @Query("select r from Recipe r where (:id is null or r.id = :id) and "
             + "(:cookTime is null or r.cookTime <= :cookTime) and "
             + "(:prepTime is null or r.prepTime <= :prepTime) and "
@@ -16,7 +17,7 @@ public interface Recipes extends CrudRepository<Recipe, Long> {
             + "(:ingredientIds is null or r.ingredientIds = :ingredientIds) and "
             + "(:title is null or r.title = :title) ORDER BY r.ingredientIds DESC")
             List<Recipe> find(Long id, Integer cookTime, Integer prepTime, Double estimatedCost,Double rating, String tags, String type, String ingredientIds, String title);
-
+    //Finds the recipes by title and author
     @Query("select r from Recipe r where (:title is null or r.title = :title) and "
             + "(:author is null or r.author = :author) ORDER BY r.title DESC")
             Recipe findByTitleAndAuthor(String title, Integer author);
