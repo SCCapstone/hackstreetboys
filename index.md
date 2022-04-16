@@ -51,9 +51,3 @@ For our behavioral tests we're using [Jest.js](https://jestjs.io/docs/tutorial-r
 To use our unit tests, have the code running via `./mvnw spring-boot:run` and then run `./mvnw test`\
 We reccomend using IntelliJ or Eclipse to run these tests so it's easier to see the code coverage.\
 To use our behavioral tests run `npm test`
-# Authors
-Caroline Boozer: ceboozer@email.sc.edu \
-Quinn Nisbet: qnisbet@email.sc.edu \
-Adam Frederiksen: apf1@email.sc.edu \
-Jadon Schuler: schulert@email.sc.edu \
-Andrew Bernhardt: aeb30@email.sc.edu
