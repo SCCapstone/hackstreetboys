@@ -1,4 +1,4 @@
-![alt text](https://github.com/SCCapstone/hackstreetboys/blob/main/Documentation/branding/banner.png?raw=true)
+![alt text](/Documentation/branding/banner.png)
 # Fridger
 Fridger is a progressive web application for anyone who likes to cook. Users can create, review, and share their food creations with others in the community. This innovative platform will include features such as integrated sharing functionality, recipe reviews, and a recipe matching function that uses the ingredients that you put into your online pantry and your personal preferences to curate the perfect list of recipes to fit your tastes. Fridger has its own recipe rating and review system which makes it easy to see what's popular! Our goal tracking platform is perfect for those who are trying to meet their health objectives through what they eat. Try Fridger today!
 ## Take a look at Fridger by watching our demo!
