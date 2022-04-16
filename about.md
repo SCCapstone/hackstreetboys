@@ -2,7 +2,7 @@
 # About HackStreetBoys!
 
 ## Andrew Berndhardt
-- <img src="../Documentation/branding/andrew.png" width="100" height="100">
+- <img src="/Documentation/branding/andrew.png" width="100" height="100">
 - [Linkedin](https://www.linkedin.com/in/andrew-bernhardt-5b087a163/)
 
 ## Caroline Boozer
