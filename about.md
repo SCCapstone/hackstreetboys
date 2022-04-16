@@ -1,19 +1,22 @@
-# Andrew Berndhardt
+
+# About HackStreetBoys!
+
+## Andrew Berndhardt
 - <img src="/Documentation/branding/andrew.png" width="100" height="100">
-- https://www.linkedin.com/in/andrew-bernhardt-5b087a163/
+- [Linkedin](https://www.linkedin.com/in/andrew-bernhardt-5b087a163/)
 
-# Caroline Boozer
+## Caroline Boozer
 - <img src="/Documentation/branding/caroline.png" width="100" height="100">
-- https://www.linkedin.com/in/caroline-boozer-aa0343232/
+- [Linkedin](https://www.linkedin.com/in/caroline-boozer-aa0343232/)
 
-# Adam Fredericksen
+## Adam Fredericksen
 - <img src="/Documentation/branding/adam.png" width="100" height="100">
-- https://www.linkedin.com/in/adam-frederiksen/
+- [Linkedin](https://www.linkedin.com/in/adam-frederiksen/)
 
-# Quinn Nisbet
+## Quinn Nisbet
 - <img src="/Documentation/branding/quinn.png" width="100" height="100">
-- https://www.linkedin.com/in/quinn-nisbet-8114631a5/
+- [Linkedin](https://www.linkedin.com/in/quinn-nisbet-8114631a5/)
 
-# Jadon Schuler
+## Jadon Schuler
 - <img src="/Documentation/branding/jadon.png" width="100" height="100"> 
-- https://www.linkedin.com/in/jadon-schuler/
+- [Linkedin](https://www.linkedin.com/in/jadon-schuler/)
