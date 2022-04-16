@@ -21,8 +21,14 @@ import recipes.fridger.backend.model.RoleEnum;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.model.VerificationToken;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
@@ -121,18 +127,39 @@ public class UserServiceImpl implements UserService {
             throws MessagingException, UnsupportedEncodingException {
 
         String subject = "Fridger: Email Verification";
-        String senderName = "Fridger team";
-        String mailContent = "<p>Hello " + user.getName() + "!" +
-                "\nWe are excited to have you join the Fridger community! Thank you " +
+        String senderName = "Fridger Team";
+
+        MimeMessage message = mailSender.createMimeMessage();
+
+        MimeMultipart multipart = new MimeMultipart("related");
+
+        //first part (the html)
+        BodyPart messageBodyPart = new MimeBodyPart();
+
+        String mailContent = "<img src=\"cid:image\">"+
+                "<h1>Hello, " + user.getName() + "!</h1>" +
+                "<p style=\"font-size:14px\">We are excited to have you join the Fridger community! Thank you " +
                 "for signing up with us! But before you can do that, we need you to " +
-                "confirm your email for us! Go ahead and click the link below!";
+                "confirm your email for us! Go ahead and click the link below!</p>";
 
         String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode(); //pass verification token for  user
 
         mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
-        mailContent += "<p>Thank you,<br>The Fridger Team</p>";
+        mailContent += "<h3>Thank you,<br>The Fridger Team</h3>";
 
-        MimeMessage message = mailSender.createMimeMessage();
+        messageBodyPart.setContent(mailContent,"text/html");
+
+        BodyPart messageBodyImg = new MimeBodyPart();
+        DataSource fds = new FileDataSource("fridger_banner.png");
+        messageBodyImg.setDataHandler(new DataHandler(fds));
+        messageBodyImg.setHeader("Content-ID","<image>");
+        messageBodyImg.setFileName("fridger_banner.png");
+
+        multipart.addBodyPart(messageBodyPart);
+        multipart.addBodyPart(messageBodyImg);
+
+        message.setContent(multipart);
+
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         helper.setFrom("noreplyfridger@gmail.com",senderName);
@@ -140,7 +167,9 @@ public class UserServiceImpl implements UserService {
         helper.setSubject(subject);
         helper.setText(mailContent,true);
 
+
         mailSender.send(message);
+        log.info("sent verification email");
 
     }
 
