@@ -2,6 +2,7 @@
 # About HackStreetBoys!
 
 ## Adam Federiksen
+#### Project Manager
 - ![adam](/Documentation/branding/adam.png)
 - @afrederiksen
 - [Linkedin](https://www.linkedin.com/in/adam-frederiksen/)
