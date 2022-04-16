@@ -1,7 +1,8 @@
+![alt text](https://github.com/SCCapstone/hackstreetboys/blob/main/Documentation/branding/banner.png?raw=true)
 # Fridger
 Fridger is a progressive web application for anyone who likes to cook. Users can create, review, and share their food creations with others in the community. This innovative platform will include features such as integrated sharing functionality, recipe reviews, and a recipe matching function that uses the ingredients that you put into your online pantry and your personal preferences to curate the perfect list of recipes to fit your tastes. Fridger has its own recipe rating and review system which makes it easy to see what's popular! Our goal tracking platform is perfect for those who are trying to meet their health objectives through what they eat. Try Fridger today!
 ## Take a look at Fridger by watching our demo!
-[![Youtube-Fridger-Demo](https://github.com/SCCapstone/hackstreetboys/blob/main/Documentation/branding/banner.png?raw=true)](https://www.youtube.com/watch?v=z65AUrZuy1Y)
+[![Youtube-Fridger-Demo](<img width="471" alt="image" src="https://user-images.githubusercontent.com/69986215/163686043-8f88f4cf-561b-423a-86c4-dc2aed283bb9.png">)](https://www.youtube.com/watch?v=z65AUrZuy1Y)
 ## External Requirements
 In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
