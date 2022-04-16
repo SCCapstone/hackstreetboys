@@ -1,5 +1,5 @@
-- ![andrew](/Documentation/branding/andrew.png) Andrew Berndhardt
-- ![caroline](/Documentation/branding/caroline.png) Caroline Boozer
-- ![adam](/Documentation/branding/adam.png) Adam Fredericksen
-- ![quinn](/Documentation/branding/quinn.png) Quinn Nisbet
-- ![jadon](/Documentation/branding/jadon.png) Jadon Schuler
+- <img src="/Documentation/branding/andrew.png" width="50" height="50"> Andrew Berndhardt
+- <img src="/Documentation/branding/caroline.png" width="50" height="50"> Caroline Boozer
+- <img src="/Documentation/branding/adam.png" width="50" height="50"> Adam Fredericksen
+- <img src="/Documentation/branding/quinn.png" width="50" height="50"> Quinn Nisbet
+- <img src="/Documentation/branding/jadon.png" width="50" height="50"> Jadon Schuler
