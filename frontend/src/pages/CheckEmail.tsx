@@ -53,7 +53,7 @@ function CheckEmail() {
                             <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Thank you for registering an account with Fridger!</h1></IonText>
                 
                             <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Please check your email and click the link to verify it!</h2></IonText>
-                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>We're look forward to having you!</h2></IonText>
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>We're looking forward to having you!</h2></IonText>
                           </IonText>                                     
                       </IonContent>
                       </IonPage>
