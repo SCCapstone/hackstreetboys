@@ -16,6 +16,7 @@ import {
     IonRouterLink,
     IonRow,
     IonText,
+    IonTitle,
   } from '@ionic/react';
 
 import { Link, Router, Switch } from "react-router-dom";
@@ -48,10 +49,10 @@ function CheckEmail() {
                       <IonContent className="ion-padding">
                           <IonText>
                             <img className='center' src='https://raw.githubusercontent.com/SCCapstone/hackstreetboys/main/frontend/src/assets/fridger_banner.png?token=GHSAT0AAAAAABQMYJVTGK3BQ2M3GZMTI2QWYS3EGUA'/>
-                            <h1 id='header'><b>Thank you for registering an account with Fridger!</b></h1>
+                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Thank you for registering an account with Fridger!</h1></IonText>
                 
-                            <h4 id='header'>Please check your email and click the link to verify it!</h4>
-                            <h5 id='header'>We're look forward to having you!</h5>
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Please check your email and click the link to verify it!</h2></IonText>
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>We're look forward to having you!</h2></IonText>
                           </IonText>                                     
                       </IonContent>
                       </IonPage>
