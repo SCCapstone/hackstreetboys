@@ -1,1 +1,1 @@
-[About Page](./about.html).
+[About Page](./about.html)
