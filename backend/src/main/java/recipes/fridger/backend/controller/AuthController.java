@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -24,6 +25,7 @@ import recipes.fridger.backend.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -52,10 +54,12 @@ public class AuthController {
     @PostMapping(path = "/login")
     public ResponseEntity<JwtTokenDTO>
     authenticateUser(@RequestBody CreateAuthRequestDTO u) {
-        //TODO add
-        // if(user.getEnabled()==false)
-        //          -->don't allow
 
+        //If user has not been enabled
+        if((userService.getUserByEmail(u.getEmail())).isEnabled()==false) {
+            List<String> temp = new ArrayList<String>();
+            return new ResponseEntity<JwtTokenDTO>(new JwtTokenDTO("", "", 0L, "", temp), HttpStatus.UNAUTHORIZED);
+        }
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(u.getEmail(), u.getPassword()));
 
