@@ -25,13 +25,16 @@ import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
+import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.Multipart;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.Optional;
@@ -133,43 +136,95 @@ public class UserServiceImpl implements UserService {
 
         MimeMultipart multipart = new MimeMultipart("related");
 
-        //first part (the html)
-        BodyPart messageBodyPart = new MimeBodyPart();
 
-        String mailContent = "<img src=\"cid:image\">"+
-                "<h1>Hello, " + user.getName() + "!</h1>" +
-                "<p style=\"font-size:14px\">We are excited to have you join the Fridger community! Thank you " +
-                "for signing up with us! But before you can do that, we need you to " +
-                "confirm your email for us! Go ahead and click the link below!</p>";
+
+        MimeMessage message1 = mailSender.createMimeMessage();
 
         String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode(); //pass verification token for  user
 
-        mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
-        mailContent += "<h3>Thank you,<br>The Fridger Team</h3>";
+        //first part (the html)
+        BodyPart messageBodyPart = new MimeBodyPart();
+        StringBuffer body = new StringBuffer("<html>");
+        body.append("<img src=\"cid:image1\" width=\"60%\" height=\"60%\" /><br>");
+        body.append("<h1>Hello, " + user.getName() + "!\n</h1>");
+        body.append("<p style=\"font-size:14px\">We are excited to have you join the Fridger community! Thank you " +
+                "for signing up with us! But before you can do that, we need you to " +
+                "confirm your email for us! Go ahead and click the link below!</p></html>");
+        body.append("<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>");
+        body.append("<h3>Thank you,<br>The Fridger Team</h3>");
+        body.append("</html>");
 
-        messageBodyPart.setContent(mailContent,"text/html");
+        //creates message part
+        MimeBodyPart messageBodyPart1 = new MimeBodyPart();
+        messageBodyPart1.setContent(body.toString(),"text/html");
 
-        BodyPart messageBodyImg = new MimeBodyPart();
-        DataSource fds = new FileDataSource("fridger_banner.png");
-        messageBodyImg.setDataHandler(new DataHandler(fds));
-        messageBodyImg.setHeader("Content-ID","<image>");
-        messageBodyImg.setFileName("fridger_banner.png");
+        //creates multi part
+        MimeMultipart multipart1 = new MimeMultipart();
+        multipart1.addBodyPart(messageBodyPart1);
 
-        multipart.addBodyPart(messageBodyPart);
-        multipart.addBodyPart(messageBodyImg);
+        //img part
+        MimeBodyPart imagePart1 = new MimeBodyPart();
+        imagePart1.setHeader("Content-ID","<image1>");
+        imagePart1.setDisposition(MimeBodyPart.INLINE);
+        String imageFilePath = "C:\\Users\\deadw\\Desktop\\School\\hackstreetboys\\backend\\src\\main\\java\\recipes\\fridger\\backend\\service\\fridger_banner.png";
+        try {
+            imagePart1.attachFile(imageFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        multipart1.addBodyPart(imagePart1);
 
-        message.setContent(multipart);
+        message1.setRecipients(Message.RecipientType.TO,"aeb30@email.sc.edu");
+        message1.setFrom("noreplyfridger@gmail.com");
+        message1.setSubject(subject);
 
-        MimeMessageHelper helper = new MimeMessageHelper(message);
+        message1.setContent(multipart1);
 
-        helper.setFrom("noreplyfridger@gmail.com",senderName);
-        helper.setTo(user.getEmail());
-        helper.setSubject(subject);
-        helper.setText(mailContent,true);
+        mailSender.send(message1);
 
-
-        mailSender.send(message);
-        log.info("sent verification email");
+//        String mailContent = "<html> <img src=\"cid:image\" />"+
+//                "<h1>Hello, " + user.getName() + "!\n</h1>" +
+//                "<p style=\"font-size:14px\">We are excited to have you join the Fridger community! Thank you " +
+//                "for signing up with us! But before you can do that, we need you to " +
+//                "confirm your email for us! Go ahead and click the link below!</p></html>";
+//
+//        //String verifyURL = siteURL + "/verify?code=" + user.getVerificationCode(); //pass verification token for  user
+//
+//        mailContent += "<h3><a href=\"" + verifyURL + "\">VERIFY</a></h3>";
+//        mailContent += "<h3>Thank you,<br>The Fridger Team</h3>";
+//
+//        messageBodyPart.setContent(mailContent,"text/html");
+//
+//        MimeBodyPart imagePart = new MimeBodyPart();
+////        DataSource fds = new FileDataSource("fridger_banner.png");
+////        imagePart.setDataHandler(new DataHandler(fds));
+//        imagePart.setHeader("Content-ID","<image>");
+//        imagePart.setDisposition(MimeBodyPart.INLINE);
+////        imagePart.setFileName("fridger_banner.png");
+//
+//        //in case file not found
+//        String domain = "C:\\Users\\deadw\\Desktop\\School\\hackstreetboys\\backend\\src\\main\\java\\recipes\\fridger\\backend\\service\\";
+//        try {
+//            imagePart.attachFile(domain + "fridger_banner.png");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        multipart.addBodyPart(messageBodyPart);
+//        multipart.addBodyPart(imagePart);
+//
+//        message.setContent(multipart);
+//
+//        MimeMessageHelper helper = new MimeMessageHelper(message);
+//
+//        helper.setFrom("noreplyfridger@gmail.com",senderName);
+//        helper.setTo(user.getEmail());
+//        helper.setSubject(subject);
+//        helper.setText(mailContent,true);
+//
+//
+//        mailSender.send(message);
+//        log.info("sent verification email");
 
     }
 
