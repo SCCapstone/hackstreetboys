@@ -58,6 +58,7 @@ import EditIngredient from "./pages/EditIngredient";
 import Review from './pages/RecipeReviews';
 import SpecificReview from './pages/ReviewOfRecipe';
 import myReviews from './pages/myReviews';
+import CheckEmail from './pages/CheckEmail';
 //const App: React.FC = () => (
   function App () {
 
@@ -105,6 +106,7 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/profile/:id?" component={Profile} />
               <UserRoute path="/editprofile" component={EditProfile} />
 
+              <Route path="/checkemail" component={CheckEmail} />
               <Route path="/verify" component={Verify} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />
