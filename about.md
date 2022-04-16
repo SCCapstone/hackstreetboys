@@ -1,5 +1,5 @@
-Andrew Berndhardt
-Caroline Boozer
-Adam Fredericksen
-Quinn Nisbet
-Jadon Schuler
+- ![andrew](/Documentation/branding/andrew.png) Andrew Berndhardt
+- ![caroline](/Documentation/branding/caroline.png) Caroline Boozer
+- ![adam](/Documentation/branding/adam.png) Adam Fredericksen
+- ![quinn](/Documentation/branding/quinn.png) Quinn Nisbet
+- ![jadon](/Documentation/branding/jadon.png) Jadon Schuler
