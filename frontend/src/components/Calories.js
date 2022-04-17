@@ -1,3 +1,11 @@
+/*
+    This file contains part of the functionality for the calorie tracker. 
+    It is what displays the actual calorie tracker on the goals dashboard. 
+    It holds most of the actual functionality, calling upon other functions for the tracker.
+    This tracker is not mean to be a permanent, long-time tracker, rather it is more like a calculator and will
+    not keep calories across different sign on sessions - thus we decided to use local storage.
+*/
+
 import {
     IonApp,
     IonContent,

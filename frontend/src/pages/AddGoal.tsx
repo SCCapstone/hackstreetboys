@@ -1,3 +1,12 @@
+/*
+  This file contains the functionality of adding a goal.
+  It follows most of the same format as a form, and posts that goal for a given user.
+
+  Normally, users will only have one goal - we discourage users from changing as a way to encourage them 
+  to stick with their main goal! However, users are able to add multiple goals and this is
+  for people who may want to see more achievements in smaller intervals!
+*/
+
 import './MyGoals.css';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import history from '../History';

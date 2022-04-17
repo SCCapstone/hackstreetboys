@@ -1,3 +1,7 @@
+/*
+  This file has the functionality of displaying an individual review for a given recipe.
+*/
+
 import { Router, Switch, Route, Link, useParams } from "react-router-dom";
 import history from '../History';
 import {

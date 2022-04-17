@@ -1,3 +1,7 @@
+/*
+   A potential customizable chart!
+*/
+
 import React, { useEffect, useState } from "react";
 import { GoogleChartEditor } from "react-google-charts/dist/types";
 import { GoogleChartWrapper } from "react-google-charts/dist/types";

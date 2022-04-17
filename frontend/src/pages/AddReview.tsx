@@ -1,3 +1,8 @@
+/*
+  This file contains the functionality of adding a review to a recipe.
+  It follows most of the same format as a form, and posts that review to it's cooresponding recipe.
+*/
+
 import './MyGoals.css';
 import React, { useCallback, useContext, useState } from 'react';
 import history from '../History';

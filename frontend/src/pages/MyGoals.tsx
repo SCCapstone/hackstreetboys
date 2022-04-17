@@ -1,3 +1,9 @@
+/*
+  This file contains the functionality of displaying a user's list of goals. 
+  If a logged in user goes to their dashboard, then their goals, a list of their goals will appear.
+  This file provides that functionality of being able to view the list of goals a user has.
+*/
+
 import './MyGoals.css';
 import {
     IonApp,

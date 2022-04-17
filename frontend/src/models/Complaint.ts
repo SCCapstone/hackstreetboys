@@ -1,3 +1,7 @@
+/*
+  The model; variables for a complaint
+*/
+
 export interface Complaint{
     id: number;
     authorId: number;

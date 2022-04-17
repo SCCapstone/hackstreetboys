@@ -1,3 +1,9 @@
+/*
+  This file contains the functionality of displaying a user's list of favorites.
+  If a recipe is favorited by a user, then the user can see their list of favorites! This file provides that
+  functionality of displaying the list of favorites, specific to a user
+*/
+
 import './Favorites.css';
 import {
   IonApp,

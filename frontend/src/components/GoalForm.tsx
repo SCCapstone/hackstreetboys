@@ -1,3 +1,12 @@
+/*
+    This file is the form used for the goals to be able to gather information from a user so that they can
+    add a new goal! 
+    
+    Normally, users will only have one goal - we discourage users from changing as a way to encourage them 
+    to stick with their main goal! However, users are able to add multiple goals and this is
+    for people who may want to see more achievements in smaller intervals!
+*/
+
 import './RecipeForm.css';
 import { IonHeader, IonToolbar, IonButtons, IonMenuToggle, IonButton, IonIcon, IonTitle, IonCheckbox, IonInput, IonItem, IonLabel, IonSelect, IonSelectOption } from "@ionic/react";
 import { menuOutline } from "ionicons/icons";

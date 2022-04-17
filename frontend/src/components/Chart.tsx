@@ -1,3 +1,7 @@
+/*
+    A potential chart for our app and users.
+*/
+
 import Charts from "react-google-charts";
 
 export const Chart: React.FC = () => {
