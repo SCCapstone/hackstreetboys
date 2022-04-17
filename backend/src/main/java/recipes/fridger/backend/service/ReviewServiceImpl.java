@@ -67,4 +67,9 @@ public class ReviewServiceImpl implements ReviewService{
         return reviewList;
     }
 
+    @Override
+    public Optional<Review> checkIfExists(Long userId, Long recipeId, Integer rating, String feedback) {
+        return Optional.empty();
+    }
+
 }

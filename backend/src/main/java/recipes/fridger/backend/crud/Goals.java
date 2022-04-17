@@ -18,7 +18,7 @@ public interface Goals extends CrudRepository<Goal, Long> {
             "(:currentWeight is NULL or g.currentWeight = :currentWeight) AND " +
             "(:goalWeight is NULL or g.goalWeight = :goalWeight) AND" +
             "(:userId is NULL or g.userId = :userId)")
-        List<Goal> find(Long id, String endGoal, Double calories, Double carbohydrates, Double protein, Double fat, Double currentWeight, Double goalWeight, Long userId);
+        List<Goal> find(Long id, String endGoal, Integer calories, Integer carbohydrates, Integer protein, Integer fat, Double currentWeight, Double goalWeight, Long userId);
 
 
     }

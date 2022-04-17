@@ -49,7 +49,12 @@ public class GoalServiceImpl implements GoalService{
 
     @Transactional
     @Override
-    public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight, Long userId) {
+    public Iterable<Goal> getGoals(Long id, String endGoal, Integer calories, Integer carbs, Integer protein, Integer fat, Double currWeight, Double goalWeight, Long userId) {
         return goals.find(id, endGoal, calories, carbs, protein, fat, currWeight, goalWeight, userId);
+    }
+
+    @Override
+    public Object goalCheck(String endGoal, Integer calories, Integer carbs, Integer protein, Integer fat, Double currWeight, Double goalWeight, Long userId) {
+        return null;
     }
 }

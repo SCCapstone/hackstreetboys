@@ -47,4 +47,9 @@ public class ComplaintServiceImpl implements ComplaintService{
         return complaints.find(id, authorId, recipeId, severity, reason);
     }
 
+    @Override
+    public Object complaintByOthers(Long authorId, Long recipeId, Integer severity, String reason) {
+        return null;
+    }
+
 }

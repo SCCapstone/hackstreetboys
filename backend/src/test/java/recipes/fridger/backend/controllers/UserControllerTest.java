@@ -3,7 +3,9 @@ package recipes.fridger.backend.controllers;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
@@ -26,10 +29,13 @@ import static org.mockito.Mockito.when;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import recipes.fridger.backend.crud.Users;
 import recipes.fridger.backend.model.Pantry;
+import recipes.fridger.backend.model.Review;
+import recipes.fridger.backend.model.Goal;
 import recipes.fridger.backend.model.User;
 import recipes.fridger.backend.dto.CreateUserDTO;
 import recipes.fridger.backend.service.PantryService;
 import recipes.fridger.backend.service.UserService;
+import recipes.fridger.backend.service.GoalService;
 import recipes.fridger.backend.service.UserServiceImpl;
 
 import java.math.BigDecimal;
@@ -46,6 +52,9 @@ public class UserControllerTest {
 
     @MockBean
     PantryService pantryService;
+
+    @MockBean
+    GoalService goalService;
 
     @Autowired
     ObjectMapper mapper;
@@ -167,5 +176,55 @@ public class UserControllerTest {
             ,() -> assertEquals(pantryService.getAllPantrys(), pantries)
         );
 
+    }
+
+    @Test
+    public void goalServiceContextLoads() {
+        Assertions.assertThat(goalService).isNotNull();
+    }
+
+    //Setup Test Data
+    Goal goal;
+    String endGoal ="lose weight";
+    Integer calories = 120;
+    Integer carbohydrates = 20;
+    Integer protein = 4;
+    Integer fat = 8;
+    Double currentWeight = Double.valueOf(200);
+    Double goalWeight = Double.valueOf(150);
+    Long userId = Long.valueOf(2);
+
+    @Test
+    @WithMockUser
+    public void createGoalAndCheck() throws Exception {
+        Goal g = new Goal();
+        g.setEndGoal(endGoal);
+        g.setCalories(calories);
+        g.setCarbohydrates(carbohydrates);
+        g.setProtein(protein);
+        g.setFat(fat);
+        g.setCurrentWeight(currentWeight);
+        g.setGoalWeight(goalWeight);
+        g.setUserId(userId);
+        when(goalService.goalCheck(endGoal, calories, carbohydrates, protein, fat, currentWeight, goalWeight, userId)).thenReturn(java.util.Optional.of(g));
+
+        this.mockMvc.perform(
+                post("http://localhost:8080" + "/v1/goals")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(mapper.writeValueAsString(g))
+        ).andExpect(status().isOk());
+        assertEquals(
+                goalService.goalCheck(
+                        endGoal,
+                        calories,
+                        carbohydrates,
+                        protein,
+                        fat,
+                        currentWeight,
+                        goalWeight,
+                        userId
+                ),
+                g
+        );
     }
 }
