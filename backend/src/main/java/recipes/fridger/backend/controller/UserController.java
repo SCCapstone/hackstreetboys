@@ -290,7 +290,8 @@ public class UserController {
             return ResponseEntity.internalServerError().body("Unable to delete recipe");
         }
     }
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    //Clear all Pantries
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping(path = "/pantry")
     public ResponseEntity<String> clearPantry() {
         try {
