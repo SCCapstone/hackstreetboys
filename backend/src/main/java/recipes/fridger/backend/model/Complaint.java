@@ -22,6 +22,8 @@ import lombok.Data;
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "complaints")
 public class Complaint {
+    //fields for a complaint with the id being automatically generated.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

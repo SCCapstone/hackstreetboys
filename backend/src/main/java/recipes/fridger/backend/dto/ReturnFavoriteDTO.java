@@ -10,6 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.constraints.*;
 @Data
 public class ReturnFavoriteDTO {
+    //returns favorite format
 
     private Long id;
 

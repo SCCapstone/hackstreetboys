@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @NotNull
 public class CreateComplaintDTO {
+    //creates a complaint
 
     private Long authorId;
     private String authorName;

@@ -1,3 +1,7 @@
+/*
+    Controls the dataflow for calories.
+ */
+
 package recipes.fridger.backend.controller;
 
 import javax.validation.Valid;

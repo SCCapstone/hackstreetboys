@@ -206,6 +206,10 @@ public class UserController {
      *  GOAL API
      */
 
+    /*
+        Goals are an aspect of user, controls the data flow for goals.
+     */
+
     @PostMapping(path = "/goal")
     public ResponseEntity<String>
     createGoal(@RequestBody @Valid CreateGoalDTO g) {

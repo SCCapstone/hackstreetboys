@@ -23,6 +23,7 @@ public class ReviewServiceImpl implements ReviewService{
     @Autowired
     private Reviews reviews;
 
+    //creates review by passing in dto and set values
     @Override
     public void createReview(CreateReviewDTO dto) {
         Review r = new Review();
@@ -36,6 +37,8 @@ public class ReviewServiceImpl implements ReviewService{
 //
 //        }
     }
+
+    //delete a review by passing id
     @Transactional
     @Override
     public void deleteReview(Long id) {
@@ -45,6 +48,8 @@ public class ReviewServiceImpl implements ReviewService{
             reviews.delete(r);
         }
     }
+
+    //get a review by id
     @Transactional
     @Override
     public Review getReview(Long id) {
@@ -55,6 +60,7 @@ public class ReviewServiceImpl implements ReviewService{
         return null;
     }
 
+    //get all reviews matching the params
     @Transactional
     public Iterable<Review> getReviews(Long id, Long authorId, Long recipeId, Integer rating, String feedback ) {
         List<Review> reviewList =  reviews.find(id, authorId, recipeId, rating, feedback);

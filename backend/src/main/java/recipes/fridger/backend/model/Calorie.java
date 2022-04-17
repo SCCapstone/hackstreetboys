@@ -18,6 +18,8 @@ import lombok.Data;
 @Entity
 @Table(name = "calories")
 public class Calorie {
+    //fields for calories with the id being automatically generated.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
