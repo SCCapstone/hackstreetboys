@@ -22,6 +22,8 @@ import lombok.Data;
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "reviews")
 public class Review {
+    //fields for a review with the id being automatically generated.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

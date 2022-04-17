@@ -14,6 +14,8 @@ public class ComplaintServiceImpl implements ComplaintService{
 
     @Autowired
     private Complaints complaints;
+
+    //takes in complaint dto and sets values
     @Override
     public void createComplaint(CreateComplaintDTO dto) {
         Complaint c = new Complaint();
@@ -23,6 +25,8 @@ public class ComplaintServiceImpl implements ComplaintService{
         c.setSeverity(dto.getSeverity());
         complaints.save(c);
     }
+
+    //deletes a comaplint by finding it by id and passing it in
     @Transactional
     @Override
     public void deleteComplaint(Long id) {
@@ -32,6 +36,8 @@ public class ComplaintServiceImpl implements ComplaintService{
             complaints.delete(c);
         }
     }
+
+    //returns a complaint by id if it exists
     @Transactional
     @Override
     public Complaint getComplaint(Long id) {
@@ -42,6 +48,7 @@ public class ComplaintServiceImpl implements ComplaintService{
         return null;
     }
 
+    //returns complaint matching params
     @Transactional
     public Iterable<Complaint> getComplaints(Long id, Long authorId, Long recipeId, Integer severity, String reason ) {
         return complaints.find(id, authorId, recipeId, severity, reason);

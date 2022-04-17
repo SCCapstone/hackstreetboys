@@ -1,3 +1,8 @@
+/*
+    This file contains part of the functionality for the calorie tracker. 
+    It displays the items once they have been added and allows for a single entry to be deleted.
+*/
+
 import { IonButton, IonInput, IonCard, IonCardContent } from '@ionic/react';
 import { medalSharp } from 'ionicons/icons';
 import { values } from 'lodash';

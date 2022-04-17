@@ -1,3 +1,9 @@
+/*
+  This file contains the functionality of displaying a user's goal.
+  If a user clicks on one of their goals from their list of goals, this file provides the functionality for
+  them to view it individually.
+*/
+
 import { Router, Switch, Route, Link, useParams } from "react-router-dom";
 import history from '../History';
 import {

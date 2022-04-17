@@ -1,3 +1,7 @@
+/*
+    Controls the dataflow for favorites.
+ */
+
 package recipes.fridger.backend.controller;
 import java.util.*;
 

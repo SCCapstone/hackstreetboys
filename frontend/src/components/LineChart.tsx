@@ -1,3 +1,7 @@
+/*
+  A potential line chart to be used.
+*/
+
 import { Chart } from "react-google-charts";
 
 export const LineChart: React.FC = () => {

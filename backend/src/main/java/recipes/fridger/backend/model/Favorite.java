@@ -16,6 +16,8 @@ import lombok.Data;
 @Entity
 @Table(name = "favorites")
 public class Favorite {
+    //fields for a favorite with the id being automatically generated.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

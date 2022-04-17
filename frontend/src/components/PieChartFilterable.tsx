@@ -1,3 +1,7 @@
+/*
+  A potential pie chart to be used.
+*/
+
 import { Chart } from "react-google-charts";
 
 export const PieChart: React.FC = () => {

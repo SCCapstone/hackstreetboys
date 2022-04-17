@@ -1,3 +1,7 @@
+/*
+    Goals crud:
+    four functions that are considered necessary to implement a persistent storage application
+ */
 package recipes.fridger.backend.crud;
 
 import java.util.List;

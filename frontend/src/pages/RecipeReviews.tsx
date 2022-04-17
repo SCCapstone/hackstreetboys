@@ -1,3 +1,7 @@
+/*
+  This file has the functionality of displaying reviews for a given recipe!
+*/
+
 import './myReviews.css';
 import {
     IonApp,

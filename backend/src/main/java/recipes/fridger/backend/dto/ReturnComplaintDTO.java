@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.*;
 @Data
 public class ReturnComplaintDTO {
+    //returns complaint format
+
     private Long id;
 
     private Long authorId;
