@@ -29,7 +29,7 @@ public class SystemTests {
         try {
             restTemplate.getForEntity(url, String.class);
         } catch (HttpClientErrorException e) {
-            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.NOT_FOUND);
+            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         }
     }
     @Test
@@ -79,7 +79,7 @@ public class SystemTests {
         try {
             restTemplate.getForEntity(url, String.class);
         } catch (HttpClientErrorException e) {
-            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.OK);
+            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         }
     }
 }
