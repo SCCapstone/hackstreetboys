@@ -94,13 +94,9 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     let ratingUpper = Math.max.apply(Math, recipes.map(function(r) { return r.rating;}));
 
     const [title, setTitle] = useState("");
-    // const [totalTimeRange, setTotalTimeRange] = useState<{ lower: number; upper: number;}>({lower: 0, upper: 9999});
     const [totalTime, setTotalTime] = useState(9999);
-    // const [yieldRange, setYieldRange] = useState<{ lower: number; upper: number; }>({lower: 0, upper: 9999});
     const [servingYield, setServingsYield] = useState(9999);
-    // const [costRange, setCostRange] = useState<{ lower: number; upper: number; }>({lower: 0, upper: 9999});
     const [cost, setCost] = useState(9999);
-    // const [ratingRange, setRatingRange] = useState<{ lower: number; upper: number; }>({lower: 0, upper: 5});
     const [rating, setRating] = useState(5);
 
 
@@ -118,12 +114,9 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                         <IonCol>
                             <IonCard style={{marginTop:"30px", marginLeft:"10px", marginRight:"20px", padding:"25px"}}>
                                 <IonSearchbar placeholder="Search Recipes" onIonChange={e => e.detail.value ? setTitle(e.detail.value!) : setTitle("")} debounce={0} inputmode="search" search-icon={searchOutline}/>
-                                {/*<IonSearchbar placeholder="Calories" onIonChange={e => e.detail.value ? setCalories(parseInt(e.detail.value!)) : setCalories(10000)} debounce={200} inputmode="numeric" search-icon={flameOutline}/>*/}
 
                                 <IonItem>
                                     <IonLabel>Total Time</IonLabel>
-                                    {/*<IonRange dualKnobs={true} min={caloriesLower} max={caloriesUpper} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => caloriesRange.upper===1000 && caloriesRange.lower===0 ? setCaloriesRange({lower: caloriesLower, upper: caloriesUpper}) : setCaloriesRange(e.detail.value as any)}>*/}
-                                    {/*<IonRange dualKnobs={true} min={totalTimeLower} max={totalTimeUpper} value={totalTimeRange} step={5} snaps={true} color="secondary" pin={true} onIonChange={e => setTotalTimeRange(e.detail.value as any)}>*/}
                                     <IonRange min={totalTimeLower} max={totalTimeUpper} value={totalTime} color="secondary" pin={true} onIonChange={e => setTotalTime(e.detail.value as any)}>
                                         <IonLabel slot="start" >{totalTimeLower}</IonLabel>
                                         <IonLabel slot="end">{totalTimeUpper}</IonLabel>
@@ -140,7 +133,6 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
                                 <IonItem>
                                     <IonLabel>Cost</IonLabel>
-                                    {/*<IonRange dualKnobs={true} min={costLower} max={costUpper} value={costRange} color="secondary" pin={true} onIonChange={e => setCostRange(e.detail.value as any)}>*/}
                                         <IonRange min={costLower} max={costUpper} value={cost} color="secondary" pin={true} onIonChange={e => setCost(e.detail.value as any)}>
                                         <IonLabel slot="start" >{costLower}</IonLabel>
                                         <IonLabel slot="end">{costUpper}</IonLabel>
@@ -149,7 +141,6 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
                                 <IonItem>
                                     <IonLabel>Rating</IonLabel>
-                                    {/*<IonRange dualKnobs={true} min={ratingLower} max={ratingUpper} value={ratingRange} color="secondary" pin={true} onIonChange={e => setRatingRange(e.detail.value as any)}>*/}
                                         <IonRange min={ratingLower} max={ratingUpper} value={rating} color="secondary" pin={true} onIonChange={e => setRating(e.detail.value as any)}>
                                         <IonLabel slot="start" >{ratingLower.toFixed(1)}</IonLabel>
                                         <IonLabel slot="end">{ratingUpper.toFixed(1)}</IonLabel>
@@ -162,13 +153,9 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                         <IonCol size={"7"}>
                             {recipes.filter(recipe => (
                                 recipe.title.toLowerCase().includes(title.toLowerCase()) &&
-                                // recipe.totalTime >= totalTimeRange.lower && recipe.totalTime <= totalTimeRange.upper &&
                                 recipe.totalTime <= totalTime &&
-                                // recipe.yield >= yieldRange.lower && recipe.yield <= yieldRange.upper &&
                                 recipe.yield <= servingYield &&
-                                // recipe.rating >= ratingRange.lower && recipe.rating <= ratingRange.upper &&
                                 recipe.rating <= rating &&
-                                // recipe.estimatedCost >= costRange.lower && recipe.estimatedCost <= costRange.upper
                                 recipe.estimatedCost <= cost
                             )).map(recipe =>
                            <Link to={`/recipe/${recipe.id}`} key={recipe.id}>
@@ -182,14 +169,6 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
                               <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>
-                              {/* <IonFab vertical="bottom" horizontal="end" slot="fixed">
-                              <Link to = {`/recipe/${recipe.id}`}>
-                                <IonButton >
-                                   See more
-                                </IonButton>
-                                </Link>
-                              </IonFab>
-                              </Link> */}
                             </IonCardContent>
                           </IonCard>
                           </Link>
