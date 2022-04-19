@@ -323,6 +323,7 @@ public class UserController {
 //    }
 //    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 //    @PreAuthorize("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PutMapping(path = "/pantry/increase/{id}")
     public ResponseEntity<String>
     incrementPantryByOne(@PathVariable Long id) {
@@ -336,6 +337,7 @@ public class UserController {
         }
     }
     //@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PutMapping(path = "/pantry/decrease/{id}")
     public ResponseEntity<String>
     decrementPantryByOne(@PathVariable Long id) {
