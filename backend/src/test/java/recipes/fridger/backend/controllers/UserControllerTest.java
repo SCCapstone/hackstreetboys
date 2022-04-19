@@ -155,18 +155,22 @@ public class UserControllerTest {
         pantryTest1.setNumIngredient(3.0);
         pantryTest1.setDescription("this is a banana for monkeys");
 
+
         Pantry pantryTest2 = new Pantry(); //this will generate random id
         pantryTest2.setUserID(256L);
         pantryTest2.setIngredientName("apple");
         pantryTest2.setNumIngredient(1.0);
         pantryTest2.setDescription("this is an apple for test");
 
-        List<Pantry> pantries = new ArrayList<Pantry>();
-        pantries.add(pantryTest1);
-        pantries.add(pantryTest2);
+        List<Pantry> pantries1 = new ArrayList<Pantry>();
+        List<Pantry> pantries2 = new ArrayList<Pantry>();
+        pantries1.add(pantryTest1);
+//        pantries1.add(pantryTest1);
+        pantries2.add(pantryTest2);
+//        pantries2.add(pantryTest2);
 
-        when(pantryService.getSinglePantryByUser(123L)).thenReturn(pantryTest1);
-        when(pantryService.getSinglePantryByUser(256L)).thenReturn(pantryTest2);
+        when(pantryService.getPantryByUserID(123L)).thenReturn(pantries1);
+        when(pantryService.getPantryByUserID(256L)).thenReturn(pantries2);
 //        doReturn(pantries).when(pantryService).getAllPantrys();
 //        when(pantryService.getAllPantrys()).thenReturn(pantries);
 
@@ -184,8 +188,8 @@ public class UserControllerTest {
 
 
         assertAll("Each pantry should have been added and returned",
-            () -> assertEquals(pantryService.getPantryByUserID(123L), pantryTest1)
-            ,() -> assertEquals(pantryService.getPantryByUserID(256L), pantryTest2)
+            () -> assertEquals(pantryService.getPantryByUserID(123L), pantries1)
+            ,() -> assertEquals(pantryService.getPantryByUserID(256L), pantries2)
             //,() -> assertEquals(pantryService.getAllPantrys(), pantries)
         );
 
