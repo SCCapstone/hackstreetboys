@@ -32,7 +32,7 @@ import axios from 'axios';
 import RecipeBanner from '../assets/fridger_banner.png'
 
 const DOMAIN = "https://api.fridger.recipes/" 
-// const DOMAIN = "http://localhost:8080/"
+// const DOMAIN = "https://api.fridger.recipes/"
 
 //This is the page the email verifiction will send you to
 function CheckEmail() {

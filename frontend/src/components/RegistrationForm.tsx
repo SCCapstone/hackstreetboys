@@ -51,7 +51,7 @@ const RegistrationForm: React.FC = () => {
                 `https://api.fridger.recipes/v1/auth/register`,
 
                 //sending test
-                // 'http://localhost:8080/v1/auth/register',
+                // 'https://api.fridger.recipes/v1/auth/register',
                 body,
                 config
             ).then( res => {
