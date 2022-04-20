@@ -30,9 +30,10 @@ import { Goal } from '../models/Goal';
 import Header from "../components/Header";
 import {Recipe} from '../models/Recipe';
 import RecipeBanner from '../assets/fridger_banner.png'
-import TrendingDown from '../assets/trendingdown.jpg';
-  import TrendingUp from '../assets/trendingup.png';
-  import Equal from '../assets/equal.jpg';
+import Minus from '../assets/minus.png';
+import Plus from '../assets/plus.png';
+import Equal from '../assets/equals.png';
+import Workout from '../assets/workout.png'
   import Context from '../components/Context';
 interface GoalExample {
   goal: Goal,
@@ -152,7 +153,7 @@ useEffect(() => {
             <IonContent className="ion-padding">
               <IonCard>
               <img
-                      src={goal.endGoal == "Lose Weight" ? TrendingDown : goal.endGoal == "Gain Weight" ? TrendingUp : Equal}
+                      src={goal.endGoal == "Lose Weight" ? Minus : goal.endGoal == "Gain Weight" ? Plus : Equal}
                       alt="Recipe Image"
                       style={{
                       width: "100%",
