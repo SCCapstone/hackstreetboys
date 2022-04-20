@@ -81,7 +81,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
         userId: Number(context.currentUser?.id)
     }]);
    // const {id} = useParams<routeParams>();
-   
+
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
        //fetch('https://api.fridger.recipes/v1/user/goals/')
@@ -122,20 +122,21 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
       return <>
        <IonGrid>
          <IonRow>
-            {goals.map(goal => 
-              <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
-              <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
-                <IonCardHeader>
-                  <IonCardTitle>{goal.endGoal}</IonCardTitle>
-                  <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <IonLabel>Calories {goal.calories} | Carbs {goal.carbohydrates}</IonLabel><br/>
-                  <IonLabel>Fat: {goal.fat} | Protein {goal.protein}</IonLabel>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-            )}
+
+             {goals.filter(rawGoal => (rawGoal.userId == context.currentUser?.id)).map(goal => (
+                 <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
+                     <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
+                         <IonCardHeader>
+                             <IonCardTitle>{goal.endGoal}</IonCardTitle>
+                             <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
+                         </IonCardHeader>
+                         <IonCardContent>
+                             <IonLabel>Calories {goal.calories} | Carbs {goal.carbohydrates}</IonLabel><br/>
+                             <IonLabel>Fat: {goal.fat} | Protein {goal.protein}</IonLabel>
+                         </IonCardContent>
+                     </IonCard>
+                 </IonCol>
+             ))}
             
           </IonRow>
         </IonGrid>
