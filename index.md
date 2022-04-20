@@ -1,6 +1,16 @@
 ![alt text](/Documentation/branding/banner.png)
 # Fridger
 Fridger is a progressive web application for anyone who likes to cook. Users can create, review, and share their food creations with others in the community. This innovative platform will include features such as integrated sharing functionality, recipe reviews, and a recipe matching function that uses the ingredients that you put into your online pantry and your personal preferences to curate the perfect list of recipes to fit your tastes. Fridger has its own recipe rating and review system which makes it easy to see what's popular! Our goal tracking platform is perfect for those who are trying to meet their health objectives through what they eat. Try Fridger today!
+## Highlights
+Fridger provides the full functionality of creating and viewing recipes! Even without an account, you are able to view tons of recipes like the one below:
+![pb&banana](/Documentation/branding/pb&banana.png)
+Upon creating an account, you have more functionality! You will be welcomed by a homescreen full of recent recipes!
+![loggedin](/Documentation/branding/loggedin.png)
+You can leave reviews, ratings, and add recipes to your favorites!
+One of our favorite highlights is the Pantry feature. Here you can load ingredients that already in the app (you may add the the ingridents section if they are not already there) into your pantry! If you have the ingredients to create a recipe that appears in the app, it will appear on the right! This helps eliminate the stress of deciding what to cook. If you have your own recipe, you can add it to the app for your future use and for others to discover!
+![pantry](/Documentation/branding/pantry.png)
+You can also log a goal of yours through our goals feature. This app wants to encourage you to stick with the reason you've decided to join the app. Once you create a goal, it will always appear! You may create new goals if you change your mind or want to reach smaller goals along the way. This allows you to see your history of where you were and where you're going!
+We hope this app helps you with all your eating and goal tracking needs!
 ## Take a look at Fridger by watching our demo!
 [Fridger Demo - Placeholder Video](https://www.youtube.com/watch?v=z65AUrZuy1Y)
 ## About Us
