@@ -25,12 +25,16 @@ import {
     IonLabel,
   } from '@ionic/react';
 
+  import TrendingDown from '../assets/trendingdown.jpg';
+  import TrendingUp from '../assets/trendingup.png';
+  import Equal from '../assets/equal.jpg';
+  import Workout from '../assets/workout.png'
 
 import history from '../History';
 import React, { useContext, useEffect, useState } from 'react';
 //import { Router, Switch, Route, Link, useParams, RouteComponentProps, useHistory } from "react-router-dom";
 //import SideBar from '../components/SideBar';
-import { add, menuOutline } from 'ionicons/icons';
+import { add, menuOutline, trendingDown } from 'ionicons/icons';
 //import {Goal} from '../Goal';
 //import Header from '../components/Header';
 //import { routeParams } from './Profile';
@@ -85,7 +89,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
        //fetch('https://api.fridger.recipes/v1/user/goals/')
-       fetch(`https://api.fridger.recipes/v1/user/goals/`)
+       fetch(`http://localhost:8080/v1/user/goals/`)
        .then(response => response.json())
        .then(data => setGoals(data))
     }, [])
@@ -106,7 +110,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
        //fetch('https://api.fridger.recipes/v1/user/goals/')
-       fetch(`https://api.fridger.recipes/v1/user/goals/userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
+       fetch(`http://localhost:8080/v1/user/goals/userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
        .then(response => response.json())
        .then(data => setGoal(data))
     }, [])
@@ -116,16 +120,29 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
    useEffect(() => {
     document.title = "My Goals";
   }, []);
-
    
+  
+  
   const userGoalDisplay = () => {
+    var image;
       return <>
+
        <IonGrid>
          <IonRow>
 
              {goals.filter(rawGoal => (rawGoal.userId == context.currentUser?.id)).map(goal => (
                  <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
                      <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
+                       {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
+                      <img
+                      src={goal.endGoal == "Lose Weight" ? TrendingDown : goal.endGoal == "Gain Weight" ? TrendingUp : Equal}
+                      alt="Recipe Image"
+                      style={{
+                      width: "100%",
+                      // maxHeight: "400px",
+                      // objectFit: "cover",
+                      }}
+                      />
                          <IonCardHeader>
                              <IonCardTitle>{goal.endGoal}</IonCardTitle>
                              <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
@@ -143,7 +160,38 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
       </>
     }
     
-  
+    if (goals.length < 1) {
+      return (
+        <Router history={history}>
+        <Switch>
+          <IonApp>
+            <SideBar />
+            <IonPage className="ion-page" id="main-content">
+              <Header/>
+              <IonContent className="ion-padding">
+                      <IonCardTitle>You have no goals!</IonCardTitle> 
+
+                      <Link to="/mygoals/add">
+                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                    <IonFabButton>
+                      <IonIcon icon={add} />
+                    </IonFabButton>
+                  </IonFab>
+                  </Link>
+
+                <Link to="/goals">
+                <IonButton>
+                Return to Dashboard 
+              </IonButton>
+              </Link>
+              </IonContent>
+            </IonPage>
+          </IonApp>
+        </Switch>
+      </Router>
+      );
+    }
+    else{
     return (
         <Router history={history}>
             <Switch>
@@ -152,11 +200,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
            <IonPage className="ion-page" id="main-content">
            <Header/>
             <Link to="/goals">
-            <IonButton>
-              Return to Dashboard 
-            </IonButton>
             </Link>
-        <h1>Here you are able to view your goals!</h1>
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Goals</h1></IonText>
                  {userGoalDisplay()}
@@ -185,6 +229,9 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                     </IonFabButton>
                   </IonFab>
                   </Link>
+                  <IonButton>
+              Return to Dashboard 
+            </IonButton>
             </IonContent>
           </IonPage>
         </IonApp>
@@ -192,7 +239,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     </Router>
     );
 }
-
+}
 export default MyGoals;
 
 
