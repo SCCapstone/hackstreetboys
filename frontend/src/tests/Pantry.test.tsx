@@ -8,3 +8,13 @@
 
 //     userEvent.click(screen.getByText("Biscuit Facts"));
 // });
+
+import React from 'react';
+import Adapter from "enzyme-adapter-react-16";
+import { configure, shallow } from 'enzyme';
+import MyPantry from '../pages/myPantry';
+// import Link from './Link.react';
+
+it('Pantry Renders', () => {
+    shallow(<MyPantry />);
+})
