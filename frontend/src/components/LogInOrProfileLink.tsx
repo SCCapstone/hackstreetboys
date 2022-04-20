@@ -35,7 +35,7 @@ export const LogInOrProfileLink: React.FC = () => {
     }
 
     return (
-        <IonButton color='secondary' routerLink={`/login`} slot="end">
+        <IonButton id="login-button" color='secondary' routerLink={`/login`} slot="end">
         Log In
     </IonButton>
     );
