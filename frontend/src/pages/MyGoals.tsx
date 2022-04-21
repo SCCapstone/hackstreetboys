@@ -178,12 +178,6 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                     </IonFabButton>
                   </IonFab>
                   </Link>
-
-                <Link to="/goals">
-                <IonButton>
-                Return to Dashboard 
-              </IonButton>
-              </Link>
               </IonContent>
             </IonPage>
           </IonApp>
@@ -229,9 +223,12 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                     </IonFabButton>
                   </IonFab>
                   </Link>
+
+                  <Link to ="/goals">
                   <IonButton>
               Return to Dashboard 
             </IonButton>
+            </Link>
             </IonContent>
           </IonPage>
         </IonApp>
