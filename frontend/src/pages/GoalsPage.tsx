@@ -56,6 +56,7 @@ const GoalsPage = () => {
     rating: 0
   }]);
   useEffect(() => {
+    //fetch('https://api.fridger.recipes/v1/recipe/')
     fetch('https://api.fridger.recipes/v1/recipe/')
     .then(res => res.json())
     .then(data => setAllRecipes(data))

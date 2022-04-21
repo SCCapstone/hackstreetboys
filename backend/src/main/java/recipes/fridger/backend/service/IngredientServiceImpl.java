@@ -112,22 +112,22 @@ public class IngredientServiceImpl implements IngredientService{
             if(dto.getName() != null &&  dto.getName().length() > 0){
                 i.setName(dto.getName());
             }
-            if(dto.getCalories() != null && dto.getCalories() >= 0){
+            if(dto.getCalories() != null && dto.getCalories() > 0){
                 i.setCalories(dto.getCalories());
             }
-            if(dto.getCarbohydrates() != null && dto.getCarbohydrates() >= 0){
+            if(dto.getCarbohydrates() != null && dto.getCarbohydrates() > 0){
                 i.setCarbohydrates(dto.getCarbohydrates());
             }
-            if(dto.getProtein() != null && dto.getProtein() >= 0){
+            if(dto.getProtein() != null && dto.getProtein() > 0){
                 i.setProtein(dto.getProtein());
             }
-            if(dto.getFat() != null && dto.getFat() >= 0){
+            if(dto.getFat() != null && dto.getFat() > 0){
                 i.setFat(dto.getFat());
             }
             if(dto.getAlcohol() != null){
                 i.setAlcohol(dto.getAlcohol());
             }
-            if(dto.getCost() != null && dto.getCost() >= 0){
+            if(dto.getCost() != null && dto.getCost() > 0){
                 i.setCost(dto.getCost());
             }
             if(dto.getImgSrc() != null &&  dto.getImgSrc().length() > 0){

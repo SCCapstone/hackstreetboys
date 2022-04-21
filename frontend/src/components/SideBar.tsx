@@ -38,7 +38,7 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
           
-          <IonItem button onClick={() => History.push('/recipes')} >
+          <IonItem data-testid="recipe-link" button onClick={() => History.push('/recipes')} >
           <IonIcon icon={restaurantSharp} slot="start"/>
             <IonLabel>
               Recipes
