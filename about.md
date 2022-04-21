@@ -1,7 +1,7 @@
 
 # About HackStreetBoys!
 
-## Adam Federiksen
+## Adam Frederiksen
 - ![adam](/Documentation/branding/adam.png)
 - Project Manager
 - [@afrederiksen](https://github.com/afrederiksen)
