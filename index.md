@@ -17,12 +17,12 @@ You can also log a goal of yours through our goals feature. This app wants to en
 
 We hope this app helps you with all your eating and goal tracking needs!
 ## Getting Started
-1. Go to https://fridger.recipes/
-1. Feel free to use the app without an account, or create an account for more options & features!
-1. Upon creating an account, make sure to click the verification link that was sent to your email so that you can log in.
-1. The hamburger menu on the top left can take you to many pages!
-1. Browse/add recipes, ingredients, reviews, goals...
-1. Add ingredients to your pantry to see what you can make this evening!
+* Go to https://fridger.recipes/
+* Feel free to use the app without an account, or create an account for more options & features!
+* Upon creating an account, make sure to click the verification link that was sent to your email so that you can log in.
+* The hamburger menu on the top left can take you to many pages!
+* Browse/add recipes, ingredients, reviews, goals...
+* Add ingredients to your pantry to see what you can make this evening!
 ## Take a look at Fridger by watching our demo!
 [Fridger Final Demo](https://youtu.be/dtmCk0hUBsU)
 ## About Us
