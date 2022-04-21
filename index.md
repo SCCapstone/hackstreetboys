@@ -19,7 +19,7 @@ We hope this app helps you with all your eating and goal tracking needs!
 ## About Us
 [About Page](./about.html)
 ## Our Stack
-![stack](/Documentation/branding/tech_stack.png)
+![stack](/Documentation/branding/stack.png)
 ## Details, Specifications, External Requirements
 In order to build this project you first have to install:
 * [Node.js](https://nodejs.org/en/)
