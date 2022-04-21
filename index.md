@@ -8,7 +8,7 @@ Upon creating an account, you have more functionality! You will be welcomed by a
 ![loggedin](/Documentation/branding/loggedin.png)
 You can leave reviews, ratings, and add recipes to your favorites!
 One of our favorite highlights is the Pantry feature. Here you can load ingredients that already in the app (you may add the the ingridents section if they are not already there) into your pantry! If you have the ingredients to create a recipe that appears in the app, it will appear on the right! This helps eliminate the stress of deciding what to cook. If you have your own recipe, you can add it to the app for your future use and for others to discover!
-![pantry](/Documentation/branding/pantry.png)
+![pantry-updated](/Documentation/branding/pantry.png)
 You can also log a goal of yours through our goals feature. This app wants to encourage you to stick with the reason you've decided to join the app. Once you create a goal, it will always appear! You may create new goals if you change your mind or want to reach smaller goals along the way. This allows you to see your history of where you were and where you're going!
 We hope this app helps you with all your eating and goal tracking needs!
 ## Take a look at Fridger by watching our demo!
