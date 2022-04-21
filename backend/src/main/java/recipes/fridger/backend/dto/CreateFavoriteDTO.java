@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @NotNull
 public class CreateFavoriteDTO {
+    //creates a favorite
 
     @NotNull
     private Long userId;

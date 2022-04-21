@@ -1,3 +1,9 @@
+/*
+  This file contains the functionality of displaying a user's list of favorites.
+  If a recipe is favorited by a user, then the user can see their list of favorites! This file provides that
+  functionality of displaying the list of favorites, specific to a user
+*/
+
 import './Favorites.css';
 import {
   IonApp,
@@ -27,6 +33,7 @@ import {Favorite} from '../models/Favorite';
 import axios from 'axios';
 import Context from '../components/Context';
 import { toNumber } from 'lodash';
+import RecipeBanner from '../assets/fridger_banner.png'
 
 interface FavoriteExample {
   favorite: Favorite;
@@ -158,20 +165,17 @@ function Favorites() {
       (context.currentUser) ? (
           <>
       <h1>A log of all your favorite recipes!</h1>
-      <IonCard>
       <IonRow>
           {favorites.map(fav =>
                         <IonCol sizeLg="3" sizeSm='1' key={fav.id}>
                         {/* <Link to={`/favorite/${favorite.recipeId}`}> */}
                         <IonCard button routerDirection="forward" routerLink={`/favorite/${fav.id}`}>
-                          <img src={recipes.find(rec => rec.id === fav.recipeId)?.imgSrc ? recipes.find(rec => rec.id === fav.recipeId)?.imgSrc : "https://picsum.photos/1500/800"} alt="ion"/>
-                            <IonCardHeader>
+                        <img src={recipes.find(rec => rec.id === fav.recipeId)?.imgSrc ? recipes.find(rec => rec.id === fav.recipeId)?.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion" />                            <IonCardHeader>
                               <IonCardTitle>{recipes.find(rec => rec.id === fav.recipeId)?.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipes.find(rec => rec.id === fav.recipeId)?.authorName ? (recipes.find(rec => rec.id === fav.recipeId)?.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipes.find(rec => rec.id === fav.recipeId)?.rating ? ("Rating: " + recipes.find(rec => rec.id === fav.recipeId)?.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
-                              <IonLabel>Time: {recipes.find(rec => rec.id === fav.recipeId)?.totalTime}m</IonLabel>
                               <IonLabel>Time: {Math.floor(recipe.totalTime / 60) != 0 ? Math.floor(recipe.totalTime / 60) + "h" : ""} {recipe.totalTime % 60}m</IonLabel>
                             </IonCardContent>
                           </IonCard>
@@ -179,7 +183,6 @@ function Favorites() {
             </IonCol>
           )}
         </IonRow>
-        </IonCard>
         </>)
      :
        ( <>

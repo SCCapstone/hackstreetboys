@@ -137,7 +137,7 @@ function Home() {
                           <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
-                              <IonCardTitle>{recipe.title}</IonCardTitle>
+                              <IonCardTitle data-testid="latest-recipe-title">{recipe.title}</IonCardTitle>
                               <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>

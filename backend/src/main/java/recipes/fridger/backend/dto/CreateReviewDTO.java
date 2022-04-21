@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @NotNull
 public class CreateReviewDTO {
+    //creates a review
 
     private Long authorId;
 

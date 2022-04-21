@@ -16,6 +16,8 @@ import lombok.Data;
 @Entity
 @Table(name = "goals")
 public class Goal {
+    //fields for a goal with the id being automatically generated.
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

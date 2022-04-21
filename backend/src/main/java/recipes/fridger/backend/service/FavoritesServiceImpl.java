@@ -16,6 +16,7 @@ public class FavoritesServiceImpl implements FavoritesService{
     @Autowired
     private Favorites favorites;
 
+    //creates favorite by passing in dto and sets all values
     @Override
     public void createFavorite(CreateFavoriteDTO dto) {
         Optional<Favorite> favoriteTest = checkIfExists(dto.getUserId(),dto.getRecipeId());
@@ -30,6 +31,7 @@ public class FavoritesServiceImpl implements FavoritesService{
         }
     }
 
+    //deletes favorites by id
     @Transactional
     @Override
     public void deleteFavorite(Long id) {
@@ -40,6 +42,7 @@ public class FavoritesServiceImpl implements FavoritesService{
         }
     }
 
+    //returns favorite by id
     @Transactional
     @Override
     public Favorite getFavoriteById(Long id) {
@@ -47,12 +50,14 @@ public class FavoritesServiceImpl implements FavoritesService{
         return favorite.isPresent() ? favorite.get() : null;
     }
 
+    //returns all favorites matching params
     @Transactional
     @Override
     public Iterable<Favorite> getFavorites(Long id, Long userId, Long recipeId) {
         return favorites.find(id, userId, recipeId);
     }
 
+    //check if there are favorites associated with a user and recipe
     @Transactional
     @Override
     public Optional<Favorite> checkIfExists(Long userId, Long recipeId) {

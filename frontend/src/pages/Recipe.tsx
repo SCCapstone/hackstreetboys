@@ -207,7 +207,7 @@ function RecipePage() {
           console.log("Resulting data" + res.data);
           if (res.status == 200) {
             console.log("Status is " + res.status);
-            navigate("/favorites");
+            history.push("/favorites");
             //history.push(`/favorites/recipe/${id}`);
           }
         });

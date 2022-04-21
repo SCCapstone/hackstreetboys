@@ -12,6 +12,7 @@ import lombok.Data;
 @Data
 @NotNull
 public class CreateGoalDTO {
+    //creates a goal
 
     @Size(min = 0, max = 255)
     private String endGoal;

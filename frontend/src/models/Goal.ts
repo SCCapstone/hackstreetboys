@@ -1,3 +1,7 @@
+/*
+  The model; variables for a goal
+*/
+
 export interface Goal{
     id: number;
     endGoal: string;

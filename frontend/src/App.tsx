@@ -58,6 +58,7 @@ import EditIngredient from "./pages/EditIngredient";
 import Review from './pages/RecipeReviews';
 import SpecificReview from './pages/ReviewOfRecipe';
 import myReviews from './pages/myReviews';
+import CheckEmail from './pages/CheckEmail';
 //const App: React.FC = () => (
   function App () {
 
@@ -73,7 +74,7 @@ import myReviews from './pages/myReviews';
 
         <Redirect to={{ pathname: '/login' }} />
       );
-    }
+  }
     return (
       <ContextProvider>
           <Router history={history}>
@@ -99,6 +100,8 @@ import myReviews from './pages/myReviews';
               <UserRoute path="/editprofile" component={EditProfile} />
               <UserRoute path="/mygoals/add" component={AddGoal} />
               <UserRoute path="/mygoals" component={MyGoals} />
+
+              <Route path="/checkemail" component={CheckEmail} />
               <Route path="/verify" component={Verify} />
               <Route path="/recipe/:id" component={Recipe} />
               <Route path="/recipe" component={Recipes} />

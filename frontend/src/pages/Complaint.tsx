@@ -1,3 +1,8 @@
+/*
+  This file contains the functionality of showing a complaint for a recipe.
+  If a complaint is added to a recipe, this file grabs it and displays it for its cooresponding recipe.
+*/
+
 import './myReviews.css';
 import {
     IonApp,

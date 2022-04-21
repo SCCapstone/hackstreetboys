@@ -1,4 +1,4 @@
-import './Verify.css';
+import './CheckEmail.css';
 
 import {
     IonApp,
@@ -16,6 +16,7 @@ import {
     IonRouterLink,
     IonRow,
     IonText,
+    IonTitle,
   } from '@ionic/react';
 
 import { Link, Router, Switch } from "react-router-dom";
@@ -28,47 +29,15 @@ import Context from '../components/Context';
 import React from 'react';
 import { verify } from 'crypto';
 import axios from 'axios';
+import RecipeBanner from '../assets/fridger_banner.png'
 
 const DOMAIN = "https://api.fridger.recipes/" 
 // const DOMAIN = "https://api.fridger.recipes/"
 
 //This is the page the email verifiction will send you to
-function Verify() {
+function CheckEmail() {
     const context = useContext(Context);
     
-    const queryParam = new URLSearchParams(window.location.search);
-    const code = queryParam.get("code");
-
-    let runIt = 0;
-    console.log(code);
-
-    let hasChanged = false;
-
-    interface retString {
-        success: boolean
-    }
-
-    //D7dsErtnwX2OhXKPSCNtKquf57WLGL53ILolnoEFRCgPIfVaY34UqFjyjbswsvsQ
-
-    function reDirect(ms: number) {
-        return new Promise( resolve => setTimeout(resolve, ms) );
-    }
-
-    const [stringBody, setStringBody] = React.useState<retString>({
-        success: false
-    });
-    // useEffect(() => {
-    // The link you are emailed will send you here
-    const getVerified = () => {
-        fetch(DOMAIN+`v1/auth/verify?code=${code}`)
-        .then(data => data.json())
-        .then(yo => setStringBody(yo));
-        console.log(stringBody)
-        
-    }
-    useEffect(() => {
-        getVerified();
-    }, [hasChanged])
 
     //this means verifiation is successful!
         return (
@@ -79,7 +48,13 @@ function Verify() {
                       <IonPage className="ion-page" id="main-content">
                       <Header/>
                       <IonContent className="ion-padding">
-                        <h1>Thank you for verifiying your account! Your account has now been activated!</h1>                                               
+                          <IonText>
+                          <img src={ RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
+                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Thank you for registering an account with Fridger!</h1></IonText>
+                
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Please check your email and click the link to verify it!</h2></IonText>
+                            <IonText><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>We're looking forward to having you!</h2></IonText>
+                          </IonText>                                     
                       </IonContent>
                       </IonPage>
                     </IonApp>
@@ -89,4 +64,4 @@ function Verify() {
     
 }
 
-export default Verify;
+export default CheckEmail;

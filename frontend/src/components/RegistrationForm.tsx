@@ -51,7 +51,7 @@ const RegistrationForm: React.FC = () => {
                 `https://api.fridger.recipes/v1/auth/register`,
 
                 //sending test
-                // 'http://localhost:8080/v1/auth/register',
+                // 'https://api.fridger.recipes/v1/auth/register',
                 body,
                 config
             ).then( res => {
@@ -59,7 +59,7 @@ const RegistrationForm: React.FC = () => {
                 if(res.status == 200) {
                     console.log("Status is " + res.status);
                 }
-                history.push('/login')
+                history.push('/checkemail')
             }).catch(e => {
                 setError(true);
                 console.error(e + ":\n" + (e as AxiosError)?.response?.data);

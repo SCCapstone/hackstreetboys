@@ -1,3 +1,7 @@
+/*
+  The model; variables for a review
+*/
+
 export interface Review{
     id: number,
     authorId: number,

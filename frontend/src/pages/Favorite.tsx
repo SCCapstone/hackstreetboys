@@ -1,3 +1,8 @@
+/*
+  This file contains the functionality of displaying a favorite.
+  If a favorited recipe is clicked on from the user's favorites list, then this file will be used to display it!
+*/
+
 import './Recipe.css';
 import { Router, Switch, useParams } from "react-router-dom";
 import history from '../History';

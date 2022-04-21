@@ -1,3 +1,7 @@
+/*
+  Not used.
+*/
+
 import './myReviews.css';
 
 import {

@@ -1,3 +1,9 @@
+/*
+  This file contains the functionality of displaying a user's list of goals. 
+  If a logged in user goes to their dashboard, then their goals, a list of their goals will appear.
+  This file provides that functionality of being able to view the list of goals a user has.
+*/
+
 import './MyGoals.css';
 import {
     IonApp,
@@ -19,12 +25,16 @@ import {
     IonLabel,
   } from '@ionic/react';
 
+  import Minus from '../assets/minus.png';
+  import Plus from '../assets/plus.png';
+  import Equal from '../assets/equals.png';
+  import Workout from '../assets/workout.png'
 
 import history from '../History';
 import React, { useContext, useEffect, useState } from 'react';
 //import { Router, Switch, Route, Link, useParams, RouteComponentProps, useHistory } from "react-router-dom";
 //import SideBar from '../components/SideBar';
-import { add, menuOutline } from 'ionicons/icons';
+import { add, menuOutline, trendingDown } from 'ionicons/icons';
 //import {Goal} from '../Goal';
 //import Header from '../components/Header';
 //import { routeParams } from './Profile';
@@ -75,7 +85,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
         userId: Number(context.currentUser?.id)
     }]);
    // const {id} = useParams<routeParams>();
-   
+
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
        //fetch('https://api.fridger.recipes/v1/user/goals/')
@@ -110,33 +120,78 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
    useEffect(() => {
     document.title = "My Goals";
   }, []);
-
    
+  
+  
   const userGoalDisplay = () => {
+    var image;
       return <>
+
        <IonGrid>
          <IonRow>
-            {goals.map(goal => 
-              <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
-              <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
-                <IonCardHeader>
-                  <IonCardTitle>{goal.endGoal}</IonCardTitle>
-                  <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
-                </IonCardHeader>
-                <IonCardContent>
-                  <IonLabel>Calories {goal.calories} | Carbs {goal.carbohydrates}</IonLabel><br/>
-                  <IonLabel>Fat: {goal.fat} | Protein {goal.protein}</IonLabel>
-                </IonCardContent>
-              </IonCard>
-            </IonCol>
-            )}
+
+             {goals.filter(rawGoal => (rawGoal.userId == context.currentUser?.id)).map(goal => (
+                 <IonCol sizeLg="3" sizeSm='1' key={goal.id}>
+                     <IonCard button routerDirection="forward" routerLink={`/goal/${goal.id}`}>
+                       {/* <img src="https://picsum.photos/1000/250" alt="Recipe Image" style={{ width: '100%', maxHeight: 350, objectFit: 'cover' }} /> */}
+                      <img
+                      src={goal.endGoal == "Lose Weight" ? Minus : goal.endGoal == "Gain Weight" ? Plus : Equal}
+                      alt="Recipe Image"
+                      style={{
+                      width: "100%",
+                      // maxHeight: "400px",
+                      // objectFit: "cover",
+                      }}
+                      />
+                         <IonCardHeader>
+                             <IonCardTitle>{goal.endGoal}</IonCardTitle>
+                             <IonCardSubtitle>End goal weight {goal.goalWeight}</IonCardSubtitle>
+                         </IonCardHeader>
+                         <IonCardContent>
+                             <IonLabel>Calories {goal.calories} | Carbs {goal.carbohydrates}</IonLabel><br/>
+                             <IonLabel>Fat: {goal.fat} | Protein {goal.protein}</IonLabel>
+                         </IonCardContent>
+                     </IonCard>
+                 </IonCol>
+             ))}
             
           </IonRow>
         </IonGrid>
       </>
     }
     
-  
+    if (goals.length < 1) {
+      return (
+        <Router history={history}>
+        <Switch>
+          <IonApp>
+            <SideBar />
+            <IonPage className="ion-page" id="main-content">
+              <Header/>
+              <IonContent className="ion-padding">
+                      <IonCardTitle>You have no goals!</IonCardTitle> 
+
+                      <Link to="/mygoals/add">
+                  <IonFab vertical="bottom" horizontal="end" slot="fixed">
+                    <IonFabButton>
+                      <IonIcon icon={add} />
+                    </IonFabButton>
+                  </IonFab>
+                  </Link>
+
+                <Link to="/goals">
+                <IonButton>
+                Return to Dashboard 
+              </IonButton>
+              </Link>
+              </IonContent>
+            </IonPage>
+          </IonApp>
+        </Switch>
+      </Router>
+      );
+    }
+    else{
     return (
         <Router history={history}>
             <Switch>
@@ -145,11 +200,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
            <IonPage className="ion-page" id="main-content">
            <Header/>
             <Link to="/goals">
-            <IonButton>
-              Return to Dashboard 
-            </IonButton>
             </Link>
-        <h1>Here you are able to view your goals!</h1>
             <IonContent className="ion-padding">
                   <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Goals</h1></IonText>
                  {userGoalDisplay()}
@@ -178,6 +229,9 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
                     </IonFabButton>
                   </IonFab>
                   </Link>
+                  <IonButton>
+              Return to Dashboard 
+            </IonButton>
             </IonContent>
           </IonPage>
         </IonApp>
@@ -185,7 +239,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     </Router>
     );
 }
-
+}
 export default MyGoals;
 
 

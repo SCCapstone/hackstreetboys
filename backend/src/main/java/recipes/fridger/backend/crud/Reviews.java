@@ -1,3 +1,8 @@
+/*
+    Reviews crud:
+    four functions that are considered necessary to implement a persistent storage application
+ */
+
 package recipes.fridger.backend.crud;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;

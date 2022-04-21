@@ -12,6 +12,7 @@ import java.util.Date;
 
 @Data
 public class ReturnCaloriesDTO {
+    //returns calorie format
 
     private Long id;
 

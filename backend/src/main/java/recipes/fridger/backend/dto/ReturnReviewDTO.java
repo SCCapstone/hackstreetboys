@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.validation.constraints.*;
 @Data
 public class ReturnReviewDTO {
+    //returns review format
+
     private Long id;
 
     private Long authorId;

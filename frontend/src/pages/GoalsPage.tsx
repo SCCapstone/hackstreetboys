@@ -1,3 +1,8 @@
+/*
+  This file contains the functionality of the main goals page.
+  This file is what a logged in user sees if they go to the dashboard and goals page from the side menu.
+*/
+
 import './GoalsPage.css';
 import Chart from '../components/Chart'
 import LineChart from '../components/LineChart'
@@ -51,6 +56,7 @@ const GoalsPage = () => {
     rating: 0
   }]);
   useEffect(() => {
+    //fetch('https://api.fridger.recipes/v1/recipe/')
     fetch('https://api.fridger.recipes/v1/recipe/')
     .then(res => res.json())
     .then(data => setAllRecipes(data))

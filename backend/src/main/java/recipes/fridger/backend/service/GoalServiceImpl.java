@@ -16,6 +16,7 @@ public class GoalServiceImpl implements GoalService{
     @Autowired
     private Goals goals;
 
+    //create goal by passing in dto and set al values
     @Override
     public void createGoal(CreateGoalDTO dto) {
         Goal g = new Goal();
@@ -30,6 +31,7 @@ public class GoalServiceImpl implements GoalService{
         goals.save(g);
     }
 
+    //delete a goal by id
     @Transactional
     @Override
     public void deleteGoal(Long id) {
@@ -40,6 +42,7 @@ public class GoalServiceImpl implements GoalService{
         }
     }
 
+    //get a goal by id
     @Transactional
     @Override
     public Goal getGoalByID(Long id) {
@@ -47,6 +50,8 @@ public class GoalServiceImpl implements GoalService{
         return goal.isPresent() ? goal.get() : null;
     }
 
+
+    //get goals matching params
     @Transactional
     @Override
     public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight, Long userId) {

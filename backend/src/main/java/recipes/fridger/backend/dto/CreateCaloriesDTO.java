@@ -10,6 +10,7 @@ import lombok.Data;
 @Data
 @NotNull
 public class CreateCaloriesDTO {
+//creates a calorie
 
     @NotNull
     private Long userId;
