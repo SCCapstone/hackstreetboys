@@ -12,7 +12,7 @@ One of our favorite highlights is the Pantry feature. Here you can load ingredie
 You can also log a goal of yours through our goals feature. This app wants to encourage you to stick with the reason you've decided to join the app. Once you create a goal, it will always appear! You may create new goals if you change your mind or want to reach smaller goals along the way. This allows you to see your history of where you were and where you're going!
 We hope this app helps you with all your eating and goal tracking needs!
 ## Take a look at Fridger by watching our demo!
-[Fridger Demo - Placeholder Video](https://www.youtube.com/watch?v=z65AUrZuy1Y)
+[Fridger Final Demo](https://youtu.be/dtmCk0hUBsU)
 ## About Us
 [About Page](./about.html)
 ## External Requirements
