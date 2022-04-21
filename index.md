@@ -25,6 +25,7 @@ We hope this app helps you with all your eating and goal tracking needs!
 * Add ingredients to your pantry to see what you can make this evening!
 * Don't see an ingredient available to add in your pantry? Head to the ingredients page and add it to our database! Once added, it will be available to add to your pantry.
 * Add recipes to your favorites for your convenience.
+
 ## Take a look at Fridger by watching our demo!
 [Fridger Final Demo](https://youtu.be/dtmCk0hUBsU)
 ## About Us
