@@ -23,8 +23,10 @@ import recipes.fridger.backend.security.jwt.JwtUtils;
 import recipes.fridger.backend.security.services.UserDetailsImpl;
 import recipes.fridger.backend.service.UserService;
 
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -139,6 +141,15 @@ public class AuthController {
 //        }
 //    }
 
+    @PostMapping(path="/testEmail")
+    public String testEmail(@RequestBody @Valid String email) throws MessagingException, UnsupportedEncodingException {
+
+        //user must exist for this to work
+        User aeb30 = userService.getUserByEmail(email);
+        userService.sendVerificationEmail(aeb30,"https://fridger.recipes");
+        return "sent test email";
+
+    }
     @DeleteMapping(path = "/deleteUserAcct")
     public void deleteUser(@RequestBody @Valid String email) {
         if(userService.emailExistsPub(email)) {
