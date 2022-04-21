@@ -281,7 +281,7 @@ function RecipePage() {
     if (context.isAdmin) {
       return (
         <>
-          <Link to={`/complaint/${complaints.complaintId}`}>
+          <Link to={`/complaint/${id}`}>
             <IonButton color="danger" expand="full">
               See complaints about this recipe.
             </IonButton>
@@ -514,7 +514,7 @@ function RecipePage() {
                         <IonIcon icon={add} />
                       </IonFabButton>
                     </Link>
-                    <Link to={`/review/${recipe.id}`}>
+                    <Link to={`/review/recipe/${recipe.id}`}>
                       <IonButton>
                         <IonIcon
                           icon={openOutline}
