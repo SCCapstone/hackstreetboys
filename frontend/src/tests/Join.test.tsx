@@ -27,7 +27,7 @@ test('join renders', () => {
     const join = {button: 0}
     userEvent.click(screen.getByTestId('join-link'), join)
     //expect(screen.getByTestId('register')).toBeInTheDocument()
-    expect(screen.getByText(/REGISTER FOR A NEW ACCOUNT/i)).toBeInTheDocument()
+    expect(screen.getByText('REGISTER FOR A NEW ACCOUNT')).toBeInTheDocument()
     
     //expect(screen.getByTestId('header')).toBeInTheDocument()
     //expect(screen.getByText(/Cancel/i)).toBeInTheDocument()
