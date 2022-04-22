@@ -15,6 +15,6 @@ public interface GoalService {
     public Goal getGoalByID(Long id);
 
     //get all goals matching params
-    public Iterable<Goal> getGoals(Long id, String endGoal, Double calories, Double carbs, Double protein, Double fat, Double currWeight, Double goalWeight, Long userId);
+    public Iterable<Goal> getGoals(Long id, String endGoal, Integer calories, Integer carbs, Integer protein, Integer fat, Double currWeight, Double goalWeight, Long userId);
 
 }
