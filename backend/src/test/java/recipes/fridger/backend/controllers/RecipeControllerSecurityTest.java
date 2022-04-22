@@ -1,37 +1,28 @@
 package recipes.fridger.backend.controllers;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.With;
 import org.assertj.core.api.Assertions;
-import org.checkerframework.checker.units.qual.C;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import recipes.fridger.backend.controller.RecipeController;
@@ -44,7 +35,7 @@ import recipes.fridger.backend.service.UserService;
 import java.util.concurrent.ThreadLocalRandom;
 @SpringBootTest
 @AutoConfigureMockMvc
-public class RecipeControllerTest {
+public class RecipeControllerSecurityTest {
     @Autowired
     MockMvc mockMvc;
 
@@ -58,13 +49,17 @@ public class RecipeControllerTest {
     ObjectMapper mapper;
 
     @Test
+    public void contextLoads() throws Exception {
+        assertThat(userService).isNotNull();
+    }
+    @Test
     public void recipeServiceContextLoads() {
         Assertions.assertThat(recipeService).isNotNull();
     }
     //Setup Test Data
     Recipes recipes;
     String title = "Toasty Crunch";
-    Long author = 1L;
+    Long author = 123L;
     String description = "Description of X192918";
     String body = "Body of X192918";
     String imgSrc = "https://assets.apf.cloud/img/fridger_banner.png";
@@ -80,12 +75,10 @@ public class RecipeControllerTest {
 
     //Security Tests
     @Test
-    @WithMockUser
-    public void createRecipeAsUser() throws Exception {
+    public void createRecipeAsNonUser() throws Exception {
         //Create Pantry
         Recipe r = new Recipe(); //this will generate random id
-        r.setId(123L);
-        r.setAuthor(123);
+        r.setAuthor(123L);
         r.setAuthorName("James");
         r.setTitle(title);
         r.setAuthor(author);
@@ -102,21 +95,20 @@ public class RecipeControllerTest {
         r.setRating(rating);
         r.setTags(tags);
         r.setIngredientIds(ingredientIds);
-        when(recipeService.getRecipe(123L)).thenReturn(r);
+
         this.mockMvc.perform(
                 post("http://localhost:8080" + "/v1/recipe/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(r))
-        ).andExpect(status().isOk());
+        ).andExpect(status().isUnauthorized());
     }
     @Test
-    @WithMockUser
-    public void deleteRecipeAsUser() throws Exception {
+    public void deleteRecipeAsNonUser() throws Exception {
         //Create Pantry
         this.mockMvc.perform(
-                delete("http://localhost:8080" + "/v1/recipe/123")
+                delete("http://localhost:8080" + "/v1/recipe/4")
                         .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+        ).andExpect(status().isUnauthorized());
     }
 
 

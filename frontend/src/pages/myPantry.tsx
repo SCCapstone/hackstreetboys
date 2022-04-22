@@ -53,7 +53,7 @@ import { remove } from 'lodash';
 let fruits2 = [["apple", "2"], ["banana", "3"], ["orange", "4"]];
 
 const DOMAIN = "https://api.fridger.recipes"
-// const DOMAIN = "http://localhost:8080"
+// const DOMAIN = "https://api.fridger.recipes"
 
 let refresh: number = 1;
 
@@ -258,10 +258,15 @@ function MyPantry() {
       console.log("Incrementing by 1 " + newPan.ingredientName)
       console.log(newPan);
       axios.put(DOMAIN + '/v1/user/pantry/increase/' + newPan.id,
+        newPan.id,
         config
       )
-        .then(response => { console.log(response); }
-        );
+        .then(response => { 
+          console.log(response); 
+        }).catch(error => {
+          console.error("error: "+error);
+          console.error(newPan);
+        });
       //console.log(response);)
     } else { //If Pantry does not include item
       console.log("Adding Fresh " + newPan.ingredientName)
@@ -299,15 +304,23 @@ function MyPantry() {
     if (containsPantryItem(removePan, pan)) {
       console.log(removePan);
       if (removePan.numIngredient > 1) {
-        axios.put(DOMAIN + '/v1/user/pantry/decrease/' + removePan.id, config)
-          .then(response => { console.log(response); }
-          );
+        axios.put(DOMAIN + '/v1/user/pantry/decrease/' + removePan.id,
+          removePan.id,
+          config)
+          .then(response => { 
+            console.log(response); 
+          }).catch(error => {
+            console.error("something went wrong", error);
+            console.error(removePan);
+          });
       }
       else { //pan.numIngredient == 1
         axios.delete(DOMAIN + '/v1/user/pantry/' + removePan.id,
-          config)
-          .then(response => { console.log(response); }
-          );
+          config
+          )
+          .then(response => { 
+            console.log(response); 
+          });
       }
 
       //console.log(response);)
