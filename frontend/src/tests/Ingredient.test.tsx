@@ -12,15 +12,12 @@ import App from "../App"
 import Ingredients from "../pages/Ingredients";
 import Context, {useGlobalContext} from "../components/Context";
 
-test('going to individual ingredient view', () => {
+test('going to ingredient view', () => {
 
-    render(<Ingredients />);
-
-    // Clicks through to registration
-    userEvent.click(screen.getByText("Pasta Sauce"));
-
-    // Checks for the login label at the top of the expected screen
-    expect(screen.getByText("One serving of pasta sauce contains")).toBeInTheDocument()
-
+    render(<App />);
+    userEvent.click(screen.getByTestId("menuIng"));
+    expect(screen.getByTestId('carbs')).toBeInTheDocument();
+  
 });
+
 

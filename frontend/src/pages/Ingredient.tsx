@@ -131,7 +131,7 @@ function IngredientPage(this: any) {
                             <IonCard style={{height:"400px"}}>
                                 <img src={ingredient.imgSrc}
                                      style={{width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}}/>
-                                <IonCardContent>
+                                <IonCardContent data-testid='individual-ing'>
                                     <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/>
                                     </h1>
                                 </IonCardContent>

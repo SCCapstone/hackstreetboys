@@ -134,7 +134,7 @@ function Home() {
                     {recipes.sort((a,b) => b.id - a.id).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
-                          <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
+                          <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`} data-testid='recipe-card-home'>
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle data-testid="latest-recipe-title">{recipe.title}</IonCardTitle>
