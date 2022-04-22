@@ -210,6 +210,7 @@ public class UserController {
         Goals are an aspect of user, controls the data flow for goals.
      */
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @PostMapping(path = "/goal")
     public ResponseEntity<String>
     createGoal(@RequestBody @Valid CreateGoalDTO g) {
@@ -225,6 +226,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @DeleteMapping(path = "/goal/{id}")
     public ResponseEntity<String> deleteGoal(@PathVariable Long id) {
         try {
@@ -238,6 +240,7 @@ public class UserController {
         }
     }
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(path = "/goals")
     public @ResponseBody Iterable<Goal>
     getGoals(@RequestParam(required = false) Long id,
@@ -256,6 +259,7 @@ public class UserController {
         }
 
 
+    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(path = "/goal/{goalId}")
     public @ResponseBody Goal
     getGoalByID(@PathVariable Long goalId)
