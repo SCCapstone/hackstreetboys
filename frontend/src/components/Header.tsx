@@ -16,7 +16,7 @@ export const Header: React.FC = () => {
     </IonMenuToggle>
     <IonBackButton/>
   </IonButtons>
-  <Link to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}><IonTitle><span style={{ color:"#1b79b7", fontWeight:"bold" }}>F</span>ridger</IonTitle></Link>
+  <Link to="/" style={{ textDecoration: 'inherit', color: 'inherit' }} data-testid='fridger-home-link'><IonTitle><span style={{ color:"#1b79b7", fontWeight:"bold" }}>F</span>ridger</IonTitle></Link>
   <LogInOrProfileLink 
 />
 </IonToolbar>
