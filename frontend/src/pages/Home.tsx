@@ -115,13 +115,13 @@ function Home() {
         <Router history={history}>
             <Switch>
                 <IonApp>
-    <SideBar />
+    <SideBar data-testid='hamburger'/>
     <IonPage className="ion-page" id="main-content">
-      <Header/>
+      <Header data-testid='header'/>
       <IonContent className="ion-padding">
         {
           (context.currentUser) ?
-          <h1>Welcome back, {context.currentUser.name}!</h1>
+          <h1 data-testid='welcome'>Welcome back, {context.currentUser.name}!</h1>
           : <h1>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
         }
 
@@ -203,7 +203,7 @@ function Home() {
                     // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                     <p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>
-                    :<p><Link to="/login">Login</Link> to see your goals!</p>}
+                    :<p><Link to="/login" data-testid='loginGoals'>Login</Link> to see your goals!</p>}
                     
                   <h1>Your Favorites</h1>
                   {(favorites.length > 0 && context.currentUser !== undefined) ?

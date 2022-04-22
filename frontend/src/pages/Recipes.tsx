@@ -108,7 +108,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
           <IonPage className="ion-page" id="main-content">
           <Header />
             <IonContent className="ion-padding">
-            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Recipes</h1></IonText>
+            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }} data-testid='recipesTitle'>Recipes</h1></IonText>
                   <IonGrid>
                     <IonRow>
                         <IonCol>

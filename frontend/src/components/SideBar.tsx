@@ -12,7 +12,7 @@ const SideBar: React.FC = () => {
   const context = useContext(Context);
 
     return (
-<IonMenu content-id="main-content">
+<IonMenu content-id="main-content" data-testid='hamburgermenu'>
     <IonHeader>
       <IonToolbar color="primary">
         <IonTitle>Fridger</IonTitle>
@@ -31,7 +31,7 @@ const SideBar: React.FC = () => {
         </IonListHeader>
         <IonMenuToggle auto-hide="false">
 
-          <IonItem button onClick={() => History.push('/')} >
+          <IonItem button onClick={() => History.push('/')} data-testid='menuHome'>
           <IonIcon icon={home} slot="start"/>
             <IonLabel>
               Home
@@ -45,21 +45,21 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/ingredients')} >
+          <IonItem button onClick={() => History.push('/ingredients')} data-testid='menuIng' >
           <IonIcon icon={nutritionSharp} slot="start"/>
             <IonLabel>
               Ingredients
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/goals')} >
+          <IonItem button onClick={() => History.push('/goals')} data-testid='menuGoals'>
           <IonIcon icon={person} slot="start"/>
             <IonLabel>
               Dashboard and Goals
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/mypantry')} >
+          <IonItem button onClick={() => History.push('/mypantry')} data-testid='menuPan'>
           <IonIcon icon={fastFoodSharp} slot="start"/>
             <IonLabel>
               My Pantry
@@ -73,7 +73,7 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem> */}
 
-          <IonItem button onClick={() => History.push('/favorites')} >
+          <IonItem button onClick={() => History.push('/favorites')} data-testid='menuFavs'>
           <IonIcon icon={heartSharp} slot="start"/>
             <IonLabel>
               My Favorites

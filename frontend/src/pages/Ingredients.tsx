@@ -110,7 +110,7 @@ function Ingredients() {
                     <IonPage className="ion-page" id="main-content">
                         <Header />
                         <IonContent className="ion-padding">
-                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Ingredients</h1></IonText>
+                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }} data-testid='ingsTitle'>Ingredients</h1></IonText>
                             <IonGrid>
                                 <IonRow>
                                     <IonCol>

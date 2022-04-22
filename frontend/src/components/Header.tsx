@@ -17,7 +17,8 @@ export const Header: React.FC = () => {
     <IonBackButton/>
   </IonButtons>
   <Link to="/" style={{ textDecoration: 'inherit', color: 'inherit' }}><IonTitle><span style={{ color:"#1b79b7", fontWeight:"bold" }}>F</span>ridger</IonTitle></Link>
-  <LogInOrProfileLink />
+  <LogInOrProfileLink 
+/>
 </IonToolbar>
 </IonHeader>);
 }
