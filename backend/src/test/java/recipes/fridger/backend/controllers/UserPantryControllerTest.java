@@ -8,7 +8,6 @@ import lombok.With;
 import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
@@ -50,7 +49,7 @@ import java.util.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserPantryControllerTest {
 
     @Autowired
     MockMvc mockMvc;

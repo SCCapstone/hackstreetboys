@@ -14,7 +14,7 @@ import Recipes from "../pages/Recipes";
 import axios from "axios";
 
 describe('Recipe Renders', () => {
-    test('renders recipe', async () => {
+    test('renders recipes page', async () => {
       render(<App/>);
       userEvent.click(screen.getByTestId("recipe-link"));
     //   expect(screen.getByText('Recipes')).toBeInTheDocument();
