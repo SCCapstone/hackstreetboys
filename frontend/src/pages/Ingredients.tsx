@@ -110,11 +110,11 @@ function Ingredients() {
                     <IonPage className="ion-page" id="main-content">
                         <Header />
                         <IonContent className="ion-padding">
-                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Ingredients</h1></IonText>
+                            <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }} data-testid='ingsTitle'>Ingredients</h1></IonText>
                             <IonGrid>
                                 <IonRow>
                                     <IonCol>
-                                        <IonCard style={{marginTop:"30px", marginLeft:"10px", marginRight:"20px", padding:"25px"}}>
+                                        <IonCard style={{marginTop:"30px", marginLeft:"10px", marginRight:"20px", padding:"25px"}} data-testid='ing-card'>
                                             <IonSearchbar placeholder="Search Ingredients" onIonChange={e => e.detail.value ? setName(e.detail.value!) : setName("")} debounce={0} inputmode="search" search-icon={searchOutline}/>
 
                                             <IonItem>
@@ -126,7 +126,7 @@ function Ingredients() {
                                             </IonItem>
 
                                             <IonItem>
-                                                <IonLabel>Carbohydrates</IonLabel>
+                                                <IonLabel data-testid='carbs'>Carbohydrates</IonLabel>
                                                 <IonRange min={carbohydratesLower} max={carbohydratesUpper} value={carbohydrates} color="secondary" pin={true} onIonChange={e => setCarbohydrates(e.detail.value as number)}>
                                                     <IonLabel slot="start" >{carbohydratesLower}</IonLabel>
                                                     <IonLabel slot="end">{carbohydratesUpper}</IonLabel>

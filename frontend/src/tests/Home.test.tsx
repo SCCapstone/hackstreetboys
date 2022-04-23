@@ -1,3 +1,4 @@
+
 import { resolve } from "dns";
 import AddGoal from "../pages/AddGoal";
 import GoalsPage from "../pages/GoalsPage";
@@ -19,20 +20,28 @@ import { BASE_URL, fetchUsers } from "./utils";
 jest.mock("axios");
 
 // app.test.js
-test('goal app rendering/navigating', () => {
+test('home rendering by fridger', () => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
   
-    const goalshome = {button: 0}
-    userEvent.click(screen.getByTestId('loginGoals'), goalshome)
-  
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+    const fridger = {button: 0}
+    userEvent.click(screen.getByTestId('fridger-home-link'), fridger)
+    expect(screen.getByText(/Latest Recipes/i)).toBeInTheDocument()
 
-    const goalsmenu = {button: 0}
-    userEvent.click(screen.getByTestId('menuGoals'), goalsmenu)
+   
   
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+})
+
+test('home rendering by menu', () => {
+    render(<App />)
+    //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
+
+    const home = {button: 0}
+    userEvent.click(screen.getByTestId('menuHome'), home)
+    expect(screen.getByText(/Latest Recipes/i)).toBeInTheDocument()
+  
 })
 
 
   
+

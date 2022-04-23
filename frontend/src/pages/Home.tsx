@@ -115,14 +115,14 @@ function Home() {
         <Router history={history}>
             <Switch>
                 <IonApp>
-    <SideBar />
+    <SideBar data-testid='hamburger'/>
     <IonPage className="ion-page" id="main-content">
-      <Header/>
+      <Header data-testid='header'/>
       <IonContent className="ion-padding">
         {
           (context.currentUser) ?
-          <h1>Welcome back, {context.currentUser.name}!</h1>
-          : <h1>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
+          <h1 data-testid='welcome'>Welcome back, {context.currentUser.name}!</h1>
+          : <h1 data-testid='join-link'>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
         }
 
         <h1>Latest Recipes</h1>
@@ -134,7 +134,8 @@ function Home() {
                     {recipes.sort((a,b) => b.id - a.id).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
-                          <IonCard data-testid="recipe-card" button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
+
+                          <IonCard data-testid="recipe-card recipe-card-home" button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle data-testid="latest-recipe-title">{recipe.title}</IonCardTitle>
@@ -203,8 +204,7 @@ function Home() {
                     // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                     <p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>
-                    :<p data-testid="goal-link"><Link to="/login" >Login</Link> to see your goals!</p>}
-                    
+                    :<p data-testid="goal-link loginGoals"><Link to="/login" >Login</Link> to see your goals!</p>}                    
                   <h1>Your Favorites</h1>
                   {(favorites.length > 0 && context.currentUser !== undefined) ?
                   <IonGrid>

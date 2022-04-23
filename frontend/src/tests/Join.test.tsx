@@ -1,3 +1,4 @@
+
 import { resolve } from "dns";
 import AddGoal from "../pages/AddGoal";
 import GoalsPage from "../pages/GoalsPage";
@@ -19,20 +20,18 @@ import { BASE_URL, fetchUsers } from "./utils";
 jest.mock("axios");
 
 // app.test.js
-test('goal app rendering/navigating', () => {
+test('join renders', () => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
   
-    const goalshome = {button: 0}
-    userEvent.click(screen.getByTestId('loginGoals'), goalshome)
+    const join = {button: 0}
+    userEvent.click(screen.getByTestId('join-link'), join)
+    //expect(screen.getByTestId('register')).toBeInTheDocument()
+    expect(screen.getByText('REGISTER FOR A NEW ACCOUNT')).toBeInTheDocument()
+    
+    //expect(screen.getByTestId('header')).toBeInTheDocument()
+    //expect(screen.getByText(/Cancel/i)).toBeInTheDocument()
+   
   
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
-
-    const goalsmenu = {button: 0}
-    userEvent.click(screen.getByTestId('menuGoals'), goalsmenu)
-  
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
 })
 
-
-  
