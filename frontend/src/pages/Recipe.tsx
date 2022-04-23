@@ -225,7 +225,7 @@ function RecipePage() {
   const [ingredients, setIngredients] = React.useState<[Ingredient]>([
     {
       id: 1,
-      name: "",
+      name: "Recipe not found",
       calories: 0,
       carbohydrates: 0,
       protein: 0,
@@ -281,7 +281,7 @@ function RecipePage() {
     if (context.isAdmin) {
       return (
         <>
-          <Link to={`/complaint/${complaints.complaintId}`}>
+          <Link to={`/complaint/${id}`}>
             <IonButton color="danger" expand="full">
               See complaints about this recipe.
             </IonButton>
@@ -404,7 +404,10 @@ function RecipePage() {
                       <EmailIcon size={40} round />
                     </EmailShareButton>
                   </div>
-                  <h1>{recipe.title}</h1>
+                  <h1>{recipe.title
+                      ?  recipe.title
+                      : "Recipe not found"}</h1>
+
                   <h2>{recipe.description}</h2>
 
                   <h2>
@@ -514,7 +517,7 @@ function RecipePage() {
                         <IonIcon icon={add} />
                       </IonFabButton>
                     </Link>
-                    <Link to={`/review/${recipe.id}`}>
+                    <Link to={`/review/recipe/${recipe.id}`}>
                       <IonButton>
                         <IonIcon
                           icon={openOutline}
