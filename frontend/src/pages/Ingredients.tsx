@@ -178,7 +178,7 @@ function Ingredients() {
                                                     <IonCard style={{padding:"10px"}}>
                                                         <img src={searchedIngredient.imgSrc ? searchedIngredient.imgSrc : "https://picsum.photos/1500/800"} style={{ width: '50%', height: "200px", objectFit: 'scale-down', float: "right"}} />
                                                         <IonCardHeader>
-                                                            <IonCardTitle>{searchedIngredient.name}</IonCardTitle>
+                                                            <IonCardTitle data-testid="ingredient-name">{searchedIngredient.name}</IonCardTitle>
                                                             <IonCardSubtitle>{searchedIngredient.calories} kcal<br/></IonCardSubtitle>
                                                         </IonCardHeader>
                                                         <IonCardContent>

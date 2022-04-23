@@ -45,3 +45,66 @@ const tempData =       [
       rating: 4.2
     }
   ];
+
+test('individual recipe view', () => {
+
+  render(<App />);
+  userEvent.click(screen.getByTestId("recipe-link"));
+  userEvent.click(screen.getByText(/rating:/i));
+
+  expect(screen.getByText(/instructions/i)).toBeInTheDocument();
+  expect(screen.getByText(/report this recipe/i)).toBeInTheDocument();
+
+});
+
+test('guest add recipe review redirect', () => {
+
+  render(<App />);
+
+  userEvent.click(screen.getByTestId("recipe-link"));
+  userEvent.click(screen.getByText(/rating:/i));
+  userEvent.click(screen.getByTestId("new-recipe"));
+
+  expect(screen.getByText(/login/i)).toBeInTheDocument();
+
+});
+
+test('guest view recipe review', () => {
+
+  render(<App />);
+
+  userEvent.click(screen.getByTestId("recipe-link"));
+  userEvent.click(screen.getByText(/rating:/i));
+  userEvent.click(screen.getByText(/view more/i));
+
+  expect(screen.getByText(/return to recipes/i)).toBeInTheDocument();
+
+});
+
+test('guest report recipe redirect', () => {
+
+  render(<App />);
+
+  userEvent.click(screen.getByTestId("recipe-link"));
+  userEvent.click(screen.getByText(/rating:/i));
+  userEvent.click(screen.getByText(/report this recipe/i));
+
+  expect(screen.getByText(/login/i)).toBeInTheDocument();
+
+});
+
+
+test('guest favorite recipe redirect', () => {
+
+  render(<App />);
+
+  userEvent.click(screen.getByTestId("recipe-link"));
+  userEvent.click(screen.getByText(/rating:/i));
+
+  expect(screen.getByText(/report this/i)).toBeInTheDocument();
+
+  userEvent.click(screen.getByTestId("add-favorite"));
+
+  expect(screen.getByText(/register for/i)).toBeInTheDocument();
+
+});

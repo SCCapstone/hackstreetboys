@@ -143,7 +143,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                 <IonApp>
                     <SideBar />
                     <IonPage className="ion-page" id="main-content">
-                        <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Edit {ingredient.name}</h1></IonText>
+                        <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }} data-testid='edit-ingredient-label'>Edit {ingredient.name}</h1></IonText>
                         <Header/>
                         <IonContent>
                             <form onSubmit={ async () =>{ onSubmit(); props.history.push('/ingredient/'+id); history.go(0)}} >

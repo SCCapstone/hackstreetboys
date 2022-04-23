@@ -327,14 +327,16 @@ function RecipePage() {
                     style={{ paddingBottom: "1px", display: "flex" }}
                   >
                     <IonButton
+                      data-testid="add-favorite"
                       color="danger"
                       onClick={() => {
                         if (!context.loggedInState) history.push("/register");
                         else checkFav();
                       }}
+
                     >
                       {/* <IonButton onClick={() => { fav() }} > */}
-                      <IonIcon icon={heart} alt-text="add" />
+                      <IonIcon icon={heart} alt-text="add"/>
                     </IonButton>
                     <FacebookShareButton
                       url={"https://fridger.recipes/" + recipe.id}
@@ -451,7 +453,7 @@ function RecipePage() {
                     .map((ingredient) => (
                       <p>
                         -{" "}
-                        <a href={`../ingredient/${ingredient.id}`}>
+                        <a href={`../ingredient/${ingredient.id}`} data-testid="ingredient-link">
                           {ingredient.name}
                         </a>
                       </p>
@@ -498,7 +500,7 @@ function RecipePage() {
                           <Link to={`/review/${review.id}`}>
                             <IonCard button routerDirection="forward">
                               <IonCardHeader>
-                                <IonCardTitle>{review.feedback}</IonCardTitle>
+                                <IonCardTitle data-testid="review-title">{review.feedback}</IonCardTitle>
                                 <IonCardSubtitle>
                                   Rating: {review.rating}
                                   <br />
@@ -514,7 +516,7 @@ function RecipePage() {
                   <div style={{ display: "flex" }}>
                     <Link to={`/recipe/${recipe.id}/review`}>
                       <IonFabButton style={{ marginRight: "25px" }}>
-                        <IonIcon icon={add} />
+                        <IonIcon icon={add} data-testid="new-recipe"/>
                       </IonFabButton>
                     </Link>
                     <Link to={`/review/recipe/${recipe.id}`}>
