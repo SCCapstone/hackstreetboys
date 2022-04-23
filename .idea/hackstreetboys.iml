@@ -8,5 +8,6 @@
     <orderEntry type="library" name="@types/react" level="application" />
     <orderEntry type="library" name="@types/react-native" level="application" />
     <orderEntry type="library" name="@types/prettier" level="application" />
+    <orderEntry type="library" name="junit.jupiter" level="project" />
   </component>
 </module>

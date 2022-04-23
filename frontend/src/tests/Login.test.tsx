@@ -15,18 +15,14 @@ test('wrong login', () => {
     render(<App />);
 
     // Clicks through to registration
-    userEvent.click(screen.getByText("Register/Log In"));
+    userEvent.click(screen.getByTestId("login-for-favorites"));
 
     // Clicks through to login
-    userEvent.click(screen.getByText("Log in"));
-
-    // Clicks through to login with unsatisfactory credentials
-    userEvent.click(screen.getByText("Log In"));
-
-    // console.log(screen.getAllByText(/log in/i))
+    userEvent.click(screen.getByTestId("login-button"));
+    userEvent.click(screen.getByTestId("login-button"));
 
     // Checks for the login label at the top of the expected screen
-    expect(screen.getByText("Login")).toBeInTheDocument()
+    expect(screen.getByTestId("login-button")).toBeInTheDocument()
 
 });
 
@@ -36,13 +32,13 @@ test('password reset', () => {
     render(<App />);
 
     // Clicks through to login
-    userEvent.click(screen.getByText('Log In'));
+    userEvent.click(screen.getByTestId("login-for-favorites"));
     // Indicates that user wants to reset password
-    userEvent.click(screen.getByText('Forgot Password?'));
+    userEvent.click(screen.getByText(/forgot/i));
 
     // console.log(screen.getAllByText(/password reset/i))
 
     // Checks for the Password Reset label at the top of the expected screen
-    expect(screen.getByText("Password Reset")).toBeInTheDocument();
+    expect(screen.getByText(/request password reset/i)).toBeInTheDocument();
 
 });

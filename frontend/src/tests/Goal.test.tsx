@@ -19,19 +19,43 @@ import { BASE_URL, fetchUsers } from "./utils";
 jest.mock("axios");
 
 // app.test.js
-test('goal app rendering/navigating', () => {
+test('link goals login redirect', () => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
   
-    const goalshome = {button: 0}
-    userEvent.click(screen.getByTestId('loginGoals'), goalshome)
-  
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+    // const goalshome = {button: 0}
+    // userEvent.click(screen.getByTestId('loginGoals'), goalshome)
+    //
+    // expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+    //
+    // const goalsmenu = {button: 0}
+    // userEvent.click(screen.getByTestId('menuGoals'), goalsmenu)
+    //
+    // expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
 
-    const goalsmenu = {button: 0}
-    userEvent.click(screen.getByTestId('menuGoals'), goalsmenu)
-  
-    expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+    userEvent.click(screen.getByTestId('loginGoals'))
+
+    expect(screen.getByTestId("login-button")).toBeInTheDocument()
+})
+
+test('menu goals login redirect', () => {
+    render(<App />)
+    //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
+
+    // const goalshome = {button: 0}
+    // userEvent.click(screen.getByTestId('loginGoals'), goalshome)
+    //
+    // expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+    //
+    // const goalsmenu = {button: 0}
+    // userEvent.click(screen.getByTestId('menuGoals'), goalsmenu)
+    //
+    // expect(screen.getByText(/LOGIN/i)).toBeInTheDocument()
+
+
+    userEvent.click(screen.getByTestId('menuGoals'))
+
+    expect(screen.getByTestId("login-button")).toBeInTheDocument()
 })
 
 
