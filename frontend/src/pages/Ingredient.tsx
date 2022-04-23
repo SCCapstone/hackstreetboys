@@ -152,7 +152,7 @@ function IngredientPage(this: any) {
                                 </IonCardContent>
                                 <IonCardContent>
                                     {context.isAdmin ?
-                                        <Link to={`/ingredient/edit/${id}`}>
+                                        <Link to={`/ingredient/edit/${id}`} >
                                             <IonBadge style={{paddingLeft:"25px", paddingRight:"25px", padding:"10px"}} color="success">
                                                 Edit {ingredient.name}
                                             </IonBadge>

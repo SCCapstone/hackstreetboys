@@ -9,7 +9,7 @@ import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 
 import App from "../App"
-import Ingredients from "../pages/Ingredients";
+// import Ingredient from "../pages/Ingredient";
 import Context, {useGlobalContext} from "../components/Context";
 
 test('going to ingredient view', () => {
@@ -20,4 +20,23 @@ test('going to ingredient view', () => {
   
 });
 
+test('individual ingredient view', () => {
 
+    render(<App />);
+    userEvent.click(screen.getByTestId("menuIng"));
+    userEvent.click(screen.getByText(/g protein/i));
+
+    expect(screen.getByText(/estimated cost/i)).toBeInTheDocument();
+
+});
+
+test('related recipes', () => {
+
+    render(<App />);
+    userEvent.click(screen.getByTestId("menuIng"));
+    userEvent.click(screen.getByText(/g protein/i));
+    userEvent.click(screen.getByText(/by /i));
+
+    expect(screen.getByText(/type: /i)).toBeInTheDocument();
+
+});
