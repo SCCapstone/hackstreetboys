@@ -230,7 +230,7 @@ function Home() {
                   // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                 <p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>
-                :<p data-testid="favorite-link"><Link to="/login">Login</Link> to see your favorites!</p>}
+                :<p data-testid="favorite-link"><Link to="/login" data-testid="favorite-login">Login</Link> to see your favorites!</p>}
       </IonContent>
     </IonPage>
   </IonApp>
