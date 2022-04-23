@@ -85,11 +85,9 @@ function RecipeReviews() {
       <IonCard>
       <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Reviews</h1></IonText>
                   <IonGrid>
-                  <Link to="/recipes">
-            <IonButton >
-              Return to Recipes 
+                  <IonButton onClick={() => history.push(`/recipe/${id}`)}>
+              Return to Recipe 
             </IonButton>
-            </Link>
                     <IonRow>
                       {reviews.map(review =>
                         <IonCol sizeXs="12" sizeSm="6" key={review.id}>
@@ -97,7 +95,6 @@ function RecipeReviews() {
                          <Link to={`/review/recipe/${review.id}`}>
                           <IonCard button routerDirection="forward">
                             <IonCardHeader>
-
                               <IonCardTitle>{review.feedback}</IonCardTitle>
                               <IonCardSubtitle>Rating: {review.rating}</IonCardSubtitle>
                               <IonCardSubtitle>By: {review.authorName}</IonCardSubtitle>

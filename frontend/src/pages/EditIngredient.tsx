@@ -118,6 +118,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${context.token}`
                 }
             };
 

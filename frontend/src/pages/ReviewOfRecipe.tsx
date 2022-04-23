@@ -107,12 +107,13 @@ function SpecifiedRecipe(this: any) {
             <IonContent className="ion-padding">
               <IonCard>
                 <IonCardContent>
-            <IonButton onClick={() => history.push(`/recipe/${id}`)}>
+            <IonButton onClick={() => history.push(`/recipe/${review.recipeId}`)}>
               Back to recipe
             </IonButton>
-                    <h1>Review:{review.feedback}</h1>
-                    <h2>Rating:{review.rating}</h2>
-                    <h2>By: {review.authorId}</h2> 
+            <br/>
+                    <h1>Review: {review.feedback}</h1>
+                    <h2>Rating: {review.rating}</h2>
+                    <h2>By: {review.authorName}</h2> 
                 </IonCardContent>
               </IonCard>
               {adminDelete()}

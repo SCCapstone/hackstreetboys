@@ -15,7 +15,7 @@ test('wrong login', () => {
     render(<App />);
 
     // Clicks through to registration
-    userEvent.click(screen.getByTestId("login-for-favorites"));
+    userEvent.click(screen.getByTestId("favorite-login"));
 
     // Clicks through to login
     userEvent.click(screen.getByTestId("login-button"));
@@ -32,7 +32,7 @@ test('password reset', () => {
     render(<App />);
 
     // Clicks through to login
-    userEvent.click(screen.getByTestId("login-for-favorites"));
+    userEvent.click(screen.getByTestId("favorite-login"));
     // Indicates that user wants to reset password
     userEvent.click(screen.getByText(/forgot/i));
 

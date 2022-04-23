@@ -14,6 +14,7 @@ import {
     IonRow,
   } from '@ionic/react';
 import { Link, Router, Switch } from "react-router-dom";
+import userEvent from '@testing-library/user-event'
 import history from '../History';
 import SideBar from '../components/SideBar';
 import Header from '../components/Header';
@@ -37,6 +38,20 @@ describe('Homepage', () => {
     render(<App />);
     expect(screen.getByTestId("latest-recipe-title")).toBeInTheDocument();
     expect(screen.getByTestId("latest-recipe-title")).toHaveTextContent("Loading...");
+  });
+  test('loading goals', () => {
+    render(<App />);
+    expect(screen.getByTestId("goal-link")).toBeInTheDocument();
+    expect(screen.getByTestId("goal-link")).toHaveTextContent("Login to see your goals!");
+  });
+  test('loading favorites', () => {
+    render(<App />);
+    expect(screen.getByTestId("favorite-link")).toBeInTheDocument();
+    expect(screen.getByTestId("favorite-link")).toHaveTextContent("Login to see your favorites!");
+  });
+  test('latest recipe card click', async () => {
+    render(<App/>);
+    userEvent.click(screen.getByTestId("latest-recipe-author"));
   });
 });
 

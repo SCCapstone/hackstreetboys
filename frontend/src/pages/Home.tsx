@@ -134,11 +134,12 @@ function Home() {
                     {recipes.sort((a,b) => b.id - a.id).slice(0,4).map(recipe =>
                         <IonCol sizeLg="3" sizeSm='1' key={recipe.id}>
                            {/* <RecipeCard recipe={recipePassed} showLocation routerLink={`/recipe/${recipePassed.id}`} /> */}
-                          <IonCard button routerDirection="forward" routerLink={`/recipe/${recipe.id}`} data-testid='recipe-card-home'>
+
+                          <IonCard data-testid="recipe-card recipe-card-home" button routerDirection="forward" routerLink={`/recipe/${recipe.id}`}>
                           <img src={recipe.imgSrc ? recipe.imgSrc : RecipeBanner}  style={{ maxHeight:'250px', width:'100%', objectFit: 'cover'}} alt="ion"/>
                             <IonCardHeader>
                               <IonCardTitle data-testid="latest-recipe-title">{recipe.title}</IonCardTitle>
-                              <IonCardSubtitle>By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
+                              <IonCardSubtitle data-testid="latest-recipe-author">By {recipe.authorName ? (recipe.authorName) : "Anonymous"}</IonCardSubtitle>
                             </IonCardHeader>
                             <IonCardContent>
                               <IonLabel>{recipe.rating ? ("Rating: " + recipe.rating.toFixed(1)) : "No rating"}</IonLabel><br/>
@@ -203,8 +204,7 @@ function Home() {
                     // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                     <p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>
-                    :<p><Link to="/login" data-testid='loginGoals'>Login</Link> to see your goals!</p>}
-                    
+                    :<p data-testid="goal-link loginGoals"><Link to="/login" >Login</Link> to see your goals!</p>}                    
                   <h1>Your Favorites</h1>
                   {(favorites.length > 0 && context.currentUser !== undefined) ?
                   <IonGrid>
@@ -230,7 +230,7 @@ function Home() {
                   // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                 <p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>
-                :<p><Link to="/login" data-testid="login-for-favorites">Login</Link> to see your favorites!</p>}
+                :<p data-testid="favorite-link"><Link to="/login" data-testid="favorite-login">Login</Link> to see your favorites!</p>}
       </IonContent>
     </IonPage>
   </IonApp>

@@ -41,7 +41,10 @@ interface ComplaintExample {
 export interface routePrams {
     id: string;
   }
+
 function ComplaintPage() {
+  const { id } = useParams<routePrams>();
+
   //const context = useContext(Context);
   const [complaints, setComplaint] = React.useState<[Complaint]>([{
     id: 1,
@@ -52,11 +55,10 @@ function ComplaintPage() {
   }]);
 
   
-  const { id } = useParams<routePrams>();
 
   useEffect(() => {
     //fetch(`https://api.fridger.recipes/v1/complaint/`)
-    fetch('https://api.fridger.recipes/v1/complaint/')
+    fetch(`https://api.fridger.recipes/v1/complaint/?recipeId=${id}`)
     .then(response => response.json())
     .then(data => setComplaint(data))
   }, [id])
@@ -88,8 +90,8 @@ function ComplaintPage() {
       <IonText><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }}>Complaints</h1></IonText>
                   <IonGrid>
                   <Link to="/recipes">
-            <IonButton >
-              Return to Recipes 
+                  <IonButton onClick={() => history.push(`/recipe/${id}`)}>
+              Return to Recipe 
             </IonButton>
             </Link>
                     <IonRow>
