@@ -93,7 +93,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
        .then(response => response.json())
        .then(data => setGoals(data))
     }, [])
-   console.log(goals);
+  //  console.log(goals);
 
    const [goal, setGoal] = React.useState<Goal>({
     id: 1,
@@ -114,7 +114,7 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
        .then(response => response.json())
        .then(data => setGoal(data))
     }, [])
-   console.log(goal);
+  //  console.log(goal);
 
    
    useEffect(() => {

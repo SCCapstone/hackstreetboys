@@ -75,6 +75,7 @@ public class IngredientControllerSecurityTest {
 
         Ingredient i = new Ingredient();
         i.setName(name);
+        i.setId(123L);
         i.setCalories(calories);
         i.setCarbohydrates(carbohydrates);
         i.setProtein(protein);
@@ -93,7 +94,7 @@ public class IngredientControllerSecurityTest {
     public void deleteIngredientAsNonUser() throws Exception {
 
         this.mockMvc.perform(
-                delete("http://localhost:8080" + "/v1/ingredient/1")
+                delete("http://localhost:8080" + "/v1/ingredient/123")
                         .contentType(MediaType.APPLICATION_JSON)
         ).andExpect(status().isUnauthorized());
     }

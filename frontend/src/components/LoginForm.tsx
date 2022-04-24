@@ -93,7 +93,7 @@ export const LoginForm: React.FC = () => {
             <IonButton className="ion-margin-top" onClick={LogIn} expand="block" data-testid="login-button">
                 Log In
             </IonButton>
-            <Link to='changepassword'><IonItem>Forgot Password?</IonItem></Link>
+            <Link to='changepassword'><IonItem><p data-testid="forgot-password">Forgot Password?</p></IonItem></Link>
             {error === true && <IonTitle color="danger" data-testid="incorrect-message">Username or Password Incorrect. Has the email been verified?</IonTitle>}
         </form>
     );

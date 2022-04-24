@@ -69,7 +69,7 @@ public class SystemTests {
         try {
             restTemplate.getForEntity(url, String.class);
         } catch (HttpClientErrorException e) {
-            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.OK);
+            Assertions.assertThat(e.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
         }
     }
     @Test

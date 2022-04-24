@@ -122,7 +122,7 @@ function Home() {
         {
           (context.currentUser) ?
           <h1 data-testid='welcome'>Welcome back, {context.currentUser.name}!</h1>
-          : <h1 data-testid='join-link'>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
+          : <h1>Welcome to Fridger! <a data-testid='join-link' href="/register" >Join us today!</a></h1>
         }
 
         <h1>Latest Recipes</h1>
@@ -204,7 +204,7 @@ function Home() {
                     // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                     <p>You don't have any goals yet! Go <Link to="/goals">add some!</Link></p>
-                    :<p data-testid="goal-link loginGoals"><Link to="/login" >Login</Link> to see your goals!</p>}                    
+                    :<p data-testid="loginGoals"><Link to="/login" >Login</Link> to see your goals!</p>}                    
                   <h1>Your Favorites</h1>
                   {(favorites.length > 0 && context.currentUser !== undefined) ?
                   <IonGrid>
@@ -230,7 +230,7 @@ function Home() {
                   // If user context does not exist -- display login or add some
                   (context.currentUser !== undefined) ?
                 <p>You don't have any favorites yet! See our recipes and go <Link to="/favorites">add some!</Link></p>
-                :<p data-testid="favorite-link"><Link to="/login" data-testid="favorite-login">Login</Link> to see your favorites!</p>}
+                :<p data-testid="favorite-link"><Link to="/login">Login</Link> to see your favorites!</p>}
       </IonContent>
     </IonPage>
   </IonApp>

@@ -80,10 +80,10 @@ import CheckEmail from './pages/CheckEmail';
           <Router history={history}>
             <Switch>
               {/* Routes are for everyone... UserRoutes are for logged in users */}
-              <Route path="/review/recipe/:id" component={Review}/>
+              <Route path="/review/recipe/:id" component={ReviewOfRecipe}/>
               <Route path="/favorite/:id" component={Favorite}/>
               <Route path="/complaint/:id" component={Complaint}/>
-              <Route path="/review/:id" component={ReviewOfRecipe}/>
+              <Route path="/review/:id" component={Review}/>
               <UserRoute path="/recipe/add" component={AddRecipe} />
               <UserRoute path="/recipe/edit/:id" component={EditRecipe} />
               <UserRoute path="/recipe/:id/complaint" component={AddComplaint}/>

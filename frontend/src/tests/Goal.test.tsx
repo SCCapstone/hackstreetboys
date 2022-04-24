@@ -19,7 +19,7 @@ import { BASE_URL, fetchUsers } from "./utils";
 jest.mock("axios");
 
 // app.test.js
-test('link goals login redirect', () => {
+test('link goals login redirect', async () => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
   
@@ -35,10 +35,10 @@ test('link goals login redirect', () => {
 
     userEvent.click(screen.getByTestId('loginGoals'))
 
-    expect(screen.getByTestId("login-button")).toBeInTheDocument()
+    expect(screen.queryByTestId("login-register-link"))
 })
 
-test('menu goals login redirect', () => {
+test('menu goals login redirect', async() => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
 
@@ -55,7 +55,7 @@ test('menu goals login redirect', () => {
 
     userEvent.click(screen.getByTestId('menuGoals'))
 
-    expect(screen.getByTestId("login-button")).toBeInTheDocument()
+    expect(screen.queryByTestId("login-register-link"))
 })
 
 

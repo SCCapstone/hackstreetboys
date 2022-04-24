@@ -101,7 +101,7 @@ function Favorites() {
   }, [favorite.recipeId])
 
   
-  console.log(recipe);
+  // console.log(recipe);
   useEffect(() => {
     document.title = "Favorites";
   }, []);
@@ -145,9 +145,9 @@ function Favorites() {
         `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
         config
         ).then(res=> {
-        console.log("Removed from favorites by" + favorite.id);
+        // console.log("Removed from favorites by" + favorite.id);
         if(res.status == 200){
-          console.log("Status is "+res.status);
+          // console.log("Status is "+res.status);
           navigate('/favorites');
         }
   
