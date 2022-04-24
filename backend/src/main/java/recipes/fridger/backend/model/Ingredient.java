@@ -16,6 +16,7 @@ import javax.validation.constraints.*;
 
 import lombok.Data;
 
+// Represents Ingredient Object
 @Data
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "ingredients")

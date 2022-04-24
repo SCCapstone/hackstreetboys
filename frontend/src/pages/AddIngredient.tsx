@@ -31,6 +31,7 @@ import axios from 'axios';
 import Context from '../components/Context';
 import { userInfo } from 'os';
 
+// Page with form to create new ingredient
 const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const context = useContext(Context);
     const { navigate } = useContext(NavContext);

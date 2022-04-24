@@ -41,6 +41,7 @@ export interface routePrams {
     id: string;
 }
 
+// Page with form to edit existing ingredient
 const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
     const { navigate } = useContext(NavContext);

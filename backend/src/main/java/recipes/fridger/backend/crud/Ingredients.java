@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import recipes.fridger.backend.model.Ingredient;
 
+// Allows for database manipulation
 public interface Ingredients extends CrudRepository<Ingredient, Long> {
     @Query("SELECT i " +
             "FROM Ingredient i " +

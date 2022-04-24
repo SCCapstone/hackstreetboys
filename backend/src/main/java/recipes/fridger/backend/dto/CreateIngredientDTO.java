@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Data;
 @Data
 @NotNull
+
+// Creating Ingredients
 public class CreateIngredientDTO {
 
     // ingredient name

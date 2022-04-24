@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.validation.constraints.*;
 
+// Changes Existing Ingredients
 @Data
 @NotNull
 public class UpdateIngredientDTO {
