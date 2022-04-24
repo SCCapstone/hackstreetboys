@@ -12,6 +12,7 @@ interface ContainerProps {
 
 var link = "https://picsum.photos/" + String() + "/" + String();
 
+// displays individual ingredients
 const IngredientCard: React.FC<ContainerProps> = ({ ingredient }) => {
     return (
         <Link to={`/ingredients/${ingredient.id}`}>

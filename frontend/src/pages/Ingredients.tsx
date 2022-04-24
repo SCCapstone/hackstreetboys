@@ -71,6 +71,8 @@ function Ingredients() {
         cost: 0.0,
         imgSrc: ""
     }]);
+
+    // retrieves list of ingredients
     useEffect(() => {
         fetch("https://api.fridger.recipes/v1/ingredient/")
             .then(response => response.json())
@@ -80,6 +82,7 @@ function Ingredients() {
         document.title = "Ingredients";
       }, []);
 
+    // finds max and min of the ingredients listed
     let caloriesLower = Math.min.apply(Math, ingredients.map(function(i) { return i.calories;}));
     let caloriesUpper = Math.max.apply(Math, ingredients.map(function(i) { return i.calories;}));
 
@@ -95,7 +98,7 @@ function Ingredients() {
     let costLower = Math.min.apply(Math, ingredients.map(function(i) { return i.cost;}));
     let costUpper = Math.max.apply(Math, ingredients.map(function(i) { return i.cost;}));
 
-
+    // maximum allowable nutrients
     const [calories, setCalories] = useState(9999);
     const [carbohydrates, setCarbohydrates] = useState(9999);
     const [protein, setProtein] = useState(9999);
@@ -117,6 +120,7 @@ function Ingredients() {
                                         <IonCard style={{marginTop:"30px", marginLeft:"10px", marginRight:"20px", padding:"25px"}} data-testid='ing-card'>
                                             <IonSearchbar placeholder="Search Ingredients" onIonChange={e => e.detail.value ? setName(e.detail.value!) : setName("")} debounce={0} inputmode="search" search-icon={searchOutline}/>
 
+                                            {/*filtering setup, allowing to choose calories, carbs, protein, fat, and cost*/}
                                             <IonItem>
                                                 <IonLabel>Calories</IonLabel>
                                                     <IonRange min={caloriesLower} max={caloriesUpper} value={calories} color="secondary" pin={true} onIonChange={e => setCalories(e.detail.value as number)}>
@@ -164,6 +168,7 @@ function Ingredients() {
 
                                         </IonCard>
                                     </IonCol>
+                                    {/*displays filtered ingredients*/}
                                     <IonCol size="7">
                                         {ingredients.filter(ingredient => (
                                             ingredient.name.toLowerCase().includes(name.toLowerCase()) &&

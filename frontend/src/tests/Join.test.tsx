@@ -23,11 +23,15 @@ jest.mock("axios");
 test('join renders', () => {
     render(<App />)
     //expect(screen.getByText(/You are on the home page/i)).toBeInTheDocument()
-  
-    const join = {button: 0}
-    userEvent.click(screen.getByTestId('join-link'), join)
+
+    // const join = {button: 0}
+    // userEvent.click(screen.getByTestId('join-link'), join)
+    // //expect(screen.getByTestId('register')).toBeInTheDocument()
+    // expect(screen.getByText('REGISTER FOR A NEW ACCOUNT')).toBeInTheDocument()
+
+    userEvent.click(screen.getByText(/today/i))
     //expect(screen.getByTestId('register')).toBeInTheDocument()
-    expect(screen.getByText('REGISTER FOR A NEW ACCOUNT')).toBeInTheDocument()
+    expect(screen.getByText(/submit/i)).toBeInTheDocument()
     
     //expect(screen.getByTestId('header')).toBeInTheDocument()
     //expect(screen.getByText(/Cancel/i)).toBeInTheDocument()

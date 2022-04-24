@@ -122,7 +122,7 @@ function Home() {
         {
           (context.currentUser) ?
           <h1 data-testid='welcome'>Welcome back, {context.currentUser.name}!</h1>
-          : <h1 data-testid='join-link'>Welcome to Fridger! <a href="/register">Join us today!</a></h1>
+          : <h1 data-testid='join-link'>Welcome to Fridger! <a href="/register" data-testid='register-link'>Join us today!</a></h1>
         }
 
         <h1>Latest Recipes</h1>

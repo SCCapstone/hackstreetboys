@@ -63,6 +63,8 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         document.title = "Edit Ingredient";
       }, []);
     const { id } = useParams<routePrams>();
+
+    // retrieving the specific ingredient information
     useEffect(() => {
         // if(!context.currentUser){
         //     props.history.push('/login');
@@ -85,6 +87,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             }
     });
 
+    // submitting changes to an ingredient
     const onSubmit = async () => {
         // preventDefault()
         console.log("updatedValues" + ingredient.imgSrc);
@@ -113,6 +116,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         return false;
     };
 
+    // deleting an ingredient
     const onDelete = async () => {
         try {
             const config = {
@@ -137,6 +141,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
 
     const [showAlert, setShowAlert] = useState(false);
 
+    // ingredient form
     return (
         <Router history={history}>
             <Switch>
@@ -187,6 +192,8 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
                                 <IonButton  className="ion-margin-top, ion-float-right" /*disabled={!checked}*/ color='primary' type="submit" slot="start">Update Ingredient</IonButton>
 
                                 <IonButton  color="danger" type="button" className="ion-margin-top, ion-float-right" onClick={() => setShowAlert(true)}>Delete Ingredient</IonButton>
+
+                                {/*pop-up window when you go to cancel the form submission*/}
                                 <IonAlert
                                     isOpen={showAlert}
                                     onDidDismiss={() => setShowAlert(false)}

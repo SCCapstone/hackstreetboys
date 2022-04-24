@@ -68,15 +68,22 @@ function IngredientPage(this: any) {
         ingredientIds: "1,2",
         rating: 5.0
     }]);
+
+    // retrieves list of recipes
     useEffect(() => {
         fetch("https://api.fridger.recipes/v1/recipe/")
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])
+
+    // retrieves individual ingredient
     useEffect(() => {
         document.title = ingredient.name;
       }, [ingredient.name]);
+
+    // function to randomly select wantedNumber associated recipes
     function chooseSome() {
+
         // HOW MANY RECIPES TO SELECT
         const wantedNumber = 3;
 
@@ -116,8 +123,6 @@ function IngredientPage(this: any) {
     }
 
     const someRecipes = chooseSome();
-    // console.log("SOME RECIPES");
-    // console.log(someRecipes);
 
 
     return (
@@ -131,11 +136,13 @@ function IngredientPage(this: any) {
                             <IonCard style={{height:"400px"}}>
                                 <img src={ingredient.imgSrc}
                                      style={{width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}}/>
+                                {/*calories per serving*/}
                                 <IonCardContent data-testid='individual-ing'>
                                     <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/>
                                     </h1>
                                 </IonCardContent>
 
+                                {/*macronutrient information*/}
                                 <IonCardContent>
                                     <p>
                                         One serving of <b>{ingredient.name.toLowerCase()}</b> contains <br/>
@@ -162,6 +169,7 @@ function IngredientPage(this: any) {
                             </IonCard>
 
 
+                            {/*suggested recipes*/}
                             <IonCard>
                                 <IonCardTitle className="ion-margin-top, ion-text-center" style={{
                                     paddingTop: "20px",

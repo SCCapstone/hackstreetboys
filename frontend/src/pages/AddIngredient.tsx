@@ -58,6 +58,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
     // console.log(errors);
     // console.log(getValues());
 
+    // submitting an ingredient
     const onSubmit = () => {
         // console.log("Initial: " + getValues());
         try {
@@ -89,6 +90,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
         document.title = "Add Recipe";
       }, []);
 
+    // ingredient form
     return (
         <Router history={history}>
             <Switch>
@@ -136,12 +138,12 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
                                         <IonInput type="number" min="1" max="5000" name="cost" required onIonInput={(e: any) => setValue("cost",e.target.value)}/>
                                     </IonItem>
                                     <IonItem>
-                    <p>For legal and technical constraints, we do not host images. Use a service like <a href="https://postimages.org/">To Upload</a></p>
-                </IonItem>
-                <IonItem>
-                    <IonLabel position="floating">Ingredient Image URL</IonLabel>
-                    <IonInput type="url" name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
-                </IonItem>
+                                        <p>For legal and technical constraints, we do not host images. Use a service like <a href="https://postimages.org/">To Upload</a></p>
+                                    </IonItem>
+                                    <IonItem>
+                                        <IonLabel position="floating">Ingredient Image URL</IonLabel>
+                                        <IonInput type="url" name="imgSrc" required onIonInput={(e: any) => setValue("imgSrc",e.target.value)} />
+                                    </IonItem>
                                     <IonItem lines="none">
                                         <IonLabel>Does this ingredient contain alcohol?</IonLabel>
                                         <IonCheckbox color="secondary" name="alcohol" checked={getValues("alcohol")} slot="start" onIonChange={(e: any) => setValue('alcohol',e.detail.checked)}/>
