@@ -122,7 +122,7 @@ function RecipePage() {
       .then((response) => response.json())
       .then((data) => setRecipe(data));
   }, [id]);
-  console.log(recipe);
+  // console.log(recipe);
 
   const [reviews, setReview] = React.useState<[Review]>([
     {
@@ -139,8 +139,8 @@ function RecipePage() {
       .then((response) => response.json())
       .then((data) => setReview(data));
   }, []);
-  console.log(recipe.id);
-  console.log(reviews);
+  // console.log(recipe.id);
+  // console.log(reviews);
   const [complaints, setComplaints] = React.useState<Complaint>({
     id: 1,
     severity: 0,
@@ -200,13 +200,13 @@ function RecipePage() {
         userId: context.currentUser?.id,
         recipeId: recipe.id,
       };
-      console.log("trigger");
+      // console.log("trigger");
       const res = await axios
         .post("https://api.fridger.recipes/v1/favorites/", body, config)
         .then((res) => {
           console.log("Resulting data" + res.data);
           if (res.status == 200) {
-            console.log("Status is " + res.status);
+            // console.log("Status is " + res.status);
             history.push("/favorites");
             //history.push(`/favorites/recipe/${id}`);
           }
@@ -243,8 +243,8 @@ function RecipePage() {
   }, []);
 //Remove favorite method
   const removeFav = async () => {
-    console.log("clicked delete");
-    console.log(favorite);
+    // console.log("clicked delete");
+    // console.log(favorite);
     if (favorites[0].recipeId == Number(id)) {
     }
     try {

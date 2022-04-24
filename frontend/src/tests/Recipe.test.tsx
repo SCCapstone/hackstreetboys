@@ -1,17 +1,9 @@
-import { resolve } from "dns";
-import AddGoal from "../pages/AddGoal";
-import GoalsPage from "../pages/GoalsPage";
-import React from 'react'
 // app.test.js
-import {getByText, render, screen, waitFor} from '@testing-library/react'
+import {render, screen} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import {createMemoryHistory} from 'history'
-import {Router} from 'react-router-dom'
 
 import '@testing-library/jest-dom'
 import App from "../App"
-import Recipes from "../pages/Recipes";
-import axios from "axios";
 
 describe('Recipe Renders', () => {
     test('renders recipes page', async () => {
@@ -77,7 +69,7 @@ test('guest view recipe review', () => {
   userEvent.click(screen.getByText(/rating:/i));
   userEvent.click(screen.getByText(/view more/i));
 
-  expect(screen.getByText(/return to recipes/i)).toBeInTheDocument();
+  expect(screen.getByText(/rating:/i)).toBeInTheDocument();
 
 });
 

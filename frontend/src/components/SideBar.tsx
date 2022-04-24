@@ -45,14 +45,14 @@ const SideBar: React.FC = () => {
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/ingredients')} data-testid='menuIng' >
+          <IonItem data-testid='menuIng' button onClick={() => History.push('/ingredients')}  >
           <IonIcon icon={nutritionSharp} slot="start"/>
             <IonLabel>
               Ingredients
             </IonLabel>
           </IonItem>
 
-          <IonItem button onClick={() => History.push('/goals')} data-testid='menuGoals'>
+          <IonItem data-testid='menuGoals' button onClick={() => History.push('/goals')} >
           <IonIcon icon={person} slot="start"/>
             <IonLabel>
               Dashboard and Goals

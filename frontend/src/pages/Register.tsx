@@ -35,7 +35,7 @@ return (
                     <Header />
                     <IonContent className="ion-padding">
                         <IonText data-testid='register'><h1 style={{ textAlign: 'center', textTransform: 'uppercase', fontWeight: 'bold' }} >Register for a new account</h1></IonText>
-                        <IonText data-testid='acount-log-in'><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Already have an account? <Link to="/login">Log in</Link></h2></IonText>
+                        <IonText data-testid='account-log-in'><h2 style={{ textAlign: 'center', fontWeight: 'bold' }}>Already have an account? <Link to="/login">Log in</Link></h2></IonText>
                         <RegistrationForm/>
                     </IonContent>
                 </IonPage>

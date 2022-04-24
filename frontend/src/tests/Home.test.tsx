@@ -17,8 +17,6 @@ import axios from "axios";
 
 import { BASE_URL, fetchUsers } from "./utils";
 
-jest.mock("axios");
-
 // app.test.js
 test('home rendering by fridger', () => {
     render(<App />)

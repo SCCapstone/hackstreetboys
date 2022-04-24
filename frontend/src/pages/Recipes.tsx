@@ -70,7 +70,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
-  console.log(recipes);
+  //console.log(recipes);
   
   var color = "gray";
  var liked = false;

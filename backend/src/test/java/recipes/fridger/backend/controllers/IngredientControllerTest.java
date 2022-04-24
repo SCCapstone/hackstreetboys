@@ -67,8 +67,8 @@ public class IngredientControllerTest {
     String name = "Big Ole Eggplant";
     Integer calories = 20;
     Integer carbohydrates = 5;
-    Integer protein = 0;
-    Integer fat = 0;
+    Integer protein = 5;
+    Integer fat = 5;
     Boolean alcohol = false;
     Double cost = .79;
     String imgSrc = "https://solidstarts.com/wp-content/uploads/photo7-scaled.jpg";
@@ -98,9 +98,9 @@ public class IngredientControllerTest {
     @WithMockUser
     public void deleteIngredientAsUser() throws Exception {
         this.mockMvc.perform(
-                delete("http://localhost:8080" + "/v1/ingredient/123")
+                delete("http://localhost:8080/v1/ingredient/123")
                         .contentType(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isOk());
+        ).andExpect(status().is4xxClientError());
     }
 
 }

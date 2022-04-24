@@ -41,8 +41,8 @@ describe('Homepage', () => {
   });
   test('loading goals', () => {
     render(<App />);
-    expect(screen.getByTestId("goal-link")).toBeInTheDocument();
-    expect(screen.getByTestId("goal-link")).toHaveTextContent("Login to see your goals!");
+    expect(screen.getByTestId("loginGoals")).toBeInTheDocument();
+    expect(screen.getByTestId("loginGoals")).toHaveTextContent("Login to see your goals!");
   });
   test('loading favorites', () => {
     render(<App />);
