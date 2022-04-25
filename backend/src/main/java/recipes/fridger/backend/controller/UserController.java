@@ -240,7 +240,6 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(path = "/goals")
     public @ResponseBody Iterable<Goal>
     getGoals(@RequestParam(required = false) Long id,
@@ -259,7 +258,6 @@ public class UserController {
         }
 
 
-    @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     @GetMapping(path = "/goal/{goalId}")
     public @ResponseBody Goal
     getGoalByID(@PathVariable Long goalId)

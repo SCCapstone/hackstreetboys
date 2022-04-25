@@ -145,7 +145,7 @@ public class UserServiceImpl implements UserService {
         //first part (the html)
         BodyPart messageBodyPart = new MimeBodyPart();
         StringBuffer body = new StringBuffer("<html>");
-        body.append("<img src=\"cid:image1\" width=\"60%\" height=\"60%\" /><br>");
+        body.append("<img src=\"https://assets.apf.cloud/img/fridger_banner.png\" width=\"60%\" height=\"60%\" /><br>");
         body.append("<h1>Hello, " + user.getName() + "!\n</h1>");
         body.append("<p style=\"font-size:14px\">We are excited to have you join the Fridger community! Thank you " +
                 "for signing up with us! But before you can do that, we need you to " +
@@ -162,19 +162,7 @@ public class UserServiceImpl implements UserService {
         MimeMultipart multipart1 = new MimeMultipart();
         multipart1.addBodyPart(messageBodyPart1);
 
-        //img part
-        MimeBodyPart imagePart1 = new MimeBodyPart();
-        imagePart1.setHeader("Content-ID","<image1>");
-        imagePart1.setDisposition(MimeBodyPart.INLINE);
-        String imageFilePath = "C:\\Users\\deadw\\Desktop\\School\\hackstreetboys\\backend\\src\\main\\java\\recipes\\fridger\\backend\\service\\fridger_banner.png";
-        try {
-            imagePart1.attachFile(imageFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        multipart1.addBodyPart(imagePart1);
-
-        message1.setRecipients(Message.RecipientType.TO,"aeb30@email.sc.edu");
+        message1.setRecipients(Message.RecipientType.TO,user.getEmail());
         message1.setFrom("noreplyfridger@gmail.com");
         message1.setSubject(subject);
 
