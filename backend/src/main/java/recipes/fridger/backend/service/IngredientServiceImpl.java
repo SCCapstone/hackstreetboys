@@ -1,3 +1,7 @@
+/*
+ * This file completes the actions directed by requests
+ * */
+
 package recipes.fridger.backend.service;
 
 import org.springframework.beans.factory.annotation.Autowired;

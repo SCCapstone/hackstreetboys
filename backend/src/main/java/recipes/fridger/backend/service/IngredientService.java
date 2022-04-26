@@ -1,3 +1,7 @@
+/*
+ * This file outlines the actions directed by requests
+ * */
+
 package recipes.fridger.backend.service;
 
 import recipes.fridger.backend.dto.CreateIngredientDTO;

@@ -1,3 +1,7 @@
+/*
+ * This file manages the display of all ingredients that fit the search criteria specified by the user
+ * */
+
 import './Ingredients.css';
 import { Router, Switch, Route, Link } from "react-router-dom";
 import history from '../History';
@@ -80,6 +84,7 @@ function Ingredients() {
         document.title = "Ingredients";
       }, []);
 
+    // nutrient min/max based on the ingredients fetched
     let caloriesLower = Math.min.apply(Math, ingredients.map(function(i) { return i.calories;}));
     let caloriesUpper = Math.max.apply(Math, ingredients.map(function(i) { return i.calories;}));
 
@@ -95,7 +100,7 @@ function Ingredients() {
     let costLower = Math.min.apply(Math, ingredients.map(function(i) { return i.cost;}));
     let costUpper = Math.max.apply(Math, ingredients.map(function(i) { return i.cost;}));
 
-
+    // maximum calories set by the user
     const [calories, setCalories] = useState(9999);
     const [carbohydrates, setCarbohydrates] = useState(9999);
     const [protein, setProtein] = useState(9999);
@@ -117,6 +122,7 @@ function Ingredients() {
                                         <IonCard style={{marginTop:"30px", marginLeft:"10px", marginRight:"20px", padding:"25px"}} data-testid='ing-card'>
                                             <IonSearchbar placeholder="Search Ingredients" onIonChange={e => e.detail.value ? setName(e.detail.value!) : setName("")} debounce={0} inputmode="search" search-icon={searchOutline}/>
 
+                                            {/*calorie slider*/}
                                             <IonItem>
                                                 <IonLabel>Calories</IonLabel>
                                                     <IonRange min={caloriesLower} max={caloriesUpper} value={calories} color="secondary" pin={true} onIonChange={e => setCalories(e.detail.value as number)}>
@@ -125,6 +131,7 @@ function Ingredients() {
                                                 </IonRange>
                                             </IonItem>
 
+                                            {/*carbohydrates slider*/}
                                             <IonItem>
                                                 <IonLabel data-testid='carbs'>Carbohydrates</IonLabel>
                                                 <IonRange min={carbohydratesLower} max={carbohydratesUpper} value={carbohydrates} color="secondary" pin={true} onIonChange={e => setCarbohydrates(e.detail.value as number)}>
@@ -133,6 +140,7 @@ function Ingredients() {
                                                 </IonRange>
                                             </IonItem>
 
+                                            {/*protein slider*/}
                                             <IonItem>
                                                 <IonLabel>Protein</IonLabel>
                                                 <IonRange min={proteinLower} max={proteinUpper} value={protein} color="secondary" pin={true} onIonChange={e => setProtein(e.detail.value as number)}>
@@ -141,6 +149,7 @@ function Ingredients() {
                                                 </IonRange>
                                             </IonItem>
 
+                                            {/*fat slider*/}
                                             <IonItem>
                                                 <IonLabel>Fat</IonLabel>
                                                 <IonRange min={fatLower} max={fatUpper} value={fat} color="secondary" pin={true} onIonChange={e => setFat(e.detail.value as number)}>
@@ -149,6 +158,7 @@ function Ingredients() {
                                                 </IonRange>
                                             </IonItem>
 
+                                            {/*cost slider*/}
                                             <IonItem>
                                                 <IonLabel>Cost</IonLabel>
                                                 <IonRange min={costLower} max={costUpper} value={cost} color="secondary" pin={true} onIonChange={e => setCost(e.detail.value as number)}>
@@ -157,6 +167,7 @@ function Ingredients() {
                                                 </IonRange>
                                             </IonItem>
 
+                                            {/*alcoholic toggle*/}
                                             <IonItem>
                                                 <IonLabel>Alcoholic</IonLabel>
                                                 <IonToggle onIonChange={e => {setAlcohol(e.detail.checked); console.log(e.detail.checked)}}>Alcoholic</IonToggle>
@@ -165,6 +176,7 @@ function Ingredients() {
                                         </IonCard>
                                     </IonCol>
                                     <IonCol size="7">
+                                        {/*actual filtering function*/}
                                         {ingredients.filter(ingredient => (
                                             ingredient.name.toLowerCase().includes(name.toLowerCase()) &&
                                             ingredient.calories <= calories &&

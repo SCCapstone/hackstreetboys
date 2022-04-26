@@ -1,3 +1,7 @@
+/*
+ * This files manages the display of a single ingredient and all related information
+ * */
+
 import './Ingredient.css';
 import {Router, Switch, Route, useParams, Link} from "react-router-dom";
 import history from '../History';
@@ -42,6 +46,7 @@ function IngredientPage(this: any) {
         imgSrc: ""
     });
 
+    // fetch individual ingredient
     const {id} = useParams<routeParams>();
     useEffect(() => {
         fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
@@ -68,6 +73,8 @@ function IngredientPage(this: any) {
         ingredientIds: "1,2",
         rating: 5.0
     }]);
+
+    // fetching recipes
     useEffect(() => {
         fetch("https://api.fridger.recipes/v1/recipe/")
             .then(response => response.json())
@@ -131,11 +138,13 @@ function IngredientPage(this: any) {
                             <IonCard style={{height:"400px"}}>
                                 <img src={ingredient.imgSrc}
                                      style={{width: '50%', height: "100%", objectFit: 'scale-down', float: "right"}}/>
+                                {/*calories*/}
                                 <IonCardContent data-testid='individual-ing'>
                                     <h1>{ingredient.name} is about <b>{ingredient.calories}</b> kcal per serving.<br/>
                                     </h1>
                                 </IonCardContent>
 
+                                {/*macronutrient information*/}
                                 <IonCardContent>
                                     <p>
                                         One serving of <b>{ingredient.name.toLowerCase()}</b> contains <br/>
@@ -170,6 +179,7 @@ function IngredientPage(this: any) {
                                     fontStyle: "italic"
                                 }}>Check out some recipes that contain {ingredient.name.toLowerCase()}!</IonCardTitle>
                                 <IonRow>
+                                    {/*view related recipes*/}
                                     {someRecipes.map(recipe => {
                                         // console.log(recipe);
                                         if (recipe != null) {

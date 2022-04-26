@@ -1,3 +1,7 @@
+/*
+ * This file includes the form to allow the user to enter the necessary information to edit an existing ingredient
+ * */
+
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import {
     IonApp,

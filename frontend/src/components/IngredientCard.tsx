@@ -1,3 +1,7 @@
+/*
+ * Displays individual ingredients
+ * */
+
 import React from 'react';
 import { IonCard, IonCardHeader, IonIcon, IonCardTitle, IonCardSubtitle, IonCardContent, IonLabel, IonChip } from '@ionic/react';
 import { Ingredient } from '../models/Ingredient';

@@ -1,3 +1,7 @@
+/*
+ * Ingredient interface
+ * */
+
 export interface Ingredient{
 
     id: number;

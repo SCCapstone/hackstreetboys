@@ -1,3 +1,7 @@
+/*
+ * This file allows for the querying of ingredient data from the database
+ * */
+
 package recipes.fridger.backend.crud;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;

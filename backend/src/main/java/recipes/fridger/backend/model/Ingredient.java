@@ -1,3 +1,7 @@
+/*
+ * Provides the structure of an ingredient
+ * */
+
 package recipes.fridger.backend.model;
 
 

@@ -1,3 +1,7 @@
+/*
+ * This file returns the template for an ingredient allowing them to be created
+ * */
+
 package recipes.fridger.backend.dto;
 import java.util.Date;
 

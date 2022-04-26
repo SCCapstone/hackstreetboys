@@ -1,3 +1,7 @@
+/*
+ * This file includes the form to allow the user to enter the necessary information to make a new ingredient
+ * */
+
 import React, {useContext, useState, useCallback, useEffect} from 'react';
 
 import {

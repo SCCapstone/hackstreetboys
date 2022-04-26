@@ -1,3 +1,7 @@
+/*
+* This file manages the ingredient data requests
+* */
+
 package recipes.fridger.backend.controller;
 import java.util.*;
 
