@@ -33,6 +33,8 @@ import { Goal } from '../models/Goal';
 import {NavContext} from '@ionic/react';
 import Context from '../components/Context';
 
+
+const DOMAIN = "http://localhost:8080";
     
     const AddGoal: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const context = useContext(Context);
@@ -96,8 +98,8 @@ import Context from '../components/Context';
 
             const res = axios.post(
                // 'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goal/',
-                'https://api.fridger.recipes/v1/user/goal/',
-               //'https://api.fridger.recipes/v1/user/goal/',
+                DOMAIN+'/v1/user/goal/',
+               //DOMAIN+'/v1/user/goal/',
 
                 body,
                 config
@@ -107,7 +109,7 @@ import Context from '../components/Context';
                     console.log("Status is " + res.status);
                     //navigate("/mygoals");
                    // history.push('/mygoals');
-                    //navigate("https://localhost:3000/mygoals/");
+                    //navigate("https://http://localhost:3000/mygoals/");
                     //<Link to="/mygoals/"></Link>
 
                 }    

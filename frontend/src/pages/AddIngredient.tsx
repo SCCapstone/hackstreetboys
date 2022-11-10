@@ -31,6 +31,10 @@ import axios from 'axios';
 import Context from '../components/Context';
 import { userInfo } from 'os';
 
+
+const DOMAIN = "http://localhost:8080";
+
+
 const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const context = useContext(Context);
     const { navigate } = useContext(NavContext);
@@ -69,7 +73,7 @@ const AddIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProps
             };
             const body = JSON.stringify(getValues());
             const response = axios.post(
-                'https://api.fridger.recipes/v1/ingredient/',
+                DOMAIN+'/v1/ingredient/',
                 body,
                 config
             ).then(response => {

@@ -54,6 +54,11 @@ import {
   EmailIcon,
 } from "react-share";
 import { Ingredient } from "../models/Ingredient";
+
+
+const DOMAIN = "http://localhost:8080";
+
+
 interface ComplaintExample {
   complaint: Complaint;
 }
@@ -80,7 +85,7 @@ function RecipePage() {
     recipeId: 1,
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/?recipeId=${id}`)
+    fetch(DOMAIN+`/v1/favorites/?recipeId=${id}`)
       .then((response) => response.json())
       .then((data) => setFavorite(data));
   }, []);
@@ -93,7 +98,7 @@ function RecipePage() {
     },
   ]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/?recipeId=${id}`)
+    fetch(DOMAIN+`/v1/favorites/?recipeId=${id}`)
       .then((response) => response.json())
       .then((data) => setFavorites(data));
   }, []);
@@ -118,7 +123,7 @@ function RecipePage() {
     rating: 0,
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+    fetch(DOMAIN+`/v1/recipe/${id}`)
       .then((response) => response.json())
       .then((data) => setRecipe(data));
   }, [id]);
@@ -135,7 +140,7 @@ function RecipePage() {
     },
   ]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/?recipeId=${id}`)
+    fetch(DOMAIN+`/v1/review/?recipeId=${id}`)
       .then((response) => response.json())
       .then((data) => setReview(data));
   }, []);
@@ -173,7 +178,7 @@ function RecipePage() {
     },
   ]);
   useEffect(() => {
-    fetch("https://api.fridger.recipes/v1/recipe/")
+    fetch(DOMAIN+"/v1/recipe/")
       .then((res) => res.json())
       .then((data) => setAllRecipes(data));
   }, []);
@@ -202,7 +207,7 @@ function RecipePage() {
       };
       // console.log("trigger");
       const res = await axios
-        .post("https://api.fridger.recipes/v1/favorites/", body, config)
+        .post(DOMAIN+"/v1/favorites/", body, config)
         .then((res) => {
           console.log("Resulting data" + res.data);
           if (res.status == 200) {
@@ -237,7 +242,7 @@ function RecipePage() {
   ]);
   //fetch ingredients
   useEffect(() => {
-    fetch("https://api.fridger.recipes/v1/ingredient/")
+    fetch(DOMAIN+"/v1/ingredient/")
       .then((response) => response.json())
       .then((data) => setIngredients(data));
   }, []);
@@ -260,7 +265,7 @@ function RecipePage() {
       };
       const res = await axios
         .delete(
-          `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
+          DOMAIN+`/v1/favorites/${favorite.id}`,
           config
         )
         .then((res) => {
@@ -294,7 +299,7 @@ function RecipePage() {
   };
     //fetch complaints
     useEffect(() => {
-      fetch(`https://api.fridger.recipes/v1/complaint/?recipeId=${recipe.id}`)
+      fetch(DOMAIN+`/v1/complaint/?recipeId=${recipe.id}`)
         .then((response) => response.json())
         .then((data) => setComplaints(data));
     }, []);

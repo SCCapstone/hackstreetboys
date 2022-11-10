@@ -22,6 +22,8 @@ import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import LoginForm from '../components/LoginForm';
 
+const DOMAIN = "http://localhost:8080";
+
 function Login() {
     useEffect(() => {
         document.title = "Login";

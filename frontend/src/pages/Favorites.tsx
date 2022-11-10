@@ -35,6 +35,9 @@ import Context from '../components/Context';
 import { toNumber } from 'lodash';
 import RecipeBanner from '../assets/fridger_banner.png'
 
+const DOMAIN = "http://localhost:8080";
+
+
 interface FavoriteExample {
   favorite: Favorite;
 }
@@ -69,7 +72,7 @@ function Favorites() {
     recipeId: 1
   }]);
   useEffect(() => {
-     fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
+     fetch(DOMAIN+`/v1/favorites/?userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
@@ -95,7 +98,7 @@ function Favorites() {
   })
 
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
+    fetch(DOMAIN+`/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [favorite.recipeId])
@@ -127,7 +130,7 @@ function Favorites() {
   }]);
 
   useEffect(() => {
- fetch('https://api.fridger.recipes/v1/recipe/')
+ fetch(DOMAIN+'/v1/recipe/')
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
@@ -142,7 +145,7 @@ function Favorites() {
       };
      
       const res = await axios.delete(
-        `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
+        DOMAIN+`/v1/favorites/${favorite.id}`,
         config
         ).then(res=> {
         // console.log("Removed from favorites by" + favorite.id);

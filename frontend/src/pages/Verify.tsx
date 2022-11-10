@@ -29,8 +29,8 @@ import React from 'react';
 import { verify } from 'crypto';
 import axios from 'axios';
 
-const DOMAIN = "https://api.fridger.recipes/" 
-// const DOMAIN = "https://api.fridger.recipes/"
+const DOMAIN = "http://localhost:8080";
+// const DOMAIN = DOMAIN+"/"
 
 //This is the page the email verifiction will send you to
 function Verify() {
@@ -60,7 +60,7 @@ function Verify() {
     // useEffect(() => {
     // The link you are emailed will send you here
     const getVerified = () => {
-        fetch(DOMAIN+`v1/auth/verify?code=${code}`)
+        fetch(DOMAIN+`/v1/auth/verify?code=${code}`)
         .then(data => data.json())
         .then(yo => setStringBody(yo));
         console.log(stringBody)

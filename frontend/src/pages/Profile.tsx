@@ -39,6 +39,8 @@ import axios, {AxiosError} from 'axios';
 
 import { format, parseISO, formatISO } from 'date-fns';
 
+const DOMAIN = "http://localhost:8080";
+
 export interface routeParams {
   id: string;
 }
@@ -55,7 +57,7 @@ function Users() {
     let unmounted = false;
     
     if(id) {
-      axios.get(`https://api.fridger.recipes/v1/user/${id}`)
+      axios.get(DOMAIN+`/v1/user/${id}`)
       .then(res => {
           if(!unmounted)
             setUser(res.data);
@@ -65,7 +67,7 @@ function Users() {
         history.push('/404')
       })
     } else if (context.id) {
-      axios.get(`https://api.fridger.recipes/v1/user/${context.id}`)
+      axios.get(DOMAIN+`/v1/user/${context.id}`)
         .then(res => {
           if(!unmounted)
             setUser(res.data);

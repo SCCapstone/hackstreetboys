@@ -33,6 +33,10 @@ import { Review } from '../models/Review';
 import { useEffect } from 'react';
 import React from 'react';
 import { routePrams } from './Recipe';
+
+const DOMAIN = "http://localhost:8080";
+
+
 //import Context from '../components/Context';
 interface ReviewExample {
   review: Review,
@@ -53,8 +57,8 @@ function RecipeReviews() {
   const { id } = useParams<routePrams>();
   
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/?recipeId=${id}`)
-    //fetch('https://api.fridger.recipes/v1/review/')
+    fetch(DOMAIN+`/v1/review/?recipeId=${id}`)
+    //fetch(DOMAIN+'/v1/review/')
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])

@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://api.fridger.recipes/v1/";
+export const BASE_URL = "https://localhost:8080/v1/";
 
 export const fetchUsers = async () => {
     try {

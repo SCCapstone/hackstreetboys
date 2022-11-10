@@ -34,7 +34,9 @@ import Minus from '../assets/minus.png';
 import Plus from '../assets/plus.png';
 import Equal from '../assets/equals.png';
 import Workout from '../assets/workout.png'
-  import Context from '../components/Context';
+import Context from '../components/Context';
+
+const DOMAIN = "http://localhost:8080";
 interface GoalExample {
   goal: Goal,
 }
@@ -62,7 +64,7 @@ function GoalPage(this: any) {
   });
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/user/goal/${id}/`)
+    fetch(DOMAIN+`/v1/user/goal/${id}/`)
       .then(response => response.json())
       .then(data => setGoal(data))
   }, [id])
@@ -83,8 +85,8 @@ function GoalPage(this: any) {
 
 useEffect(() => {
    //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-   //fetch('https://api.fridger.recipes/v1/user/goals/')
-   fetch(`https://api.fridger.recipes/v1/user/goals/`)
+   //fetch(DOMAIN+'/v1/user/goals/')
+   fetch(DOMAIN+`/v1/user/goals/`)
    .then(response => response.json())
    .then(data => setGoals(data))
 }, [])
@@ -110,7 +112,7 @@ useEffect(() => {
     rating: 4.2
   }]);
   useEffect(() => {
-    fetch("https://api.fridger.recipes/v1/recipe/")
+    fetch(DOMAIN+"/v1/recipe/")
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])

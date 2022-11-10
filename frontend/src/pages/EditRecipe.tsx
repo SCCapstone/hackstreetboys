@@ -38,6 +38,8 @@ import {NavContext} from '@ionic/react';
 import { Recipe } from '../models/Recipe';
 import Context from '../components/Context';
 import { Ingredient } from '../models/Ingredient';
+
+const DOMAIN = "http://localhost:8080";
   export interface routePrams {
     id: string;
   }
@@ -72,7 +74,7 @@ import { Ingredient } from '../models/Ingredient';
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`https://api.fridger.recipes/v1/recipe/${id}`)
+        fetch(DOMAIN+`/v1/recipe/${id}`)
           .then(response => response.json())
           .then(data => setRecipe(data))
       }, [])
@@ -118,8 +120,8 @@ import { Ingredient } from '../models/Ingredient';
         const body = JSON.stringify(getValues());
         // console.log("Body" + body)
         const res = await axios.put(
-            //'https://api.fridger.recipes/v1/recipe/',
-            `https://api.fridger.recipes/v1/recipe/`,
+            //DOMAIN+'/v1/recipe/',
+            DOMAIN+`/v1/recipe/`,
             body,
             config
         ).then( res =>{
@@ -146,8 +148,8 @@ import { Ingredient } from '../models/Ingredient';
         const body = JSON.stringify(getValues());
         //delete by ID on the backend.
         const res = await axios.delete(
-            //'https://api.fridger.recipes/v1/recipe/',
-            `https://api.fridger.recipes/v1/recipe/${recipe.id}`,
+            //DOMAIN+'/v1/recipe/',
+            DOMAIN+`/v1/recipe/${recipe.id}`,
             config
         ).then( res =>{
             // console.log("Deleted Recipe by " + recipe.id);

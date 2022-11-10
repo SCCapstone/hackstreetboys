@@ -22,6 +22,8 @@ import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import ChangePasswordForm from '../components/ChangePasswordForm';
 
+const DOMAIN = "http://localhost:8080";
+
 function Login() {
     useEffect(() => {
         document.title = "Change Password";

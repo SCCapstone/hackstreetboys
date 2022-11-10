@@ -34,6 +34,9 @@ import { Complaint } from '../models/Complaint';
 import { useEffect } from 'react';
 import React from 'react';
 
+
+const DOMAIN = "http://localhost:8080";
+
 //import Context from '../components/Context';
 interface ComplaintExample {
   complaint: Complaint,
@@ -57,8 +60,8 @@ function ComplaintPage() {
   
 
   useEffect(() => {
-    //fetch(`https://api.fridger.recipes/v1/complaint/`)
-    fetch(`https://api.fridger.recipes/v1/complaint/?recipeId=${id}`)
+    //fetch(DOMAIN+`/v1/complaint/`)
+    fetch(DOMAIN+`/v1/complaint/?recipeId=${id}`)
     .then(response => response.json())
     .then(data => setComplaint(data))
   }, [id])

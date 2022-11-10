@@ -49,6 +49,8 @@ import Header from '../components/Header';
 import Context from '../components/Context';
 import {toInteger} from "lodash";
 
+const DOMAIN = "http://localhost:8080";
+
 interface IngredientProps {
     ingredient: Ingredient,
 }
@@ -72,7 +74,7 @@ function Ingredients() {
         imgSrc: ""
     }]);
     useEffect(() => {
-        fetch("https://api.fridger.recipes/v1/ingredient/")
+        fetch(DOMAIN+"/v1/ingredient/")
             .then(response => response.json())
             .then(data => setIngredients(data))
     }, [])

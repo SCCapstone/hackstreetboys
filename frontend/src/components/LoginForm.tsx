@@ -27,9 +27,9 @@ export const LoginForm: React.FC = () => {
         const user = { email, password }
         await axios.post(
             // Public API
-            `https://api.fridger.recipes/v1/auth/login`,
+            `http://localhost:8080/v1/auth/login`,
             // Local API
-            // `https://api.fridger.recipes/v1/auth/login`,
+            // `http://localhost:8080/v1/auth/login`,
             user
         ).then(function (response)  {
             console.log(response.data);
@@ -47,9 +47,9 @@ export const LoginForm: React.FC = () => {
 
             axios.get(
             // Public API
-            `https://api.fridger.recipes/v1/user/${response.data.id}`
+            `http://localhost:8080/v1/user/${response.data.id}`
             // Local API
-            // `https://api.fridger.recipes/v1/user/${response.data.id}`
+            // `http://localhost:8080/v1/user/${response.data.id}`
             ).then(function (response) {
                 const user = response.data;
                 if (user) {

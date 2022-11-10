@@ -57,6 +57,9 @@ import {
   RedditIcon,
   EmailIcon} from "react-share";
 import { Ingredient } from '../models/Ingredient';
+
+const DOMAIN = "http://localhost:8080";
+
 interface ComplaintExample {
   complaint: Complaint;
 }
@@ -85,7 +88,7 @@ function FavoritePage() {
     recipeId: 1
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/${id}`)
+    fetch(DOMAIN+`/v1/favorites/${id}`)
     .then(response => response.json())
     .then(data => setFavorite(data))
   }, [id])
@@ -111,7 +114,7 @@ function FavoritePage() {
   });
   
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/recipe/${favorite.recipeId}`)
+    fetch(DOMAIN+`/v1/recipe/${favorite.recipeId}`)
       .then(response => response.json())
       .then(data => setRecipe(data))
   }, [favorite.recipeId])
@@ -126,7 +129,7 @@ function FavoritePage() {
     recipeId: 1
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/favorites/`)
+    fetch(DOMAIN+`/v1/favorites/`)
     .then(response => response.json())
     .then(data => setFavorites(data))
   }, [])
@@ -143,7 +146,7 @@ function FavoritePage() {
     recipeId: 0
   }]);
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/?recipeId=${id}`)
+    fetch(DOMAIN+`/v1/review/?recipeId=${id}`)
     .then(response => response.json())
     .then(data => setReview(data))
   }, [])
@@ -157,7 +160,7 @@ console.log(reviews);
     complaintId: 0
   });
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/complaint/`)
+    fetch(DOMAIN+`/v1/complaint/`)
     .then(response => response.json())
     .then(data => setComplaints(data))
   }, [])
@@ -183,7 +186,7 @@ const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
   rating: 0
 }]);
 useEffect(() => {
-  fetch('https://api.fridger.recipes/v1/recipe/')
+  fetch(DOMAIN+'/v1/recipe/')
   .then(res => res.json())
   .then(data => setAllRecipes(data))
 }, [])
@@ -200,7 +203,7 @@ const [ingredients, setIngredients] = React.useState<[Ingredient]>([{
   imgSrc: ""
 }]);
 useEffect(() => {
-  fetch("https://api.fridger.recipes/v1/ingredient/")
+  fetch(DOMAIN+"/v1/ingredient/")
       .then(response => response.json())
       .then(data => setIngredients(data))
 }, [])
@@ -221,7 +224,7 @@ const removeFav = async () => {
       "favoriteId":favorite.id
     }
     const res = await axios.delete(
-      `https://api.fridger.recipes/v1/favorites/${favorite.id}`,
+      DOMAIN+`/v1/favorites/${favorite.id}`,
       config
       ).then(res=> {
       // console.log("Removed from favorites by" + favorite.id);

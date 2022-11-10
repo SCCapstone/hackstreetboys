@@ -28,6 +28,9 @@ import { Goal } from '../models/Goal';
 import { Favorite } from '../models/Favorite';
 import RecipeBanner from '../assets/fridger_banner.png'
 
+const DOMAIN = "http://localhost:8080";
+// const DOMAIN = "localhost:8080";
+
 
 function Home() {
     const context = useContext(Context);
@@ -69,7 +72,7 @@ function Home() {
       let unmounted = false;
 
       //set recipes off of our recipe api endpoint
-      fetch(`https://api.fridger.recipes/v1/recipe/`)
+      fetch(DOMAIN+'/v1/recipe/')
       .then(response => response.json())
       .then(data => {
         if(!unmounted)
@@ -84,7 +87,7 @@ function Home() {
 
       if (context.id) {
         //fetch our favorites from a userID query  
-        fetch(`https://api.fridger.recipes/v1/favorites/?userId=${context.id}`)
+        fetch(DOMAIN+`/v1/favorites/?userId=${context.id}`)
         .then(response => response.json())
         .then(data => {
           if (!unmounted)
@@ -100,7 +103,7 @@ function Home() {
 
       //fetch our goals from a userID query
       if (context.id) {
-        fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.id}`)
+        fetch(DOMAIN+`/v1/user/goals/?userId=${context.id}`)
         .then(response => response.json())
         .then(data => {
           if(!unmounted)

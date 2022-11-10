@@ -118,7 +118,7 @@ public class UserServiceImpl implements UserService {
         //String siteURL = Utility.getSiteURL(request); //get site for verification email
         //createVerificationToken(u, UUID.randomUUID().toString());
         //TODO CHANGE BEFORE GOING LIVE
-        String siteURL="https://fridger.recipes";
+        String siteURL="http://localhost:3000"; //THIS is changed for running this locally on your machine. It shoudl go to 3000 or 8100, depending on your local "npm run start" build
         sendVerificationEmail(u,siteURL);
         log.info("Sent email to "+u.getEmail());
 

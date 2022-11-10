@@ -13,9 +13,10 @@ import SideBar from '../components/SideBar';
 import { menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { User } from '../models/User';
-
 import { useContext } from 'react';
 import {Context, useGlobalContext} from '../components/Context';
+
+const DOMAIN = "http://localhost:8080";
 
 function Loading() {
   return (

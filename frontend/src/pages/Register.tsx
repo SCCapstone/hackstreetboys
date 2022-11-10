@@ -22,6 +22,8 @@ import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import RegistrationForm from '../components/RegistrationForm';
 
+const DOMAIN = "http://localhost:8080";
+
 function Register() {
     useEffect(() => {
         document.title = "Register";

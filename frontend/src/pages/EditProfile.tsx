@@ -22,6 +22,9 @@ import { add, menuOutline } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import EditProfileForm from '../components/EditProfileForm';
 
+
+const DOMAIN = "http://localhost:8080";
+
 function EditProfile() {
     useEffect(() => {
         document.title = "Edit Profile";

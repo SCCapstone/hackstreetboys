@@ -60,6 +60,7 @@ public class AuthController {
         //If user has not been enabled
         if((userService.getUserByEmail(u.getEmail())).isEnabled()==false) {
             List<String> temp = new ArrayList<String>();
+            log.info("no email associated with "+u.getEmail());
             return new ResponseEntity<JwtTokenDTO>(new JwtTokenDTO("", "", 0L, "", temp), HttpStatus.UNAUTHORIZED);
         }
         Authentication authentication = authenticationManager.authenticate(

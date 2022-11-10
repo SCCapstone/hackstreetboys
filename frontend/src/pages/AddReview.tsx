@@ -34,6 +34,8 @@ import { User } from '../models/User';
 // @ts-ignore
 import ReactStars from 'react-rating-stars-component';
 
+const DOMAIN = "http://localhost:8080";
+
 interface ReviewExample {
   review: Review,
 }
@@ -104,7 +106,7 @@ const AddReview: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
       const body = JSON.stringify(getValues());
       console.log(body);
       const res = axios.post(
-        'https://api.fridger.recipes/v1/review/',
+        DOMAIN+'/v1/review/',
         //'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/review/',
         body,
         config

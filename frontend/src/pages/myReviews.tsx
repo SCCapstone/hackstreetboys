@@ -24,6 +24,8 @@ import { menuOutline } from 'ionicons/icons';
 import { useEffect } from 'react';
 
 
+const DOMAIN = "http://localhost:8080";
+
 function MyReviews() {
   useEffect(() => {
     document.title = "My Reviews";

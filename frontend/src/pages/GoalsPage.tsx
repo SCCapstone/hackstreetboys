@@ -34,6 +34,9 @@ import Calories from '../components/Calories';
 import {Recipe} from '../models/Recipe';
 import Context from '../components/Context';
 
+const DOMAIN = "http://localhost:8080";
+
+
 const GoalsPage = () => {
   const context = useContext(Context);
   const[recipes, setAllRecipes] = React.useState<[Recipe]> ([{
@@ -56,8 +59,8 @@ const GoalsPage = () => {
     rating: 0
   }]);
   useEffect(() => {
-    //fetch('https://api.fridger.recipes/v1/recipe/')
-    fetch('https://api.fridger.recipes/v1/recipe/')
+    //fetch(DOMAIN+'/v1/recipe/')
+    fetch(DOMAIN+'/v1/recipe/')
     .then(res => res.json())
     .then(data => setAllRecipes(data))
   }, [])

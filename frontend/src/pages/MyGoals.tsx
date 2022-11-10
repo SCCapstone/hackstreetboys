@@ -54,6 +54,9 @@ import { Goal } from '../models/Goal';
 import {NavContext} from '@ionic/react';
 import Context from '../components/Context';
 
+
+const DOMAIN = "http://localhost:8080";
+
   interface UserProps {
     user: User;
   }
@@ -88,8 +91,8 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('https://api.fridger.recipes/v1/user/goals/')
-       fetch(`https://api.fridger.recipes/v1/user/goals/`)
+       //fetch(DOMAIN+'/v1/user/goals/')
+       fetch(DOMAIN+`/v1/user/goals/`)
        .then(response => response.json())
        .then(data => setGoals(data))
     }, [])
@@ -109,8 +112,8 @@ const MyGoals: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
     useEffect(() => {
        //fetch("https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/user/goals/")
-       //fetch('https://api.fridger.recipes/v1/user/goals/')
-       fetch(`https://api.fridger.recipes/v1/user/goals/?userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
+       //fetch(DOMAIN+'/v1/user/goals/')
+       fetch(DOMAIN+`/v1/user/goals/?userId=${context.currentUser?.id ? context.currentUser?.id : 0}`)
        .then(response => response.json())
        .then(data => setGoal(data))
     }, [])

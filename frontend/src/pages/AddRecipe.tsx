@@ -37,6 +37,8 @@ import Context from '../components/Context';
 import { userInfo } from 'os';
 import { Ingredient } from '../models/Ingredient';
 
+const DOMAIN = "http://localhost:8080";
+
 
 const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
     const context = useContext(Context);
@@ -108,8 +110,8 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
         const body = JSON.stringify(getValues());
         console.log("Values" + body)
         const res = axios.post(
-            'https://api.fridger.recipes/v1/recipe/',
-            // 'https://api.fridger.recipes/v1/recipe/',
+            DOMAIN+'/v1/recipe/',
+            // DOMAIN+'/v1/recipe/',
             body,
             config
         ).then( res =>{
@@ -136,7 +138,7 @@ const AddRecipe: React.FC<RouteComponentProps> = (props: RouteComponentProps) =>
     //     props.history.push('/login');
     // }
     //set ingredients
-    fetch("https://api.fridger.recipes/v1/ingredient/")
+    fetch(DOMAIN+"/v1/ingredient/")
         .then(response => response.json())
         .then(data => setIngredients(data))
   }, [])

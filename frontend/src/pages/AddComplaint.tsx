@@ -31,6 +31,8 @@ import { useEffect } from 'react';
 import { Recipe } from '../models/Recipe';    
 import Context from '../components/Context';
 import { User } from '../models/User';
+
+const DOMAIN = "http://localhost:8080";
       export interface routePrams {
         id: string;
       }
@@ -81,7 +83,7 @@ import { User } from '../models/User';
             };
             const body = JSON.stringify(getValues());
             const res = axios.post(
-                'https://api.fridger.recipes/v1/complaint/',
+                DOMAIN+'/v1/complaint/',
                 //'https://fridger-backend-dot-fridger-333016.ue.r.appspot.com/v1/comlpaint/',
                 body,
                 config

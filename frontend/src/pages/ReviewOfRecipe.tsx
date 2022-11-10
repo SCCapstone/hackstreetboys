@@ -21,6 +21,8 @@ import Context from '../components/Context';
 import {useContext} from 'react';
 import axios from "axios";
 
+const DOMAIN = "http://localhost:8080";
+
 interface ReviewExample {
   review: Review,
 }
@@ -42,8 +44,8 @@ function SpecifiedRecipe(this: any) {
   }, []);
   const { id } = useParams<routePrams>();
   useEffect(() => {
-    fetch(`https://api.fridger.recipes/v1/review/${id}/`)
-    //fetch(`https://api.fridger.recipes/v1/review/${id}`)
+    fetch(DOMAIN+`/v1/review/${id}/`)
+    //fetch(DOMAIN+`/v1/review/${id}`)
       .then(response => response.json())
       .then(data => setReview(data))
   }, [id])
@@ -63,7 +65,7 @@ function SpecifiedRecipe(this: any) {
       //   "recipeId":recipe.id
       // }
       const res = await axios.delete(
-        `https://api.fridger.recipes/v1/recipe/review/${review.id}`,
+        DOMAIN+`/v1/recipe/review/${review.id}`,
         config
         ).then(res=> {
         console.log("Removed review by" + review.id);

@@ -37,6 +37,9 @@ import history from '../History';
 import {NavContext} from '@ionic/react';
 import { Ingredient } from '../models/Ingredient';
 import Context from '../components/Context';
+
+const DOMAIN = "http://localhost:8080";
+
 export interface routePrams {
     id: string;
 }
@@ -67,7 +70,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
         // if(!context.currentUser){
         //     props.history.push('/login');
         // }
-        fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
+        fetch(DOMAIN+`/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [])
@@ -99,7 +102,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             const body = JSON.stringify(getValues());
             console.log("Body" + body)
             const response = await axios.put(
-                `https://api.fridger.recipes/v1/ingredient/`,
+                DOMAIN+`/v1/ingredient/`,
                 body,
                 config
             ).then( response =>{
@@ -123,7 +126,7 @@ const EditIngredient: React.FC<RouteComponentProps> = (props: RouteComponentProp
             };
 
             const response = await axios.delete(
-                `https://api.fridger.recipes/v1/ingredient/${ingredient.id}`,
+                DOMAIN+`/v1/ingredient/${ingredient.id}`,
                 config
             ).then( response =>{
                 console.log("DELETED"+ingredient.name)

@@ -19,6 +19,8 @@ import {Recipe} from "../models/Recipe";
 import Context from '../components/Context';
 import RecipeBanner from '../assets/fridger_banner.png'
 
+const DOMAIN = "http://localhost:8080";
+
 interface IngredientProps {
     ingredient: Ingredient,
 }
@@ -44,7 +46,7 @@ function IngredientPage(this: any) {
 
     const {id} = useParams<routeParams>();
     useEffect(() => {
-        fetch(`https://api.fridger.recipes/v1/ingredient/${id}`)
+        fetch(DOMAIN+`/v1/ingredient/${id}`)
             .then(response => response.json())
             .then(data => setIngredient(data))
     }, [id])
@@ -69,7 +71,7 @@ function IngredientPage(this: any) {
         rating: 5.0
     }]);
     useEffect(() => {
-        fetch("https://api.fridger.recipes/v1/recipe/")
+        fetch(DOMAIN+"/v1/recipe/")
             .then(response => response.json())
             .then(data => setRecipes(data))
     }, [])

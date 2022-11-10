@@ -33,8 +33,10 @@ import Header from '../components/Header';
 import { State } from 'ionicons/dist/types/stencil-public-runtime';
 import { open } from 'fs';
 import Context from '../components/Context';
-import RecipeBanner from '../assets/fridger_banner.png'
+import RecipeBanner from '../assets/fridger_banner.png';
 
+
+const DOMAIN = "http://localhost:8080";
 interface RecipeProps {
   recipe: Recipe,
 }
@@ -66,7 +68,7 @@ const Recipes: React.FC<RouteComponentProps> = (props: RouteComponentProps) => {
 
   useEffect(() => {
     document.title="Recipes";
- fetch('https://api.fridger.recipes/v1/recipe/')
+ fetch(DOMAIN+'/v1/recipe/')
       .then(response => response.json())
       .then(data => setRecipes(data))
   }, [])
